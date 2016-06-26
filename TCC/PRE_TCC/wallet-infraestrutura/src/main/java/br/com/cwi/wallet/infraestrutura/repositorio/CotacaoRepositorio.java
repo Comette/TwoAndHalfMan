@@ -6,6 +6,7 @@ package br.com.cwi.wallet.infraestrutura.repositorio;
 
 import br.com.cwi.wallet.dominio.model.Cotacao;
 import java.util.Date;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -15,5 +16,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface CotacaoRepositorio extends CrudRepository<Cotacao, Long> {
     
     public Cotacao findFirstByDtCotacaoOrderByIdCotacaoDesc(Date date);
+
+    public List<Cotacao> findByDtCotacaoBetween(Date toDate, Date toDate0);
     
 }

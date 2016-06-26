@@ -4,6 +4,7 @@
  */
 package br.com.cwi.wallet.infraestrutura.webservice;
 
+import br.com.cwi.wallet.infraestrutura.repositorio.CotacaoRepositorio;
 import br.com.cwi.wallet.infraestrutura.servico.CotacaoServico;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -14,16 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author victo
  */
-public class JobBancoCotacao implements Job{
+//implements Job
+public class JobBancoCotacao {
 
-    @Autowired
-    CotacaoServico servico;
-    
-    @Override
-    public void execute(JobExecutionContext jec) throws JobExecutionException {
-//        if(servico.buscarUltimaCotacao() == null){
-//            servico.alimentaBancoCotacoes();
-//        }
-        System.out.println("EXECUTOUUUUUUUUU");
-    }    
+//    @Autowired
+//    CotacaoRepositorio repositorio;
+//    
+//    @Override
+//    public void execute(JobExecutionContext jec) throws JobExecutionException {
+//        repositorio.findAll();
+//        System.out.println("EXECUTOUUUUUUUUU");
+//        
+//    }    
 }

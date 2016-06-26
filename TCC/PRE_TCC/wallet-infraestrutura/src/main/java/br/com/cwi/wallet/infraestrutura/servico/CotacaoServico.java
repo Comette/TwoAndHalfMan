@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,13 @@ public class CotacaoServico {
 //            cotacao = repositorio.findFirstByDtCotacaoOrderByIdCotacaoDesc(ontem.toDate());
 //        }
         return cotacao;
+    }
+    
+    public void verificaIntegridadeBanco(){
+        DateTime now = DateTime.now();
+        DateTime prazo = now.plusDays(-30);
+        
+        List<Cotacao> cotacao = repositorio.findByDtCotacaoBetween(now.toDate(), prazo.toDate());
     }
     
     public boolean alimentaBancoCotacoes(){
