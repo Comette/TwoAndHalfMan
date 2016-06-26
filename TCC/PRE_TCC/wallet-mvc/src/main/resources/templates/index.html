@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+Crescer-TCC: Wallet
+by: Hedo Eccker, Douglas Balester e Victor Comette.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <input id="app-id" type="hidden" th:value="${AppID}"/>
+
+        <div class="container">
+            <h2 style="margin-top: 100px; margin-bottom: 50px;">Teste API Open Exchange Rates</h2>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Banco de Cotações</h4>
+                    </div>
+                    <div class="panel-body">
+                        <button id="alimentar-banco" class="btn btn-warning">Alimentar Banco Cotações</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Ultima cotação:</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form id="form-cotacao" action="#">
+                                    <div class="form-group">
+                                        <label for="slMoeda">Selecione a Moeda</label>
+                                        <select id="slMoeda" class="form-control">
+                                            <option th:each="moeda : ${moedas}" th:value="${moeda}" th:text="${moeda}"/>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success">Cotar</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default text-center">
+                                    <div class="panel-heading">
+                                        <h4 id="moeda-selecionada" class="list-group-item-heading text-muted">Moeda</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <h4 id="cotacao">0.0</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mensagem" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-warning text-center">Atenção!</h4>
+                    </div>
+                    <div id="conteudo-mensagem" class="modal-body">
+                        <h5>Você tem certeza que deseja alimentar o banco?</h5>
+                        <h6>Isso consumirá uma das requisições do pacote oferecido pela Web-service</h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="confirma-alimentar" type="button" class="btn btn-warning" data-dismiss="modal">Eu assumo a responsa!</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Melhor não né...</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mensagem-confirmacao" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-warning text-center">Atenção!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5 id="conteudo-mensagem-confirmacao"></h5>                       
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script th:src="@{/js/money.min.js}" type="text/javascript"></script>
+        <script th:src="@{/js/home.js}" type="text/javascript"></script>
+    </body>
+</html>
