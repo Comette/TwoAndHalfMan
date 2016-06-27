@@ -19,10 +19,10 @@
             <div class="row">
                 <form class="form-horizontal col-md-4" th:action="@{/login}">
                     <section class="form-group">
-                        <input type="text" name="input-email" th:placeholder="#{placeholder.usuario}" class="form-control" />
+                        <input type="text" name="inputUsuario" th:placeholder="#{placeholder.usuario}" class="form-control" />
                     </section>
                     <section class="form-group">
-                        <input type="password" name="input-senha" th:placeholder="#{placeholder.senha}" class="form-control" />
+                        <input type="password" name="inputSenha" th:placeholder="#{placeholder.senha}" class="form-control" />
                     </section>
                       <section class="form-group">
                         <input type="submit" class="btn btn-info col-md-offset-10" th:value="#{texto.botao.entrar}" id="btn-login"/>
