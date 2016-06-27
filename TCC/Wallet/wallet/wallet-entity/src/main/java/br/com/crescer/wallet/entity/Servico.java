@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
@@ -19,7 +20,11 @@ import javax.persistence.Table;
  * @author DOUGLAS
  */
 @Entity
-@Table(name = "SERVICO")
+@Table(name = "SERVICO", 
+        indexes = {@Index(columnList = "NM_SERVICO", name = "index_nome_servico"),
+                   @Index(columnList = "VL_SERVICO", name = "index_valor_servico"),
+                   @Index(columnList = "USUARIO_ID_USUARIO", name = "index_id_usuario")
+        })
 public class Servico implements Serializable {
     
    
