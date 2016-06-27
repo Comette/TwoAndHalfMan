@@ -1,0 +1,36 @@
+@font-face{
+    url: 'https://fonts.googleapis.com/css?family=Open+Sans:300';
+    font-family: 'Open Sans';
+}
+
+.form-control {
+    border-radius: 0px;
+    background-color:  #434343;
+    color: white;
+    border-color:  #434343;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.form-control:focus{
+    border-color: #FBAF41;
+}
+
+section.container{
+    position: relative;
+    top: 290px;
+}
+
+.header-login {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    line-height: 40px;
+}
+
+.header-login:first-of-type {
+   color: #FBAF41;
+   font-size: 4em;
+}
+
+.header-login:nth-of-type(2){
+    font-size: 6em;
+}   
