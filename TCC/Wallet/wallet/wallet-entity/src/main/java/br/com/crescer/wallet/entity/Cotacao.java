@@ -5,6 +5,7 @@ package br.com.crescer.wallet.entity;
  * by: Hedo Eccker, Douglas Balester e Victor Comette.
  */
 
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -36,7 +37,7 @@ public class Cotacao {
     @Basic(optional = false)
     @Column(name = "DT_COTACAO")
     @Temporal(TemporalType.DATE)
-    private Date dtCotacao;
+    private LocalDate dtCotacao;
 
     @Basic(optional = false)
     @Column(name = "DS_COTACAO_REAL")
@@ -73,7 +74,7 @@ public class Cotacao {
     public Cotacao() {
     }
 
-    public Cotacao(Long idCotacao, Date dtCotacao, float dsCotacaoReal, float dsCotacaoEuro, float dsCotacaoYen, float dsCotacaoLibra, float dsCotacaoDollarAutraliano, float dsCotacaoDollarCanadense, float dsCotacaoFrancoSuico, float dsCotacaoYuan) {
+    public Cotacao(Long idCotacao, LocalDate dtCotacao, float dsCotacaoReal, float dsCotacaoEuro, float dsCotacaoYen, float dsCotacaoLibra, float dsCotacaoDollarAutraliano, float dsCotacaoDollarCanadense, float dsCotacaoFrancoSuico, float dsCotacaoYuan) {
         this.idCotacao = idCotacao;
         this.dtCotacao = dtCotacao;
         this.dsCotacaoReal = String.valueOf(dsCotacaoReal);
@@ -105,11 +106,11 @@ public class Cotacao {
         this.idCotacao = idCotacao;
     }
 
-    public Date getDtCotacao() {
+    public LocalDate getDtCotacao() {
         return dtCotacao;
     }
 
-    public void setDtCotacao(Date dtCotacao) {
+    public void setDtCotacao(LocalDate dtCotacao) {
         this.dtCotacao = dtCotacao;
     }
 
