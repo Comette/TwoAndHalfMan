@@ -46,14 +46,10 @@ public class CotacaoController {
             default:
                 return 0;
         }        
-    }    
+    }
     
-    @RequestMapping(value = "/alimentar", method = RequestMethod.GET)
-    public String alimentarBanco(){       
-        if(servico.alimentaBancoCotacoes()){
-            return "Banco de Cotações atualizado com sucesso!";
-        }else{
-            return "ERRO";
-        }        
+    @RequestMapping(value = "/media", method = RequestMethod.POST)
+    public double[] media(@RequestBody Moedas moeda){
+        return servico.buscarUltimaMediaMoeda(moeda);        
     }
 }

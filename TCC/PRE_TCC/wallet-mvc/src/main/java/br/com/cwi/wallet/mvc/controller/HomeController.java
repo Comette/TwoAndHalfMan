@@ -4,7 +4,6 @@
  */
 package br.com.cwi.wallet.mvc.controller;
 
-import br.com.cwi.wallet.mvc.webservice.AppID;
 import br.com.cwi.wallet.dominio.model.Moedas;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String toIndex(Model model){
-        model.addAttribute("AppID", AppID.AppID);
+    public String toIndex(Model model){        
         List<String> moedas = new ArrayList<>();
         moedas.addAll(Moedas.getPrincipais());
         model.addAttribute("moedas", moedas);

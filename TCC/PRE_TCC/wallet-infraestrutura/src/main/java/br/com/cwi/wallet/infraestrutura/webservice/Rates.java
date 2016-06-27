@@ -188,7 +188,7 @@ public class Rates {
     }   
 
     public Cotacao toCotacao() {
-        Cotacao cotacao = new Cotacao(0l, new Date(), BRL, EUR, JPY, GBP, AUD, CAD, CHF, CNY);
+        Cotacao cotacao = new Cotacao(BRL, EUR, JPY, GBP, AUD, CAD, CHF, CNY);
         return cotacao;
     }
     

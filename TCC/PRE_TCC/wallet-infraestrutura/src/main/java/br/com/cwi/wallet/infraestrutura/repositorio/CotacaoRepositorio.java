@@ -17,6 +17,5 @@ public interface CotacaoRepositorio extends CrudRepository<Cotacao, Long> {
     
     public Cotacao findFirstByDtCotacaoOrderByIdCotacaoDesc(Date date);
 
-    public List<Cotacao> findByDtCotacaoBetween(Date toDate, Date toDate0);
-    
+    public List<Cotacao> findByDtCotacaoBetween(Date dtInicial, Date dtFinal);    
 }

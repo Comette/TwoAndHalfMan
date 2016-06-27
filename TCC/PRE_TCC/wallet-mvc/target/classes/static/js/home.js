@@ -7,22 +7,10 @@
 var $form = $('#form-cotacao');
 var $moeda = $('#moeda-selecionada');
 var $cotacao = $('#cotacao');
-var $alimentar = $('#alimentar-banco');
-var $confirmarAlimentacao = $('#confirma-alimentar');
 
-var confirmarAlimentacaoBanco = function () {   
-    $('#mensagem').modal();
-};
-
-var alimentarBanco = function () {
-    $.ajax({
-        url: "/alimentar",
-        type: "GET"
-    }).done(function (res) {
-        $('#conteudo-mensagem-confirmacao').text(res);
-        $('#mensagem-confirmacao').modal();
-    });
-};
+var $formMedia = $('#form-media');
+var $moedaMedia = $('#moeda-selecionada-media');
+var $cotacaoMedia = $('#cotacao-media');
 
 var cotar = function (moeda) {
     $.ajax({
@@ -37,6 +25,21 @@ var cotar = function (moeda) {
     });
 };
 
+var media = function (moeda) {
+    $.ajax({
+        url: "/media",
+        type: "POST",
+        contentType: "application/json",
+        dataType: 'json',
+        data: JSON.stringify(moeda)
+    }).done(function (data) {
+        $moedaMedia.text(moeda);
+        var soma = data.reduce(function(anterior, atual){ return anterior + atual; }, 0);
+        var media = accounting.toFixed((soma / data.length), 6);        
+        $cotacaoMedia.text(media);
+    });
+};
+
 $(function () {
     
     $form.submit(function (e) {
@@ -44,13 +47,11 @@ $(function () {
         cotar(moeda);
         e.preventDefault();
     });
-
-    $alimentar.click(function () {
-        confirmarAlimentacaoBanco();
-    });
-
-    $confirmarAlimentacao.click(function () {
-        alimentarBanco();        
+    
+    $formMedia.submit(function (e) {
+        var moeda = e.target[0].value;
+        media(moeda);
+        e.preventDefault();
     });
 });
 

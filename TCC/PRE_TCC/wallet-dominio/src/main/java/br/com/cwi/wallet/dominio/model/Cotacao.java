@@ -85,6 +85,17 @@ public class Cotacao {
         this.dsCotacaoYuan = String.valueOf(dsCotacaoYuan);
     }
 
+    public Cotacao(float BRL, float EUR, float JPY, float GBP, float AUD, float CAD, float CHF, float CNY) {
+        this.dsCotacaoReal = String.valueOf(BRL);
+        this.dsCotacaoEuro = String.valueOf(EUR);
+        this.dsCotacaoYen = String.valueOf(JPY);
+        this.dsCotacaoLibra = String.valueOf(GBP);
+        this.dsCotacaoDollarAutraliano = String.valueOf(AUD);
+        this.dsCotacaoDollarCanadense = String.valueOf(CAD);
+        this.dsCotacaoFrancoSuico = String.valueOf(CHF);
+        this.dsCotacaoYuan = String.valueOf(CNY);
+    }
+
     public Long getIdCotacao() {
         return idCotacao;
     }
