@@ -23,14 +23,12 @@ public class AppTasks {
     @PostConstruct
     public void teste() {
         System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        System.out.println(servico.AgenteIntegridadeBanco());
-        System.out.println(servico.AgenteIntegridadeBanco());
+        System.out.println(servico.AgenteIntegridadeBanco());        
     } 
         
     @Scheduled(cron = "0 20 18 1/1 * ?")
     public void buscaCotacaoFechamento() {
         System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        System.out.println(servico.AgenteIntegridadeBanco());
         System.out.println(servico.AgenteIntegridadeBanco());
     }   
 }

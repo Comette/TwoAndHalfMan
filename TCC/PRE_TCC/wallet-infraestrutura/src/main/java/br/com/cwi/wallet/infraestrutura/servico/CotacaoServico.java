@@ -25,6 +25,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -112,6 +113,7 @@ public class CotacaoServico {
             if (cotacao == null) {
                 System.out.println("\n-----------FALTANDO:  Cotação dia: " + diaVerificacao + " --------------");
                 this.alimentaCotacaoPorData(diaVerificacao);
+                i++;
             }
         }
         Date teste = dia.minusDays(29).toDate();
