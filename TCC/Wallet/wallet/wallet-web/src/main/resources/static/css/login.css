@@ -2,7 +2,6 @@
     url: 'https://fonts.googleapis.com/css?family=Open+Sans:300';
     font-family: 'Open Sans';
 }
-
 .form-control {
     border-radius: 0px;
     background-color:  #434343;
@@ -12,7 +11,7 @@
 }
 
 .form-control:focus{
-    border-color: #FBAF41;
+    border: 2px solid #FBAF41;
 }
 
 section.container{
@@ -27,10 +26,32 @@ section.container{
 }
 
 .header-login:first-of-type {
-   color: #FBAF41;
-   font-size: 4em;
+    color: #FBAF41;
+    font-size: 4em;
 }
 
 .header-login:nth-of-type(2){
     font-size: 6em;
 }   
+
+header:first-of-type{
+    margin-left: 41%;
+    margin-top: 10%;
+}
+
+.form-horizontal:first-of-type{
+    margin-top: 5%;
+    margin-left: 35%;
+}
+
+#btn-login{
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 0px;
+    background-color: #FBAF41;
+    border-color: #434343;
+}
+
+label.checkbox-inline{
+    font-family: 'Open Sans', sans-serif;
+}
+

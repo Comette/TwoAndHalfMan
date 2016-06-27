@@ -11,21 +11,27 @@
     <body>
         <div class="container-fluid">
             <div class="row">
-                <header class="col-md-3 col-md-offset-5">
+                <header class="col-md-3">
                     <h1 class="header-login">Onde está</h1>
                     <h1 class="header-login">Wallet?</h1>
                 </header>
             </div>
-                <div class="row">
-                    <form class="form-horizontal col-md-5 col-md-offset-1">
-                        <section class="form-group">
-                            <input type="text" name="inputEmail" placeholder="Usuário" class="form-control" />
-                        </section>
-                        <section class="form-group">
-                            <input type="password" name="inputSenha" placeholder="*****" class="form-control" />
-                        </section>
-                    </form>    
-                </div>
+            <div class="row">
+                <form class="form-horizontal col-md-4">
+                    <section class="form-group">
+                        <input type="text" name="input-email" placeholder="Usuário" class="form-control" />
+                    </section>
+                    <section class="form-group">
+                        <input type="password" name="input-senha" placeholder="*****" class="form-control" />
+                    </section>
+                    <section class="checkbox col-md-10">
+                        <label class="checkbox-inline"><input type="checkbox" value="">Lembrar-me</label>
+                    </section>
+                    <section class="form-group">
+                        <input type="submit" class="btn btn-info" value="Entrar" id="btn-login"/>
+                    </section>
+                </form>    
+            </div>
         </div>
     </body>
 </html>
