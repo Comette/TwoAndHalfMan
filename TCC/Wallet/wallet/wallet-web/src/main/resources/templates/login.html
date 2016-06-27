@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns="https://www.thymeleaf.org">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8"/>
         <title>Login | Onde Está Wallet</title>
-        <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'/>
-        <link href="../static/css/login.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css"/>
+        
     </head>
     <body>
         <div class="container-fluid">
             <div class="row">
                 <header class="col-md-3">
-                    <h1 class="header-login" th:text="#{header.login.1}">Onde está</h1>
-                    <h1 class="header-login" th:text="#{header.login.2}">Wallet?</h1>
+                    <h1 class="header-login" th:text="#{header.login.1}"/>
+                    <h1 class="header-login" th:text="#{header.login.2}"/>
                 </header>
             </div>
             <div class="row">
-                <form class="form-horizontal col-md-4" th:action="@{/login}">
+                <form class="form-horizontal col-md-4" th:action="@{/entrar}" th:object="${usuario}">
                     <section class="form-group">
-                        <input type="text" name="inputUsuario" th:placeholder="#{placeholder.usuario}" class="form-control" />
+                        <input type="text" name="inputUsuario" th:placeholder="#{placeholder.usuario}" th:field="*{dsUserName}" class="form-control" />
                     </section>
                     <section class="form-group">
-                        <input type="password" name="inputSenha" th:placeholder="#{placeholder.senha}" class="form-control" />
+                        <input type="password" name="inputSenha" th:placeholder="#{placeholder.senha}" th:field="*{dsSenha}" class="form-control" />
                     </section>
                       <section class="form-group">
                         <input type="submit" class="btn btn-info col-md-offset-10" th:value="#{texto.botao.entrar}" id="btn-login"/>
