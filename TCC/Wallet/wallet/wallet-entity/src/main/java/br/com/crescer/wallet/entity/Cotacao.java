@@ -35,7 +35,6 @@ public class Cotacao {
 
     @Basic(optional = false)
     @Column(name = "DT_COTACAO")
-    @Temporal(TemporalType.DATE)
     private LocalDate dtCotacao;
 
     @Basic(optional = false)
