@@ -18,7 +18,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,7 +97,6 @@ public class CotacaoService {
     public String AgenteIntegridadeBanco() {
         LocalDate dia = LocalDate.now();
         LocalDate diaVerificacao;
-        Date date;
         System.out.println("\nInicio da verificação: " + LocalTime.now());
         for (int i = 29; i >= 0; i--) {
             diaVerificacao = dia.minusDays(i);
