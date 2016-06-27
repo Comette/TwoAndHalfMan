@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns="https://www.thymeleaf.org">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
@@ -12,23 +12,20 @@
         <div class="container-fluid">
             <div class="row">
                 <header class="col-md-3">
-                    <h1 class="header-login">Onde está</h1>
-                    <h1 class="header-login">Wallet?</h1>
+                    <h1 class="header-login" th:text="#{header.login.1}">Onde está</h1>
+                    <h1 class="header-login" th:text="#{header.login.2}">Wallet?</h1>
                 </header>
             </div>
             <div class="row">
-                <form class="form-horizontal col-md-4">
+                <form class="form-horizontal col-md-4" th:action="@{/login}">
                     <section class="form-group">
-                        <input type="text" name="input-email" placeholder="Usuário" class="form-control" />
+                        <input type="text" name="input-email" th:placeholder="#{placeholder.usuario}" class="form-control" />
                     </section>
                     <section class="form-group">
-                        <input type="password" name="input-senha" placeholder="*****" class="form-control" />
+                        <input type="password" name="input-senha" th:placeholder="#{placeholder.senha}" class="form-control" />
                     </section>
-                    <section class="checkbox col-md-10">
-                        <label class="checkbox-inline"><input type="checkbox" value="">Lembrar-me</label>
-                    </section>
-                    <section class="form-group">
-                        <input type="submit" class="btn btn-info" value="Entrar" id="btn-login"/>
+                      <section class="form-group">
+                        <input type="submit" class="btn btn-info col-md-offset-10" th:value="#{texto.botao.entrar}" id="btn-login"/>
                     </section>
                 </form>    
             </div>
