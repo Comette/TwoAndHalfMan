@@ -8,7 +8,7 @@
     <modules>
         <module>wallet-entity</module>
         <module>wallet-service</module>
-<!--        <module>wallet-security</module>-->
+        <module>wallet-security</module>
         <module>wallet-web</module>
     </modules>
     <dependencyManagement>
