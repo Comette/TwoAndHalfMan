@@ -35,23 +35,31 @@ section.container{
 }   
 
 header:first-of-type{
-    margin-left: 41%;
+    margin-left: 39%;
     margin-top: 10%;
 }
 
 .form-horizontal:first-of-type{
     margin-top: 5%;
-    margin-left: 35%;
+    margin-left: 33%;
 }
 
 #btn-login{
     font-family: 'Open Sans', sans-serif;
     border-radius: 0px;
     background-color: #FBAF41;
+    border-color: white;
+    transition: all 0.2s ease;
+}
+
+#btn-login:hover{
     border-color: #434343;
+    background-color: #434343;
+    color: #FBAF41;
 }
 
 label.checkbox-inline{
     font-family: 'Open Sans', sans-serif;
+    color: #434343;
 }
 
