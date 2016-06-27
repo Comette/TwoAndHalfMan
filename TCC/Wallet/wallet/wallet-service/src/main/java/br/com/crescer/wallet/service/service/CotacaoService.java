@@ -18,8 +18,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,7 +31,7 @@ import org.springframework.stereotype.Service;
  * @author victor.ribeiro
  */
 @Service
-public class CotacaoService {
+public class CotacaoService implements InitializingBean{
 
     @Autowired
     CotacaoRepository repositorio;
@@ -147,5 +151,17 @@ public class CotacaoService {
             System.out.println(ex.getMessage());
         }
     }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
+        System.out.println(this.AgenteIntegridadeBanco());        
+    }
+    
+    @Scheduled(cron = "0 16 19 1/1 * ?")
+    public void buscaCotacaoFechamento() {
+        System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
+        System.out.println(this.AgenteIntegridadeBanco());
+    } 
 }
 

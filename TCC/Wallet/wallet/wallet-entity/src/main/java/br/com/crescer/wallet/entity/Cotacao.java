@@ -6,6 +6,7 @@ package br.com.crescer.wallet.entity;
  */
 
 import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;

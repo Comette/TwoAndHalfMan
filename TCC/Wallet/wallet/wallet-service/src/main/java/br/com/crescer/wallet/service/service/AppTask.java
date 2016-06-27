@@ -17,22 +17,22 @@ import org.springframework.scheduling.annotation.Scheduled;
  *
  * @author victo
  */
-@Component
-public class AppTask {
-
-    @Autowired
-    CotacaoService servico;
-    
-    @PostConstruct
-    public void teste() {
-        System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        System.out.println(servico.AgenteIntegridadeBanco());        
-    } 
-        
-    @Scheduled(cron = "0 20 18 1/1 * ?")
-    public void buscaCotacaoFechamento() {
-        System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        System.out.println(servico.AgenteIntegridadeBanco());
-    }   
-}
+//@Component
+//public class AppTask {
+//
+//    @Autowired
+//    CotacaoService servico;
+//    
+//    @PostConstruct
+//    public void teste() {
+//        System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
+//        System.out.println(servico.AgenteIntegridadeBanco());        
+//    } 
+//        
+//    @Scheduled(cron = "0 20 18 1/1 * ?")
+//    public void buscaCotacaoFechamento() {
+//        System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
+//        System.out.println(servico.AgenteIntegridadeBanco());
+//    }   
+//}
 
