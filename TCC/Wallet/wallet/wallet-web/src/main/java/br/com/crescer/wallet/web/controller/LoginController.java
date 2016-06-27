@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Hedo
  */
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/login")
 public class LoginController {
 
     @RequestMapping(method = RequestMethod.GET)
@@ -19,7 +19,7 @@ public class LoginController {
         return "login";
     }
     
-    @RequestMapping(value ="entrar", method = RequestMethod.POST)
+    @RequestMapping(value ="/entrar", method = RequestMethod.POST)
     String toHome(String inputUsuario, String inputSenha){
         
         return "home";
