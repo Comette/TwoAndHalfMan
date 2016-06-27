@@ -49,3 +49,6 @@ bld/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
+/TCC/Wallet/wallet/wallet-service/target/
+/TCC/Wallet/wallet/wallet-entity/target/
+/TCC/Wallet/wallet/wallet-web/target/
