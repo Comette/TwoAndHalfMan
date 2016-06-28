@@ -22,11 +22,11 @@
             <version>${project.version}</version>
         </dependency>
         <!--SEGURANÇA-->
-<!--        <dependency>
+        <dependency>
             <groupId>br.com.crescer.wallet</groupId>
             <artifactId>wallet-security</artifactId>
             <version>${project.version}</version>
-        </dependency>-->
+        </dependency>
         <!--SPRING-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -36,14 +36,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-<!--        <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
