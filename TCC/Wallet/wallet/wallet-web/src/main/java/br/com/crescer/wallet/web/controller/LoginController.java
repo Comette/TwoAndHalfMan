@@ -1,5 +1,6 @@
 package br.com.crescer.wallet.web.controller;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,14 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoginController {
 
     @RequestMapping(method = RequestMethod.GET)
-    String toLogin(Model model){
-        
+    String toLogin(Model model) {
         return "login";
     }
-    
-    @RequestMapping(value ="/entrar", method = RequestMethod.POST)
-    String toHome(String inputUsuario, String inputSenha){
-        
-        return "home";
+
+    @RequestMapping(value = "/logout")
+    String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:login?logout";
     }
 }
