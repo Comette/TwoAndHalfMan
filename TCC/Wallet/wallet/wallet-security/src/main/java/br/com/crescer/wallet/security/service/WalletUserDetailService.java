@@ -6,7 +6,10 @@ package br.com.crescer.wallet.security.service;
 
 import br.com.crescer.wallet.entity.Usuario;
 import br.com.crescer.wallet.security.enumeration.WalletRoles;
+import br.com.crescer.wallet.security.extensions.UsuarioSessaoUser;
 import br.com.crescer.wallet.service.service.UsuarioService;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +24,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class WalletUserDetailService implements UserDetailsService {
 
-    private static final String CRESCER = "crescer";
     @Autowired
     UsuarioService service;
 
@@ -32,7 +34,11 @@ public class WalletUserDetailService implements UserDetailsService {
         if (username.isEmpty() || user == null) {
             throw new UsernameNotFoundException(String.format("User with username=%s was not found", username));
         } else {
-            return new User(user.getDsUserName(), user.getDsSenha(), WalletRoles.valuesToList());
+            Collection<WalletRoles> permissoes = new ArrayList<>();
+            permissoes.add(WalletRoles.valueOf(user.getTpPermissao().toString()));
+            return new UsuarioSessaoUser
+                (user.getIdUsuario(), user.getNmUsuario(), user.getDsEmail(),
+                    user.getDsUserName(), user.getDsSenha(), permissoes);
         }
     }
 }

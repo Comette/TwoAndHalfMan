@@ -17,6 +17,6 @@ public class UsuarioService {
     UsuarioRepository repository;
     
     public Usuario findOneByDsUserName(String dsUserName){
-        return repository.findOneByDsUserName(dsUserName);
+        return repository.findUsuarioByDsUserName(dsUserName);
     }
 }

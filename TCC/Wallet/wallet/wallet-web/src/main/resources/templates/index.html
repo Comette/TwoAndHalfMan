@@ -11,7 +11,7 @@ by: Hedo Eccker, Douglas Balester e Victor Comette.
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <button th:action="@{/login/logout}" th:text="Logout" class="btn btn-warning"/>
+        <a th:href="@{/logout}" th:text="Logout" class="btn btn-warning"/>
         <input id="app-id" type="hidden" th:value="${AppID}"/>
 
         <div class="container">
