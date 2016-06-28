@@ -2,6 +2,7 @@ package br.com.crescer.wallet.entity;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,7 +52,7 @@ public class Servico implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "VL_TOTAL_SERVICO")
-    private double vlTotalServico;
+    private BigDecimal vlTotalServico;
 
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
@@ -75,7 +76,7 @@ public class Servico implements Serializable {
     public Servico() {
     }
 
-    public Servico(long idServico, String nmServico, String dsDescricao, String dsWebsite, double vlTotalServico, Moeda dsSimboloMoeda, Periodicidade dsPeriodicidade, Situacao dsSituacao, Usuario usuarioIdUsuario) {
+    public Servico(long idServico, String nmServico, String dsDescricao, String dsWebsite, BigDecimal vlTotalServico, Moeda dsSimboloMoeda, Periodicidade dsPeriodicidade, Situacao dsSituacao, Usuario usuarioIdUsuario) {
         this.idServico = idServico;
         this.nmServico = nmServico;
         this.dsDescricao = dsDescricao;
@@ -119,11 +120,11 @@ public class Servico implements Serializable {
         this.dsWebsite = dsWebsite;
     }
 
-    public double getVlTotalServico() {
+    public BigDecimal getVlTotalServico() {
         return vlTotalServico;
     }
 
-    public void setVlTotalServico(double vlTotalServico) {
+    public void setVlTotalServico(BigDecimal vlTotalServico) {
         this.vlTotalServico = vlTotalServico;
     }
 

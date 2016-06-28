@@ -5,183 +5,184 @@
 package br.com.crescer.wallet.service.webservice;
 
 import br.com.crescer.wallet.entity.Cotacao;
+import java.math.BigDecimal;
 
 /**
  *
  * @author victor.ribeiro
  */
 public class Rates {
-    private float AED;
-    private float AFN;
-    private float ALL;
-    private float AMD;
-    private float ANG;
-    private float AOA;
-    private float ARS;
-    private float AUD;
-    private float AWG;
-    private float AZN;
-    private float BAM;
-    private float BBD;
-    private float BDT;
-    private float BGN;
-    private float BHD;
-    private float BIF;
-    private float BMD;
-    private float BND;
-    private float BOB;
-    private float BRL;
-    private float BSD;
-    private float BTC;
-    private float BTN;
-    private float BWP;
-    private float BYR;
-    private float BZD;
-    private float CAD;
-    private float CDF;
-    private float CHF;
-    private float CLF;
-    private float CLP;
-    private float CNY;
-    private float COP;
-    private float CRC;
-    private float CUC;
-    private float CUP;
-    private float CVE;
-    private float CZK;
-    private float DJF;
-    private float DKK;
-    private float DOP;
-    private float DZD;
-    private float EEK;
-    private float EGP;
-    private float ERN;
-    private float ETB;
-    private float EUR;
-    private float FJD;
-    private float FKP;
-    private float GBP;
-    private float GEL;
-    private float GGP;
-    private float GHS;
-    private float GIP;
-    private float GMD;
-    private float GNF;
-    private float GTQ;
-    private float GYD;
-    private float HKD;
-    private float HNL;
-    private float HRK;
-    private float HTG;
-    private float HUF;
-    private float IDR;
-    private float ILS;
-    private float IMP;
-    private float INR;
-    private float IQD;
-    private float IRR;
-    private float ISK;
-    private float JEP;
-    private float JMD;
-    private float JOD;
-    private float JPY;
-    private float KES;
-    private float KGS;
-    private float KHR;
-    private float KMF;
-    private float KPW;
-    private float KRW;
-    private float KWD;
-    private float KYD;
-    private float KZT;
-    private float LAK;
-    private float LBP;
-    private float LKR;
-    private float LRD;
-    private float LSL;
-    private float LTL;
-    private float LVL;
-    private float LYD;
-    private float MAD;
-    private float MDL;
-    private float MGA;
-    private float MKD;
-    private float MMK;
-    private float MNT;
-    private float MOP;
-    private float MRO;
-    private float MTL;
-    private float MUR;
-    private float MVR;
-    private float MWK;
-    private float MXN;
-    private float MYR;
-    private float MZN;
-    private float NAD;
-    private float NGN;
-    private float NIO;
-    private float NOK;
-    private float NPR;
-    private float NZD;
-    private float OMR;
-    private float PAB;
-    private float PEN;
-    private float PGK;
-    private float PHP;
-    private float PKR;
-    private float PLN;
-    private float PYG;
-    private float QAR;
-    private float RON;
-    private float RSD;
-    private float RUB;
-    private float RWF;
-    private float SAR;
-    private float SBD;
-    private float SCR;
-    private float SDG;
-    private float SEK;
-    private float SGD;
-    private float SHP;
-    private float SLL;
-    private float SOS;
-    private float SRD;
-    private float STD;
-    private float SVC;
-    private float SYP;
-    private float SZL;
-    private float THB;
-    private float TJS;
-    private float TMT;
-    private float TND;
-    private float TOP;
-    private float TRY;
-    private float TTD;
-    private float TWD;
-    private float TZS;
-    private float UAH;
-    private float UGX;
-    private float USD;
-    private float UYU;
-    private float UZS;
-    private float VEF;
-    private float VND;
-    private float VUV;
-    private float WST;
-    private float XAF;
-    private float XAG;
-    private float XAU;
-    private float XCD;
-    private float XDR;
-    private float XOF;
-    private float XPD;
-    private float XPF;
-    private float XPT;
-    private float YER;
-    private float ZAR;
-    private float ZMK;
-    private float ZMW;
-    private float ZWL;
+    private BigDecimal AED;
+    private BigDecimal AFN;
+    private BigDecimal ALL;
+    private BigDecimal AMD;
+    private BigDecimal ANG;
+    private BigDecimal AOA;
+    private BigDecimal ARS;
+    private BigDecimal AUD;
+    private BigDecimal AWG;
+    private BigDecimal AZN;
+    private BigDecimal BAM;
+    private BigDecimal BBD;
+    private BigDecimal BDT;
+    private BigDecimal BGN;
+    private BigDecimal BHD;
+    private BigDecimal BIF;
+    private BigDecimal BMD;
+    private BigDecimal BND;
+    private BigDecimal BOB;
+    private BigDecimal BRL;
+    private BigDecimal BSD;
+    private BigDecimal BTC;
+    private BigDecimal BTN;
+    private BigDecimal BWP;
+    private BigDecimal BYR;
+    private BigDecimal BZD;
+    private BigDecimal CAD;
+    private BigDecimal CDF;
+    private BigDecimal CHF;
+    private BigDecimal CLF;
+    private BigDecimal CLP;
+    private BigDecimal CNY;
+    private BigDecimal COP;
+    private BigDecimal CRC;
+    private BigDecimal CUC;
+    private BigDecimal CUP;
+    private BigDecimal CVE;
+    private BigDecimal CZK;
+    private BigDecimal DJF;
+    private BigDecimal DKK;
+    private BigDecimal DOP;
+    private BigDecimal DZD;
+    private BigDecimal EEK;
+    private BigDecimal EGP;
+    private BigDecimal ERN;
+    private BigDecimal ETB;
+    private BigDecimal EUR;
+    private BigDecimal FJD;
+    private BigDecimal FKP;
+    private BigDecimal GBP;
+    private BigDecimal GEL;
+    private BigDecimal GGP;
+    private BigDecimal GHS;
+    private BigDecimal GIP;
+    private BigDecimal GMD;
+    private BigDecimal GNF;
+    private BigDecimal GTQ;
+    private BigDecimal GYD;
+    private BigDecimal HKD;
+    private BigDecimal HNL;
+    private BigDecimal HRK;
+    private BigDecimal HTG;
+    private BigDecimal HUF;
+    private BigDecimal IDR;
+    private BigDecimal ILS;
+    private BigDecimal IMP;
+    private BigDecimal INR;
+    private BigDecimal IQD;
+    private BigDecimal IRR;
+    private BigDecimal ISK;
+    private BigDecimal JEP;
+    private BigDecimal JMD;
+    private BigDecimal JOD;
+    private BigDecimal JPY;
+    private BigDecimal KES;
+    private BigDecimal KGS;
+    private BigDecimal KHR;
+    private BigDecimal KMF;
+    private BigDecimal KPW;
+    private BigDecimal KRW;
+    private BigDecimal KWD;
+    private BigDecimal KYD;
+    private BigDecimal KZT;
+    private BigDecimal LAK;
+    private BigDecimal LBP;
+    private BigDecimal LKR;
+    private BigDecimal LRD;
+    private BigDecimal LSL;
+    private BigDecimal LTL;
+    private BigDecimal LVL;
+    private BigDecimal LYD;
+    private BigDecimal MAD;
+    private BigDecimal MDL;
+    private BigDecimal MGA;
+    private BigDecimal MKD;
+    private BigDecimal MMK;
+    private BigDecimal MNT;
+    private BigDecimal MOP;
+    private BigDecimal MRO;
+    private BigDecimal MTL;
+    private BigDecimal MUR;
+    private BigDecimal MVR;
+    private BigDecimal MWK;
+    private BigDecimal MXN;
+    private BigDecimal MYR;
+    private BigDecimal MZN;
+    private BigDecimal NAD;
+    private BigDecimal NGN;
+    private BigDecimal NIO;
+    private BigDecimal NOK;
+    private BigDecimal NPR;
+    private BigDecimal NZD;
+    private BigDecimal OMR;
+    private BigDecimal PAB;
+    private BigDecimal PEN;
+    private BigDecimal PGK;
+    private BigDecimal PHP;
+    private BigDecimal PKR;
+    private BigDecimal PLN;
+    private BigDecimal PYG;
+    private BigDecimal QAR;
+    private BigDecimal RON;
+    private BigDecimal RSD;
+    private BigDecimal RUB;
+    private BigDecimal RWF;
+    private BigDecimal SAR;
+    private BigDecimal SBD;
+    private BigDecimal SCR;
+    private BigDecimal SDG;
+    private BigDecimal SEK;
+    private BigDecimal SGD;
+    private BigDecimal SHP;
+    private BigDecimal SLL;
+    private BigDecimal SOS;
+    private BigDecimal SRD;
+    private BigDecimal STD;
+    private BigDecimal SVC;
+    private BigDecimal SYP;
+    private BigDecimal SZL;
+    private BigDecimal THB;
+    private BigDecimal TJS;
+    private BigDecimal TMT;
+    private BigDecimal TND;
+    private BigDecimal TOP;
+    private BigDecimal TRY;
+    private BigDecimal TTD;
+    private BigDecimal TWD;
+    private BigDecimal TZS;
+    private BigDecimal UAH;
+    private BigDecimal UGX;
+    private BigDecimal USD;
+    private BigDecimal UYU;
+    private BigDecimal UZS;
+    private BigDecimal VEF;
+    private BigDecimal VND;
+    private BigDecimal VUV;
+    private BigDecimal WST;
+    private BigDecimal XAF;
+    private BigDecimal XAG;
+    private BigDecimal XAU;
+    private BigDecimal XCD;
+    private BigDecimal XDR;
+    private BigDecimal XOF;
+    private BigDecimal XPD;
+    private BigDecimal XPF;
+    private BigDecimal XPT;
+    private BigDecimal YER;
+    private BigDecimal ZAR;
+    private BigDecimal ZMK;
+    private BigDecimal ZMW;
+    private BigDecimal ZWL;
 
     public Rates() {
     }   
@@ -190,1373 +191,1372 @@ public class Rates {
         Cotacao cotacao = new Cotacao(BRL, EUR, JPY, GBP, AUD, CAD, CHF, CNY);
         return cotacao;
     }
-    
-    public float getAED() {
+
+    public BigDecimal getAED() {
         return AED;
     }
 
-    public void setAED(float AED) {
+    public void setAED(BigDecimal AED) {
         this.AED = AED;
     }
 
-    public float getAFN() {
+    public BigDecimal getAFN() {
         return AFN;
     }
 
-    public void setAFN(float AFN) {
+    public void setAFN(BigDecimal AFN) {
         this.AFN = AFN;
     }
 
-    public float getALL() {
+    public BigDecimal getALL() {
         return ALL;
     }
 
-    public void setALL(float ALL) {
+    public void setALL(BigDecimal ALL) {
         this.ALL = ALL;
     }
 
-    public float getAMD() {
+    public BigDecimal getAMD() {
         return AMD;
     }
 
-    public void setAMD(float AMD) {
+    public void setAMD(BigDecimal AMD) {
         this.AMD = AMD;
     }
 
-    public float getANG() {
+    public BigDecimal getANG() {
         return ANG;
     }
 
-    public void setANG(float ANG) {
+    public void setANG(BigDecimal ANG) {
         this.ANG = ANG;
     }
 
-    public float getAOA() {
+    public BigDecimal getAOA() {
         return AOA;
     }
 
-    public void setAOA(float AOA) {
+    public void setAOA(BigDecimal AOA) {
         this.AOA = AOA;
     }
 
-    public float getARS() {
+    public BigDecimal getARS() {
         return ARS;
     }
 
-    public void setARS(float ARS) {
+    public void setARS(BigDecimal ARS) {
         this.ARS = ARS;
     }
 
-    public float getAUD() {
+    public BigDecimal getAUD() {
         return AUD;
     }
 
-    public void setAUD(float AUD) {
+    public void setAUD(BigDecimal AUD) {
         this.AUD = AUD;
     }
 
-    public float getAWG() {
+    public BigDecimal getAWG() {
         return AWG;
     }
 
-    public void setAWG(float AWG) {
+    public void setAWG(BigDecimal AWG) {
         this.AWG = AWG;
     }
 
-    public float getAZN() {
+    public BigDecimal getAZN() {
         return AZN;
     }
 
-    public void setAZN(float AZN) {
+    public void setAZN(BigDecimal AZN) {
         this.AZN = AZN;
     }
 
-    public float getBAM() {
+    public BigDecimal getBAM() {
         return BAM;
     }
 
-    public void setBAM(float BAM) {
+    public void setBAM(BigDecimal BAM) {
         this.BAM = BAM;
     }
 
-    public float getBBD() {
+    public BigDecimal getBBD() {
         return BBD;
     }
 
-    public void setBBD(float BBD) {
+    public void setBBD(BigDecimal BBD) {
         this.BBD = BBD;
     }
 
-    public float getBDT() {
+    public BigDecimal getBDT() {
         return BDT;
     }
 
-    public void setBDT(float BDT) {
+    public void setBDT(BigDecimal BDT) {
         this.BDT = BDT;
     }
 
-    public float getBGN() {
+    public BigDecimal getBGN() {
         return BGN;
     }
 
-    public void setBGN(float BGN) {
+    public void setBGN(BigDecimal BGN) {
         this.BGN = BGN;
     }
 
-    public float getBHD() {
+    public BigDecimal getBHD() {
         return BHD;
     }
 
-    public void setBHD(float BHD) {
+    public void setBHD(BigDecimal BHD) {
         this.BHD = BHD;
     }
 
-    public float getBIF() {
+    public BigDecimal getBIF() {
         return BIF;
     }
 
-    public void setBIF(float BIF) {
+    public void setBIF(BigDecimal BIF) {
         this.BIF = BIF;
     }
 
-    public float getBMD() {
+    public BigDecimal getBMD() {
         return BMD;
     }
 
-    public void setBMD(float BMD) {
+    public void setBMD(BigDecimal BMD) {
         this.BMD = BMD;
     }
 
-    public float getBND() {
+    public BigDecimal getBND() {
         return BND;
     }
 
-    public void setBND(float BND) {
+    public void setBND(BigDecimal BND) {
         this.BND = BND;
     }
 
-    public float getBOB() {
+    public BigDecimal getBOB() {
         return BOB;
     }
 
-    public void setBOB(float BOB) {
+    public void setBOB(BigDecimal BOB) {
         this.BOB = BOB;
     }
 
-    public float getBRL() {
+    public BigDecimal getBRL() {
         return BRL;
     }
 
-    public void setBRL(float BRL) {
+    public void setBRL(BigDecimal BRL) {
         this.BRL = BRL;
     }
 
-    public float getBSD() {
+    public BigDecimal getBSD() {
         return BSD;
     }
 
-    public void setBSD(float BSD) {
+    public void setBSD(BigDecimal BSD) {
         this.BSD = BSD;
     }
 
-    public float getBTC() {
+    public BigDecimal getBTC() {
         return BTC;
     }
 
-    public void setBTC(float BTC) {
+    public void setBTC(BigDecimal BTC) {
         this.BTC = BTC;
     }
 
-    public float getBTN() {
+    public BigDecimal getBTN() {
         return BTN;
     }
 
-    public void setBTN(float BTN) {
+    public void setBTN(BigDecimal BTN) {
         this.BTN = BTN;
     }
 
-    public float getBWP() {
+    public BigDecimal getBWP() {
         return BWP;
     }
 
-    public void setBWP(float BWP) {
+    public void setBWP(BigDecimal BWP) {
         this.BWP = BWP;
     }
 
-    public float getBYR() {
+    public BigDecimal getBYR() {
         return BYR;
     }
 
-    public void setBYR(float BYR) {
+    public void setBYR(BigDecimal BYR) {
         this.BYR = BYR;
     }
 
-    public float getBZD() {
+    public BigDecimal getBZD() {
         return BZD;
     }
 
-    public void setBZD(float BZD) {
+    public void setBZD(BigDecimal BZD) {
         this.BZD = BZD;
     }
 
-    public float getCAD() {
+    public BigDecimal getCAD() {
         return CAD;
     }
 
-    public void setCAD(float CAD) {
+    public void setCAD(BigDecimal CAD) {
         this.CAD = CAD;
     }
 
-    public float getCDF() {
+    public BigDecimal getCDF() {
         return CDF;
     }
 
-    public void setCDF(float CDF) {
+    public void setCDF(BigDecimal CDF) {
         this.CDF = CDF;
     }
 
-    public float getCHF() {
+    public BigDecimal getCHF() {
         return CHF;
     }
 
-    public void setCHF(float CHF) {
+    public void setCHF(BigDecimal CHF) {
         this.CHF = CHF;
     }
 
-    public float getCLF() {
+    public BigDecimal getCLF() {
         return CLF;
     }
 
-    public void setCLF(float CLF) {
+    public void setCLF(BigDecimal CLF) {
         this.CLF = CLF;
     }
 
-    public float getCLP() {
+    public BigDecimal getCLP() {
         return CLP;
     }
 
-    public void setCLP(float CLP) {
+    public void setCLP(BigDecimal CLP) {
         this.CLP = CLP;
     }
 
-    public float getCNY() {
+    public BigDecimal getCNY() {
         return CNY;
     }
 
-    public void setCNY(float CNY) {
+    public void setCNY(BigDecimal CNY) {
         this.CNY = CNY;
     }
 
-    public float getCOP() {
+    public BigDecimal getCOP() {
         return COP;
     }
 
-    public void setCOP(float COP) {
+    public void setCOP(BigDecimal COP) {
         this.COP = COP;
     }
 
-    public float getCRC() {
+    public BigDecimal getCRC() {
         return CRC;
     }
 
-    public void setCRC(float CRC) {
+    public void setCRC(BigDecimal CRC) {
         this.CRC = CRC;
     }
 
-    public float getCUC() {
+    public BigDecimal getCUC() {
         return CUC;
     }
 
-    public void setCUC(float CUC) {
+    public void setCUC(BigDecimal CUC) {
         this.CUC = CUC;
     }
 
-    public float getCUP() {
+    public BigDecimal getCUP() {
         return CUP;
     }
 
-    public void setCUP(float CUP) {
+    public void setCUP(BigDecimal CUP) {
         this.CUP = CUP;
     }
 
-    public float getCVE() {
+    public BigDecimal getCVE() {
         return CVE;
     }
 
-    public void setCVE(float CVE) {
+    public void setCVE(BigDecimal CVE) {
         this.CVE = CVE;
     }
 
-    public float getCZK() {
+    public BigDecimal getCZK() {
         return CZK;
     }
 
-    public void setCZK(float CZK) {
+    public void setCZK(BigDecimal CZK) {
         this.CZK = CZK;
     }
 
-    public float getDJF() {
+    public BigDecimal getDJF() {
         return DJF;
     }
 
-    public void setDJF(float DJF) {
+    public void setDJF(BigDecimal DJF) {
         this.DJF = DJF;
     }
 
-    public float getDKK() {
+    public BigDecimal getDKK() {
         return DKK;
     }
 
-    public void setDKK(float DKK) {
+    public void setDKK(BigDecimal DKK) {
         this.DKK = DKK;
     }
 
-    public float getDOP() {
+    public BigDecimal getDOP() {
         return DOP;
     }
 
-    public void setDOP(float DOP) {
+    public void setDOP(BigDecimal DOP) {
         this.DOP = DOP;
     }
 
-    public float getDZD() {
+    public BigDecimal getDZD() {
         return DZD;
     }
 
-    public void setDZD(float DZD) {
+    public void setDZD(BigDecimal DZD) {
         this.DZD = DZD;
     }
 
-    public float getEEK() {
+    public BigDecimal getEEK() {
         return EEK;
     }
 
-    public void setEEK(float EEK) {
+    public void setEEK(BigDecimal EEK) {
         this.EEK = EEK;
     }
 
-    public float getEGP() {
+    public BigDecimal getEGP() {
         return EGP;
     }
 
-    public void setEGP(float EGP) {
+    public void setEGP(BigDecimal EGP) {
         this.EGP = EGP;
     }
 
-    public float getERN() {
+    public BigDecimal getERN() {
         return ERN;
     }
 
-    public void setERN(float ERN) {
+    public void setERN(BigDecimal ERN) {
         this.ERN = ERN;
     }
 
-    public float getETB() {
+    public BigDecimal getETB() {
         return ETB;
     }
 
-    public void setETB(float ETB) {
+    public void setETB(BigDecimal ETB) {
         this.ETB = ETB;
     }
 
-    public float getEUR() {
+    public BigDecimal getEUR() {
         return EUR;
     }
 
-    public void setEUR(float EUR) {
+    public void setEUR(BigDecimal EUR) {
         this.EUR = EUR;
     }
 
-    public float getFJD() {
+    public BigDecimal getFJD() {
         return FJD;
     }
 
-    public void setFJD(float FJD) {
+    public void setFJD(BigDecimal FJD) {
         this.FJD = FJD;
     }
 
-    public float getFKP() {
+    public BigDecimal getFKP() {
         return FKP;
     }
 
-    public void setFKP(float FKP) {
+    public void setFKP(BigDecimal FKP) {
         this.FKP = FKP;
     }
 
-    public float getGBP() {
+    public BigDecimal getGBP() {
         return GBP;
     }
 
-    public void setGBP(float GBP) {
+    public void setGBP(BigDecimal GBP) {
         this.GBP = GBP;
     }
 
-    public float getGEL() {
+    public BigDecimal getGEL() {
         return GEL;
     }
 
-    public void setGEL(float GEL) {
+    public void setGEL(BigDecimal GEL) {
         this.GEL = GEL;
     }
 
-    public float getGGP() {
+    public BigDecimal getGGP() {
         return GGP;
     }
 
-    public void setGGP(float GGP) {
+    public void setGGP(BigDecimal GGP) {
         this.GGP = GGP;
     }
 
-    public float getGHS() {
+    public BigDecimal getGHS() {
         return GHS;
     }
 
-    public void setGHS(float GHS) {
+    public void setGHS(BigDecimal GHS) {
         this.GHS = GHS;
     }
 
-    public float getGIP() {
+    public BigDecimal getGIP() {
         return GIP;
     }
 
-    public void setGIP(float GIP) {
+    public void setGIP(BigDecimal GIP) {
         this.GIP = GIP;
     }
 
-    public float getGMD() {
+    public BigDecimal getGMD() {
         return GMD;
     }
 
-    public void setGMD(float GMD) {
+    public void setGMD(BigDecimal GMD) {
         this.GMD = GMD;
     }
 
-    public float getGNF() {
+    public BigDecimal getGNF() {
         return GNF;
     }
 
-    public void setGNF(float GNF) {
+    public void setGNF(BigDecimal GNF) {
         this.GNF = GNF;
     }
 
-    public float getGTQ() {
+    public BigDecimal getGTQ() {
         return GTQ;
     }
 
-    public void setGTQ(float GTQ) {
+    public void setGTQ(BigDecimal GTQ) {
         this.GTQ = GTQ;
     }
 
-    public float getGYD() {
+    public BigDecimal getGYD() {
         return GYD;
     }
 
-    public void setGYD(float GYD) {
+    public void setGYD(BigDecimal GYD) {
         this.GYD = GYD;
     }
 
-    public float getHKD() {
+    public BigDecimal getHKD() {
         return HKD;
     }
 
-    public void setHKD(float HKD) {
+    public void setHKD(BigDecimal HKD) {
         this.HKD = HKD;
     }
 
-    public float getHNL() {
+    public BigDecimal getHNL() {
         return HNL;
     }
 
-    public void setHNL(float HNL) {
+    public void setHNL(BigDecimal HNL) {
         this.HNL = HNL;
     }
 
-    public float getHRK() {
+    public BigDecimal getHRK() {
         return HRK;
     }
 
-    public void setHRK(float HRK) {
+    public void setHRK(BigDecimal HRK) {
         this.HRK = HRK;
     }
 
-    public float getHTG() {
+    public BigDecimal getHTG() {
         return HTG;
     }
 
-    public void setHTG(float HTG) {
+    public void setHTG(BigDecimal HTG) {
         this.HTG = HTG;
     }
 
-    public float getHUF() {
+    public BigDecimal getHUF() {
         return HUF;
     }
 
-    public void setHUF(float HUF) {
+    public void setHUF(BigDecimal HUF) {
         this.HUF = HUF;
     }
 
-    public float getIDR() {
+    public BigDecimal getIDR() {
         return IDR;
     }
 
-    public void setIDR(float IDR) {
+    public void setIDR(BigDecimal IDR) {
         this.IDR = IDR;
     }
 
-    public float getILS() {
+    public BigDecimal getILS() {
         return ILS;
     }
 
-    public void setILS(float ILS) {
+    public void setILS(BigDecimal ILS) {
         this.ILS = ILS;
     }
 
-    public float getIMP() {
+    public BigDecimal getIMP() {
         return IMP;
     }
 
-    public void setIMP(float IMP) {
+    public void setIMP(BigDecimal IMP) {
         this.IMP = IMP;
     }
 
-    public float getINR() {
+    public BigDecimal getINR() {
         return INR;
     }
 
-    public void setINR(float INR) {
+    public void setINR(BigDecimal INR) {
         this.INR = INR;
     }
 
-    public float getIQD() {
+    public BigDecimal getIQD() {
         return IQD;
     }
 
-    public void setIQD(float IQD) {
+    public void setIQD(BigDecimal IQD) {
         this.IQD = IQD;
     }
 
-    public float getIRR() {
+    public BigDecimal getIRR() {
         return IRR;
     }
 
-    public void setIRR(float IRR) {
+    public void setIRR(BigDecimal IRR) {
         this.IRR = IRR;
     }
 
-    public float getISK() {
+    public BigDecimal getISK() {
         return ISK;
     }
 
-    public void setISK(float ISK) {
+    public void setISK(BigDecimal ISK) {
         this.ISK = ISK;
     }
 
-    public float getJEP() {
+    public BigDecimal getJEP() {
         return JEP;
     }
 
-    public void setJEP(float JEP) {
+    public void setJEP(BigDecimal JEP) {
         this.JEP = JEP;
     }
 
-    public float getJMD() {
+    public BigDecimal getJMD() {
         return JMD;
     }
 
-    public void setJMD(float JMD) {
+    public void setJMD(BigDecimal JMD) {
         this.JMD = JMD;
     }
 
-    public float getJOD() {
+    public BigDecimal getJOD() {
         return JOD;
     }
 
-    public void setJOD(float JOD) {
+    public void setJOD(BigDecimal JOD) {
         this.JOD = JOD;
     }
 
-    public float getJPY() {
+    public BigDecimal getJPY() {
         return JPY;
     }
 
-    public void setJPY(float JPY) {
+    public void setJPY(BigDecimal JPY) {
         this.JPY = JPY;
     }
 
-    public float getKES() {
+    public BigDecimal getKES() {
         return KES;
     }
 
-    public void setKES(float KES) {
+    public void setKES(BigDecimal KES) {
         this.KES = KES;
     }
 
-    public float getKGS() {
+    public BigDecimal getKGS() {
         return KGS;
     }
 
-    public void setKGS(float KGS) {
+    public void setKGS(BigDecimal KGS) {
         this.KGS = KGS;
     }
 
-    public float getKHR() {
+    public BigDecimal getKHR() {
         return KHR;
     }
 
-    public void setKHR(float KHR) {
+    public void setKHR(BigDecimal KHR) {
         this.KHR = KHR;
     }
 
-    public float getKMF() {
+    public BigDecimal getKMF() {
         return KMF;
     }
 
-    public void setKMF(float KMF) {
+    public void setKMF(BigDecimal KMF) {
         this.KMF = KMF;
     }
 
-    public float getKPW() {
+    public BigDecimal getKPW() {
         return KPW;
     }
 
-    public void setKPW(float KPW) {
+    public void setKPW(BigDecimal KPW) {
         this.KPW = KPW;
     }
 
-    public float getKRW() {
+    public BigDecimal getKRW() {
         return KRW;
     }
 
-    public void setKRW(float KRW) {
+    public void setKRW(BigDecimal KRW) {
         this.KRW = KRW;
     }
 
-    public float getKWD() {
+    public BigDecimal getKWD() {
         return KWD;
     }
 
-    public void setKWD(float KWD) {
+    public void setKWD(BigDecimal KWD) {
         this.KWD = KWD;
     }
 
-    public float getKYD() {
+    public BigDecimal getKYD() {
         return KYD;
     }
 
-    public void setKYD(float KYD) {
+    public void setKYD(BigDecimal KYD) {
         this.KYD = KYD;
     }
 
-    public float getKZT() {
+    public BigDecimal getKZT() {
         return KZT;
     }
 
-    public void setKZT(float KZT) {
+    public void setKZT(BigDecimal KZT) {
         this.KZT = KZT;
     }
 
-    public float getLAK() {
+    public BigDecimal getLAK() {
         return LAK;
     }
 
-    public void setLAK(float LAK) {
+    public void setLAK(BigDecimal LAK) {
         this.LAK = LAK;
     }
 
-    public float getLBP() {
+    public BigDecimal getLBP() {
         return LBP;
     }
 
-    public void setLBP(float LBP) {
+    public void setLBP(BigDecimal LBP) {
         this.LBP = LBP;
     }
 
-    public float getLKR() {
+    public BigDecimal getLKR() {
         return LKR;
     }
 
-    public void setLKR(float LKR) {
+    public void setLKR(BigDecimal LKR) {
         this.LKR = LKR;
     }
 
-    public float getLRD() {
+    public BigDecimal getLRD() {
         return LRD;
     }
 
-    public void setLRD(float LRD) {
+    public void setLRD(BigDecimal LRD) {
         this.LRD = LRD;
     }
 
-    public float getLSL() {
+    public BigDecimal getLSL() {
         return LSL;
     }
 
-    public void setLSL(float LSL) {
+    public void setLSL(BigDecimal LSL) {
         this.LSL = LSL;
     }
 
-    public float getLTL() {
+    public BigDecimal getLTL() {
         return LTL;
     }
 
-    public void setLTL(float LTL) {
+    public void setLTL(BigDecimal LTL) {
         this.LTL = LTL;
     }
 
-    public float getLVL() {
+    public BigDecimal getLVL() {
         return LVL;
     }
 
-    public void setLVL(float LVL) {
+    public void setLVL(BigDecimal LVL) {
         this.LVL = LVL;
     }
 
-    public float getLYD() {
+    public BigDecimal getLYD() {
         return LYD;
     }
 
-    public void setLYD(float LYD) {
+    public void setLYD(BigDecimal LYD) {
         this.LYD = LYD;
     }
 
-    public float getMAD() {
+    public BigDecimal getMAD() {
         return MAD;
     }
 
-    public void setMAD(float MAD) {
+    public void setMAD(BigDecimal MAD) {
         this.MAD = MAD;
     }
 
-    public float getMDL() {
+    public BigDecimal getMDL() {
         return MDL;
     }
 
-    public void setMDL(float MDL) {
+    public void setMDL(BigDecimal MDL) {
         this.MDL = MDL;
     }
 
-    public float getMGA() {
+    public BigDecimal getMGA() {
         return MGA;
     }
 
-    public void setMGA(float MGA) {
+    public void setMGA(BigDecimal MGA) {
         this.MGA = MGA;
     }
 
-    public float getMKD() {
+    public BigDecimal getMKD() {
         return MKD;
     }
 
-    public void setMKD(float MKD) {
+    public void setMKD(BigDecimal MKD) {
         this.MKD = MKD;
     }
 
-    public float getMMK() {
+    public BigDecimal getMMK() {
         return MMK;
     }
 
-    public void setMMK(float MMK) {
+    public void setMMK(BigDecimal MMK) {
         this.MMK = MMK;
     }
 
-    public float getMNT() {
+    public BigDecimal getMNT() {
         return MNT;
     }
 
-    public void setMNT(float MNT) {
+    public void setMNT(BigDecimal MNT) {
         this.MNT = MNT;
     }
 
-    public float getMOP() {
+    public BigDecimal getMOP() {
         return MOP;
     }
 
-    public void setMOP(float MOP) {
+    public void setMOP(BigDecimal MOP) {
         this.MOP = MOP;
     }
 
-    public float getMRO() {
+    public BigDecimal getMRO() {
         return MRO;
     }
 
-    public void setMRO(float MRO) {
+    public void setMRO(BigDecimal MRO) {
         this.MRO = MRO;
     }
 
-    public float getMTL() {
+    public BigDecimal getMTL() {
         return MTL;
     }
 
-    public void setMTL(float MTL) {
+    public void setMTL(BigDecimal MTL) {
         this.MTL = MTL;
     }
 
-    public float getMUR() {
+    public BigDecimal getMUR() {
         return MUR;
     }
 
-    public void setMUR(float MUR) {
+    public void setMUR(BigDecimal MUR) {
         this.MUR = MUR;
     }
 
-    public float getMVR() {
+    public BigDecimal getMVR() {
         return MVR;
     }
 
-    public void setMVR(float MVR) {
+    public void setMVR(BigDecimal MVR) {
         this.MVR = MVR;
     }
 
-    public float getMWK() {
+    public BigDecimal getMWK() {
         return MWK;
     }
 
-    public void setMWK(float MWK) {
+    public void setMWK(BigDecimal MWK) {
         this.MWK = MWK;
     }
 
-    public float getMXN() {
+    public BigDecimal getMXN() {
         return MXN;
     }
 
-    public void setMXN(float MXN) {
+    public void setMXN(BigDecimal MXN) {
         this.MXN = MXN;
     }
 
-    public float getMYR() {
+    public BigDecimal getMYR() {
         return MYR;
     }
 
-    public void setMYR(float MYR) {
+    public void setMYR(BigDecimal MYR) {
         this.MYR = MYR;
     }
 
-    public float getMZN() {
+    public BigDecimal getMZN() {
         return MZN;
     }
 
-    public void setMZN(float MZN) {
+    public void setMZN(BigDecimal MZN) {
         this.MZN = MZN;
     }
 
-    public float getNAD() {
+    public BigDecimal getNAD() {
         return NAD;
     }
 
-    public void setNAD(float NAD) {
+    public void setNAD(BigDecimal NAD) {
         this.NAD = NAD;
     }
 
-    public float getNGN() {
+    public BigDecimal getNGN() {
         return NGN;
     }
 
-    public void setNGN(float NGN) {
+    public void setNGN(BigDecimal NGN) {
         this.NGN = NGN;
     }
 
-    public float getNIO() {
+    public BigDecimal getNIO() {
         return NIO;
     }
 
-    public void setNIO(float NIO) {
+    public void setNIO(BigDecimal NIO) {
         this.NIO = NIO;
     }
 
-    public float getNOK() {
+    public BigDecimal getNOK() {
         return NOK;
     }
 
-    public void setNOK(float NOK) {
+    public void setNOK(BigDecimal NOK) {
         this.NOK = NOK;
     }
 
-    public float getNPR() {
+    public BigDecimal getNPR() {
         return NPR;
     }
 
-    public void setNPR(float NPR) {
+    public void setNPR(BigDecimal NPR) {
         this.NPR = NPR;
     }
 
-    public float getNZD() {
+    public BigDecimal getNZD() {
         return NZD;
     }
 
-    public void setNZD(float NZD) {
+    public void setNZD(BigDecimal NZD) {
         this.NZD = NZD;
     }
 
-    public float getOMR() {
+    public BigDecimal getOMR() {
         return OMR;
     }
 
-    public void setOMR(float OMR) {
+    public void setOMR(BigDecimal OMR) {
         this.OMR = OMR;
     }
 
-    public float getPAB() {
+    public BigDecimal getPAB() {
         return PAB;
     }
 
-    public void setPAB(float PAB) {
+    public void setPAB(BigDecimal PAB) {
         this.PAB = PAB;
     }
 
-    public float getPEN() {
+    public BigDecimal getPEN() {
         return PEN;
     }
 
-    public void setPEN(float PEN) {
+    public void setPEN(BigDecimal PEN) {
         this.PEN = PEN;
     }
 
-    public float getPGK() {
+    public BigDecimal getPGK() {
         return PGK;
     }
 
-    public void setPGK(float PGK) {
+    public void setPGK(BigDecimal PGK) {
         this.PGK = PGK;
     }
 
-    public float getPHP() {
+    public BigDecimal getPHP() {
         return PHP;
     }
 
-    public void setPHP(float PHP) {
+    public void setPHP(BigDecimal PHP) {
         this.PHP = PHP;
     }
 
-    public float getPKR() {
+    public BigDecimal getPKR() {
         return PKR;
     }
 
-    public void setPKR(float PKR) {
+    public void setPKR(BigDecimal PKR) {
         this.PKR = PKR;
     }
 
-    public float getPLN() {
+    public BigDecimal getPLN() {
         return PLN;
     }
 
-    public void setPLN(float PLN) {
+    public void setPLN(BigDecimal PLN) {
         this.PLN = PLN;
     }
 
-    public float getPYG() {
+    public BigDecimal getPYG() {
         return PYG;
     }
 
-    public void setPYG(float PYG) {
+    public void setPYG(BigDecimal PYG) {
         this.PYG = PYG;
     }
 
-    public float getQAR() {
+    public BigDecimal getQAR() {
         return QAR;
     }
 
-    public void setQAR(float QAR) {
+    public void setQAR(BigDecimal QAR) {
         this.QAR = QAR;
     }
 
-    public float getRON() {
+    public BigDecimal getRON() {
         return RON;
     }
 
-    public void setRON(float RON) {
+    public void setRON(BigDecimal RON) {
         this.RON = RON;
     }
 
-    public float getRSD() {
+    public BigDecimal getRSD() {
         return RSD;
     }
 
-    public void setRSD(float RSD) {
+    public void setRSD(BigDecimal RSD) {
         this.RSD = RSD;
     }
 
-    public float getRUB() {
+    public BigDecimal getRUB() {
         return RUB;
     }
 
-    public void setRUB(float RUB) {
+    public void setRUB(BigDecimal RUB) {
         this.RUB = RUB;
     }
 
-    public float getRWF() {
+    public BigDecimal getRWF() {
         return RWF;
     }
 
-    public void setRWF(float RWF) {
+    public void setRWF(BigDecimal RWF) {
         this.RWF = RWF;
     }
 
-    public float getSAR() {
+    public BigDecimal getSAR() {
         return SAR;
     }
 
-    public void setSAR(float SAR) {
+    public void setSAR(BigDecimal SAR) {
         this.SAR = SAR;
     }
 
-    public float getSBD() {
+    public BigDecimal getSBD() {
         return SBD;
     }
 
-    public void setSBD(float SBD) {
+    public void setSBD(BigDecimal SBD) {
         this.SBD = SBD;
     }
 
-    public float getSCR() {
+    public BigDecimal getSCR() {
         return SCR;
     }
 
-    public void setSCR(float SCR) {
+    public void setSCR(BigDecimal SCR) {
         this.SCR = SCR;
     }
 
-    public float getSDG() {
+    public BigDecimal getSDG() {
         return SDG;
     }
 
-    public void setSDG(float SDG) {
+    public void setSDG(BigDecimal SDG) {
         this.SDG = SDG;
     }
 
-    public float getSEK() {
+    public BigDecimal getSEK() {
         return SEK;
     }
 
-    public void setSEK(float SEK) {
+    public void setSEK(BigDecimal SEK) {
         this.SEK = SEK;
     }
 
-    public float getSGD() {
+    public BigDecimal getSGD() {
         return SGD;
     }
 
-    public void setSGD(float SGD) {
+    public void setSGD(BigDecimal SGD) {
         this.SGD = SGD;
     }
 
-    public float getSHP() {
+    public BigDecimal getSHP() {
         return SHP;
     }
 
-    public void setSHP(float SHP) {
+    public void setSHP(BigDecimal SHP) {
         this.SHP = SHP;
     }
 
-    public float getSLL() {
+    public BigDecimal getSLL() {
         return SLL;
     }
 
-    public void setSLL(float SLL) {
+    public void setSLL(BigDecimal SLL) {
         this.SLL = SLL;
     }
 
-    public float getSOS() {
+    public BigDecimal getSOS() {
         return SOS;
     }
 
-    public void setSOS(float SOS) {
+    public void setSOS(BigDecimal SOS) {
         this.SOS = SOS;
     }
 
-    public float getSRD() {
+    public BigDecimal getSRD() {
         return SRD;
     }
 
-    public void setSRD(float SRD) {
+    public void setSRD(BigDecimal SRD) {
         this.SRD = SRD;
     }
 
-    public float getSTD() {
+    public BigDecimal getSTD() {
         return STD;
     }
 
-    public void setSTD(float STD) {
+    public void setSTD(BigDecimal STD) {
         this.STD = STD;
     }
 
-    public float getSVC() {
+    public BigDecimal getSVC() {
         return SVC;
     }
 
-    public void setSVC(float SVC) {
+    public void setSVC(BigDecimal SVC) {
         this.SVC = SVC;
     }
 
-    public float getSYP() {
+    public BigDecimal getSYP() {
         return SYP;
     }
 
-    public void setSYP(float SYP) {
+    public void setSYP(BigDecimal SYP) {
         this.SYP = SYP;
     }
 
-    public float getSZL() {
+    public BigDecimal getSZL() {
         return SZL;
     }
 
-    public void setSZL(float SZL) {
+    public void setSZL(BigDecimal SZL) {
         this.SZL = SZL;
     }
 
-    public float getTHB() {
+    public BigDecimal getTHB() {
         return THB;
     }
 
-    public void setTHB(float THB) {
+    public void setTHB(BigDecimal THB) {
         this.THB = THB;
     }
 
-    public float getTJS() {
+    public BigDecimal getTJS() {
         return TJS;
     }
 
-    public void setTJS(float TJS) {
+    public void setTJS(BigDecimal TJS) {
         this.TJS = TJS;
     }
 
-    public float getTMT() {
+    public BigDecimal getTMT() {
         return TMT;
     }
 
-    public void setTMT(float TMT) {
+    public void setTMT(BigDecimal TMT) {
         this.TMT = TMT;
     }
 
-    public float getTND() {
+    public BigDecimal getTND() {
         return TND;
     }
 
-    public void setTND(float TND) {
+    public void setTND(BigDecimal TND) {
         this.TND = TND;
     }
 
-    public float getTOP() {
+    public BigDecimal getTOP() {
         return TOP;
     }
 
-    public void setTOP(float TOP) {
+    public void setTOP(BigDecimal TOP) {
         this.TOP = TOP;
     }
 
-    public float getTRY() {
+    public BigDecimal getTRY() {
         return TRY;
     }
 
-    public void setTRY(float TRY) {
+    public void setTRY(BigDecimal TRY) {
         this.TRY = TRY;
     }
 
-    public float getTTD() {
+    public BigDecimal getTTD() {
         return TTD;
     }
 
-    public void setTTD(float TTD) {
+    public void setTTD(BigDecimal TTD) {
         this.TTD = TTD;
     }
 
-    public float getTWD() {
+    public BigDecimal getTWD() {
         return TWD;
     }
 
-    public void setTWD(float TWD) {
+    public void setTWD(BigDecimal TWD) {
         this.TWD = TWD;
     }
 
-    public float getTZS() {
+    public BigDecimal getTZS() {
         return TZS;
     }
 
-    public void setTZS(float TZS) {
+    public void setTZS(BigDecimal TZS) {
         this.TZS = TZS;
     }
 
-    public float getUAH() {
+    public BigDecimal getUAH() {
         return UAH;
     }
 
-    public void setUAH(float UAH) {
+    public void setUAH(BigDecimal UAH) {
         this.UAH = UAH;
     }
 
-    public float getUGX() {
+    public BigDecimal getUGX() {
         return UGX;
     }
 
-    public void setUGX(float UGX) {
+    public void setUGX(BigDecimal UGX) {
         this.UGX = UGX;
     }
 
-    public float getUSD() {
+    public BigDecimal getUSD() {
         return USD;
     }
 
-    public void setUSD(float USD) {
+    public void setUSD(BigDecimal USD) {
         this.USD = USD;
     }
 
-    public float getUYU() {
+    public BigDecimal getUYU() {
         return UYU;
     }
 
-    public void setUYU(float UYU) {
+    public void setUYU(BigDecimal UYU) {
         this.UYU = UYU;
     }
 
-    public float getUZS() {
+    public BigDecimal getUZS() {
         return UZS;
     }
 
-    public void setUZS(float UZS) {
+    public void setUZS(BigDecimal UZS) {
         this.UZS = UZS;
     }
 
-    public float getVEF() {
+    public BigDecimal getVEF() {
         return VEF;
     }
 
-    public void setVEF(float VEF) {
+    public void setVEF(BigDecimal VEF) {
         this.VEF = VEF;
     }
 
-    public float getVND() {
+    public BigDecimal getVND() {
         return VND;
     }
 
-    public void setVND(float VND) {
+    public void setVND(BigDecimal VND) {
         this.VND = VND;
     }
 
-    public float getVUV() {
+    public BigDecimal getVUV() {
         return VUV;
     }
 
-    public void setVUV(float VUV) {
+    public void setVUV(BigDecimal VUV) {
         this.VUV = VUV;
     }
 
-    public float getWST() {
+    public BigDecimal getWST() {
         return WST;
     }
 
-    public void setWST(float WST) {
+    public void setWST(BigDecimal WST) {
         this.WST = WST;
     }
 
-    public float getXAF() {
+    public BigDecimal getXAF() {
         return XAF;
     }
 
-    public void setXAF(float XAF) {
+    public void setXAF(BigDecimal XAF) {
         this.XAF = XAF;
     }
 
-    public float getXAG() {
+    public BigDecimal getXAG() {
         return XAG;
     }
 
-    public void setXAG(float XAG) {
+    public void setXAG(BigDecimal XAG) {
         this.XAG = XAG;
     }
 
-    public float getXAU() {
+    public BigDecimal getXAU() {
         return XAU;
     }
 
-    public void setXAU(float XAU) {
+    public void setXAU(BigDecimal XAU) {
         this.XAU = XAU;
     }
 
-    public float getXCD() {
+    public BigDecimal getXCD() {
         return XCD;
     }
 
-    public void setXCD(float XCD) {
+    public void setXCD(BigDecimal XCD) {
         this.XCD = XCD;
     }
 
-    public float getXDR() {
+    public BigDecimal getXDR() {
         return XDR;
     }
 
-    public void setXDR(float XDR) {
+    public void setXDR(BigDecimal XDR) {
         this.XDR = XDR;
     }
 
-    public float getXOF() {
+    public BigDecimal getXOF() {
         return XOF;
     }
 
-    public void setXOF(float XOF) {
+    public void setXOF(BigDecimal XOF) {
         this.XOF = XOF;
     }
 
-    public float getXPD() {
+    public BigDecimal getXPD() {
         return XPD;
     }
 
-    public void setXPD(float XPD) {
+    public void setXPD(BigDecimal XPD) {
         this.XPD = XPD;
     }
 
-    public float getXPF() {
+    public BigDecimal getXPF() {
         return XPF;
     }
 
-    public void setXPF(float XPF) {
+    public void setXPF(BigDecimal XPF) {
         this.XPF = XPF;
     }
 
-    public float getXPT() {
+    public BigDecimal getXPT() {
         return XPT;
     }
 
-    public void setXPT(float XPT) {
+    public void setXPT(BigDecimal XPT) {
         this.XPT = XPT;
     }
 
-    public float getYER() {
+    public BigDecimal getYER() {
         return YER;
     }
 
-    public void setYER(float YER) {
+    public void setYER(BigDecimal YER) {
         this.YER = YER;
     }
 
-    public float getZAR() {
+    public BigDecimal getZAR() {
         return ZAR;
     }
 
-    public void setZAR(float ZAR) {
+    public void setZAR(BigDecimal ZAR) {
         this.ZAR = ZAR;
     }
 
-    public float getZMK() {
+    public BigDecimal getZMK() {
         return ZMK;
     }
 
-    public void setZMK(float ZMK) {
+    public void setZMK(BigDecimal ZMK) {
         this.ZMK = ZMK;
     }
 
-    public float getZMW() {
+    public BigDecimal getZMW() {
         return ZMW;
     }
 
-    public void setZMW(float ZMW) {
+    public void setZMW(BigDecimal ZMW) {
         this.ZMW = ZMW;
     }
 
-    public float getZWL() {
+    public BigDecimal getZWL() {
         return ZWL;
     }
 
-    public void setZWL(float ZWL) {
+    public void setZWL(BigDecimal ZWL) {
         this.ZWL = ZWL;
-    }    
-    
+    }
 }

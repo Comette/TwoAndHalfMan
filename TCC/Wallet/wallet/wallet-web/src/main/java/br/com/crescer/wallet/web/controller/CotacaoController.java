@@ -7,6 +7,7 @@ package br.com.crescer.wallet.web.controller;
 import br.com.crescer.wallet.entity.Cotacao;
 import br.com.crescer.wallet.entity.Moeda;
 import br.com.crescer.wallet.service.service.CotacaoService;
+import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class CotacaoController {
     CotacaoService service;
     
     @RequestMapping(value = "/cotar", method = RequestMethod.POST)
-    public double cotar(@RequestBody Moeda moeda){
+    public BigDecimal cotar(@RequestBody Moeda moeda){
         Cotacao cotacao = service.buscarUltimaCotacao();
         switch (moeda.toString()){
             case "EUR":
@@ -44,12 +45,12 @@ public class CotacaoController {
             case "CNY":
                 return cotacao.getDsCotacaoYuan();
             default:
-                return 0;
+                return BigDecimal.ZERO;
         }        
     }
     
     @RequestMapping(value = "/media", method = RequestMethod.POST)
-    public double media(@RequestBody Moeda moeda){
+    public BigDecimal media(@RequestBody Moeda moeda){
         return service.buscarUltimaMediaMoeda(moeda);        
     }
 }

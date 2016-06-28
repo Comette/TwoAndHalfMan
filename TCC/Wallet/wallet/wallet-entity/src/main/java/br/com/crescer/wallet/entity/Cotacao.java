@@ -5,6 +5,8 @@ package br.com.crescer.wallet.entity;
  * by: Hedo Eccker, Douglas Balester e Victor Comette.
  */
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -26,7 +28,7 @@ import javax.persistence.Table;
 @Table(name = "COTACAO",
        indexes = {@Index(columnList = "DT_COTACAO", name = "index_dt_cotacao")}
 )
-public class Cotacao {
+public class Cotacao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "SEQ_COTACAO")
@@ -41,61 +43,62 @@ public class Cotacao {
 
     @Basic(optional = false)
     @Column(name = "DS_COTACAO_REAL")
-    private String dsCotacaoReal;
+    private BigDecimal dsCotacaoReal;
     
     @Basic(optional = false)
     @Column(name = "DS_COTACAO_EURO")
-    private String dsCotacaoEuro;    
+    private BigDecimal dsCotacaoEuro;    
     
     @Basic(optional = false)
     @Column(name = "DS_COTACAO_YEN")
-    private String dsCotacaoYen;         
+    private BigDecimal dsCotacaoYen;         
             
     @Basic(optional = false)
     @Column(name = "DS_COTACAO_LIBRA")
-    private String dsCotacaoLibra;        
+    private BigDecimal dsCotacaoLibra;        
 
     @Basic(optional = false)
     @Column(name = "DS_COTACAO_DOLLAR_AUSTRALIANO")
-    private String dsCotacaoDollarAutraliano;
+    private BigDecimal dsCotacaoDollarAutraliano;
 
     @Basic(optional = false)
     @Column(name = "DS_COTACAO_DOLLAR_CANADENSE")
-    private String dsCotacaoDollarCanadense;
+    private BigDecimal dsCotacaoDollarCanadense;
 
     @Basic(optional = false)
     @Column(name = "DS_COTACAO_FRANCO_SUICO")
-    private String dsCotacaoFrancoSuico;
+    private BigDecimal dsCotacaoFrancoSuico;
 
     @Basic(optional = false)
     @Column(name = "DS_COTACAO_YUAN")
-    private String dsCotacaoYuan;
+    private BigDecimal dsCotacaoYuan;
 
     public Cotacao() {
     }
 
-    public Cotacao(Long idCotacao, LocalDate dtCotacao, float dsCotacaoReal, float dsCotacaoEuro, float dsCotacaoYen, float dsCotacaoLibra, float dsCotacaoDollarAutraliano, float dsCotacaoDollarCanadense, float dsCotacaoFrancoSuico, float dsCotacaoYuan) {
+    public Cotacao(Long idCotacao, LocalDate dtCotacao, BigDecimal dsCotacaoReal, BigDecimal dsCotacaoEuro, BigDecimal dsCotacaoYen, BigDecimal dsCotacaoLibra, BigDecimal dsCotacaoDollarAutraliano, BigDecimal dsCotacaoDollarCanadense, BigDecimal dsCotacaoFrancoSuico, BigDecimal dsCotacaoYuan) {
         this.idCotacao = idCotacao;
         this.dtCotacao = dtCotacao;
-        this.dsCotacaoReal = String.valueOf(dsCotacaoReal);
-        this.dsCotacaoEuro = String.valueOf(dsCotacaoEuro);
-        this.dsCotacaoYen = String.valueOf(dsCotacaoYen);
-        this.dsCotacaoLibra = String.valueOf(dsCotacaoLibra);
-        this.dsCotacaoDollarAutraliano = String.valueOf(dsCotacaoDollarAutraliano);
-        this.dsCotacaoDollarCanadense = String.valueOf(dsCotacaoDollarCanadense);
-        this.dsCotacaoFrancoSuico = String.valueOf(dsCotacaoFrancoSuico);
-        this.dsCotacaoYuan = String.valueOf(dsCotacaoYuan);
+        this.dsCotacaoReal = dsCotacaoReal;
+        this.dsCotacaoEuro = dsCotacaoEuro;
+        this.dsCotacaoYen = dsCotacaoYen;
+        this.dsCotacaoLibra = dsCotacaoLibra;
+        this.dsCotacaoDollarAutraliano = dsCotacaoDollarAutraliano;
+        this.dsCotacaoDollarCanadense = dsCotacaoDollarCanadense;
+        this.dsCotacaoFrancoSuico = dsCotacaoFrancoSuico;
+        this.dsCotacaoYuan = dsCotacaoYuan;
     }
+    
 
-    public Cotacao(float BRL, float EUR, float JPY, float GBP, float AUD, float CAD, float CHF, float CNY) {
-        this.dsCotacaoReal = String.valueOf(BRL);
-        this.dsCotacaoEuro = String.valueOf(EUR);
-        this.dsCotacaoYen = String.valueOf(JPY);
-        this.dsCotacaoLibra = String.valueOf(GBP);
-        this.dsCotacaoDollarAutraliano = String.valueOf(AUD);
-        this.dsCotacaoDollarCanadense = String.valueOf(CAD);
-        this.dsCotacaoFrancoSuico = String.valueOf(CHF);
-        this.dsCotacaoYuan = String.valueOf(CNY);
+    public Cotacao(BigDecimal BRL, BigDecimal EUR, BigDecimal JPY, BigDecimal GBP, BigDecimal AUD, BigDecimal CAD, BigDecimal CHF, BigDecimal CNY) {
+        this.dsCotacaoReal = BRL;
+        this.dsCotacaoEuro = EUR;
+        this.dsCotacaoYen = JPY;
+        this.dsCotacaoLibra = GBP;
+        this.dsCotacaoDollarAutraliano = AUD;
+        this.dsCotacaoDollarCanadense = CAD;
+        this.dsCotacaoFrancoSuico = CHF;
+        this.dsCotacaoYuan = CNY;
     }
 
     public Long getIdCotacao() {
@@ -114,68 +117,67 @@ public class Cotacao {
         this.dtCotacao = dtCotacao;
     }
 
-    public double getDsCotacaoReal() {
-        return Double.parseDouble(dsCotacaoReal);
+    public BigDecimal getDsCotacaoReal() {
+        return dsCotacaoReal;
     }
 
-    public void setDsCotacaoReal(String dsCotacaoReal) {
+    public void setDsCotacaoReal(BigDecimal dsCotacaoReal) {
         this.dsCotacaoReal = dsCotacaoReal;
     }
 
-    public double getDsCotacaoEuro() {
-        return Double.parseDouble(dsCotacaoEuro);
+    public BigDecimal getDsCotacaoEuro() {
+        return dsCotacaoEuro;
     }
 
-    public void setDsCotacaoEuro(String dsCotacaoEuro) {
+    public void setDsCotacaoEuro(BigDecimal dsCotacaoEuro) {
         this.dsCotacaoEuro = dsCotacaoEuro;
     }
 
-    public double getDsCotacaoYen() {
-        return Double.parseDouble(dsCotacaoYen);
+    public BigDecimal getDsCotacaoYen() {
+        return dsCotacaoYen;
     }
 
-    public void setDsCotacaoYen(String dsCotacaoYen) {
+    public void setDsCotacaoYen(BigDecimal dsCotacaoYen) {
         this.dsCotacaoYen = dsCotacaoYen;
     }
 
-    public double getDsCotacaoLibra() {
-        return Double.parseDouble(dsCotacaoLibra);
+    public BigDecimal getDsCotacaoLibra() {
+        return dsCotacaoLibra;
     }
 
-    public void setDsCotacaoLibra(String dsCotacaoLibra) {
+    public void setDsCotacaoLibra(BigDecimal dsCotacaoLibra) {
         this.dsCotacaoLibra = dsCotacaoLibra;
     }
 
-    public double getDsCotacaoDollarAutraliano() {
-        return Double.parseDouble(dsCotacaoDollarAutraliano);
+    public BigDecimal getDsCotacaoDollarAutraliano() {
+        return dsCotacaoDollarAutraliano;
     }
 
-    public void setDsCotacaoDollarAutraliano(String dsCotacaoDollarAutraliano) {
+    public void setDsCotacaoDollarAutraliano(BigDecimal dsCotacaoDollarAutraliano) {
         this.dsCotacaoDollarAutraliano = dsCotacaoDollarAutraliano;
     }
 
-    public double getDsCotacaoDollarCanadense() {
-        return Double.parseDouble(dsCotacaoDollarCanadense);
+    public BigDecimal getDsCotacaoDollarCanadense() {
+        return dsCotacaoDollarCanadense;
     }
 
-    public void setDsCotacaoDollarCanadense(String dsCotacaoDollarCanadense) {
+    public void setDsCotacaoDollarCanadense(BigDecimal dsCotacaoDollarCanadense) {
         this.dsCotacaoDollarCanadense = dsCotacaoDollarCanadense;
     }
 
-    public double getDsCotacaoFrancoSuico() {
-        return Double.parseDouble(dsCotacaoFrancoSuico);
+    public BigDecimal getDsCotacaoFrancoSuico() {
+        return dsCotacaoFrancoSuico;
     }
 
-    public void setDsCotacaoFrancoSuico(String dsCotacaoFrancoSuico) {
+    public void setDsCotacaoFrancoSuico(BigDecimal dsCotacaoFrancoSuico) {
         this.dsCotacaoFrancoSuico = dsCotacaoFrancoSuico;
     }
 
-    public double getDsCotacaoYuan() {
-        return Double.parseDouble(dsCotacaoYuan);
+    public BigDecimal getDsCotacaoYuan() {
+        return dsCotacaoYuan;
     }
 
-    public void setDsCotacaoYuan(String dsCotacaoYuan) {
+    public void setDsCotacaoYuan(BigDecimal dsCotacaoYuan) {
         this.dsCotacaoYuan = dsCotacaoYuan;
     }
-
 }

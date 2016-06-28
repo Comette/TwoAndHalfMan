@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -45,57 +46,58 @@ public class CotacaoService implements InitializingBean {
         return cotacao;
     }
 
-    public double buscarUltimaMediaMoeda(Moeda moeda) {
+    public BigDecimal buscarUltimaMediaMoeda(Moeda moeda) {
         LocalDate dia = LocalDate.now();
         List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);
-        double media;
+        BigDecimal media;
         switch (moeda.toString()) {
             case "EUR":
-                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoEuro()).average().getAsDouble();
+                media = cotacoes.stream().map(Cotacao::getDsCotacaoEuro).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "BRL":
-                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoReal()).average().getAsDouble();
+                media = cotacoes.stream().map(Cotacao::getDsCotacaoReal).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "JPY":
-                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoYen()).average().getAsDouble();
+                media = cotacoes.stream().map(Cotacao::getDsCotacaoYen).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "GBP":
-                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoLibra()).average().getAsDouble();
+                media = cotacoes.stream().map(Cotacao::getDsCotacaoLibra).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "AUD":
-                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoDollarAutraliano()).average().getAsDouble();
+                media = cotacoes.stream().map(Cotacao::getDsCotacaoDollarAutraliano).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "CAD":
-                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoDollarCanadense()).average().getAsDouble();
+                media = cotacoes.stream().map(Cotacao::getDsCotacaoDollarCanadense).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "CHF":
-                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoFrancoSuico()).average().getAsDouble();
+                media = cotacoes.stream().map(Cotacao::getDsCotacaoFrancoSuico).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "CNY":
-                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoYuan()).average().getAsDouble();
+                media = cotacoes.stream().map(Cotacao::getDsCotacaoYuan).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             default:
                 //TODO: throws exception
-                media=0;
+                media=BigDecimal.ZERO;
                 System.out.println("Moeda inválida");
                 break;
         }
         return media;
     }
 
-    public Map<Moeda, Double> buscarUltimaMedia() {
+    public Map<Moeda, BigDecimal> buscarUltimaMedia() {
         LocalDate dia = LocalDate.now();
-        List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);
-        Map<Moeda, Double> medias = new HashMap<>();
-        medias.put(Moeda.USD, 1.0);
-        medias.put(Moeda.BRL, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoReal()).average().getAsDouble());
-        medias.put(Moeda.EUR, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoEuro()).average().getAsDouble());
-        medias.put(Moeda.JPY, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoYen()).average().getAsDouble());
-        medias.put(Moeda.GBP, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoLibra()).average().getAsDouble());
-        medias.put(Moeda.AUD, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoDollarAutraliano()).average().getAsDouble());
-        medias.put(Moeda.CAD, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoDollarCanadense()).average().getAsDouble());
-        medias.put(Moeda.CHF, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoFrancoSuico()).average().getAsDouble());
-        medias.put(Moeda.CNY, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoYuan()).average().getAsDouble());        
+        List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);      
+        
+        Map<Moeda, BigDecimal> medias = new HashMap<>();
+        medias.put(Moeda.BRL, cotacoes.stream().map(Cotacao::getDsCotacaoReal).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
+        medias.put(Moeda.EUR, cotacoes.stream().map(Cotacao::getDsCotacaoEuro).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
+        medias.put(Moeda.JPY, cotacoes.stream().map(Cotacao::getDsCotacaoYen).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
+        medias.put(Moeda.GBP, cotacoes.stream().map(Cotacao::getDsCotacaoLibra).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
+        medias.put(Moeda.AUD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarAutraliano).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
+        medias.put(Moeda.CAD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarCanadense).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
+        medias.put(Moeda.CHF, cotacoes.stream().map(Cotacao::getDsCotacaoFrancoSuico).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
+        medias.put(Moeda.CNY, cotacoes.stream().map(Cotacao::getDsCotacaoYuan).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
+        
         return medias;
     }
 
