@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+    <head th:fragment="head">
+        <title>Dashboard | Onde está Wallet?</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/fonts/OpenSans-Light.ttf}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/fragments.css}" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" th:fragment="navbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <h6>Onde Está</h6>
+                        <h6>Wallet?</h6>
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" id="li-navbar">Dashboard</a></li>
+                        <li><a href="#" id="li-navbar">Cadastros</a></li>
+                        <li><a href="#" id="li-navbar">Gerentes</a></li>
+                        <li class="dropdown" id="li-navbar">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário<span class="glyphicon glyphicon-triangle-right"></span></a>
+                            <ul class="dropdown-menu">
+                                <li id="li-navbar"><a href="#">Configurações</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li id="li-navbar"><a href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section th:fragment="main-info-section">
+            <div class="row">
+                <section class="container general-info-section col-md-11">
+                    <div class="row">
+                        <section class="general-section-titling col-md-offset-1">
+                            Custo total neste mês: <strong>R$ 400,00</strong>
+                        </section>
+                        <section class="general-section-content col-md-offset-1">
+                            Serviço mais caro do mês: <span>GitHub</span> - <span>R$ 200,00</span>
+                        </section>
+                        <section class="general-section-titling col-md-offset-1">
+                            Custo total para o próximo mês: <strong>R$ 200,00</strong>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+
+        <section class="container main-section col-md-5" th:fragment="main-section">
+            <section class="general-section-titling">
+                Custos deste mês
+            </section>
+            <section class="services-section">
+                <section class="general-section-titling" id="service-titling">
+                    Serviços
+                </section>
+                <section class="services-container list-group">
+                    <section class="col-md-6 single-service-container list-group-item">
+                        <h5 class="service-name text-center"> GitHub </h5>
+                        <h5 class="service-value text-center"> R$ 450,00 </h5>
+                        <a class="btn btn-warning service-edit-btn">
+                            <span class="glyphicon glyphicon-edit"  aria-hidden="true"/>
+                        </a>
+                        <a class="btn btn-danger service-delete-btn">
+                            <span class="glyphicon glyphicon-trash"  aria-hidden="true"/>
+                        </a>
+                    </section>
+                    <section class="col-md-6 single-service-container list-group-item">
+                        <h5 class="service-name text-center"> GitHub </h5>
+                        <h5 class="service-value text-center"> R$ 450,00 </h5>
+                        <a class="btn btn-warning service-edit-btn">
+                            <span class="glyphicon glyphicon-edit"  aria-hidden="true"/>
+                        </a>
+                        <a class="btn btn-danger service-delete-btn">
+                            <span class="glyphicon glyphicon-trash"  aria-hidden="true"/>
+                        </a>
+                    </section>
+                    <section>
+                        <a class="btn btn-default">Ver mais </a>
+                    </section>
+                </section>
+            </section>
+            <section class="general-section-content">
+                Serviços relacionados à sua porcentagem no custo total
+            </section>
+            <section class="graph-section">
+                Gráfico
+            </section>
+        </section>
+    </body>
+</html>
