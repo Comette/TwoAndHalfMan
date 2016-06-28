@@ -13,7 +13,8 @@ import org.springframework.security.core.GrantedAuthority;
  * @author victor.ribeiro
  */
 public enum WalletRoles implements GrantedAuthority{
-    ROLE_USER;
+    ADMINISTRADOR,
+    GERENTE;
 
     @Override
     public String getAuthority() {
