@@ -8,5 +8,6 @@ package br.com.crescer.wallet.entity;
 
 public enum Situacao {
     ATIVO,
+    CANCELADO,
     INATIVO;
 }

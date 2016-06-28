@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class CotacaoController {
     
     @Autowired
-    CotacaoService servico;
+    CotacaoService service;
     
     @RequestMapping(value = "/cotar", method = RequestMethod.POST)
     public double cotar(@RequestBody Moeda moeda){
-        Cotacao cotacao = servico.buscarUltimaCotacao();
+        Cotacao cotacao = service.buscarUltimaCotacao();
         switch (moeda.toString()){
             case "EUR":
                 return cotacao.getDsCotacaoEuro();
@@ -49,8 +49,8 @@ public class CotacaoController {
     }
     
     @RequestMapping(value = "/media", method = RequestMethod.POST)
-    public double[] media(@RequestBody Moeda moeda){
-        return servico.buscarUltimaMediaMoeda(moeda);        
+    public double media(@RequestBody Moeda moeda){
+        return service.buscarUltimaMediaMoeda(moeda);        
     }
 }
 

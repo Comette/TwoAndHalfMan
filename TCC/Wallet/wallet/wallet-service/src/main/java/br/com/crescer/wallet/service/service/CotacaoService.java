@@ -18,7 +18,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -29,71 +31,72 @@ import org.springframework.stereotype.Service;
  * @author victor.ribeiro
  */
 @Service
-public class CotacaoService implements InitializingBean{
+public class CotacaoService implements InitializingBean {
 
     @Autowired
-    CotacaoRepository repositorio;
+    CotacaoRepository repository;
 
     public Cotacao buscarUltimaCotacao() {
-        Cotacao cotacao = repositorio.findFirstByDtCotacaoOrderByIdCotacaoDesc(LocalDate.now());
+        Cotacao cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(LocalDate.now());
         if (cotacao == null) {
             LocalDate hoje = LocalDate.now();
-            cotacao = repositorio.findFirstByDtCotacaoOrderByIdCotacaoDesc(hoje.plusDays(-1));
+            cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(hoje.plusDays(-1));
         }
         return cotacao;
     }
 
-    public double[] buscarUltimaMediaMoeda(Moeda moeda) {
+    public double buscarUltimaMediaMoeda(Moeda moeda) {
         LocalDate dia = LocalDate.now();
-        List<Cotacao> cotacoes = repositorio.findByDtCotacaoBetween(dia.minusDays(29), dia);
-        double[] media = new double[30];
+        List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);
+        double media;
         switch (moeda.toString()) {
             case "EUR":
-                for (int i = 0; i < cotacoes.size(); i++) {
-                    media[i] = cotacoes.get(i).getDsCotacaoEuro();
-                }
+                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoEuro()).average().getAsDouble();
                 break;
             case "BRL":
-                for (int i = 0; i < cotacoes.size(); i++) {
-                    media[i] = cotacoes.get(i).getDsCotacaoReal();
-                }
+                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoReal()).average().getAsDouble();
                 break;
             case "JPY":
-                for (int i = 0; i < cotacoes.size(); i++) {
-                    media[i] = cotacoes.get(i).getDsCotacaoYen();
-                }
+                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoYen()).average().getAsDouble();
                 break;
             case "GBP":
-                for (int i = 0; i < cotacoes.size(); i++) {
-                    media[i] = cotacoes.get(i).getDsCotacaoLibra();
-                }
+                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoLibra()).average().getAsDouble();
                 break;
             case "AUD":
-                for (int i = 0; i < cotacoes.size(); i++) {
-                    media[i] = cotacoes.get(i).getDsCotacaoDollarAutraliano();
-                }
+                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoDollarAutraliano()).average().getAsDouble();
                 break;
             case "CAD":
-                for (int i = 0; i < cotacoes.size(); i++) {
-                    media[i] = cotacoes.get(i).getDsCotacaoDollarCanadense();
-                }
+                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoDollarCanadense()).average().getAsDouble();
                 break;
             case "CHF":
-                for (int i = 0; i < cotacoes.size(); i++) {
-                    media[i] = cotacoes.get(i).getDsCotacaoFrancoSuico();
-                }
+                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoFrancoSuico()).average().getAsDouble();
                 break;
             case "CNY":
-                for (int i = 0; i < cotacoes.size(); i++) {
-                    media[i] = cotacoes.get(i).getDsCotacaoYuan();
-                }
+                media = cotacoes.stream().mapToDouble(c -> c.getDsCotacaoYuan()).average().getAsDouble();
                 break;
             default:
                 //TODO: throws exception
+                media=0;
                 System.out.println("Moeda inválida");
                 break;
         }
         return media;
+    }
+
+    public Map<Moeda, Double> buscarUltimaMedia() {
+        LocalDate dia = LocalDate.now();
+        List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);
+        Map<Moeda, Double> medias = new HashMap<>();
+        medias.put(Moeda.USD, 1.0);
+        medias.put(Moeda.BRL, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoReal()).average().getAsDouble());
+        medias.put(Moeda.EUR, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoEuro()).average().getAsDouble());
+        medias.put(Moeda.JPY, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoYen()).average().getAsDouble());
+        medias.put(Moeda.GBP, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoLibra()).average().getAsDouble());
+        medias.put(Moeda.AUD, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoDollarAutraliano()).average().getAsDouble());
+        medias.put(Moeda.CAD, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoDollarCanadense()).average().getAsDouble());
+        medias.put(Moeda.CHF, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoFrancoSuico()).average().getAsDouble());
+        medias.put(Moeda.CNY, cotacoes.stream().mapToDouble(c -> c.getDsCotacaoYuan()).average().getAsDouble());        
+        return medias;
     }
 
     public String AgenteIntegridadeBanco() {
@@ -102,14 +105,14 @@ public class CotacaoService implements InitializingBean{
         System.out.println("\nInicio da verificação: " + LocalTime.now());
         for (int i = 29; i >= 0; i--) {
             diaVerificacao = dia.minusDays(i);
-            Cotacao cotacao = repositorio.findFirstByDtCotacaoOrderByIdCotacaoDesc(diaVerificacao);
+            Cotacao cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(diaVerificacao);
             if (cotacao == null) {
                 System.out.println("\n-----------FALTANDO:  Cotação dia: " + diaVerificacao + " --------------");
                 this.alimentaCotacaoPorData(diaVerificacao);
                 i++;
             }
         }
-        List<Cotacao> lista = repositorio.findByDtCotacaoBetween(dia.minusDays(29), dia);
+        List<Cotacao> lista = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);
         System.out.println("Fim da verificação: " + LocalTime.now());
         System.out.println("Foram encontrados " + lista.size() + " registros nos ultimos 30 dias");
         return "\nIntegridade do Banco verificada!\n\n";
@@ -138,7 +141,7 @@ public class CotacaoService implements InitializingBean{
             Cotacao cotacao = new Gson().fromJson(json, Rates.class).toCotacao();
             cotacao.setDtCotacao(data);
             System.out.println("-----------Salvando Cotação--------------");
-            repositorio.save(cotacao);
+            repository.save(cotacao);
             System.out.println("Cotação dia: " + cotacao.getDtCotacao() + " atualizada!");
 
         } catch (MalformedURLException ex) {
@@ -153,13 +156,12 @@ public class CotacaoService implements InitializingBean{
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        System.out.println(this.AgenteIntegridadeBanco());        
+        System.out.println(this.AgenteIntegridadeBanco());
     }
-    
+
     @Scheduled(cron = "0 16 19 1/1 * ?")
     public void buscaCotacaoFechamento() {
         System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
         System.out.println(this.AgenteIntegridadeBanco());
-    } 
+    }
 }
-

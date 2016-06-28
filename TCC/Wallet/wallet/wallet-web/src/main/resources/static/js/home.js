@@ -12,6 +12,12 @@ var $formMedia = $('#form-media');
 var $moedaMedia = $('#moeda-selecionada-media');
 var $cotacaoMedia = $('#cotacao-media');
 
+var $gastoTotalAtualUSD = $('#gt-atual-usd');
+var $gastoTotalAtualBRL = $('#gt-atual-brl');
+
+var $gastoTotalProximoMesUSD = $('#gt-proximo-usd');
+var $gastoTotalProximoMesBRL = $('#gt-proximo-brl');
+
 var cotar = function (moeda) {
     $.ajax({
         url: "/cotar",
@@ -34,13 +40,41 @@ var media = function (moeda) {
         data: JSON.stringify(moeda)
     }).done(function (data) {
         $moedaMedia.text(moeda);
-        var soma = data.reduce(function(anterior, atual){ return anterior + atual; }, 0);
-        var media = accounting.toFixed((soma / data.length), 6);        
+        var media = accounting.toFixed(data, 6);
         $cotacaoMedia.text(media);
     });
 };
 
+var getGastoTotalAtual = function(){
+    $.ajax({
+        url: "/gasto-mensal",
+        type: "GET"
+    }).done(function(res){
+        var usd = accounting.toFixed(res.usd, 6);
+        $gastoTotalAtualUSD.text(usd);
+        var brl = accounting.toFixed(res.brl, 6);
+        $gastoTotalAtualBRL.text(brl);
+    });
+};
+
+var getGastoTotalProximoMes = function(){
+    $.ajax({
+        url: "/gasto-mensal-proximo-mes",
+        type: "GET"
+    }).done(function(res){
+        var usd = accounting.toFixed(res.usd, 6);
+        $gastoTotalProximoMesUSD.text(usd);
+        var brl = accounting.toFixed(res.brl, 6);
+        $gastoTotalProximoMesBRL.text(brl);
+    });
+};
+
+var esperadoAtualUSD
+
 $(function () {
+    
+    getGastoTotalAtual();
+    getGastoTotalProximoMes();
     
     $form.submit(function (e) {
         var moeda = e.target[0].value;

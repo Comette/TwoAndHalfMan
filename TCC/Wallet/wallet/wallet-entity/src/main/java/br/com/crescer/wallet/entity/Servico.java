@@ -72,6 +72,9 @@ public class Servico implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuarioIdUsuario;
 
+    public Servico() {
+    }
+
     public Servico(long idServico, String nmServico, String dsDescricao, String dsWebsite, double vlTotalServico, Moeda dsSimboloMoeda, Periodicidade dsPeriodicidade, Situacao dsSituacao, Usuario usuarioIdUsuario) {
         this.idServico = idServico;
         this.nmServico = nmServico;

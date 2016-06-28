@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String toIndex(Model model){        
+    public String toIndex(Model model){   
         List<String> moedas = new ArrayList<>();
         moedas.addAll(Moeda.getPrincipais());
         model.addAttribute("moedas", moedas);

@@ -65,6 +65,9 @@ public class Usuario implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioIdUsuario")
     private List<Servico> servicoList;
 
+    public Usuario() {
+    }
+
     public Usuario(long idUsuario, String nmUsuario, String dsUserName, Permissao tpPermissao, String dsEmail, String dsSenha, Situacao dsSituacao, List<Servico> servicoList) {
         this.idUsuario = idUsuario;
         this.nmUsuario = nmUsuario;
