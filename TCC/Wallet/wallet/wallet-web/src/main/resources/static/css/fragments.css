@@ -1,0 +1,203 @@
+nav {
+    height: 70px;
+}
+body {
+    margin-top: 70px;
+}
+.navbar-default, .btn-danger, .btn-danger:hover, .btn-default {
+    background-color: #434343;
+}
+nav,
+a.navbar-brand h6:first-of-type,
+a.navbar-brand h6:nth-of-type(2), 
+.btn-default,
+.general-section-content span {
+    font-weight: bold;
+}
+
+a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
+    line-height: 15px;
+}
+
+span.glyphicon {
+    font-size: 0.8em;
+    transform: rotate(0deg);
+    transition: transform 0.5s ease;
+}
+
+li a.dropdown-toggle span.glyphicon{
+    transform: rotate(90deg);
+}
+
+#li-navbar{
+    margin-top: 8px;
+}
+
+#li-navbar, #li-navbar{
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+#li-navbar, #li-navbar a {
+    transition: color 0.5s ease;
+}
+
+#li-navbar #li-navbar a, a.navbar-brand h6:nth-of-type(2), .btn-default {
+    color: white;
+}
+
+#li-navbar:hover, #li-navbar a:hover {
+    color: #FBAF41;
+}
+
+a.navbar-brand{
+    margin-top: -13px;
+}
+
+a.navbar-brand h6:first-of-type{
+    margin-left: 1px;
+    font-size: 1.175em;
+}
+a.navbar-brand h6:nth-of-type(2){
+    font-size: 1.8em;
+}
+
+.main-section{
+    border: 2px solid #FBAF41;
+}
+
+.general-info-section{
+    min-height: 200px;
+    margin-left: 3%;
+    padding-top: 25px;
+}
+
+.main-section {
+    box-shadow: 3px 3px 3px #FBAF41;
+}
+
+.general-section-titling{
+    font-weight: 300;
+    font-size: 2.5em;
+}
+
+.main-section .general-section-titling {
+    margin-left: 17%;
+    margin-top: 2%;
+    font-size: 2.7em;
+}
+
+#service-titling {
+    margin-left: 33%;
+}
+
+.services-container {
+    margin-top: 10px;
+}
+
+.single-service-container, .single-service-container:last-child{
+    border: none;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: 1px solid #434343;
+}
+
+.service-edit-btn, .service-delete-btn {
+    width: 50%;
+    float: right;
+}
+
+.btn-danger {
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-danger, .btn-danger:hover {
+    border-color: #434343;
+}
+
+.btn-warning {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-warning:hover, .btn-default:hover, .service-value, .general-section-titling {
+    color: #434343;
+}
+
+.btn-warning, .btn-warning:hover {
+    background-color: #FBAF41;
+    border-color: transparent;
+}
+
+.btn-default, .service-edit-btn, .service-delete-btn {
+    border-radius: 0px;
+
+}
+
+.btn-default {
+    transition: background-color 0.5s ease, color 0.5s ease;
+    margin-left: 40%;
+    margin-top: 5%;
+}
+
+.btn-default:hover {
+    background-color: white;
+}
+
+.service-edit-btn span, .service-delete-btn span {
+    font-size: 1.2em;
+}
+
+.service-name {
+    font-size: 2em;
+    font-weight: 600;
+}
+.service-value {
+    font-size: 1.8em;
+    font-weight: 500;
+}
+
+.main-section .general-section-content {
+    margin-left: 20%;
+    margin-top: 5%;
+}
+
+.general-section-content{
+    font-size: 1.6em;
+    margin-left: 10%;
+}
+
+.general-section-content span:first-of-type,
+.btn-danger:hover, .service-name,
+a.navbar-brand h6:first-of-type {
+    color: #FBAF41;
+}
+
+.main-section{
+    min-height: 900px;
+    margin-top: 30px;
+}
+
+.graph-section {
+    border: 1px solid #434343;
+    height: 300px;
+    margin-top: 5%;
+    width: 97.5%;
+}
+
+.main-section:first-of-type{
+    margin-left: 5%;
+}
+.main-section:nth-of-type(2){
+    margin-left: 4%;
+}
+
+.service-value, 
+.service-name, 
+.btn-default, 
+.general-section-titling, 
+.general-section-content,
+nav,
+a.navbar-brand h6:first-of-type,
+a.navbar-brand h6:nth-of-type(2)  {
+    font-family: 'Open Sans', sans-serif;
+}
