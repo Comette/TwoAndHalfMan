@@ -7,7 +7,7 @@
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'/>
         <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css"/>
-        
+
     </head>
     <body>
         <div class="container-fluid">
@@ -18,17 +18,25 @@
                 </header>
             </div>
             <div class="row">
-                <form class="form-horizontal col-md-4" th:action="@{/entrar}" th:object="${usuario}">
+                <form class="form-horizontal col-md-4" th:action="@{/login}" method="POST">
                     <section class="form-group">
-                        <input type="text" name="inputUsuario" th:placeholder="#{placeholder.usuario}" th:field="*{dsUserName}" class="form-control" />
+                        <input type="text" name="username" th:placeholder="#{placeholder.usuario}" class="form-control" />
                     </section>
                     <section class="form-group">
-                        <input type="password" name="inputSenha" th:placeholder="#{placeholder.senha}" th:field="*{dsSenha}" class="form-control" />
+                        <input type="password" name="password" th:placeholder="#{placeholder.senha}" class="form-control" />
                     </section>
-                      <section class="form-group">
+                    <section class="form-group">
                         <input type="submit" class="btn btn-info col-md-offset-10" th:value="#{texto.botao.entrar}" id="btn-login"/>
                     </section>
                 </form>    
+            </div>
+            <div class="row">
+                <section class="alert login-error col-md-3 col-md-offset-4" th:if="${param.error}">
+                    Opa! Algo deu errado. Verifique seu e-mail e senha novamente.
+                </section>
+                <section class="alert login-error col-md-3 col-md-offset-4" th:if="${param.logout}">
+                    Logout efetuado com sucesso.
+                </section>
             </div>
         </div>
     </body>
