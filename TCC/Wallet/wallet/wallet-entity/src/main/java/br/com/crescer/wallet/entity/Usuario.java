@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,7 +23,10 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "USUARIO", 
-        uniqueConstraints = @UniqueConstraint(columnNames={"DS_USER_NAME"}))
+        uniqueConstraints = @UniqueConstraint(columnNames={"DS_USER_NAME"}),
+        indexes = {@Index(columnList = "DS_SITUACAO", name = "index_situacao_usuario")}
+        )
+        
 public class Usuario implements Serializable {
 
     @Id

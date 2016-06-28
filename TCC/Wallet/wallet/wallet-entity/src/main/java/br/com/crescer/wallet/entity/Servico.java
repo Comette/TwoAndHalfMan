@@ -1,4 +1,3 @@
-
 package br.com.crescer.wallet.entity;
 
 
@@ -24,8 +23,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SERVICO", 
         indexes = {@Index(columnList = "NM_SERVICO", name = "index_nome_servico"),
-                   @Index(columnList = "VL_SERVICO", name = "index_valor_servico"),
-                   @Index(columnList = "USUARIO_ID_USUARIO", name = "index_gerente")
+                   @Index(columnList = "VL_TOTAL_SERVICO", name = "index_valor_servico"),
+                   @Index(columnList = "USUARIO_ID_USUARIO", name = "index_gerente"),
+                   @Index(columnList = "DS_SITUACAO", name = "index_situacao_servico")
         })
 public class Servico implements Serializable {
     
@@ -50,8 +50,8 @@ public class Servico implements Serializable {
     private String dsWebsite;
 
     @Basic(optional = false)
-    @Column(name = "VL_SERVICO")
-    private long vlServico;
+    @Column(name = "VL_TOTAL_SERVICO")
+    private long vlTotalServico;
 
     @Basic(optional = false)
     @Column(name = "DS_SIMBOLO_MOEDA")
@@ -61,19 +61,25 @@ public class Servico implements Serializable {
     @Basic(optional = false)
     @Column(name = "DS_PERIODICIDADE")
     private Periodicidade dsPeriodicidade;
+    
+    @Enumerated(EnumType.STRING)
+    @Basic(optional = false)
+    @Column(name = "DS_SITUACAO")
+    private Situacao dsSituacao;
 
     @JoinColumn(name = "USUARIO_ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne(optional = false)
     private Usuario usuarioIdUsuario;
 
-    public Servico(long idServico, String nmServico, String dsDescricao, String dsWebsite, long valor, String dsSimboloMoeda, Periodicidade dsPeriodicidade, Usuario usuarioIdUsuario) {
+    public Servico(long idServico, String nmServico, String dsDescricao, String dsWebsite, long vlTotalServico, String dsSimboloMoeda, Periodicidade dsPeriodicidade, Situacao dsSituacao, Usuario usuarioIdUsuario) {
         this.idServico = idServico;
         this.nmServico = nmServico;
         this.dsDescricao = dsDescricao;
         this.dsWebsite = dsWebsite;
-        this.vlServico = valor;
+        this.vlTotalServico = vlTotalServico;
         this.dsSimboloMoeda = dsSimboloMoeda;
         this.dsPeriodicidade = dsPeriodicidade;
+        this.dsSituacao = dsSituacao;
         this.usuarioIdUsuario = usuarioIdUsuario;
     }
 
@@ -109,12 +115,12 @@ public class Servico implements Serializable {
         this.dsWebsite = dsWebsite;
     }
 
-    public long getVlServico() {
-        return vlServico;
+    public long getVlTotalServico() {
+        return vlTotalServico;
     }
 
-    public void setVlServico(long vlServico) {
-        this.vlServico = vlServico;
+    public void setVlTotalServico(long vlTotalServico) {
+        this.vlTotalServico = vlTotalServico;
     }
 
     public String getDsSimboloMoeda() {
@@ -133,6 +139,14 @@ public class Servico implements Serializable {
         this.dsPeriodicidade = dsPeriodicidade;
     }
 
+    public Situacao getDsSituacao() {
+        return dsSituacao;
+    }
+
+    public void setDsSituacao(Situacao dsSituacao) {
+        this.dsSituacao = dsSituacao;
+    }
+
     public Usuario getUsuarioIdUsuario() {
         return usuarioIdUsuario;
     }
@@ -140,4 +154,6 @@ public class Servico implements Serializable {
     public void setUsuarioIdUsuario(Usuario usuarioIdUsuario) {
         this.usuarioIdUsuario = usuarioIdUsuario;
     }
+
+   
 }
