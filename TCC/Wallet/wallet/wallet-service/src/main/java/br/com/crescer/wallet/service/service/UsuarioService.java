@@ -1,5 +1,4 @@
 package br.com.crescer.wallet.service.service;
-
 import br.com.crescer.wallet.entity.Usuario;
 import br.com.crescer.wallet.service.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
