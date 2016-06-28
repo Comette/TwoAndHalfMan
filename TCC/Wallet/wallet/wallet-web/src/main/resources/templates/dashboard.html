@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+    <head th:replace="fragments_dashboard :: head">
+        <title>DashBoardie</title>
+    </head>
+    <body>
+        <nav th:replace="fragments_dashboard :: navbar"/>
+        <div class="container">
+            <section th:replace="fragments_dashboard :: main-info-section"/>
+            <div class="row">
+                <section th:replace="fragments_dashboard :: main-section"/>
+                <section th:replace="fragments_dashboard :: main-section"/>
+            </div>
+        </div>  
+
+    </body>
+</html>
