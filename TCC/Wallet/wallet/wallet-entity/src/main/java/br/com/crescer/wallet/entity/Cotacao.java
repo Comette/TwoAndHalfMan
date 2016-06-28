@@ -6,17 +6,16 @@ package br.com.crescer.wallet.entity;
  */
 
 import java.time.LocalDate;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 
 
 /**
@@ -24,7 +23,9 @@ import javax.persistence.TemporalType;
  * @author victo
  */
 @Entity
-@Table(name = "COTACAO")
+@Table(name = "COTACAO",
+       indexes = {@Index(columnList = "DT_COTACAO", name = "index_dt_cotacao")}
+)
 public class Cotacao {
 
     @Id

@@ -7,10 +7,11 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -21,7 +22,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "USUARIO", 
-        uniqueConstraints = @UniqueConstraint(columnNames={"NM_USUARIO", "DS_USER_NAME"}))
+        uniqueConstraints = @UniqueConstraint(columnNames={"DS_USER_NAME"}))
 public class Usuario implements Serializable {
 
     @Id
@@ -39,9 +40,10 @@ public class Usuario implements Serializable {
     @Column(name = "DS_USER_NAME")
     private String dsUserName;
     
+    @Enumerated(EnumType.STRING)
     @Basic(optional = false)
     @Column(name = "TP_PERMISSAO")
-    private String tpPermissao;
+    private Permissao tpPermissao;
     
     @Basic(optional = false)
     @Column(name = "DS_EMAIL")
@@ -51,14 +53,15 @@ public class Usuario implements Serializable {
     @Column(name = "DS_SENHA")
     private String dsSenha;
     
+    @Enumerated(EnumType.STRING)
     @Basic(optional = false)
     @Column(name = "DS_SITUACAO")
-    private String dsSituacao;
+    private Situacao dsSituacao;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioIdUsuario")
     private List<Servico> servicoList;
 
-    public Usuario(long idUsuario, String nmUsuario, String dsUserName, String tpPermissao, String dsEmail, String dsSenha, String dsSituacao, List<Servico> servicoList) {
+    public Usuario(long idUsuario, String nmUsuario, String dsUserName, Permissao tpPermissao, String dsEmail, String dsSenha, Situacao dsSituacao, List<Servico> servicoList) {
         this.idUsuario = idUsuario;
         this.nmUsuario = nmUsuario;
         this.dsUserName = dsUserName;
@@ -93,11 +96,11 @@ public class Usuario implements Serializable {
         this.dsUserName = dsUserName;
     }
 
-    public String getTpPermissao() {
+    public Permissao getTpPermissao() {
         return tpPermissao;
     }
 
-    public void setTpPermissao(String tpPermissao) {
+    public void setTpPermissao(Permissao tpPermissao) {
         this.tpPermissao = tpPermissao;
     }
 
@@ -117,11 +120,11 @@ public class Usuario implements Serializable {
         this.dsSenha = dsSenha;
     }
 
-    public String getDsSituacao() {
+    public Situacao getDsSituacao() {
         return dsSituacao;
     }
 
-    public void setDsSituacao(String dsSituacao) {
+    public void setDsSituacao(Situacao dsSituacao) {
         this.dsSituacao = dsSituacao;
     }
 
@@ -133,5 +136,5 @@ public class Usuario implements Serializable {
         this.servicoList = servicoList;
     }
 
-    
+   
 }
