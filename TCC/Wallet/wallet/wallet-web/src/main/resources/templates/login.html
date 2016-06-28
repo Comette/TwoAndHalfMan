@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="UTF-8"/>
-        <title>Login | Onde Está Wallet</title>
+        <title th:text="#{title.login}"/>
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'/>
         <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css"/>
@@ -31,12 +31,8 @@
                 </form>    
             </div>
             <div class="row">
-                <section class="alert login-error col-md-3 col-md-offset-4" th:if="${param.error}">
-                    Opa! Algo deu errado. Verifique seu usuário e senha novamente.
-                </section>
-                <section class="alert login-error col-md-3 col-md-offset-4" th:if="${param.logout}">
-                    Logout efetuado com sucesso.
-                </section>
+                <section class="alert login-error col-md-3 col-md-offset-4" th:if="${param.error}" th:text="#{erro.login}"/>
+                <section class="alert login-error col-md-3 col-md-offset-4" th:if="${param.logout}" th:text="#{logout}"/>
             </div>
         </div>
     </body>
