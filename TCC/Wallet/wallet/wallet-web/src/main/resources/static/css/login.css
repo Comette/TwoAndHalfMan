@@ -63,3 +63,9 @@ label.checkbox-inline{
     color: #434343;
 }
 
+.login-error{
+    background-color: #434343;
+    font-family: 'Open Sans', sans-serif;
+    color: #FBAF41;
+    border-radius: 0px;
+}
