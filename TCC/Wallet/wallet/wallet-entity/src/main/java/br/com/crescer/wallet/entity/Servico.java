@@ -51,11 +51,12 @@ public class Servico implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "VL_TOTAL_SERVICO")
-    private long vlTotalServico;
+    private double vlTotalServico;
 
+    @Enumerated(EnumType.STRING)
     @Basic(optional = false)
     @Column(name = "DS_SIMBOLO_MOEDA")
-    private String dsSimboloMoeda;
+    private Moeda dsSimboloMoeda;
 
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
@@ -71,7 +72,7 @@ public class Servico implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuarioIdUsuario;
 
-    public Servico(long idServico, String nmServico, String dsDescricao, String dsWebsite, long vlTotalServico, String dsSimboloMoeda, Periodicidade dsPeriodicidade, Situacao dsSituacao, Usuario usuarioIdUsuario) {
+    public Servico(long idServico, String nmServico, String dsDescricao, String dsWebsite, double vlTotalServico, Moeda dsSimboloMoeda, Periodicidade dsPeriodicidade, Situacao dsSituacao, Usuario usuarioIdUsuario) {
         this.idServico = idServico;
         this.nmServico = nmServico;
         this.dsDescricao = dsDescricao;
@@ -115,19 +116,19 @@ public class Servico implements Serializable {
         this.dsWebsite = dsWebsite;
     }
 
-    public long getVlTotalServico() {
+    public double getVlTotalServico() {
         return vlTotalServico;
     }
 
-    public void setVlTotalServico(long vlTotalServico) {
+    public void setVlTotalServico(double vlTotalServico) {
         this.vlTotalServico = vlTotalServico;
     }
 
-    public String getDsSimboloMoeda() {
+    public Moeda getDsSimboloMoeda() {
         return dsSimboloMoeda;
     }
 
-    public void setDsSimboloMoeda(String dsSimboloMoeda) {
+    public void setDsSimboloMoeda(Moeda dsSimboloMoeda) {
         this.dsSimboloMoeda = dsSimboloMoeda;
     }
 
