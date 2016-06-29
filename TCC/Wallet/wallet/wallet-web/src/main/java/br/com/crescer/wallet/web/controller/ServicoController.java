@@ -7,6 +7,7 @@ import br.com.crescer.wallet.service.service.ServicoService;
 import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +24,8 @@ public class ServicoController {
     ServicoService service;
     
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public DashboardDTO dashboard(){        
-        return service.geraDadosDashboard();
+    public DashboardDTO dashboard(Pageable pageable){        
+        return service.geraDadosDashboard(pageable);
     }
     
     @RequestMapping(value = "/gasto-total-atual", method = RequestMethod.GET)
@@ -38,12 +39,12 @@ public class ServicoController {
     }
     
     @RequestMapping(value = "/servicos-mes-atual", method = RequestMethod.GET)
-    public List<ServicoDTO> servicosMesAtual(){        
-        return service.getServicosDTOMesAtual();
+    public List<ServicoDTO> servicosMesAtual(Pageable pageable){        
+        return service.getServicosDTOMesAtualPaginados(pageable);
     }
     
     @RequestMapping(value = "/servicos-proximo-mes", method = RequestMethod.GET)
-    public List<ServicoDTO> servicosProximosMes(){
-        return service.getServicosDTOProximoMes();
+    public List<ServicoDTO> servicosProximosMes(Pageable pageable){
+        return service.getServicosDTOProximoMesPaginados(pageable);
     }
 }

@@ -26,7 +26,7 @@ public class CotacaoController {
     
     @RequestMapping(value = "/cotar", method = RequestMethod.POST)
     public BigDecimal cotar(@RequestBody Moeda moeda){
-        Cotacao cotacao = service.buscarUltimaCotacao();
+        Cotacao cotacao = service.findLastExchangeRate();
         switch (moeda.toString()){
             case "EUR":
                 return cotacao.getDsCotacaoEuro();
@@ -51,7 +51,7 @@ public class CotacaoController {
     
     @RequestMapping(value = "/media", method = RequestMethod.POST)
     public BigDecimal media(@RequestBody Moeda moeda){
-        return service.buscarUltimaMediaMoeda(moeda);        
+        return service.findLastCurrencyAverage(moeda);        
     }
 }
 
