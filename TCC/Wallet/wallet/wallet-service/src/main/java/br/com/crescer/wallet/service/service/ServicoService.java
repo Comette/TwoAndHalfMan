@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -63,7 +64,6 @@ public class ServicoService {
         BigDecimal gastoTotalProximoMes = this.calculaGastoMensal(servicosDTOProximoMes);
         return gastoTotalProximoMes;
     }
-
 
     public List<ServicoDTO> getServicosDTOMesAtualPaginados(Pageable pageable) {
         return this.getServicosDTO(servicosMesAtualPaginados(pageable));
@@ -130,5 +130,13 @@ public class ServicoService {
         }
         return new ServicoDTO(servico.getIdServico(), servico.getNmServico(), vlrCusto);
     }
-
+    
+    @Scheduled(cron = "0 1 0 1 1/1 ?")
+    public void atualizaStatusServicosCancelados(){
+        List<Servico> servicosCancelados = repository.findByDsSituacao(Situacao.CANCELADO);
+        servicosCancelados.stream().forEach((servico) -> {
+            servico.setDsSituacao(Situacao.INATIVO);
+        });
+        repository.save(servicosCancelados);
+    }
 }
