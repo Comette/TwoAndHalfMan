@@ -7,6 +7,7 @@ package br.com.crescer.wallet.service.service;
 import br.com.crescer.wallet.entity.Cotacao;
 import br.com.crescer.wallet.entity.Moeda;
 import br.com.crescer.wallet.service.repository.CotacaoRepository;
+import static br.com.crescer.wallet.service.service.CalculationUtils.CALC_SCALE;
 import br.com.crescer.wallet.service.webservice.Rates;
 import br.com.crescer.wallet.service.webservice.WebServiceConfig;
 import com.google.gson.Gson;
@@ -91,14 +92,14 @@ public class CotacaoService implements InitializingBean {
         BigDecimal totalCotacoes = BigDecimal.valueOf(cotacoes.size());
         Map<Moeda, BigDecimal> medias = new HashMap<>();
         medias.put(Moeda.USD, BigDecimal.ONE);
-        medias.put(Moeda.BRL, cotacoes.stream().map(Cotacao::getDsCotacaoReal).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
-        medias.put(Moeda.EUR, cotacoes.stream().map(Cotacao::getDsCotacaoEuro).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
-        medias.put(Moeda.JPY, cotacoes.stream().map(Cotacao::getDsCotacaoYen).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
-        medias.put(Moeda.GBP, cotacoes.stream().map(Cotacao::getDsCotacaoLibra).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
-        medias.put(Moeda.AUD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarAutraliano).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
-        medias.put(Moeda.CAD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarCanadense).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
-        medias.put(Moeda.CHF, cotacoes.stream().map(Cotacao::getDsCotacaoFrancoSuico).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
-        medias.put(Moeda.CNY, cotacoes.stream().map(Cotacao::getDsCotacaoYuan).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
+        medias.put(Moeda.BRL, cotacoes.stream().map(Cotacao::getDsCotacaoReal).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+        medias.put(Moeda.EUR, cotacoes.stream().map(Cotacao::getDsCotacaoEuro).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+        medias.put(Moeda.JPY, cotacoes.stream().map(Cotacao::getDsCotacaoYen).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+        medias.put(Moeda.GBP, cotacoes.stream().map(Cotacao::getDsCotacaoLibra).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+        medias.put(Moeda.AUD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarAutraliano).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+        medias.put(Moeda.CAD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarCanadense).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+        medias.put(Moeda.CHF, cotacoes.stream().map(Cotacao::getDsCotacaoFrancoSuico).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+        medias.put(Moeda.CNY, cotacoes.stream().map(Cotacao::getDsCotacaoYuan).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
         
         return medias;
     }

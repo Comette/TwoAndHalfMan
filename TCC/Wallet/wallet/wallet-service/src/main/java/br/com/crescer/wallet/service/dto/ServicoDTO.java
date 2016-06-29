@@ -52,7 +52,7 @@ public class ServicoDTO {
     }
 
     public void setPorcentagemCustoTotal(BigDecimal gastoTotal) {
-        BigDecimal porcentagemCustoTotal = this.custoMensal.multiply(BigDecimal.valueOf(100)).divide(gastoTotal, 6, RoundingMode.HALF_UP);
-        this.porcentagemCustoTotal = porcentagemCustoTotal;
+        BigDecimal porcentCustoTotal = this.custoMensal.multiply(BigDecimal.valueOf(100)).divide(gastoTotal, 6, RoundingMode.HALF_UP);
+        this.porcentagemCustoTotal = porcentCustoTotal;
     }
 }
