@@ -7,6 +7,10 @@ nav {
     height: 70px;
 }
 
+.navbar-right {
+    margin-right: 5.72%;
+}
+
 .navbar-collapse {
     background-color: #434343;
     border: none;
@@ -27,7 +31,8 @@ nav,
 a.navbar-brand h6:first-of-type,
 a.navbar-brand h6:nth-of-type(2), 
 .btn-default,
-.general-section-content span {
+.general-section-content span,
+servico-mais-caro-nome {
     font-weight: bold;
 }
 
@@ -52,6 +57,13 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
 
 .servico-mais-caro {
     font-size: 2em;
+    background-color: #FBAF41;
+    font-weight: bolder;
+    color: white;
+}
+
+.servico-mais-caro span {
+    color: #434343;
 }
 
 .panel-container-top {
@@ -88,10 +100,12 @@ li a.dropdown-toggle span.glyphicon{
     color: #FBAF41;
 }
 
-a.navbar-brand{
-    margin-top: -13px;
+@media(min-width: 768px){
+    .navbar>.container-fluid .navbar-brand {
+        margin-left: 80px;
+        margin-top: -14px;
+    }
 }
-
 a.navbar-brand h6:first-of-type{
     margin-left: 1px;
     font-size: 1.175em;
@@ -175,7 +189,6 @@ a.navbar-brand h6:nth-of-type(2){
 
 .btn-default {
     transition: background-color 0.5s ease, color 0.5s ease;
-    margin-left: 40%;
     margin-top: 5%;
 }
 

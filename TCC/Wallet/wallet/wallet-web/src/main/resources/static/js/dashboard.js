@@ -14,7 +14,8 @@ var $valorServicoMaisCaro = $('#servico-mais-caro-valor');
 var $gastoTotalMesAtual = $('#preco-total-mes');
 var $gastoTotalProximoMes = $('#preco-total-proximo-mes');
 
-var paginaAtual = 0;
+var paginaAtualMesAtual = 0;
+var paginaAtualProximoMes = 0;
 
 var rederizaListaServicos = function (containerLista, servicos) {
     $.each(servicos, function (i, servico) {
@@ -53,10 +54,33 @@ var getDadosDashboard = function () {
 $(function () {
     getDadosDashboard();
     buscarDadosEChamarGraficos($containerGraficoMesAtual, $containerGraficoProximoMes);
+    debugger;
+    setarOnClickBotoesVerMais();
 });
 
-function setarOnClickBotaoVerMais(){
-    $('#btnVerMais').click(function(){
-        
+function setarOnClickBotoesVerMais() {
+    $('#btnVerMaisAtual').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/servicos-mes-atual?page=' + ++paginaAtualMesAtual
+        }).done(function (data) {
+            if (data.length < 4) {
+                $('#btnVerMaisAtual').text("Não existem mais serviços");
+                $('#btnVerMaisAtual').addClass('disabled');
+            }
+            rederizaListaServicos($containerMesAtual, data);
+        });
+    });
+    $('#btnVerMaisProximo').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/servicos-proximo-mes?page=' + ++paginaAtualProximoMes
+        }).done(function (data) {
+            if (data.length < 4) {
+                $('#btnVerMaisProximo').text("Não existem mais serviços");
+                $('#btnVerMaisProximo').addClass('disabled');
+            }
+            rederizaListaServicos($containerProximoMes, data);
+        });
     });
 }

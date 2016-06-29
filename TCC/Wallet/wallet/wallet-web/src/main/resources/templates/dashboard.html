@@ -11,19 +11,19 @@
             </div>
             <div class="row">
                 <div class="container">
-                <section class="panel servico-mais-caro">
+                <section class="panel servico-mais-caro text-center">
                     <section>
-                        Serviço mais caro contratado <span id="servico-mais-caro-nome"/>GitBub - R$ 1400,00<span id="servico-mais-caro-valor"/>
+                        Serviço mais caro contratado: <span id="servico-mais-caro-nome">GitBub - </span><span id="servico-mais-caro-valor">R$ 200,00</span>
                     </section>
                 </section>
                 </div>
             </div>
             <div class="row">
                 <section class="col-md-6">
-                    <section th:replace="fragments_dashboard :: main-section('Custos deste mês', ${idMesAtual}, 'grafico-mes-atual')"/>
+                    <section th:replace="fragments_dashboard :: main-section('Custos deste mês', ${idMesAtual}, 'grafico-mes-atual', 'btnVerMaisAtual')"/>
                 </section>
                 <section class="col-md-6">
-                    <section th:replace="fragments_dashboard :: main-section('Previsão para o próximo mês',${idProximoMes}, 'grafico-proximo-mes')"/>
+                    <section th:replace="fragments_dashboard :: main-section('Previsão para o próximo mês',${idProximoMes}, 'grafico-proximo-mes', 'btnVerMaisProximo')"/>
                 </section>
             </div>
         </div> 
