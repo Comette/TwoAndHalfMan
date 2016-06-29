@@ -4,6 +4,8 @@
  */
 package br.com.crescer.wallet.service.dto;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author victor.ribeiro
@@ -11,14 +13,13 @@ package br.com.crescer.wallet.service.dto;
 public class ServicoDTO {
     private long id;
     private String nome;
-    private double custoMensal;
-    private double porcentagemCustoTotal;
+    private BigDecimal custoMensal;
+    private BigDecimal porcentagemCustoTotal;
 
-    public ServicoDTO(long id, String nome, double custoMensal, double porcentagemCustoTotal) {
+    public ServicoDTO(long id, String nome, BigDecimal custoMensal) {
         this.id = id;
         this.nome = nome;
         this.custoMensal = custoMensal;
-        this.porcentagemCustoTotal = porcentagemCustoTotal;
     }
 
     public long getId() {
@@ -37,19 +38,20 @@ public class ServicoDTO {
         this.nome = nome;
     }
 
-    public double getCustoMensal() {
+    public BigDecimal getCustoMensal() {
         return custoMensal;
     }
 
-    public void setCustoMensal(double custoMensal) {
+    public void setCustoMensal(BigDecimal custoMensal) {
         this.custoMensal = custoMensal;
     }
 
-    public double getPorcentagemCustoTotal() {
+    public BigDecimal getPorcentagemCustoTotal() {
         return porcentagemCustoTotal;
     }
 
-    public void setPorcentagemCustoTotal(double porcentagemCustoTotal) {
+    public void setPorcentagemCustoTotal(BigDecimal gastoTotal) {
+        BigDecimal porcentagemCustoTotal = this.custoMensal.multiply(BigDecimal.valueOf(100)).divide(gastoTotal);
         this.porcentagemCustoTotal = porcentagemCustoTotal;
     }
 }

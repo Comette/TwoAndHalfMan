@@ -1,12 +1,12 @@
 // Error reading included file Templates/Classes/Templates/Licenses/license-wallet-br.txt
 package br.com.crescer.wallet.web.controller;
 
-import br.com.crescer.wallet.entity.Moeda;
+import br.com.crescer.wallet.service.dto.DashboardDTO;
+import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.service.ServicoService;
-import br.com.crescer.wallet.web.dto.GastoMensalDTO;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,21 +22,28 @@ public class ServicoController {
     @Autowired
     ServicoService service;
     
-    @RequestMapping(value = "/gasto-mensal", method = RequestMethod.GET)
-    public GastoMensalDTO gastoMensal(){
-        Map<Moeda, Double> gastoTotalMensal = service.gastoTotalMensal();
-        GastoMensalDTO gastoMensalDTO = new GastoMensalDTO();
-        gastoMensalDTO.setUsd(gastoTotalMensal.get(Moeda.USD));
-        gastoMensalDTO.setBrl(gastoTotalMensal.get(Moeda.BRL));
-        return gastoMensalDTO;
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public DashboardDTO dashboard(){        
+        return service.geraDadosDashboard();
     }
     
-    @RequestMapping(value = "/gasto-mensal-proximo-mes", method = RequestMethod.GET)
-    public GastoMensalDTO gastoMensalProximoMes(){
-        Map<Moeda, Double> gastoTotalMensal = service.gastoTotalMensalPrevistoProximoMes();
-        GastoMensalDTO gastoMensalDTO = new GastoMensalDTO();
-        gastoMensalDTO.setUsd(gastoTotalMensal.get(Moeda.USD));
-        gastoMensalDTO.setBrl(gastoTotalMensal.get(Moeda.BRL));
-        return gastoMensalDTO;
+    @RequestMapping(value = "/gasto-total-atual", method = RequestMethod.GET)
+    public BigDecimal gastoTotalAtual(){        
+        return service.getGastoTotalAtual();
+    }
+    
+    @RequestMapping(value = "/gasto-total-proximo-mes", method = RequestMethod.GET)
+    public BigDecimal gastoTotalProximoMes(){
+        return service.getGastoTotalProximoMes();
+    }
+    
+    @RequestMapping(value = "/servicos-mes-atual", method = RequestMethod.GET)
+    public List<ServicoDTO> servicosMesAtual(){        
+        return service.getServicosDTOMesAtual();
+    }
+    
+    @RequestMapping(value = "/servicos-proximo-mes", method = RequestMethod.GET)
+    public List<ServicoDTO> servicosProximosMes(){
+        return service.getServicosDTOProximoMes();
     }
 }

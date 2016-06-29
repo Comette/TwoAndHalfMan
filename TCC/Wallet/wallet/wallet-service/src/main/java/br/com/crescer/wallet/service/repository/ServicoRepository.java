@@ -14,8 +14,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ServicoRepository extends CrudRepository<Servico, Long> {
 
-    public List<Servico> findByDsPeriodicidadeAndDsSituacaoNot(Periodicidade periodicidade, Situacao situacao);
-    
-    public List<Servico> findByDsPeriodicidadeAndDsSituacao(Periodicidade periodicidade, Situacao situacao);
+    public List<Servico> findByDsSituacaoNot(Situacao situacao);
+
+    public List<Servico> findByDsSituacao(Situacao situacao);
     
 }

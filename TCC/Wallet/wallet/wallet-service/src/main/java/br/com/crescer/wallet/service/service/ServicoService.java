@@ -5,6 +5,7 @@ import br.com.crescer.wallet.entity.Moeda;
 import br.com.crescer.wallet.entity.Periodicidade;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
+import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.repository.ServicoRepository;
 import java.math.BigDecimal;
@@ -28,63 +29,73 @@ public class ServicoService {
     @Autowired
     CotacaoService cotacaoService;
     
-    public void geraDadosDashboard(){
+    public DashboardDTO geraDadosDashboard(){
+        List<ServicoDTO> servicosDTOMesAtual = this.getServicosDTOMesAtual();
+        List<ServicoDTO> servicosDTOProximoMes = this.getServicosDTOProximoMes();
         
-    }
-    
-    public Map<Periodicidade, List<Servico>> servicosMesAtual(){   
-        Map<Periodicidade, List<Servico>> servicos = new HashMap<>();
-        servicos.put(Periodicidade.MENSAL, repository.findByDsPeriodicidadeAndDsSituacaoNot(Periodicidade.MENSAL, Situacao.INATIVO));
-        servicos.put(Periodicidade.TRIMESTRAL, repository.findByDsPeriodicidadeAndDsSituacaoNot(Periodicidade.TRIMESTRAL, Situacao.INATIVO));
-        servicos.put(Periodicidade.SEMESTRAL, repository.findByDsPeriodicidadeAndDsSituacaoNot(Periodicidade.SEMESTRAL, Situacao.INATIVO));
-        servicos.put(Periodicidade.ANUAL, repository.findByDsPeriodicidadeAndDsSituacaoNot(Periodicidade.ANUAL, Situacao.INATIVO));        
-        return servicos;
-    }
-    
-    public Map<Periodicidade, List<Servico>> servicosProximoMes(){ 
-        Map<Periodicidade, List<Servico>> servicos = new HashMap<>();
-        servicos.put(Periodicidade.MENSAL, repository.findByDsPeriodicidadeAndDsSituacao(Periodicidade.MENSAL, Situacao.ATIVO));
-        servicos.put(Periodicidade.TRIMESTRAL, repository.findByDsPeriodicidadeAndDsSituacao(Periodicidade.TRIMESTRAL, Situacao.ATIVO));
-        servicos.put(Periodicidade.SEMESTRAL, repository.findByDsPeriodicidadeAndDsSituacao(Periodicidade.SEMESTRAL, Situacao.ATIVO));
-        servicos.put(Periodicidade.ANUAL, repository.findByDsPeriodicidadeAndDsSituacao(Periodicidade.ANUAL, Situacao.ATIVO));        
-        return servicos;
-    }
-    
-    private BigDecimal calculaGastoMensal(Map<Periodicidade, List<Servico>> servicos){
-        
-        List<Servico> servicosMensais = servicos.get(Periodicidade.MENSAL);
-        List<Servico> servicosTrimestrais = servicos.get(Periodicidade.TRIMESTRAL);
-        List<Servico> servicosSemestrais = servicos.get(Periodicidade.SEMESTRAL);
-        List<Servico> servicosAnuais = servicos.get(Periodicidade.ANUAL);
-        
-        Map<Moeda, BigDecimal> medias = cotacaoService.buscarUltimaMedia();        
-        
-        BigDecimal custoMensalServicosMensais = servicosMensais.stream().map(servico -> servico.getVlTotalServico().divide(medias.get(servico.getDsSimboloMoeda()))).reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal custoMensalServicosTrimestrais = servicosTrimestrais.stream().map(servico -> (servico.getVlTotalServico().divide(BigDecimal.valueOf(3))).divide(medias.get(servico.getDsSimboloMoeda()))).reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal custoMensalServicosSemestrais = servicosSemestrais.stream().map(servico -> (servico.getVlTotalServico().divide(BigDecimal.valueOf(6))).divide(medias.get(servico.getDsSimboloMoeda()))).reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal custoMensalServicosAnuais = servicosAnuais.stream().map(servico -> (servico.getVlTotalServico().divide(BigDecimal.valueOf(12))).divide(medias.get(servico.getDsSimboloMoeda()))).reduce(BigDecimal.ZERO, BigDecimal::add);
-       
-        BigDecimal gastoTotalUSD = custoMensalServicosMensais.add(custoMensalServicosTrimestrais).add(custoMensalServicosSemestrais).add(custoMensalServicosAnuais);
-        BigDecimal gastoTotalBRL = gastoTotalUSD.multiply(medias.get(Moeda.BRL));
-        
-        return gastoTotalBRL;
-    }
-    
-    private List<ServicoDTO> getCustoServicos(Map<Periodicidade, List<Servico>> servicos, Map<Moeda, Double> medias, double gastoTotal){          
-        
-        List<Servico> servicosMensais = servicos.get(Periodicidade.MENSAL);
-        List<Servico> servicosTrimestrais = servicos.get(Periodicidade.TRIMESTRAL);
-        List<Servico> servicosSemestrais = servicos.get(Periodicidade.SEMESTRAL);
-        List<Servico> servicosAnuais = servicos.get(Periodicidade.ANUAL);
-        
-        List<ServicoDTO> servicosDTO = new ArrayList<>();
+        BigDecimal gastoTotalAtual = this.getGastoTotalAtual();
+        servicosDTOMesAtual.stream().forEach((servico) -> {
+            servico.setPorcentagemCustoTotal(gastoTotalAtual);
+        });
                 
-//        for (Servico servico: servicosMensais){            
-//            double custoMensal = servico.getVlTotalServico() / medias.get(servico.getDsSimboloMoeda());
-//            double porcentagemCustoTotal = custoMensal * 100 / gastoTotal;
-//            servicosDTO.add(new ServicoDTO(servico.getIdServico(), servico.getNmServico(), custoMensal, porcentagemCustoTotal));
-//        }
-              
+        BigDecimal gastoTotalProximoMes = this.getGastoTotalProximoMes();
+        servicosDTOProximoMes.stream().forEach((servico) -> {
+            servico.setPorcentagemCustoTotal(gastoTotalProximoMes);
+        });
+        
+        return new DashboardDTO(servicosDTOMesAtual, servicosDTOProximoMes, gastoTotalAtual, gastoTotalProximoMes);
+    }
+    
+    public BigDecimal getGastoTotalAtual() {
+        List<ServicoDTO> servicosDTOMesAtual = this.getServicosDTO(this.servicosMesAtual());
+        BigDecimal gastoTotalAtual = this.calculaGastoMensal(servicosDTOMesAtual);
+        return gastoTotalAtual;
+    }
+
+    public BigDecimal getGastoTotalProximoMes() {
+        List<ServicoDTO> servicosDTOProximoMes = this.getServicosDTO(this.servicosProximoMes());
+        BigDecimal gastoTotalProximoMes = this.calculaGastoMensal(servicosDTOProximoMes);
+        return gastoTotalProximoMes;
+    }
+    
+    public List<ServicoDTO> getServicosDTOMesAtual(){
+        return this.getServicosDTO(this.servicosMesAtual());
+    }
+    
+    public List<ServicoDTO> getServicosDTOProximoMes(){
+        return this.getServicosDTO(this.servicosProximoMes());
+    }
+    
+    private List<Servico> servicosMesAtual(){       
+        return repository.findByDsSituacaoNot(Situacao.INATIVO);
+    }
+    
+    private List<Servico> servicosProximoMes(){         
+        return repository.findByDsSituacao(Situacao.ATIVO);
+    }
+    
+    private BigDecimal calculaGastoMensal(List<ServicoDTO> servicosDTO){         
+        BigDecimal gastoTotal = BigDecimal.ZERO;        
+        servicosDTO.stream().forEach((servico) -> {
+            gastoTotal.add(servico.getCustoMensal());
+        });        
+        return gastoTotal;
+    }
+    
+    private List<ServicoDTO> getServicosDTO(List<Servico> servicos){          
+        List<ServicoDTO> servicosDTO = new ArrayList<>();                
+        servicos.stream().forEach((servico) -> {            
+            servicosDTO.add(this.buildDTO(servico));
+        });              
         return servicosDTO;
     }
+    
+    private ServicoDTO buildDTO(Servico servico){
+        Map<Moeda, BigDecimal> medias = cotacaoService.buscarUltimaMedia();
+        long id = servico.getIdServico();
+        String nome = servico.getNmServico();
+        BigDecimal custoMensal = servico.getVlTotalServico().divide(BigDecimal.valueOf(servico.getDsPeriodicidade().getNumeral())).divide(medias.get(servico.getDsSimboloMoeda())).multiply(medias.get(Moeda.BRL));
+        return new ServicoDTO(id, nome, custoMensal);
+    }
+
 }
