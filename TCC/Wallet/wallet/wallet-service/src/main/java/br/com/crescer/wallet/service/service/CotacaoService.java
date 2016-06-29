@@ -24,6 +24,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -35,7 +36,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CotacaoService implements InitializingBean {
-
+    private static final Logger log = Logger.getLogger(CotacaoService.class.getName());
     @Autowired
     CotacaoRepository repository;
 
@@ -107,19 +108,19 @@ public class CotacaoService implements InitializingBean {
     public String databaseIntegrityAgent() {
         LocalDate dia = LocalDate.now();
         LocalDate diaVerificacao;
-        System.out.println("\nInicio da verificação: " + LocalTime.now());
+        log.info("Inicio da verificação: " + LocalTime.now());
         for (int i = 29; i >= 0; i--) {
             diaVerificacao = dia.minusDays(i);
             Cotacao cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(diaVerificacao);
             if (cotacao == null) {
-                System.out.println("\n-----------FALTANDO:  Cotação dia: " + diaVerificacao + " --------------");
+                log.info("-----------FALTANDO:  Cotação dia: " + diaVerificacao + " --------------");
                 this.addCurrencyByDate(diaVerificacao);
                 i++;
             }
         }
         List<Cotacao> lista = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);
-        System.out.println("Fim da verificação: " + LocalTime.now());
-        System.out.println("Foram encontrados " + lista.size() + " registros nos ultimos 30 dias");
+        log.info("Fim da verificação: " + LocalTime.now());
+        log.info("Foram encontrados " + lista.size() + " registros nos ultimos 30 dias");
         return "\nIntegridade do Banco verificada!\n\n";
     }
 
@@ -131,7 +132,7 @@ public class CotacaoService implements InitializingBean {
 
             connection.setRequestProperty("User-Agent", WebServiceConfig.USER_AGENT);
 
-            System.out.println("-----------Buscando Cotação no WebService--------------");
+            log.info("-----------Buscando Cotação no WebService--------------");
             StringBuffer response;
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String inputLine;
@@ -140,33 +141,33 @@ public class CotacaoService implements InitializingBean {
                     response.append(inputLine);
                 }
             }
-            System.out.println("-----------Convertendo Resultados--------------");
+            log.info("-----------Convertendo Resultados--------------");
             String json = "{" + response.toString().substring(response.toString().indexOf("AED") - 3, response.toString().length() - 1);
 
             Cotacao cotacao = new Gson().fromJson(json, Rates.class).toCotacao();
             cotacao.setDtCotacao(data);
-            System.out.println("-----------Salvando Cotação--------------");
+            log.info("-----------Salvando Cotação--------------");
             repository.save(cotacao);
-            System.out.println("Cotação dia: " + cotacao.getDtCotacao() + " atualizada!");
+            log.info("Cotação dia: " + cotacao.getDtCotacao() + " atualizada!");
 
         } catch (MalformedURLException ex) {
-            System.out.println("ERRO: ao alimentar o banco de dados!");
-            System.out.println(ex.getMessage());
+            log.error("ERRO: ao alimentar o banco de dados!");
+            log.error(ex.getMessage());
         } catch (IOException ex) {
-            System.out.println("ERRO: ao alimentar o banco de dados!");
-            System.out.println(ex.getMessage());
+            log.error("ERRO: ao alimentar o banco de dados!");
+            log.error(ex.getMessage());
         }
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        System.out.println(this.databaseIntegrityAgent());
+        log.info("--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
+        log.info(this.databaseIntegrityAgent());
     }
 
     @Scheduled(cron = "0 16 19 1/1 * ?")
     public void findClosureExchangeRate() {
-        System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        System.out.println(this.databaseIntegrityAgent());
+        log.info("--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
+        log.info(this.databaseIntegrityAgent());
     }
 }
