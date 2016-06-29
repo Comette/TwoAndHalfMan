@@ -14,7 +14,7 @@ var $gastoTotalProximoMes = $('#preco-total-proximo-mes');
 
 var rederizaListaServicos = function(containerLista, servicos){
     $.each(servicos, function(i, servico){
-        containerLista.find('.services-container').append(
+        containerLista.find('#services-container-list').append(
                 $('<section>').addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
                     .append( $('<h5>').addClass('service-name').addClass('text-center').text(servico.nome) )
                     .append( $('<h5>').addClass('service-value').addClass('text-center').text('R$ ' + servico.custoMensal) )
