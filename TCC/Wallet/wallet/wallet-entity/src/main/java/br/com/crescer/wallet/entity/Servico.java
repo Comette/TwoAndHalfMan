@@ -52,6 +52,10 @@ public class Servico implements Serializable {
     @Basic(optional = false)
     @Column(name = "VL_TOTAL_SERVICO", precision = 17, scale = 6)
     private BigDecimal vlTotalServico;
+    
+    @Basic(optional = false)
+    @Column(name = "VL_SERVICO_USD", precision = 17, scale = 6)
+    private BigDecimal vlServicoUSD;
 
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
@@ -75,17 +79,19 @@ public class Servico implements Serializable {
     public Servico() {
     }
 
-    public Servico(long idServico, String nmServico, String dsDescricao, String dsWebsite, BigDecimal vlTotalServico, Moeda dsSimboloMoeda, Periodicidade dsPeriodicidade, Situacao dsSituacao, Usuario usuarioIdUsuario) {
+    public Servico(long idServico, String nmServico, String dsDescricao, String dsWebsite, BigDecimal vlTotalServico, BigDecimal vlServicoUSD, Moeda dsSimboloMoeda, Periodicidade dsPeriodicidade, Situacao dsSituacao, Usuario usuarioIdUsuario) {
         this.idServico = idServico;
         this.nmServico = nmServico;
         this.dsDescricao = dsDescricao;
         this.dsWebsite = dsWebsite;
         this.vlTotalServico = vlTotalServico;
+        this.vlServicoUSD = vlServicoUSD;
         this.dsSimboloMoeda = dsSimboloMoeda;
         this.dsPeriodicidade = dsPeriodicidade;
         this.dsSituacao = dsSituacao;
         this.usuarioIdUsuario = usuarioIdUsuario;
     }
+    
 
     public long getIdServico() {
         return idServico;
@@ -159,5 +165,11 @@ public class Servico implements Serializable {
         this.usuarioIdUsuario = usuarioIdUsuario;
     }
 
-   
+    public BigDecimal getVlServicoUSD() {
+        return vlServicoUSD;
+    }
+
+    public void setVlServicoUSD(BigDecimal vlServicoUSD) {
+        this.vlServicoUSD = vlServicoUSD;
+    }   
 }

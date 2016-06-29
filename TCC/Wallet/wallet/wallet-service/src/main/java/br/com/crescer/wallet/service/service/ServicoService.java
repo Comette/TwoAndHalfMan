@@ -86,7 +86,7 @@ public class ServicoService {
     }
 
     private List<Servico> servicosMesAtualPaginados(Pageable pageable) {
-        pageable = new PageRequest(pageable.getPageNumber(), 4, Sort.Direction.DESC, "vlTotalServico");
+        pageable = new PageRequest(pageable.getPageNumber(), 4, Sort.Direction.DESC, "vlServicoUSD");
         return repository.findByDsSituacaoNot(Situacao.INATIVO, pageable);
     }
 
@@ -95,7 +95,7 @@ public class ServicoService {
     }
 
     private List<Servico> servicosProximoMesPaginados(Pageable pageable) {
-        pageable = new PageRequest(pageable.getPageNumber(), 4, Sort.Direction.DESC, "vlTotalServico");
+        pageable = new PageRequest(pageable.getPageNumber(), 4, Sort.Direction.DESC, "vlServicoUSD");
         return repository.findByDsSituacao(Situacao.ATIVO, pageable);
     }
 
