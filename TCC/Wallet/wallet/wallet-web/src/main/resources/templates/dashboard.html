@@ -6,10 +6,10 @@
     <body>
         <nav th:replace="fragments_dashboard :: navbar"/>
         <div class="container">
-            <section th:replace="fragments_dashboard :: main-info-section"/>
+            <section th:replace="fragments_dashboard :: main-info-section(${precoTotalMes},${servicoMaisCaro},${precoTotalProximoMes})"/>
             <div class="row">
-                <section th:replace="fragments_dashboard :: main-section"/>
-                <section th:replace="fragments_dashboard :: main-section"/>
+                <section th:replace="fragments_dashboard :: main-section('Custos deste mês', ${listaServicos})"/>
+                <section th:replace="fragments_dashboard :: main-section('Previsão para o próximo mês',${listaServicos})"/>
             </div>
         </div>  
 
