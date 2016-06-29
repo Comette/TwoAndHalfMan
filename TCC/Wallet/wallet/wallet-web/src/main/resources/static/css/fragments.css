@@ -1,3 +1,8 @@
+@font-face{
+    font-family: Open Sans;
+    src: url('../fonts/OpenSans-Light.ttf');
+}
+
 nav {
     height: 70px;
 }
@@ -82,13 +87,7 @@ a.navbar-brand h6:nth-of-type(2){
 }
 
 .main-section .general-section-titling {
-    margin-left: 17%;
-    margin-top: 2%;
-    font-size: 2.7em;
-}
-
-#service-titling {
-    margin-left: 33%;
+    font-size: 2em;
 }
 
 .services-container {
@@ -199,5 +198,5 @@ a.navbar-brand h6:first-of-type {
 nav,
 a.navbar-brand h6:first-of-type,
 a.navbar-brand h6:nth-of-type(2)  {
-    font-family: 'Open Sans', sans-serif;
+    font-family: Open Sans, sans-serif;
 }
