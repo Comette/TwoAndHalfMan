@@ -28,8 +28,7 @@ import javax.persistence.Table;
                    @Index(columnList = "USUARIO_ID_USUARIO", name = "index_gerente"),
                    @Index(columnList = "DS_SITUACAO", name = "index_situacao_servico")
         })
-public class Servico implements Serializable {
-    
+public class Servico implements Serializable {   
    
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "SEQ_SERVICO")
@@ -51,7 +50,7 @@ public class Servico implements Serializable {
     private String dsWebsite;
 
     @Basic(optional = false)
-    @Column(name = "VL_TOTAL_SERVICO")
+    @Column(name = "VL_TOTAL_SERVICO", precision = 9, scale = 6)
     private BigDecimal vlTotalServico;
 
     @Enumerated(EnumType.STRING)

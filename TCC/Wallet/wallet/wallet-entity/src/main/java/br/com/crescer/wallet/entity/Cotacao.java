@@ -42,35 +42,35 @@ public class Cotacao implements Serializable {
     private LocalDate dtCotacao;
 
     @Basic(optional = false)
-    @Column(name = "DS_COTACAO_REAL")
+    @Column(name = "DS_COTACAO_REAL", precision = 9, scale = 6)
     private BigDecimal dsCotacaoReal;
     
     @Basic(optional = false)
-    @Column(name = "DS_COTACAO_EURO")
+    @Column(name = "DS_COTACAO_EURO", precision = 9, scale = 6)
     private BigDecimal dsCotacaoEuro;    
     
     @Basic(optional = false)
-    @Column(name = "DS_COTACAO_YEN")
+    @Column(name = "DS_COTACAO_YEN", precision = 9, scale = 6)
     private BigDecimal dsCotacaoYen;         
             
     @Basic(optional = false)
-    @Column(name = "DS_COTACAO_LIBRA")
+    @Column(name = "DS_COTACAO_LIBRA", precision = 9, scale = 6)
     private BigDecimal dsCotacaoLibra;        
 
     @Basic(optional = false)
-    @Column(name = "DS_COTACAO_DOLLAR_AUSTRALIANO")
+    @Column(name = "DS_COTACAO_DOLLAR_AUSTRALIANO", precision = 9, scale = 6)
     private BigDecimal dsCotacaoDollarAutraliano;
 
     @Basic(optional = false)
-    @Column(name = "DS_COTACAO_DOLLAR_CANADENSE")
+    @Column(name = "DS_COTACAO_DOLLAR_CANADENSE", precision = 9, scale = 6)
     private BigDecimal dsCotacaoDollarCanadense;
 
     @Basic(optional = false)
-    @Column(name = "DS_COTACAO_FRANCO_SUICO")
+    @Column(name = "DS_COTACAO_FRANCO_SUICO", precision = 9, scale = 6)
     private BigDecimal dsCotacaoFrancoSuico;
 
     @Basic(optional = false)
-    @Column(name = "DS_COTACAO_YUAN")
+    @Column(name = "DS_COTACAO_YUAN", precision = 9, scale = 6)
     private BigDecimal dsCotacaoYuan;
 
     public Cotacao() {
