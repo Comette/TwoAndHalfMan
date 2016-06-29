@@ -6,6 +6,7 @@
 nav {
     height: 70px;
 }
+
 body {
     margin-top: 70px;
 }
@@ -24,6 +25,10 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
     line-height: 15px;
 }
 
+.panel-default > .panel-heading {
+    background-color: #434343;
+}
+
 span.glyphicon {
     font-size: 0.8em;
     transform: rotate(0deg);
@@ -36,11 +41,9 @@ li a.dropdown-toggle span.glyphicon{
 
 #li-navbar{
     margin-top: 8px;
-}
-
-#li-navbar, #li-navbar{
     font-size: 1.2em;
     font-weight: 300;
+    color: white;
 }
 
 #li-navbar, #li-navbar a {
@@ -68,7 +71,7 @@ a.navbar-brand h6:nth-of-type(2){
 }
 
 .main-section{
-    border: 2px solid #FBAF41;
+    border: 1px solid #B0B5B8;
 }
 
 .general-info-section{
@@ -78,7 +81,7 @@ a.navbar-brand h6:nth-of-type(2){
 }
 
 .main-section {
-    box-shadow: 3px 3px 3px #FBAF41;
+    box-shadow: 3px 3px 3px #B0B5B8;
 }
 
 .general-section-titling{
@@ -86,7 +89,16 @@ a.navbar-brand h6:nth-of-type(2){
     font-size: 2.5em;
 }
 
-.main-section .general-section-titling {
+.previsao-prox-mes {
+    float: right;
+    color: white;
+}
+
+.custo-deste-mes {
+    color: white;
+}
+
+.main-section .general-section-titling, .previsao-prox-mes {
     font-size: 2em;
 }
 
@@ -118,7 +130,7 @@ a.navbar-brand h6:nth-of-type(2){
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.btn-warning:hover, .btn-default:hover, .service-value, .general-section-titling {
+.btn-warning:hover, .btn-default:hover, .service-value {
     color: #434343;
 }
 
@@ -156,7 +168,6 @@ a.navbar-brand h6:nth-of-type(2){
 }
 
 .main-section .general-section-content {
-    margin-left: 20%;
     margin-top: 5%;
 }
 
@@ -177,7 +188,7 @@ a.navbar-brand h6:first-of-type {
 }
 
 .graph-section {
-    border: 1px solid #434343;
+    border: 1px solid #B0B5B8;
     height: 300px;
     margin-top: 5%;
     width: 97.5%;
