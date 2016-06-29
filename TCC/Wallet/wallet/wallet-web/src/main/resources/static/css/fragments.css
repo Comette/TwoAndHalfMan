@@ -7,11 +7,21 @@ nav {
     height: 70px;
 }
 
+.navbar-collapse {
+    background-color: #434343;
+    border: none;
+}
+
+#btn-collapse{
+    margin-top: 20px;
+    margin-bottom: 16px;
+}
 body {
     margin-top: 70px;
 }
 .navbar-default, .btn-danger, .btn-danger:hover, .btn-default {
     background-color: #434343;
+    /*border*/
 }
 nav,
 a.navbar-brand h6:first-of-type,
@@ -27,6 +37,26 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
 
 .panel-default > .panel-heading {
     background-color: #434343;
+}
+
+.panel {
+    background-color: #434343;
+    box-shadow: 3px 3px 3px #B0B5B8;
+    border-radius: 0px;
+    color: white;
+}
+
+.panel strong {
+    color: #FBAF41;
+}
+
+.servico-mais-caro {
+    font-size: 2em;
+}
+
+.panel-container-top {
+    background-color: white;
+    border-color: transparent !important;
 }
 
 span.glyphicon {
@@ -76,7 +106,6 @@ a.navbar-brand h6:nth-of-type(2){
 
 .general-info-section{
     min-height: 200px;
-    margin-left: 3%;
     padding-top: 25px;
 }
 
@@ -194,13 +223,6 @@ a.navbar-brand h6:first-of-type {
     width: 97.5%;
 }
 
-.main-section:first-of-type{
-    margin-left: 5%;
-}
-.main-section:nth-of-type(2){
-    margin-left: 4%;
-}
-
 .service-value, 
 .service-name, 
 .btn-default, 
@@ -208,6 +230,7 @@ a.navbar-brand h6:first-of-type {
 .general-section-content,
 nav,
 a.navbar-brand h6:first-of-type,
-a.navbar-brand h6:nth-of-type(2)  {
+a.navbar-brand h6:nth-of-type(2),
+.servico-mais-caro {
     font-family: Open Sans, sans-serif;
 }
