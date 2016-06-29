@@ -34,16 +34,14 @@ public class ServicoService {
     public DashboardDTO geraDadosDashboard(Pageable pageable){
         List<ServicoDTO> servicosDTOMesAtualPaginados = this.getServicosDTOMesAtualPaginados(pageable);
         List<ServicoDTO> servicosDTOProximoMesPaginados = this.getServicosDTOProximoMesPaginados(pageable);
-        List<ServicoDTO> servicosDTOProximoMes = this.getServicosDTOProximoMes();
-        List<ServicoDTO> servicosDTOMesAtual = this.getServicosDTOMesAtual();
         
         BigDecimal gastoTotalAtual = this.getGastoTotalAtual();
-        servicosDTOMesAtual.stream().forEach((servico) -> {
+        servicosDTOMesAtualPaginados.stream().forEach((servico) -> {
             servico.setPorcentagemCustoTotal(gastoTotalAtual);
         });
                 
         BigDecimal gastoTotalProximoMes = this.getGastoTotalProximoMes();
-        servicosDTOProximoMes.stream().forEach((servico) -> {
+        servicosDTOProximoMesPaginados.stream().forEach((servico) -> {
             servico.setPorcentagemCustoTotal(gastoTotalProximoMes);
         });
         
@@ -62,17 +60,17 @@ public class ServicoService {
         return gastoTotalProximoMes;
     }
     
-    public List<ServicoDTO> getServicosDTOMesAtual(){
-        return this.getServicosDTO(this.servicosMesAtual());
-    }
+//    public List<ServicoDTO> getServicosDTOMesAtual(){
+//        return this.getServicosDTO(this.servicosMesAtual());
+//    }
     
     public List<ServicoDTO> getServicosDTOMesAtualPaginados(Pageable pageable){
         return this.getServicosDTO(servicosMesAtualPaginados(pageable));
     }
-    
-    public List<ServicoDTO> getServicosDTOProximoMes(){
-        return this.getServicosDTO(this.servicosProximoMes());
-    }
+//    
+//    public List<ServicoDTO> getServicosDTOProximoMes(){
+//        return this.getServicosDTO(this.servicosProximoMes());
+//    }
     
     public List<ServicoDTO> getServicosDTOProximoMesPaginados(Pageable pageable){
         return this.getServicosDTO(this.servicosProximoMesPaginados(pageable));
