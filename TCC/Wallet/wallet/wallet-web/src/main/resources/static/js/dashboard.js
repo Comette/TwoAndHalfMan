@@ -2,9 +2,11 @@
 
 var $containerMesAtual = $('#container-mes-atual');
 var listaServicosMesAtual;
+var $containerGraficoMesAtual = $('#grafico-mes-atual');
 
 var $containerProximoMes = $('#container-proximo-mes');
 var listaServicosProximoMes;
+var $containerGraficoProximoMes = $('#grafico-proximo-mes');
 
 var $nomeServicoMaisCaro = $('#servico-mais-caro-nome');
 var $valorServicoMaisCaro = $('#servico-mais-caro-valor');
@@ -12,21 +14,7 @@ var $valorServicoMaisCaro = $('#servico-mais-caro-valor');
 var $gastoTotalMesAtual = $('#preco-total-mes');
 var $gastoTotalProximoMes = $('#preco-total-proximo-mes');
 
-// implementando
-function renderizaGrafico(servicos) {
-    var ctx = $('#grafico');
-    var data = [];
-    $.each(servicos, function(i,servico){
-        data[i] = {
-            value : servico.porcentagemCustoTotal,
-            color : "#FBAF41",
-            highlight : "orange",
-            label : servico.nome
-        };
-    });
-    
-    var piechart = new Chart(ctx).Pie(data);
-}
+var paginaAtual = 0;
 
 var rederizaListaServicos = function (containerLista, servicos) {
     $.each(servicos, function (i, servico) {
@@ -48,7 +36,7 @@ var rederizaListaServicos = function (containerLista, servicos) {
 
 var getDadosDashboard = function () {
     $.ajax({
-        url: "/dashboard",
+        url: "/dashboard?page=0",
         type: "GET"
     }).done(function (dados) {
         //$nomeServicoMaisCaro
@@ -59,10 +47,16 @@ var getDadosDashboard = function () {
         rederizaListaServicos($containerMesAtual, listaServicosMesAtual);
         listaServicosProximoMes = dados.servicosProximoMes;
         rederizaListaServicos($containerProximoMes, listaServicosProximoMes);
-        renderizaGrafico(dados.servicosMesAtual);
     });
 };
 
 $(function () {
     getDadosDashboard();
+    buscarDadosEChamarGraficos($containerGraficoMesAtual, $containerGraficoProximoMes);
 });
+
+function setarOnClickBotaoVerMais(){
+    $('#btnVerMais').click(function(){
+        
+    });
+}
