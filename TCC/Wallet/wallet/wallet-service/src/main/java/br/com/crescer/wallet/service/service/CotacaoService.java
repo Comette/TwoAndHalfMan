@@ -38,7 +38,7 @@ public class CotacaoService implements InitializingBean {
     @Autowired
     CotacaoRepository repository;
 
-    public Cotacao buscarUltimaCotacao() {
+    public Cotacao findLastExchangeRate() {
         Cotacao cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(LocalDate.now());
         if (cotacao == null) {
             LocalDate hoje = LocalDate.now();
@@ -47,7 +47,7 @@ public class CotacaoService implements InitializingBean {
         return cotacao;
     }
 
-    public BigDecimal buscarUltimaMediaMoeda(Moeda moeda) {
+    public BigDecimal findLastCurrencyAverage(Moeda moeda) {
         LocalDate dia = LocalDate.now();
         List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);
         BigDecimal media;
@@ -85,7 +85,7 @@ public class CotacaoService implements InitializingBean {
         return media;
     }
 
-    public Map<Moeda, BigDecimal> buscarUltimaMedia() {
+    public Map<Moeda, BigDecimal> findLastAverage() {
         LocalDate dia = LocalDate.now();
         List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);      
         BigDecimal totalCotacoes = BigDecimal.valueOf(cotacoes.size());
@@ -103,7 +103,7 @@ public class CotacaoService implements InitializingBean {
         return medias;
     }
 
-    public String AgenteIntegridadeBanco() {
+    public String databaseIntegrityAgent() {
         LocalDate dia = LocalDate.now();
         LocalDate diaVerificacao;
         System.out.println("\nInicio da verificação: " + LocalTime.now());
@@ -112,7 +112,7 @@ public class CotacaoService implements InitializingBean {
             Cotacao cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(diaVerificacao);
             if (cotacao == null) {
                 System.out.println("\n-----------FALTANDO:  Cotação dia: " + diaVerificacao + " --------------");
-                this.alimentaCotacaoPorData(diaVerificacao);
+                this.addCurrencyByDate(diaVerificacao);
                 i++;
             }
         }
@@ -122,7 +122,7 @@ public class CotacaoService implements InitializingBean {
         return "\nIntegridade do Banco verificada!\n\n";
     }
 
-    private void alimentaCotacaoPorData(LocalDate data) {
+    private void addCurrencyByDate(LocalDate data) {
         try {
             URL url = new URL(WebServiceConfig.URL_GET_POR_DATA + data + WebServiceConfig.URL_GET_POR_DATA_2);
 
@@ -160,12 +160,12 @@ public class CotacaoService implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        System.out.println(this.AgenteIntegridadeBanco());
+        System.out.println(this.databaseIntegrityAgent());
     }
 
     @Scheduled(cron = "0 16 19 1/1 * ?")
-    public void buscaCotacaoFechamento() {
+    public void findClosureExchangeRate() {
         System.out.println("\n--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        System.out.println(this.AgenteIntegridadeBanco());
+        System.out.println(this.databaseIntegrityAgent());
     }
 }
