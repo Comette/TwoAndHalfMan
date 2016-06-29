@@ -2,15 +2,14 @@
 package br.com.crescer.wallet.service.service;
 
 import br.com.crescer.wallet.entity.Moeda;
-import br.com.crescer.wallet.entity.Periodicidade;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.repository.ServicoRepository;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,10 +74,10 @@ public class ServicoService {
     }
     
     private BigDecimal calculaGastoMensal(List<ServicoDTO> servicosDTO){         
-        BigDecimal gastoTotal = BigDecimal.ZERO;        
-        servicosDTO.stream().forEach((servico) -> {
-            gastoTotal.add(servico.getCustoMensal());
-        });        
+        BigDecimal gastoTotal = BigDecimal.ZERO; 
+        for(ServicoDTO servico : servicosDTO){
+            gastoTotal = gastoTotal.add(servico.getCustoMensal()).setScale(2, RoundingMode.HALF_UP);
+        }        
         return gastoTotal;
     }
     
@@ -94,7 +93,7 @@ public class ServicoService {
         Map<Moeda, BigDecimal> medias = cotacaoService.buscarUltimaMedia();
         long id = servico.getIdServico();
         String nome = servico.getNmServico();
-        BigDecimal custoMensal = servico.getVlTotalServico().divide(BigDecimal.valueOf(servico.getDsPeriodicidade().getNumeral())).divide(medias.get(servico.getDsSimboloMoeda())).multiply(medias.get(Moeda.BRL));
+        BigDecimal custoMensal = servico.getVlTotalServico().divide(BigDecimal.valueOf(servico.getDsPeriodicidade().getNumeral()), 6, RoundingMode.HALF_UP).divide(medias.get(servico.getDsSimboloMoeda()), 6, RoundingMode.HALF_UP).multiply(medias.get(Moeda.BRL)).setScale(2, RoundingMode.HALF_UP);
         return new ServicoDTO(id, nome, custoMensal);
     }
 

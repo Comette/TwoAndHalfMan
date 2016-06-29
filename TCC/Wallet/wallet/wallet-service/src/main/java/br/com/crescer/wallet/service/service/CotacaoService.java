@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -87,16 +88,17 @@ public class CotacaoService implements InitializingBean {
     public Map<Moeda, BigDecimal> buscarUltimaMedia() {
         LocalDate dia = LocalDate.now();
         List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);      
-        
+        BigDecimal totalCotacoes = BigDecimal.valueOf(cotacoes.size());
         Map<Moeda, BigDecimal> medias = new HashMap<>();
-        medias.put(Moeda.BRL, cotacoes.stream().map(Cotacao::getDsCotacaoReal).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
-        medias.put(Moeda.EUR, cotacoes.stream().map(Cotacao::getDsCotacaoEuro).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
-        medias.put(Moeda.JPY, cotacoes.stream().map(Cotacao::getDsCotacaoYen).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
-        medias.put(Moeda.GBP, cotacoes.stream().map(Cotacao::getDsCotacaoLibra).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
-        medias.put(Moeda.AUD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarAutraliano).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
-        medias.put(Moeda.CAD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarCanadense).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
-        medias.put(Moeda.CHF, cotacoes.stream().map(Cotacao::getDsCotacaoFrancoSuico).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
-        medias.put(Moeda.CNY, cotacoes.stream().map(Cotacao::getDsCotacaoYuan).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size())));
+        medias.put(Moeda.USD, BigDecimal.ONE);
+        medias.put(Moeda.BRL, cotacoes.stream().map(Cotacao::getDsCotacaoReal).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
+        medias.put(Moeda.EUR, cotacoes.stream().map(Cotacao::getDsCotacaoEuro).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
+        medias.put(Moeda.JPY, cotacoes.stream().map(Cotacao::getDsCotacaoYen).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
+        medias.put(Moeda.GBP, cotacoes.stream().map(Cotacao::getDsCotacaoLibra).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
+        medias.put(Moeda.AUD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarAutraliano).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
+        medias.put(Moeda.CAD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarCanadense).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
+        medias.put(Moeda.CHF, cotacoes.stream().map(Cotacao::getDsCotacaoFrancoSuico).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
+        medias.put(Moeda.CNY, cotacoes.stream().map(Cotacao::getDsCotacaoYuan).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, 6, RoundingMode.HALF_UP));
         
         return medias;
     }

@@ -50,7 +50,7 @@ public class Servico implements Serializable {
     private String dsWebsite;
 
     @Basic(optional = false)
-    @Column(name = "VL_TOTAL_SERVICO", precision = 9, scale = 6)
+    @Column(name = "VL_TOTAL_SERVICO", precision = 17, scale = 6)
     private BigDecimal vlTotalServico;
 
     @Enumerated(EnumType.STRING)

@@ -5,6 +5,7 @@
 package br.com.crescer.wallet.service.dto;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  *
@@ -51,7 +52,7 @@ public class ServicoDTO {
     }
 
     public void setPorcentagemCustoTotal(BigDecimal gastoTotal) {
-        BigDecimal porcentagemCustoTotal = this.custoMensal.multiply(BigDecimal.valueOf(100)).divide(gastoTotal);
+        BigDecimal porcentagemCustoTotal = this.custoMensal.multiply(BigDecimal.valueOf(100)).divide(gastoTotal, 6, RoundingMode.HALF_UP);
         this.porcentagemCustoTotal = porcentagemCustoTotal;
     }
 }

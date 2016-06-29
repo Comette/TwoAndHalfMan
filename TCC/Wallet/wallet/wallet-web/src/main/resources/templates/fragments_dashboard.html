@@ -34,18 +34,18 @@
                 </div>
             </div>
         </nav>
-        <section th:fragment="main-info-section(precoTotalMes,servicoMaisCaro,precoTotalProximoMes)">
+        <section th:fragment="main-info-section">
             <div class="row">
                 <section class="container general-info-section col-md-11">
                     <div class="row">
                         <section class="general-section-titling col-md-offset-1">
-                            Custo total neste mês: <strong th:text="'R$ ' + ${precoTotalMes}"/>
+                            Custo total neste mês: <strong id="preco-total-mes"/>
                         </section>
                         <section class="general-section-content col-md-offset-1">
-                            Serviço mais caro do mês: <span th:text="${servicoMaisCaro.nome}"/> - <span th:text="'R$ ' + ${servicoMaisCaro.valor}"/>
+                            Serviço mais caro do mês: <span id="servico-mais-caro-nome"/> - <span id="servico-mais-caro-valor"/>
                         </section>
                         <section class="general-section-titling col-md-offset-1">
-                            Custo total para o próximo mês: <strong th:text="'R$ ' + ${precoTotalProximoMes}"/>
+                            Custo total para o próximo mês: <strong id="preco-total-proximo-mes"/>
                         </section>
                     </div>
                 </section>
@@ -53,34 +53,30 @@
         </section>
 
 
-        <section class="container main-section col-md-5" th:fragment="main-section(mensagemTopo, listaServicos)">
-            <section class="general-section-titling text-center" th:text="${mensagemTopo}"/>
-            <section class="services-section">
-                <section class="general-section-titling text-center">
-                    Serviços
-                </section>
-                <section class="services-container list-group">
-                    <section th:each="s : ${listaServicos}" class="col-md-6 single-service-container list-group-item">
-                        <h5 class="service-name text-center" th:text="${s.nome}"/>
-                        <h5 class="service-value text-center" th:text="'R$ ' + ${s.valor}"/>
-                        <a class="btn btn-warning service-edit-btn">
-                            <span class="glyphicon glyphicon-edit"  aria-hidden="true"/>
-                        </a>
-                        <a class="btn btn-danger service-delete-btn">
-                            <span class="glyphicon glyphicon-trash"  aria-hidden="true"/>
-                        </a>
+        <section class="container main-section col-md-5" th:fragment="main-section(mensagemTopo, idContainer)">
+            <section th:id="${idContainer}">
+                <section class="general-section-titling text-center" th:text="${mensagemTopo}"></section>
+                <section class="services-section">
+                    <section class="general-section-titling text-center">
+                        Serviços
                     </section>
-                    <section>
-                        <a class="btn btn-default">Ver mais </a>
+                    <section class="services-container list-group">
+                        <section>
+                            <a class="btn btn-default">Ver mais</a>
+                        </section>
                     </section>
                 </section>
-            </section>
-            <section class="general-section-content">
-                Serviços relacionados à sua porcentagem no custo total
-            </section>
-            <section class="graph-section">
-                Gráfico
+                <section class="general-section-content">
+                    Serviços relacionados à sua porcentagem no custo total
+                </section>
+                <section class="graph-section">
+                    Gráfico
+                </section>
             </section>
         </section>
+        <div th:fragment="scripts">
+            <script th:src="@{/js/jquery-2.2.3.min.js}" type="text/javascript"></script>
+            <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+        </div>
     </body>
 </html>
