@@ -64,8 +64,17 @@ public class ServicoService {
         return gastoTotalProximoMes;
     }
 
+
     public List<ServicoDTO> getServicosDTOMesAtualPaginados(Pageable pageable) {
         return this.getServicosDTO(servicosMesAtualPaginados(pageable));
+    }
+
+    public List<ServicoDTO> getTodosServicosDTOMesAtual() {
+        return this.getServicosDTO(this.servicosMesAtual());
+    }
+    
+    public List<ServicoDTO> getTodosServicosDTOProximoMes(){
+        return this.getServicosDTO(this.servicosProximoMes());
     }
 
     public List<ServicoDTO> getServicosDTOProximoMesPaginados(Pageable pageable) {

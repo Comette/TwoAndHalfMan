@@ -4,6 +4,7 @@ package br.com.crescer.wallet.web.controller;
 import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.service.ServicoService;
+import br.com.crescer.wallet.web.dto.GraficoDTO;
 import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,14 @@ public class ServicoController {
     @RequestMapping(value = "/servicos-proximo-mes", method = RequestMethod.GET)
     public List<ServicoDTO> servicosProximosMes(Pageable pageable){
         return service.getServicosDTOProximoMesPaginados(pageable);
+    }
+    
+    @RequestMapping( value = "/servicos-inflar-grafico", method = RequestMethod.GET)
+    public GraficoDTO servicosSemPaginacao(){
+        GraficoDTO dto = new GraficoDTO();
+        dto.setServicosDesteMes(service.getTodosServicosDTOMesAtual());
+        dto.setServicosProximoMes(service.getTodosServicosDTOProximoMes());
+        
+        return dto;
     }
 }

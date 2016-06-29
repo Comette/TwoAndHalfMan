@@ -6,11 +6,22 @@
 nav {
     height: 70px;
 }
+
+.navbar-collapse {
+    background-color: #434343;
+    border: none;
+}
+
+#btn-collapse{
+    margin-top: 20px;
+    margin-bottom: 16px;
+}
 body {
     margin-top: 70px;
 }
 .navbar-default, .btn-danger, .btn-danger:hover, .btn-default {
     background-color: #434343;
+    /*border*/
 }
 nav,
 a.navbar-brand h6:first-of-type,
@@ -22,6 +33,30 @@ a.navbar-brand h6:nth-of-type(2),
 
 a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
     line-height: 15px;
+}
+
+.panel-default > .panel-heading {
+    background-color: #434343;
+}
+
+.panel {
+    background-color: #434343;
+    box-shadow: 3px 3px 3px #B0B5B8;
+    border-radius: 0px;
+    color: white;
+}
+
+.panel strong {
+    color: #FBAF41;
+}
+
+.servico-mais-caro {
+    font-size: 2em;
+}
+
+.panel-container-top {
+    background-color: white;
+    border-color: transparent !important;
 }
 
 span.glyphicon {
@@ -36,11 +71,9 @@ li a.dropdown-toggle span.glyphicon{
 
 #li-navbar{
     margin-top: 8px;
-}
-
-#li-navbar, #li-navbar{
     font-size: 1.2em;
     font-weight: 300;
+    color: white;
 }
 
 #li-navbar, #li-navbar a {
@@ -68,17 +101,16 @@ a.navbar-brand h6:nth-of-type(2){
 }
 
 .main-section{
-    border: 2px solid #FBAF41;
+    border: 1px solid #B0B5B8;
 }
 
 .general-info-section{
     min-height: 200px;
-    margin-left: 3%;
     padding-top: 25px;
 }
 
 .main-section {
-    box-shadow: 3px 3px 3px #FBAF41;
+    box-shadow: 3px 3px 3px #B0B5B8;
 }
 
 .general-section-titling{
@@ -86,7 +118,16 @@ a.navbar-brand h6:nth-of-type(2){
     font-size: 2.5em;
 }
 
-.main-section .general-section-titling {
+.previsao-prox-mes {
+    float: right;
+    color: white;
+}
+
+.custo-deste-mes {
+    color: white;
+}
+
+.main-section .general-section-titling, .previsao-prox-mes {
     font-size: 2em;
 }
 
@@ -118,7 +159,7 @@ a.navbar-brand h6:nth-of-type(2){
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.btn-warning:hover, .btn-default:hover, .service-value, .general-section-titling {
+.btn-warning:hover, .btn-default:hover, .service-value {
     color: #434343;
 }
 
@@ -156,7 +197,6 @@ a.navbar-brand h6:nth-of-type(2){
 }
 
 .main-section .general-section-content {
-    margin-left: 20%;
     margin-top: 5%;
 }
 
@@ -177,17 +217,10 @@ a.navbar-brand h6:first-of-type {
 }
 
 .graph-section {
-    border: 1px solid #434343;
+    border: 1px solid #B0B5B8;
     height: 300px;
     margin-top: 5%;
     width: 97.5%;
-}
-
-.main-section:first-of-type{
-    margin-left: 5%;
-}
-.main-section:nth-of-type(2){
-    margin-left: 4%;
 }
 
 .service-value, 
@@ -197,6 +230,7 @@ a.navbar-brand h6:first-of-type {
 .general-section-content,
 nav,
 a.navbar-brand h6:first-of-type,
-a.navbar-brand h6:nth-of-type(2)  {
+a.navbar-brand h6:nth-of-type(2),
+.servico-mais-caro {
     font-family: Open Sans, sans-serif;
 }
