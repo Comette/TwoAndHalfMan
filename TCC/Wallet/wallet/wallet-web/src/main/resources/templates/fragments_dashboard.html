@@ -4,7 +4,6 @@
         <title>Dashboard | Onde está Wallet?</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link th:href="@{/fonts/OpenSans-Light.ttf}" rel="stylesheet" type="text/css"/>
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
         <link th:href="@{/css/fragments.css}" rel="stylesheet" type="text/css"/>
     </head>
@@ -29,30 +28,24 @@
                         <li><a href="#" id="li-navbar">Dashboard</a></li>
                         <li><a href="#" id="li-navbar">Cadastros</a></li>
                         <li><a href="#" id="li-navbar">Gerentes</a></li>
-                        <li class="dropdown" id="li-navbar">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário<span class="glyphicon glyphicon-triangle-right"></span></a>
-                            <ul class="dropdown-menu">
-                                <li id="li-navbar"><a href="#">Configurações</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li id="li-navbar"><a href="#">Logout</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="#" id="li-navbar" th:text="${user.nmUsuario}"/></li>
+                        <li><a th:href="@{/logout}" id="li-navbar">Sair</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <section th:fragment="main-info-section">
+        <section th:fragment="main-info-section(precoTotalMes,servicoMaisCaro,precoTotalProximoMes)">
             <div class="row">
                 <section class="container general-info-section col-md-11">
                     <div class="row">
                         <section class="general-section-titling col-md-offset-1">
-                            Custo total neste mês: <strong>R$ 400,00</strong>
+                            Custo total neste mês: <strong th:text="'R$ ' + ${precoTotalMes}"/>
                         </section>
                         <section class="general-section-content col-md-offset-1">
-                            Serviço mais caro do mês: <span>GitHub</span> - <span>R$ 200,00</span>
+                            Serviço mais caro do mês: <span th:text="${servicoMaisCaro.nome}"/> - <span th:text="'R$ ' + ${servicoMaisCaro.valor}"/>
                         </section>
                         <section class="general-section-titling col-md-offset-1">
-                            Custo total para o próximo mês: <strong>R$ 200,00</strong>
+                            Custo total para o próximo mês: <strong th:text="'R$ ' + ${precoTotalProximoMes}"/>
                         </section>
                     </div>
                 </section>
@@ -60,28 +53,16 @@
         </section>
 
 
-        <section class="container main-section col-md-5" th:fragment="main-section">
-            <section class="general-section-titling">
-                Custos deste mês
-            </section>
+        <section class="container main-section col-md-5" th:fragment="main-section(mensagemTopo, listaServicos)">
+            <section class="general-section-titling text-center" th:text="${mensagemTopo}"/>
             <section class="services-section">
-                <section class="general-section-titling" id="service-titling">
+                <section class="general-section-titling text-center">
                     Serviços
                 </section>
                 <section class="services-container list-group">
-                    <section class="col-md-6 single-service-container list-group-item">
-                        <h5 class="service-name text-center"> GitHub </h5>
-                        <h5 class="service-value text-center"> R$ 450,00 </h5>
-                        <a class="btn btn-warning service-edit-btn">
-                            <span class="glyphicon glyphicon-edit"  aria-hidden="true"/>
-                        </a>
-                        <a class="btn btn-danger service-delete-btn">
-                            <span class="glyphicon glyphicon-trash"  aria-hidden="true"/>
-                        </a>
-                    </section>
-                    <section class="col-md-6 single-service-container list-group-item">
-                        <h5 class="service-name text-center"> GitHub </h5>
-                        <h5 class="service-value text-center"> R$ 450,00 </h5>
+                    <section th:each="s : ${listaServicos}" class="col-md-6 single-service-container list-group-item">
+                        <h5 class="service-name text-center" th:text="${s.nome}"/>
+                        <h5 class="service-value text-center" th:text="'R$ ' + ${s.valor}"/>
                         <a class="btn btn-warning service-edit-btn">
                             <span class="glyphicon glyphicon-edit"  aria-hidden="true"/>
                         </a>
