@@ -12,7 +12,7 @@ public enum Periodicidade {
     SEMESTRAL(6),
     ANUAL(12); 
     
-    private int numeral;
+    private final int numeral;
     
     Periodicidade(int numeral){
         this.numeral = numeral;

@@ -86,7 +86,7 @@ public class ServicoService {
     }
 
     private List<Servico> servicosMesAtualPaginados(Pageable pageable) {
-        pageable = new PageRequest(pageable.getPageNumber(), 4, Sort.Direction.DESC, "vlServicoUSD");
+        pageable = new PageRequest(pageable.getPageNumber(), 4, Sort.Direction.DESC, "vlMensalUSD");
         return repository.findByDsSituacaoNot(Situacao.INATIVO, pageable);
     }
 
@@ -95,7 +95,7 @@ public class ServicoService {
     }
 
     private List<Servico> servicosProximoMesPaginados(Pageable pageable) {
-        pageable = new PageRequest(pageable.getPageNumber(), 4, Sort.Direction.DESC, "vlServicoUSD");
+        pageable = new PageRequest(pageable.getPageNumber(), 4, Sort.Direction.DESC, "vlMensalUSD");
         return repository.findByDsSituacao(Situacao.ATIVO, pageable);
     }
 
@@ -108,17 +108,17 @@ public class ServicoService {
     }
 
     private List<ServicoDTO> getServicosDTO(List<Servico> servicos) {
+        final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
         List<ServicoDTO> servicosDTO = new ArrayList<>();
         servicos.stream().forEach((servico) -> {
-            servicosDTO.add(this.buildDTO(servico));
+            servicosDTO.add(this.buildDTO(servico, medias));
         });
         return servicosDTO;
     }   
 
-    private ServicoDTO buildDTO(Servico servico) {
+    private ServicoDTO buildDTO(Servico servico, Map<Moeda, BigDecimal> medias) {
         final BigDecimal vlrCusto;
-        {
-            final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
+        {            
             final BigDecimal periodicidade = BigDecimal.valueOf(servico.getDsPeriodicidade().getNumeral());
             final BigDecimal media = medias.get(servico.getDsSimboloMoeda());
             final BigDecimal taxa = medias.get(BRL);

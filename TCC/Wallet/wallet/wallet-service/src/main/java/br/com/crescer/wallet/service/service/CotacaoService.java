@@ -119,8 +119,8 @@ public class CotacaoService implements InitializingBean {
             }
         }
         List<Cotacao> lista = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);
-        log.info("Fim da verificação: " + LocalTime.now());
-        log.info("Foram encontrados " + lista.size() + " registros nos ultimos 30 dias");
+        log.info("----------- Fim da verificacao: " + LocalTime.now());
+        log.info("----------- Foram encontrados " + lista.size() + " registros nos ultimos 30 dias");
         return "\nIntegridade do Banco verificada!\n\n";
     }
 
@@ -148,7 +148,7 @@ public class CotacaoService implements InitializingBean {
             cotacao.setDtCotacao(data);
             log.info("-----------Salvando Cotação--------------");
             repository.save(cotacao);
-            log.info("Cotação dia: " + cotacao.getDtCotacao() + " atualizada!");
+            log.info("-----------Cotação dia: " + cotacao.getDtCotacao() + " atualizada!");
 
         } catch (MalformedURLException ex) {
             log.error("ERRO: ao alimentar o banco de dados!");
