@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Hedo
  */
 @Controller
-public class GerenteController {
+public class UsuarioController {
 
     @Autowired
     UsuarioService service;
