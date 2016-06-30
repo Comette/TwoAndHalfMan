@@ -8,8 +8,8 @@ import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.repository.ServicoRepository;
-import static br.com.crescer.wallet.service.service.CalculationUtils.CALC_SCALE;
-import static br.com.crescer.wallet.service.service.CalculationUtils.PRES_SCALE;
+import static br.com.crescer.wallet.service.service.ServiceUtils.CALC_SCALE;
+import static br.com.crescer.wallet.service.service.ServiceUtils.PRES_SCALE;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import static java.math.RoundingMode.HALF_UP;
@@ -22,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import static br.com.crescer.wallet.service.service.ServiceUtils.PAGE_SIZE;
 
 /**
  *
@@ -86,7 +87,7 @@ public class ServicoService {
     }
 
     private List<Servico> servicosMesAtualPaginados(Pageable pageable) {
-        pageable = new PageRequest(pageable.getPageNumber(), 4, Sort.Direction.DESC, "vlMensalUSD");
+        pageable = new PageRequest(pageable.getPageNumber(), PAGE_SIZE, Sort.Direction.DESC, "vlMensalUSD");
         return repository.findByDsSituacaoNot(Situacao.INATIVO, pageable);
     }
 
@@ -95,14 +96,14 @@ public class ServicoService {
     }
 
     private List<Servico> servicosProximoMesPaginados(Pageable pageable) {
-        pageable = new PageRequest(pageable.getPageNumber(), 4, Sort.Direction.DESC, "vlMensalUSD");
+        pageable = new PageRequest(pageable.getPageNumber(), PAGE_SIZE, Sort.Direction.DESC, "vlMensalUSD");
         return repository.findByDsSituacao(Situacao.ATIVO, pageable);
     }
 
     private BigDecimal calculaGastoMensal(List<ServicoDTO> servicosDTO) {
         BigDecimal gastoTotal = BigDecimal.ZERO;
         for (ServicoDTO servico : servicosDTO) {
-            gastoTotal = gastoTotal.add(servico.getCustoMensal()).setScale(2, RoundingMode.HALF_UP);
+            gastoTotal = gastoTotal.add(servico.getCustoMensal()).setScale(PRES_SCALE, RoundingMode.HALF_UP);
         }
         return gastoTotal;
     }

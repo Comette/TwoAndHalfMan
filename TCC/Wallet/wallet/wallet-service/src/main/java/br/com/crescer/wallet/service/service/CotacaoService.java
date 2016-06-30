@@ -7,7 +7,7 @@ package br.com.crescer.wallet.service.service;
 import br.com.crescer.wallet.entity.Cotacao;
 import br.com.crescer.wallet.entity.Moeda;
 import br.com.crescer.wallet.service.repository.CotacaoRepository;
-import static br.com.crescer.wallet.service.service.CalculationUtils.CALC_SCALE;
+import static br.com.crescer.wallet.service.service.ServiceUtils.CALC_SCALE;
 import br.com.crescer.wallet.service.webservice.Rates;
 import br.com.crescer.wallet.service.webservice.WebServiceConfig;
 import com.google.gson.Gson;
