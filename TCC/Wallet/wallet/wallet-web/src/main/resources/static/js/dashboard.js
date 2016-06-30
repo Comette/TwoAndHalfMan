@@ -69,9 +69,15 @@ var getDadosDashboard = function () {
 };
 
 var getProxPaginaServicosMesAtual = function () {
+    var valor = $formAtual.children('select').val();
+    var url = '/servicos-mes-atual?page=' + ++paginaAtualMesAtual;
+    if (paginaAtualFiltrado !== 0) {
+        url = '/filtrar-por-gerente?idGerente=' + valor + '&page=' + paginaAtualFiltrado;
+    }
+
     $.ajax({
         type: 'GET',
-        url: '/servicos-mes-atual?page=' + ++paginaAtualMesAtual
+        url: url
     }).done(function (data) {
         if (data.length < 4) {
             $('#btnVerMaisAtual').text("Não existem mais serviços");
