@@ -46,7 +46,7 @@ var rederizaListaServicos = function (containerLista, servicos) {
                 .append($('<a>').html($('<h5>').addClass('service-name').addClass('text-center').text(servico.nome)).attr('href', '/servico?idServico=' + servico.id))
                 .append($('<h5>').addClass('service-value').addClass('text-center').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
                 .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn')
-                        .append($('<span>').addClass('glyphicon').addClass('glyphicon-edit').attr('aria-hidden', true))
+                        .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true))
                         )
                 .append($('<a>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn')
                         .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true))
@@ -72,7 +72,6 @@ var getDadosDashboard = function () {
 };
 
 var getProxPaginaServicosProximoMes = function () {
-    debugger;
     var url = filtroProximoMes !== null ?
             '/servicos-proximo-mes?idGerente=' + filtroProximoMes + '&page=' + ++paginaAtualProximoMesFiltrado
             : '/servicos-proximo-mes?page=' + ++paginaAtualProximoMesFiltrado;
@@ -90,7 +89,6 @@ var getProxPaginaServicosProximoMes = function () {
 };
 
 var getProxPaginaServicosEsteMes = function () {
-    debugger;
     var url = filtroAtual !== null ?
             '/servicos-mes-atual?idGerente=' + filtroAtual + '&page=' + ++paginaAtualEsteMesFiltrado
             : '/servicos-mes-atual?page=' + ++paginaAtualEsteMesFiltrado;
@@ -107,7 +105,6 @@ var getProxPaginaServicosEsteMes = function () {
 };
 
 $(function () {
-    debugger;
     $formAtual.hide();
     $formProximo.hide();
 
@@ -128,7 +125,6 @@ $(function () {
 });
 
 function setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo) {
-    debugger;
     $btnPesquisarAtual.click(function () {
         $formAtual.fadeIn(2000);
     });
@@ -152,7 +148,6 @@ function buscaGerentes() {
 }
 
 $formAtual.submit(function (e) {
-    debugger;
     var idGerente = $formAtual.children('select').val();
     paginaAtualEsteMesFiltrado = -1;
     filtroAtual = idGerente;
@@ -163,7 +158,6 @@ $formAtual.submit(function (e) {
     e.preventDefault();
 });
 $formProximo.submit(function (e) {
-    debugger;
     var idGerente = $formProximo.children('select').val();
     paginaAtualProximoMesFiltrado = -1;
     filtroProximoMes = idGerente;
