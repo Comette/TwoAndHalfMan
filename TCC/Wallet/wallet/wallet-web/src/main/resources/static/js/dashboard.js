@@ -20,6 +20,12 @@ var listaServicosProximoMes;
 var $nomeServicoMaisCaro = $('#servico-mais-caro-nome');
 var $valorServicoMaisCaro = $('#servico-mais-caro-valor');
 
+var $gastoTotalMesAtual = $('#preco-total-mes');
+var $gastoTotalProximoMes = $('#preco-total-proximo-mes');
+
+var paginaAtualMesAtual = 0;
+var paginaAtualProximoMes = 0;
+var filtroAtual = '';
 
 var rederizaListaServicos = function (containerLista, servicos) {
     $.each(servicos, function (i, servico) {
@@ -91,5 +97,15 @@ $(function () {
     $verMaisServicosProximoMes.click(function () {
         getProxPaginaServicosProximoMes();
     });
-    
 });
+
+function setarOnClickBotaoPesquisar($botaoAtual, $botaoProximo){
+        $botaoAtual.click(function(){
+           filtroAtual = $botaoAtual.closest('input').val();
+           
+           $.ajax({
+              type: 'GET',
+              url: ''
+           });
+        });
+}

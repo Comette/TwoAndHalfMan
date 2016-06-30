@@ -8,38 +8,12 @@
         <link th:href="@{/css/fragments.css}" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <nav class="navbar navbar-default navbar-fixed-top" th:fragment="navbar">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">
-                        <h6>Onde Está</h6>
-                        <h6>Wallet?</h6>
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" id="li-navbar">Dashboard</a></li>
-                        <li><a href="#" id="li-navbar">Cadastros</a></li>
-                        <li><a href="#" id="li-navbar">Gerentes</a></li>
-                        <li><a href="#" id="li-navbar" th:text="${user.nmUsuario}"/></li>
-                        <li><a th:href="@{/logout}" id="li-navbar">Sair</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
         <section th:fragment="main-info-section">
             <div class="row">
-                <section class="container general-info-section">
+                <div class="container general-info-section">
                     <div class="row">
                         <section class="col-md-6">
-                            <section class="panel">
+                            <div class="panel">
                                 <section class="general-section-titling custo-deste-mes panel-heading text-center">
                                     Mês atual
                                 </section>
@@ -48,44 +22,39 @@
                                         Custo total: <strong id="preco-total-mes" class="preco-total"/>
                                     </section>
                                 </div>
-                            </section>
+                            </div>
                         </section>
-                        <section class="col-md-6">
-                            <section class="panel">
+                        <div class="col-md-6">
+                            <div class="panel">
                                 <section class="general-section-titling custo-deste-mes panel-heading text-center">
                                     Próximo mês
                                 </section>
                                 <section class="general-section-content custo-deste-mes panel-body">
                                     Custo total previsto: <strong id="preco-total-proximo-mes" class="preco-total"/>
                                 </section>
-                            </section>
-                        </section>
+                            </div>
+                        </div>
                     </div>
-                </section>
+                </div>
             </div>
         </section>
 
 
-        <section class="container main-section col-md-12" th:fragment="main-section(idContainer, idContainerGrafico, idBtnVerMais)">
-            <section th:id="${idContainer}">
+        <section class="container main-section col-md-12" th:fragment="main-section(idContainer, idContainerGrafico, idBtnVerMais, idBtnPesquisar)">
+            <div th:id="${idContainer}">
                 <section class="services-section">
-                    <section class="general-section-titling text-center">
-                        Serviços
-                    </section>                    
-                    <section class="services-container list-group">
-                        <section id="services-container-list">
-                        </section>
+                    <section class="general-section-titling text-center">Serviços</section>
+                    <a class=" glyphicon glyphicon-search search-link text-center" th:id="${idBtnPesquisar}"/>                    
+                    <div class="services-container list-group">
+                        <section id="services-container-list"></section>
                         <section class="text-center">
                             <a class="btn btn-default" th:id="${idBtnVerMais}">Ver mais</a>
                         </section>
-                    </section>
+                    </div>
+                    <section class="general-section-content text-center">Impacto no custo total por serviço</section>
+                    <canvas class="graph-section" th:id="${idContainerGrafico}"></canvas>
                 </section>
-                <section class="general-section-content text-center">
-                    Impacto no custo total por serviço
-                </section>
-                <canvas class="graph-section" th:id="${idContainerGrafico}">
-                </canvas>
-            </section>
+            </div>
         </section>
         <div th:fragment="scripts">
             <script th:src="@{/js/jquery-2.2.3.min.js}" type="text/javascript"></script>
