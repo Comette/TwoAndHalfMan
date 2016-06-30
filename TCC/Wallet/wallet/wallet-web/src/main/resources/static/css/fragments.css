@@ -150,11 +150,11 @@ li a.dropdown-toggle span.glyphicon{
 }
 
 #separador{
-    color: #666666;
-    margin-right: 12px;
+    color: #737373;
 }
 
 #logged-user-name{
+    margin-left: 12px;
     margin-top: 21px;
     display: block;
     color: #FBAF41;
@@ -166,6 +166,16 @@ li a.dropdown-toggle span.glyphicon{
         margin-top: -14px;
     }
 }
+
+@media(max-width: 768px){
+    #separador{
+        display: none;
+    }
+    .navbar-brand{
+        margin-top: -14px;
+    }
+}
+
 a.navbar-brand h6:first-of-type{
     margin-left: 1px;
     font-size: 1.175em;
