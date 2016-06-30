@@ -62,6 +62,18 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
     color: white;
 }
 
+.search-link {
+    color: #FBAF41;
+    font-size: 1.7em;
+    text-decoration: none;
+    transition: color .5s ease-in-out;
+}
+
+.search-link:hover {
+    text-decoration: none;
+    color: orange;
+}
+
 .servico-mais-caro span {
     color: #434343;
 }

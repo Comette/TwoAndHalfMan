@@ -16,6 +16,7 @@ var $gastoTotalProximoMes = $('#preco-total-proximo-mes');
 
 var paginaAtualMesAtual = 0;
 var paginaAtualProximoMes = 0;
+var filtroAtual = '';
 
 var rederizaListaServicos = function (containerLista, servicos) {
     $.each(servicos, function (i, servico) {
@@ -83,4 +84,15 @@ function setarOnClickBotoesVerMais() {
             rederizaListaServicos($containerProximoMes, data);
         });
     });
+}
+
+function setarOnClickBotaoPesquisar($botaoAtual, $botaoProximo){
+        $botaoAtual.click(function(){
+           filtroAtual = $botaoAtual.closest('input').val();
+           
+           $.ajax({
+              type: 'GET',
+              url: ''
+           });
+        });
 }
