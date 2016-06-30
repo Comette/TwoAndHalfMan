@@ -41,22 +41,24 @@ public class ServicoController {
     }
     
     @RequestMapping(value = "/servicos-mes-atual", method = RequestMethod.GET)
-    public List<ServicoDTO> servicosMesAtual(Pageable pageable){        
-        return service.getServicosDTOMesAtualPaginados(pageable);
+    public List<ServicoDTO> servicosMesAtual(@RequestParam(required = false) Long idGerente, Pageable pageable){
+        return idGerente == null ? 
+                service.getServicosDTOMesAtualPaginados(pageable) : service.getServicosDTOMesAtualFiltradosPorGerentePaginados(idGerente, pageable);
     }
     
     @RequestMapping(value = "/servicos-proximo-mes", method = RequestMethod.GET)
-    public List<ServicoDTO> servicosProximosMes(Pageable pageable){
-        return service.getServicosDTOProximoMesPaginados(pageable);
+    public List<ServicoDTO> servicosProximosMes(@RequestParam(required = false) Long idGerente, Pageable pageable){
+        return idGerente == null ? 
+                service.getServicosDTOProximoMesPaginados(pageable) : service.getServicosDTOProximoMesFiltradosPorGerentePaginados(idGerente, pageable);
     }
     
     @RequestMapping( value = "/servicos-inflar-grafico", method = RequestMethod.GET)
     public GraficoDTO inflarGrafico(){        
         return service.getDadosGraficoServicos();
     }
-    
-    @RequestMapping(value = "/filtrar-por-gerente", method = RequestMethod.GET)
-    public List<ServicoDTO> buscarPorGerentePaginado(@RequestParam Long idGerente,Pageable pageable) {
-        return service.getServicosDTOFiltradosPorGerentePaginados(idGerente,pageable);
-    }
+//    
+//    @RequestMapping(value = "/filtrar-por-gerente", method = RequestMethod.GET)
+//    public List<ServicoDTO> buscarPorGerentePaginado(@RequestParam Long idGerente,Pageable pageable) {
+//        return service.getServicosDTOFiltradosPorGerentePaginados(idGerente,pageable);
+//    }
 }
