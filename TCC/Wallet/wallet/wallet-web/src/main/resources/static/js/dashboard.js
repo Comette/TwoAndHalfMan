@@ -60,8 +60,8 @@ var getDadosDashboard = function () {
         url: "/dashboard?page=0",
         type: "GET"
     }).done(function (dados) {
-        $servicoMaisCaro.text(dados.servicoMaisCaroContratado.nome + " - " + accounting.formatMoney(dados.servicoMaisCaroContratado.custoMensal, "R$ ", 2, ".", ","));
-
+        $servicoMaisCaro.append( $('<a>').html($('<h3>').attr('style', 'display: inline;').text(dados.servicoMaisCaroContratado.nome)).attr('href', '/servico?idServico=' + dados.servicoMaisCaroContratado.id))
+                .append( $('<h3>').text(" - " + accounting.formatMoney(dados.servicoMaisCaroContratado.custoMensal, "R$ ", 2, ".", ",")));
         $gastoTotalMesAtual.text(accounting.formatMoney(dados.gastoTotalAtual, "R$ ", 2, ".", ","));
         $gastoTotalProximoMes.text(accounting.formatMoney(dados.gastoTotalProximoMes, "R$ ", 2, ".", ","));
         listaServicosMesAtual = dados.servicosMesAtual;
@@ -139,7 +139,6 @@ function buscaGerentes() {
         type: 'GET',
         url: '/buscar-gerentes'
     }).done(function (data) {
-
         $.each(data, function (i, gerenteDTO) {
             selectAtual.append($('<option>').val(gerenteDTO.id).text(gerenteDTO.nome));
             selectProximoMes.append($('<option>').val(gerenteDTO.id).text(gerenteDTO.nome));
