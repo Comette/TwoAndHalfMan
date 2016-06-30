@@ -49,12 +49,10 @@
                         </select>
                         <input type="submit" class="btn btn-warning col-md-offset-5" value="Filtrar"/>
                     </form>
-                    <div class="services-container list-group">
-                        <section id="services-container-list"></section>
-                        <section class="text-center">
-                            <a class="btn btn-default" th:id="${idBtnVerMais}">Ver mais</a>
-                        </section>
-                    </div>
+                    <div class="services-container">
+                        <section id="services-container-list" class="list-group"></section>
+                    </div>                        
+                    <a class="btn btn-default btn-ver-mais" th:id="${idBtnVerMais}">Ver mais</a>                   
                     <section class="general-section-content text-center">Impacto no custo total por serviço</section>
                     <canvas class="graph-section" th:id="${idContainerGrafico}"></canvas>
                 </section>

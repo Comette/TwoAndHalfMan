@@ -17,8 +17,7 @@ var paginaAtualProximoMes = 0;
 var listaServicosProximoMes;
 
 //GERAL
-var $nomeServicoMaisCaro = $('#servico-mais-caro-nome');
-var $valorServicoMaisCaro = $('#servico-mais-caro-valor');
+var $servicoMaisCaro = $('#servico-mais-caro');
 
 var $gastoTotalMesAtual = $('#preco-total-mes');
 var $gastoTotalProximoMes = $('#preco-total-proximo-mes');
@@ -57,8 +56,8 @@ var getDadosDashboard = function () {
         url: "/dashboard?page=0",
         type: "GET"
     }).done(function (dados) {
-        $nomeServicoMaisCaro.text(dados.servicoMaisCaroContratado.nome + " - ");
-        $valorServicoMaisCaro.text(accounting.formatMoney(dados.servicoMaisCaroContratado.custoMensal, "R$ ", 2, ".", ","));
+        $servicoMaisCaro.text(dados.servicoMaisCaroContratado.nome + " - " + accounting.formatMoney(dados.servicoMaisCaroContratado.custoMensal, "R$ ", 2, ".", ","));
+        
         $gastoTotalMesAtual.text(accounting.formatMoney(dados.gastoTotalAtual, "R$ ", 2, ".", ","));
         $gastoTotalProximoMes.text(accounting.formatMoney(dados.gastoTotalProximoMes, "R$ ", 2, ".", ","));
         listaServicosMesAtual = dados.servicosMesAtual;
@@ -80,7 +79,7 @@ var getProxPaginaServicosMesAtual = function () {
         url: url
     }).done(function (data) {
         if (data.length < 4) {
-            $('#btnVerMaisAtual').text("Não existem mais serviços");
+            $('#btnVerMaisAtual').text("Não existem mais serviços").attr('style', 'margin-left: 31%; margin-right: 40%;');
             $('#btnVerMaisAtual').addClass('disabled');
         }
         rederizaListaServicos($containerMesAtual, data);
@@ -93,7 +92,7 @@ var getProxPaginaServicosProximoMes = function () {
         url: '/servicos-proximo-mes?page=' + ++paginaAtualProximoMes
     }).done(function (data) {
         if (data.length < 4) {
-            $('#btnVerMaisProximo').text("Não existem mais serviços");
+            $('#btnVerMaisProximo').text("Não existem mais serviços").attr('style', 'margin-left: 31%; margin-right: 40%;');
             $('#btnVerMaisProximo').addClass('disabled');
         }
         rederizaListaServicos($containerProximoMes, data);

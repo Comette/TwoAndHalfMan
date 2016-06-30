@@ -3,7 +3,6 @@ package br.com.crescer.wallet.service.service;
 
 import br.com.crescer.wallet.entity.Moeda;
 import static br.com.crescer.wallet.entity.Moeda.BRL;
-import br.com.crescer.wallet.entity.Permissao;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.service.dto.DashboardDTO;

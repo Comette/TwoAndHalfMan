@@ -12,7 +12,6 @@ import br.com.crescer.wallet.service.service.UsuarioService;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,8 +31,7 @@ public class WalletUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario user = service.findOneByDsUserName(username);
 
-        if (username.isEmpty() || user == null || user.getDsSituacao() == Situacao.INATIVO) {
-            //TODO: diferenciar casos de username vazio, usuario não encontrado e usuario inativo
+        if (username.isEmpty() || user == null || user.getDsSituacao() == Situacao.INATIVO) {            
             throw new UsernameNotFoundException(String.format("User with username=%s was not found", username));
         } else {
             Collection<WalletRoles> permissoes = new ArrayList<>();

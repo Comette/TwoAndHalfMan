@@ -31,8 +31,7 @@ nav,
 a.navbar-brand h6:first-of-type,
 a.navbar-brand h6:nth-of-type(2), 
 .btn-default,
-.general-section-content span,
-#servico-mais-caro-nome {
+.general-section-content span {
     font-weight: bold;
 }
 
@@ -57,10 +56,19 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
 
 .servico-mais-caro {
     font-size: 2em;
-    background-color: #FBAF41;
-    font-weight: bolder;
+    background-color: #FBAF41;    
     color: white;
-    margin-top: 40px;
+    margin-top: 40px;  
+}
+
+.servico-mais-caro div:first-of-type {      
+    margin: 1% 5%;
+}
+
+.servico-mais-caro span {
+    color: #434343;
+    display: inline-block;
+    font-weight: bold;
 }
 
 .search-link {
@@ -84,10 +92,6 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
 .search-link:hover, .search-link:active, .search-link:focus {
     text-decoration: none;
     color: orange;
-}
-
-.servico-mais-caro span {
-    color: #434343;
 }
 
 .panel-container-top {
@@ -189,6 +193,11 @@ a.navbar-brand h6:nth-of-type(2){
     margin-top: 10px;
 }
 
+.btn-ver-mais{
+    margin-left: 43%;
+    margin-right: 40%;
+}
+
 .single-service-container, .single-service-container:last-child{
     border: none;
     border-bottom-left-radius: 0px;
@@ -218,7 +227,7 @@ a.navbar-brand h6:nth-of-type(2){
 }
 
 .btn-warning, .btn-warning:hover {
-    background-color: #FBAF41;
+    background-color: #B0B5B8;
     border-color: transparent;
 }
 
@@ -243,10 +252,11 @@ a.navbar-brand h6:nth-of-type(2){
 .service-name {
     font-size: 2em;
     font-weight: 600;
+    color: #FBAF41;
 }
 .service-value {
     font-size: 1.8em;
-    font-weight: 500;
+    font-weight: 500;    
 }
 
 .general-section-content{
@@ -256,7 +266,7 @@ a.navbar-brand h6:nth-of-type(2){
 }
 
 .general-section-content span:first-of-type,
-.btn-danger:hover, .service-name,
+.btn-danger:hover,
 a.navbar-brand h6:first-of-type {
     color: #FBAF41;
 }
