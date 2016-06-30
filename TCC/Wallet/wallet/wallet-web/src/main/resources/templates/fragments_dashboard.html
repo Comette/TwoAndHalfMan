@@ -45,7 +45,7 @@
                                 </section>
                                 <div class="general-section-content custo-deste-mes panel-body">
                                     <section>
-                                        Custo total: <strong id="preco-total-mes"/>
+                                        Custo total: <strong id="preco-total-mes" class="preco-total"/>
                                     </section>
                                 </div>
                             </section>
@@ -56,7 +56,7 @@
                                     Próximo mês
                                 </section>
                                 <section class="general-section-content custo-deste-mes panel-body">
-                                    Custo total previsto: <strong id="preco-total-proximo-mes"/>
+                                    Custo total previsto: <strong id="preco-total-proximo-mes" class="preco-total"/>
                                 </section>
                             </section>
                         </section>
@@ -66,9 +66,8 @@
         </section>
 
 
-        <section class="container main-section col-md-12" th:fragment="main-section(mensagemTopo, idContainer, idContainerGrafico, idBtnVerMais)">
+        <section class="container main-section col-md-12" th:fragment="main-section(idContainer, idContainerGrafico, idBtnVerMais)">
             <section th:id="${idContainer}">
-                <section class="general-section-titling text-center" th:text="${mensagemTopo}"></section>
                 <section class="services-section">
                     <section class="general-section-titling text-center">
                         Serviços

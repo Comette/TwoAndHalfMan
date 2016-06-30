@@ -7,9 +7,6 @@
         <nav th:replace="fragments_generico :: navbar"/>
         <div class="container">
             <div class="row">
-                <section th:replace="fragments_dashboard :: main-info-section"/>
-            </div>
-            <div class="row">
                 <div class="container">
                 <section class="panel servico-mais-caro text-center">
                     <section>
@@ -19,11 +16,14 @@
                 </div>
             </div>
             <div class="row">
+                <section th:replace="fragments_dashboard :: main-info-section"/>
+            </div>
+            <div class="row">
                 <section class="col-md-6">
-                    <section th:replace="fragments_dashboard :: main-section('Custos deste mês', ${idMesAtual}, 'grafico-mes-atual', 'btnVerMaisAtual')"/>
+                    <section th:replace="fragments_dashboard :: main-section(${idMesAtual}, 'grafico-mes-atual', 'btnVerMaisAtual')"/>
                 </section>
                 <section class="col-md-6">
-                    <section th:replace="fragments_dashboard :: main-section('Previsão para o próximo mês',${idProximoMes}, 'grafico-proximo-mes', 'btnVerMaisProximo')"/>
+                    <section th:replace="fragments_dashboard :: main-section(${idProximoMes}, 'grafico-proximo-mes', 'btnVerMaisProximo')"/>
                 </section>
             </div>
         </div> 

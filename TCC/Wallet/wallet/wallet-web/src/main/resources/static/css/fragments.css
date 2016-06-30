@@ -32,7 +32,7 @@ a.navbar-brand h6:first-of-type,
 a.navbar-brand h6:nth-of-type(2), 
 .btn-default,
 .general-section-content span,
-servico-mais-caro-nome {
+#servico-mais-caro-nome {
     font-weight: bold;
 }
 
@@ -60,6 +60,7 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
     background-color: #FBAF41;
     font-weight: bolder;
     color: white;
+    margin-top: 40px;
 }
 
 .servico-mais-caro span {
@@ -116,15 +117,17 @@ a.navbar-brand h6:nth-of-type(2){
 
 .main-section{
     border: 1px solid #B0B5B8;
-}
-
-.general-info-section{
-    min-height: 200px;
-    padding-top: 25px;
-}
-
-.main-section {
     box-shadow: 3px 3px 3px #B0B5B8;
+    min-height: 900px;
+    margin-bottom: 60px;
+}
+
+.main-section .general-section-content {
+    margin-top: 5%;
+}
+
+.main-section .general-section-titling, .previsao-prox-mes {
+    font-size: 2em;
 }
 
 .general-section-titling{
@@ -137,12 +140,12 @@ a.navbar-brand h6:nth-of-type(2){
     color: white;
 }
 
-.custo-deste-mes {
-    color: white;
+.preco-total{    
+    float: right;
 }
 
-.main-section .general-section-titling, .previsao-prox-mes {
-    font-size: 2em;
+.custo-deste-mes {
+    color: white;
 }
 
 .services-container {
@@ -209,24 +212,16 @@ a.navbar-brand h6:nth-of-type(2){
     font-weight: 500;
 }
 
-.main-section .general-section-content {
-    margin-top: 5%;
-}
-
 .general-section-content{
     font-size: 1.6em;
     margin-left: 10%;
+    margin-right: 10%;
 }
 
 .general-section-content span:first-of-type,
 .btn-danger:hover, .service-name,
 a.navbar-brand h6:first-of-type {
     color: #FBAF41;
-}
-
-.main-section{
-    min-height: 900px;
-    margin-top: 30px;
 }
 
 .graph-section {
