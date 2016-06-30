@@ -36,15 +36,16 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CotacaoService implements InitializingBean {
-    private static final Logger log = Logger.getLogger(CotacaoService.class.getName());
+
+    private static final Logger LOG = Logger.getLogger(CotacaoService.class.getName());
     @Autowired
     CotacaoRepository repository;
 
     public Cotacao findLastExchangeRate() {
         Cotacao cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(LocalDate.now());
         if (cotacao == null) {
-            LocalDate hoje = LocalDate.now();
-            cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(hoje.plusDays(-1));
+            LocalDate today = LocalDate.now();
+            cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(today.plusDays(-1));
         }
         return cotacao;
     }
@@ -52,87 +53,119 @@ public class CotacaoService implements InitializingBean {
     public BigDecimal findLastCurrencyAverage(Moeda moeda) {
         LocalDate dia = LocalDate.now();
         List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);
-        BigDecimal media;
+        BigDecimal average;
         switch (moeda.toString()) {
             case "EUR":
-                media = cotacoes.stream().map(Cotacao::getDsCotacaoEuro).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
+                average = cotacoes.stream()
+                        .map(Cotacao::getDsCotacaoEuro)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                        .divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "BRL":
-                media = cotacoes.stream().map(Cotacao::getDsCotacaoReal).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
+                average = cotacoes.stream()
+                        .map(Cotacao::getDsCotacaoReal)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                        .divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "JPY":
-                media = cotacoes.stream().map(Cotacao::getDsCotacaoYen).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
+                average = cotacoes.stream()
+                        .map(Cotacao::getDsCotacaoYen)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                        .divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "GBP":
-                media = cotacoes.stream().map(Cotacao::getDsCotacaoLibra).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
+                average = cotacoes.stream()
+                        .map(Cotacao::getDsCotacaoLibra)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                        .divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "AUD":
-                media = cotacoes.stream().map(Cotacao::getDsCotacaoDollarAutraliano).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
+                average = cotacoes.stream()
+                        .map(Cotacao::getDsCotacaoDollarAutraliano)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                        .divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "CAD":
-                media = cotacoes.stream().map(Cotacao::getDsCotacaoDollarCanadense).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
+                average = cotacoes.stream()
+                        .map(Cotacao::getDsCotacaoDollarCanadense)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                        .divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "CHF":
-                media = cotacoes.stream().map(Cotacao::getDsCotacaoFrancoSuico).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
+                average = cotacoes.stream()
+                        .map(Cotacao::getDsCotacaoFrancoSuico)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                        .divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             case "CNY":
-                media = cotacoes.stream().map(Cotacao::getDsCotacaoYuan).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(cotacoes.size()));
+                average = cotacoes.stream()
+                        .map(Cotacao::getDsCotacaoYuan)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                        .divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
             default:
                 //TODO: throws exception
-                media=BigDecimal.ZERO;
-                System.out.println("Moeda inválida");
+                average = BigDecimal.ZERO;
+                LOG.error("Moeda inválida");
                 break;
         }
-        return media;
+        return average;
     }
 
     public Map<Moeda, BigDecimal> findLastAverage() {
-        LocalDate dia = LocalDate.now();
-        List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);      
-        BigDecimal totalCotacoes = BigDecimal.valueOf(cotacoes.size());
-        Map<Moeda, BigDecimal> medias = new HashMap<>();
-        medias.put(Moeda.USD, BigDecimal.ONE);
-        medias.put(Moeda.BRL, cotacoes.stream().map(Cotacao::getDsCotacaoReal).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
-        medias.put(Moeda.EUR, cotacoes.stream().map(Cotacao::getDsCotacaoEuro).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
-        medias.put(Moeda.JPY, cotacoes.stream().map(Cotacao::getDsCotacaoYen).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
-        medias.put(Moeda.GBP, cotacoes.stream().map(Cotacao::getDsCotacaoLibra).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
-        medias.put(Moeda.AUD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarAutraliano).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
-        medias.put(Moeda.CAD, cotacoes.stream().map(Cotacao::getDsCotacaoDollarCanadense).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
-        medias.put(Moeda.CHF, cotacoes.stream().map(Cotacao::getDsCotacaoFrancoSuico).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
-        medias.put(Moeda.CNY, cotacoes.stream().map(Cotacao::getDsCotacaoYuan).reduce(BigDecimal.ZERO, BigDecimal::add).divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
-        
-        return medias;
+        LocalDate today = LocalDate.now();
+        List<Cotacao> cotacoes = repository.findByDtCotacaoBetween(today.minusDays(29), today);
+        Map<Moeda, BigDecimal> averages = new HashMap<>();
+        {
+            BigDecimal totalCotacoes = BigDecimal.valueOf(cotacoes.size());
+            Moeda.getPrincipais().stream().forEach((moeda) -> {
+                averages.put(moeda, cotacoes.stream()
+                        .map(Cotacao::getDsCotacaoReal)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                        .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP)
+                );
+            });
+            averages.put(Moeda.USD, BigDecimal.ONE);
+        }
+        return averages;
     }
 
-    public String databaseIntegrityAgent() {
-        LocalDate dia = LocalDate.now();
-        LocalDate diaVerificacao;
-        log.info("Inicio da verificação: " + LocalTime.now());
+    public void databaseIntegrityAgent() {
+        LocalDate today = LocalDate.now();
+        LocalDate verificationDay;
+        LOG.info("");
+        LOG.info("");
+        LOG.info("<<<<<<>>>>>> VERIFICANDO INTEGRIDADE DO BANCO DE COTACOES <<<<<<>>>>>>");
+        LOG.info("------ Inicio da verificacao: " + LocalTime.now());
+        LOG.info("");
         for (int i = 29; i >= 0; i--) {
-            diaVerificacao = dia.minusDays(i);
-            Cotacao cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(diaVerificacao);
+            verificationDay = today.minusDays(i);
+            Cotacao cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(verificationDay);
             if (cotacao == null) {
-                log.info("-----------FALTANDO:  Cotação dia: " + diaVerificacao + " --------------");
-                this.addCurrencyByDate(diaVerificacao);
+                LOG.info("");
+                LOG.warn("------- >>> FALTANDO:  Cotacao dia: " + verificationDay + " <<< -------");
+                this.addCurrencyByDate(verificationDay);
                 i++;
             }
         }
-        List<Cotacao> lista = repository.findByDtCotacaoBetween(dia.minusDays(29), dia);
-        log.info("----------- Fim da verificacao: " + LocalTime.now());
-        log.info("----------- Foram encontrados " + lista.size() + " registros nos ultimos 30 dias");
-        return "\nIntegridade do Banco verificada!\n\n";
+        List<Cotacao> lista = repository.findByDtCotacaoBetween(today.minusDays(29), today);
+        LOG.info("");
+        LOG.info("------ Fim da verificacao: " + LocalTime.now());
+        LOG.info("------ Foram encontrados " + lista.size() + " registros nos ultimos 30 dias");
+        LOG.info("<<<<<<>>>>>> Integridade do Banco de cotacoes VERIFICADA! <<<<<<>>>>>>");
+        LOG.info("");
+        LOG.info("");
     }
 
-    private void addCurrencyByDate(LocalDate data) {
+    private void addCurrencyByDate(LocalDate date) {
         try {
-            URL url = new URL(WebServiceConfig.URL_GET_POR_DATA + data + WebServiceConfig.URL_GET_POR_DATA_2);
+            URL url = new URL(WebServiceConfig.URL_GET_POR_DATA + date + WebServiceConfig.URL_GET_POR_DATA_2);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestProperty("User-Agent", WebServiceConfig.USER_AGENT);
 
-            log.info("-----------Buscando Cotação no WebService--------------");
+            LOG.info(" +++++++ Buscando Cotacao no WebService +++++++ ");
             StringBuffer response;
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String inputLine;
@@ -141,33 +174,31 @@ public class CotacaoService implements InitializingBean {
                     response.append(inputLine);
                 }
             }
-            log.info("-----------Convertendo Resultados--------------");
+            LOG.info(" +++++++ Convertendo Resultados +++++++ ");
             String json = "{" + response.toString().substring(response.toString().indexOf("AED") - 3, response.toString().length() - 1);
 
             Cotacao cotacao = new Gson().fromJson(json, Rates.class).toCotacao();
-            cotacao.setDtCotacao(data);
-            log.info("-----------Salvando Cotação--------------");
+            cotacao.setDtCotacao(date);
+            LOG.info(" +++++++ Salvando Cotacao +++++++ ");
             repository.save(cotacao);
-            log.info("-----------Cotação dia: " + cotacao.getDtCotacao() + " atualizada!");
+            LOG.info(" +++++++ Cotacao dia: " + cotacao.getDtCotacao() + " atualizada! +++++++ ");
 
         } catch (MalformedURLException ex) {
-            log.error("ERRO: ao alimentar o banco de dados!");
-            log.error(ex.getMessage());
+            LOG.error("ERRO: ao alimentar o banco de dados!");
+            LOG.error(ex.getMessage());
         } catch (IOException ex) {
-            log.error("ERRO: ao alimentar o banco de dados!");
-            log.error(ex.getMessage());
+            LOG.error("ERRO: ao alimentar o banco de dados!");
+            LOG.error(ex.getMessage());
         }
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
-        log.info("--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        log.info(this.databaseIntegrityAgent());
+    public void afterPropertiesSet() throws Exception {        
+        this.databaseIntegrityAgent();
     }
 
-    @Scheduled(cron = "0 16 19 1/1 * ?")
+    @Scheduled(cron = "0 20 18 1/1 * ?")
     public void findClosureExchangeRate() {
-        log.info("--------------- VERIFICANDO INTEGRIDADE DO BANCO DE DADOS ------------------");
-        log.info(this.databaseIntegrityAgent());
+        this.databaseIntegrityAgent();
     }
 }

@@ -118,11 +118,11 @@ public class ServicoService {
     }   
 
     private ServicoDTO buildDTO(Servico servico, Map<Moeda, BigDecimal> medias) {
-        final BigDecimal vlrCusto;
+        BigDecimal vlrCusto;
         {            
-            final BigDecimal periodicidade = BigDecimal.valueOf(servico.getDsPeriodicidade().getNumeral());
-            final BigDecimal media = medias.get(servico.getDsSimboloMoeda());
-            final BigDecimal taxa = medias.get(BRL);
+            BigDecimal periodicidade = BigDecimal.valueOf(servico.getDsPeriodicidade().getNumeral());
+            BigDecimal media = medias.get(servico.getDsSimboloMoeda());
+            BigDecimal taxa = medias.get(BRL);
 
             vlrCusto = servico.getVlTotalServico()
                     .divide(periodicidade, CALC_SCALE, HALF_UP)

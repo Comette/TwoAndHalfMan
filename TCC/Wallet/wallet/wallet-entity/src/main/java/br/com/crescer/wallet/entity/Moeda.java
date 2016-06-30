@@ -184,8 +184,8 @@ public enum Moeda {
     ZMK,
     ZMW,
     ZWL;
-        
-    public static List<String> getPrincipais(){
+    
+    public static List<String> getStringPrincipais(){
         List<String> principais = new ArrayList<>();
         principais.add(Moeda.EUR.toString());
         principais.add(Moeda.BRL.toString());
@@ -195,6 +195,19 @@ public enum Moeda {
         principais.add(Moeda.CAD.toString());
         principais.add(Moeda.CHF.toString());
         principais.add(Moeda.CNY.toString());
+        return principais;
+    }
+        
+    public static List<Moeda> getPrincipais(){
+        List<Moeda> principais = new ArrayList<>();
+        principais.add(Moeda.EUR);
+        principais.add(Moeda.BRL);
+        principais.add(Moeda.JPY);
+        principais.add(Moeda.GBP);
+        principais.add(Moeda.AUD);
+        principais.add(Moeda.CAD);
+        principais.add(Moeda.CHF);
+        principais.add(Moeda.CNY);
         return principais;
     }
 }
