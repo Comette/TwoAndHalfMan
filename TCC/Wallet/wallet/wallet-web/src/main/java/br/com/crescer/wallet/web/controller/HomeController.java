@@ -20,4 +20,9 @@ public class HomeController {
     public String toIndex(Model model) {        
         return "dashboard";
     }
+    
+    @RequestMapping(value = "/acesso-negado", method = RequestMethod.GET)
+    public String acessoNegado(){
+        return "acesso_negado";
+    }
 }

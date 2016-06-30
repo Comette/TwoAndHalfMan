@@ -24,4 +24,9 @@ public class GerenteController {
     public List<GerenteDTO> getGerentes() {
         return service.findAllReturningDTOs();
     }
+    
+    @RequestMapping(value = "/gerente", method = RequestMethod.GET)
+    public String gerente(){
+        return "gerente";
+    }
 }
