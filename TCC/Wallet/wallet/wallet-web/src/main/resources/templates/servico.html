@@ -11,11 +11,11 @@
     <body>
         <nav th:replace="fragments_generico :: navbar"/>
         <div class="jumbotron container">
-            <p th:text="'Gerente: ' + ${servico.usuarioIdUsuario.nmUsuario}"/>
-            <h1 class="display-3" th:text="${servico.nmServico}">NOME SERVICO</h1>
-            <p class="lead" th:text="${servico.vlTotalServico}">VALOR</p>
-            <p class="lead" th:text="${servico.dsDescricao}">DESCRICAO</p>
-            <p class="lead" th:text="${servico.dsWebsite}">WEBSITE</p>
+            <p> Gerente: <span class='service-manager' th:text="${servico.usuarioIdUsuario.nmUsuario}"></span></p>
+            <h1 class="display-3 service-value" th:text="${servico.vlTotalServico}">VALOR SERVICO</h1>
+            <h1 class="display-3 service-name" th:text="${servico.nmServico}">NOME SERVICO</h1>
+            <p class="lead service-website" th:text="${servico.dsWebsite}">WEBSITE</p>
+            <p class="lead service-description" th:text="${servico.dsDescricao}">DESCRICAO</p>
             <hr class="m-y-2"/>
             <p class="lead">
                 <a class="btn btn-warning" th:text="Editar"/>

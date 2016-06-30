@@ -10,3 +10,18 @@ Created on : 30/06/2016, 18:08:00
     font-family: Open Sans, sans-serif;
 }
 
+.jumbotron h1 {
+    display: inline;
+}
+
+.service-manager {
+    color: #FBAF41;
+    font-weight: bold;
+}
+
+.service-value {
+    float: right;
+    position: relative;
+    top: -50px;
+}
+
