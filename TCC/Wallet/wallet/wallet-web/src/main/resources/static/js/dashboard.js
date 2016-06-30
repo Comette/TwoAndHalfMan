@@ -48,8 +48,8 @@ var getDadosDashboard = function () {
         url: "/dashboard?page=0",
         type: "GET"
     }).done(function (dados) {
-        //$nomeServicoMaisCaro
-        //$valorServicoMaisCaro
+        $nomeServicoMaisCaro.text(dados.servicoMaisCaroContratado.nome + " - ");
+        $valorServicoMaisCaro.text(accounting.formatMoney(dados.servicoMaisCaroContratado.custoMensal, "R$ ", 2, ".", ","));
         $gastoTotalMesAtual.text(accounting.formatMoney(dados.gastoTotalAtual, "R$ ", 2, ".", ","));
         $gastoTotalProximoMes.text(accounting.formatMoney(dados.gastoTotalProximoMes, "R$ ", 2, ".", ","));
         listaServicosMesAtual = dados.servicosMesAtual;
