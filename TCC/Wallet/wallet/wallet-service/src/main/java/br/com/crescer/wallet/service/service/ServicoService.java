@@ -52,7 +52,7 @@ public class ServicoService {
         servicosDTOProximoMesPaginados.stream().forEach((servico) -> {
             servico.setPorcentagemCustoTotal(gastoTotalProximoMes);
         });
-        
+
         ServicoDTO servicoMaisCaro = servicosDTOMesAtualPaginados.get(0);
 
         return new DashboardDTO(servicosDTOMesAtualPaginados, servicosDTOProximoMesPaginados, gastoTotalAtual, gastoTotalProximoMes, servicoMaisCaro);
@@ -76,6 +76,16 @@ public class ServicoService {
 
     public List<ServicoDTO> getServicosDTOProximoMesPaginados(Pageable pageable) {
         return this.getServicosDTO(this.servicosProximoMesPaginados(pageable));
+    }
+
+    public List<ServicoDTO> getServicosDTOMesAtualFiltradosPorGerentePaginados(Long idGerente, Pageable pageable) {
+        pageable = new PageRequest(pageable.getPageNumber(), PAGE_SIZE, Sort.Direction.DESC, "vlMensalUSD");
+        return this.getServicosDTO(this.servicosMesAtualPaginadosFiltradosPorGerente(idGerente, pageable));
+    }
+
+    public List<ServicoDTO> getServicosDTOProximoMesFiltradosPorGerentePaginados(Long idGerente, Pageable pageable) {
+        pageable = new PageRequest(pageable.getPageNumber(), PAGE_SIZE, Sort.Direction.DESC, "vlMensalUSD");
+        return this.getServicosDTO(this.servicosProximoMesPaginadosFiltradosPorGerente(idGerente, pageable));
     }
 
     public GraficoDTO getDadosGraficoServicos() {
@@ -120,6 +130,16 @@ public class ServicoService {
         return repository.findByDsSituacao(Situacao.ATIVO, pageable);
     }
 
+    private List<Servico> servicosMesAtualPaginadosFiltradosPorGerente(Long idGerente, Pageable pageable) {
+        pageable = new PageRequest(pageable.getPageNumber(), PAGE_SIZE, Sort.Direction.DESC, "vlMensalUSD");
+        return repository.findAllByusuarioIdUsuario_idUsuarioAndDsSituacaoNot(idGerente, Situacao.INATIVO, pageable);
+    }
+
+    private List<Servico> servicosProximoMesPaginadosFiltradosPorGerente(Long idGerente, Pageable pageable) {
+        pageable = new PageRequest(pageable.getPageNumber(), PAGE_SIZE, Sort.Direction.DESC, "vlMensalUSD");
+        return repository.findAllByusuarioIdUsuario_idUsuarioAndDsSituacao(idGerente, Situacao.ATIVO, pageable);
+    }
+
     private BigDecimal calculaGastoTotalMes(List<ServicoDTO> servicosDTO) {
         BigDecimal gastoTotal = BigDecimal.ZERO;
         for (ServicoDTO servico : servicosDTO) {
@@ -161,8 +181,4 @@ public class ServicoService {
         repository.save(servicosCancelados);
     }
 
-    public List<ServicoDTO> getServicosDTOFiltradosPorGerentePaginados(Long idGerente, Pageable pageable) {
-        pageable = new PageRequest(pageable.getPageNumber(),PAGE_SIZE,Sort.Direction.DESC, "vlMensalUSD");
-        return this.getServicosDTO(repository.findAllByusuarioIdUsuario_idUsuario(idGerente,pageable));
-    }
 }
