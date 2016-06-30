@@ -20,10 +20,10 @@
             </div>
             <div class="row">
                 <section class="col-md-6">
-                    <section th:replace="fragments_dashboard :: main-section(${idMesAtual}, 'grafico-mes-atual', 'btnVerMaisAtual', 'btnPesquisarAtual')"/>
+                    <section th:replace="fragments_dashboard :: main-section('container-mes-atual', 'grafico-mes-atual', 'btnVerMaisAtual', 'btnPesquisarAtual')"/>
                 </section>
                 <section class="col-md-6">
-                    <section th:replace="fragments_dashboard :: main-section(${idProximoMes}, 'grafico-proximo-mes', 'btnVerMaisProximo', 'btnPesquisarProximo')"/>
+                    <section th:replace="fragments_dashboard :: main-section('container-proximo-mes', 'grafico-proximo-mes', 'btnVerMaisProximo', 'btnPesquisarProximo')"/>
                 </section>
             </div>
         </div> 

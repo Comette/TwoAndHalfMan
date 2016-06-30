@@ -28,8 +28,9 @@
                         <li><a href="#" id="li-navbar">Dashboard</a></li>
                         <li><a href="#" id="li-navbar">Cadastros</a></li>
                         <li><a href="#" id="li-navbar">Gerentes</a></li>
-                        <li><a href="#" id="li-navbar" th:text="${user.nmUsuario}"/></li>
-                        <li><a th:href="@{/logout}" id="li-navbar">Sair</a></li>
+                        <li><a id="separador" > | </a></li>
+                        <li><span id="logged-user-name" th:text="${#authentication.principal.nmUsuario}"/></li>
+                        <li><a th:href="@{/logout}" id="navbar-logout">Sair</a></li>
                     </ul>
                 </div>
             </div>

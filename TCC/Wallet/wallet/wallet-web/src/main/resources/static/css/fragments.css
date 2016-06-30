@@ -94,22 +94,36 @@ li a.dropdown-toggle span.glyphicon{
     transform: rotate(90deg);
 }
 
-#li-navbar{
+#li-navbar, #navbar-logout, #logged-user-name, #separador{
     margin-top: 8px;
     font-size: 1.2em;
     font-weight: 300;
-    color: white;
 }
 
-#li-navbar, #li-navbar a {
+#li-navbar, #li-navbar a, #navbar-logout {
     transition: color 0.5s ease;
 }
 
-#li-navbar #li-navbar a, a.navbar-brand h6:nth-of-type(2), .btn-default {
+#li-navbar, #li-navbar a, a.navbar-brand h6:nth-of-type(2), .btn-default, #navbar-logout {
     color: white;
 }
 
-#li-navbar:hover, #li-navbar a:hover {
+#li-navbar:hover, #li-navbar a:hover, #navbar-logout:hover {
+    color: #FBAF41;
+}
+
+#navbar-logout{
+    display: block;
+}
+
+#separador{
+    color: #666666;
+    margin-right: 12px;
+}
+
+#logged-user-name{
+    margin-top: 21.5px;
+    display: block;
     color: #FBAF41;
 }
 

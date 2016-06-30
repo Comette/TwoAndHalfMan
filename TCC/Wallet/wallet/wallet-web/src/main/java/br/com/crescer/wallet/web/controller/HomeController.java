@@ -4,7 +4,6 @@
  */
 package br.com.crescer.wallet.web.controller;
 
-import br.com.crescer.wallet.web.utils.LoggedInUserUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +18,6 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String toIndex(Model model) {        
-        model.addAttribute("user",LoggedInUserUtils.getLoggedInUser());    
-        model.addAttribute("idMesAtual", "container-mes-atual");
-        model.addAttribute("idProximoMes", "container-proximo-mes");
         return "dashboard";
     }
 }
