@@ -4,6 +4,7 @@
  */
 package br.com.crescer.wallet.security.service;
 
+import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.entity.Usuario;
 import br.com.crescer.wallet.security.enumeration.WalletRoles;
 import br.com.crescer.wallet.security.extensions.UsuarioSessaoUser;
@@ -31,7 +32,8 @@ public class WalletUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario user = service.findOneByDsUserName(username);
 
-        if (username.isEmpty() || user == null) {
+        if (username.isEmpty() || user == null || user.getDsSituacao() == Situacao.INATIVO) {
+            //TODO: diferenciar casos de username vazio, usuario não encontrado e usuario inativo
             throw new UsernameNotFoundException(String.format("User with username=%s was not found", username));
         } else {
             Collection<WalletRoles> permissoes = new ArrayList<>();
