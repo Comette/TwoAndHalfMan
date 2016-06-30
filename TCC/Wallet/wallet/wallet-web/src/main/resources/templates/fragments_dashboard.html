@@ -40,11 +40,15 @@
         </section>
 
 
-        <section class="container main-section col-md-12" th:fragment="main-section(idContainer, idContainerGrafico, idBtnVerMais, idBtnPesquisar)">
+        <section class="container main-section col-md-12" th:fragment="main-section(idContainer, idContainerGrafico, idBtnVerMais, idBtnPesquisar, idFormFiltrar)">
             <div th:id="${idContainer}">
                 <section class="services-section">
-                    <section class="general-section-titling text-center">Serviços</section>
-                    <a class=" glyphicon glyphicon-search search-link text-center" th:id="${idBtnPesquisar}"/>                    
+                    <section class="general-section-titling text-center">Serviços <a href="#" class="glyphicon glyphicon-search search-link" th:id="${idBtnPesquisar}"/></section>
+                    <form th:id="${idFormFiltrar}">    
+                        <select class="form-control" id="select-gerentes">
+                        </select>
+                        <input type="submit" class="btn btn-warning col-md-offset-5" value="Filtrar"/>
+                    </form>
                     <div class="services-container list-group">
                         <section id="services-container-list"></section>
                         <section class="text-center">

@@ -65,12 +65,23 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
 
 .search-link {
     color: #FBAF41;
-    font-size: 1.7em;
+    font-size: .7em;
     text-decoration: none;
     transition: color .5s ease-in-out;
 }
 
-.search-link:hover {
+#formFiltrarAtual input, #formFiltrarProximo input {
+    font-family: Open Sans, sans-serif;
+    border-radius: 0px;
+}
+
+#formFitrarAtual .form-control {
+    background-color: #434343;
+    color: white;
+    font-family: Open Sans, sans-serif;
+}
+
+.search-link:hover, .search-link:active, .search-link:focus {
     text-decoration: none;
     color: orange;
 }

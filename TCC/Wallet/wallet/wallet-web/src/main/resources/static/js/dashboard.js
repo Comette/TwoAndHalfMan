@@ -27,6 +27,16 @@ var paginaAtualMesAtual = 0;
 var paginaAtualProximoMes = 0;
 var filtroAtual = '';
 
+var $btnPesquisarAtual = $('#btnPesquisarAtual');
+var $btnPesquisarProximo = $('#btnPesquisarProximo');
+
+var $formAtual = $('#formFiltrarAtual');
+var $formAtualSelect = $('#formFiltrarAtual select');
+var $formProximo = $('#formFiltrarProximo');
+var $formProximoSelect = $('#formFiltrarProximo select');
+
+var select = $('#select-gerentes');
+
 var rederizaListaServicos = function (containerLista, servicos) {
     $.each(servicos, function (i, servico) {
         containerLista.find('#services-container-list').append(
@@ -86,6 +96,10 @@ var getProxPaginaServicosProximoMes = function () {
 };
 
 $(function () {
+    
+    $formAtual.hide();
+    $formProximo.hide();
+    
     getDadosDashboard();
     
     buscarDadosEChamarGraficos($containerGraficoMesAtual, $containerGraficoProximoMes);
@@ -97,15 +111,30 @@ $(function () {
     $verMaisServicosProximoMes.click(function () {
         getProxPaginaServicosProximoMes();
     });
+    
+    setarOnClickBotaoPesquisar($btnPesquisarAtual,$btnPesquisarProximo);
+    buscaGerentes();
 });
 
-function setarOnClickBotaoPesquisar($botaoAtual, $botaoProximo){
-        $botaoAtual.click(function(){
-           filtroAtual = $botaoAtual.closest('input').val();
-           
-           $.ajax({
-              type: 'GET',
-              url: ''
-           });
+function setarOnClickBotaoPesquisar($btnPesquisarAtual,$btnPesquisarProximo){
+    debugger;
+    $btnPesquisarAtual.click(function(){
+        $formAtual.fadeIn(2000);
+    });
+    $btnPesquisarProximo.click(function(){
+        $formProximo.fadeIn(2000);
+    });
+    
+}
+
+function buscaGerentes(){
+    $.ajax({
+        type : 'GET',
+        url : '/buscar-gerentes'
+    }).done(function(data){
+        
+        $.each(data,function(i, gerenteDTO){
+            select.append($('<option>').val(gerenteDTO.id).text(gerenteDTO.nome));
         });
+    });
 }
