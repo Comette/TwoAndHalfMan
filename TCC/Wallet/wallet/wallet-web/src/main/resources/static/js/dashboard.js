@@ -43,7 +43,7 @@ var rederizaListaServicos = function (containerLista, servicos) {
     $.each(servicos, function (i, servico) {
         containerLista.find('#services-container-list').append(
                 $('<section>').addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
-                .append($('<h5>').addClass('service-name').addClass('text-center').text(servico.nome))
+                .append($('<a>').html($('<h5>').addClass('service-name').addClass('text-center').text(servico.nome)).attr('href', '/servico?idServico=' + servico.id))
                 .append($('<h5>').addClass('service-value').addClass('text-center').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
                 .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn')
                         .append($('<span>').addClass('glyphicon').addClass('glyphicon-edit').attr('aria-hidden', true))
@@ -92,13 +92,13 @@ var getProxPaginaServicosProximoMes = function () {
 var getProxPaginaServicosEsteMes = function () {
     debugger;
     var url = filtroAtual !== null ?
-        '/servicos-mes-atual?idGerente=' + filtroAtual + '&page=' + ++paginaAtualEsteMesFiltrado
-        : '/servicos-mes-atual?page=' + ++ paginaAtualEsteMesFiltrado;
+            '/servicos-mes-atual?idGerente=' + filtroAtual + '&page=' + ++paginaAtualEsteMesFiltrado
+            : '/servicos-mes-atual?page=' + ++paginaAtualEsteMesFiltrado;
     $.ajax({
         type: 'GET',
-        url : url
-    }).done(function(data){        
-        if (data.length < 4){
+        url: url
+    }).done(function (data) {
+        if (data.length < 4) {
             $('#btnVerMaisAtual').text('Não existem mais serviços.').attr('style', 'margin-left: 31%; margin-right: 40%;');
             $('#btnVerMaisAtual').addClass('disabled');
         }
@@ -171,5 +171,5 @@ $formProximo.submit(function (e) {
 });
 
 function limparContainer($container) {
-        $container.html('');
+    $container.html('');
 }

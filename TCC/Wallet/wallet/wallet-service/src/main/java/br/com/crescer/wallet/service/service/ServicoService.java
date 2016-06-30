@@ -110,6 +110,10 @@ public class ServicoService {
         }
         return graficoDTO;
     }
+    
+    public Servico getServico(Long idServico){
+        return repository.findOne(idServico);
+    }
 
     private List<Servico> servicosMesAtual() {
         return repository.findByDsSituacaoNot(Situacao.INATIVO);

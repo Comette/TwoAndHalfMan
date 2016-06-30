@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
+        <link th:href="@{/css/fragments.css}" type="text/css" rel="stylesheet"/>
+        <link th:href="@{/css/service.css}" type="text/css" rel="stylesheet"/>
+    </head>
+    <body>
+        <nav th:replace="fragments_generico :: navbar"/>
+        <div class="jumbotron container">
+            <h1 class="display-3" th:text="${servico.nmServico}">NOME SERVICO</h1>
+            <p class="lead" th:text="${servico.vlTotalServico}">VALOR</p>
+            <p class="lead" th:text="${servico.dsDescricao}">DESCRICAO</p>
+            <p class="lead" th:text="${servico.dsWebsite}">WEBSITE</p>
+            <hr class="m-y-2"/>
+            <p th:text="${servico.usuarioIdUsuario.nmUsuario}"/>
+            <p class="lead">
+                <a class="btn btn-warning" th:text="Editar"/>
+                <a class="btn btn-warning" th:text="Desativar"/>
+            </p>    
+        </div>
+    </body>
+</html>
