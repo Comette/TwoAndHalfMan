@@ -23,9 +23,8 @@ var $valorServicoMaisCaro = $('#servico-mais-caro-valor');
 var $gastoTotalMesAtual = $('#preco-total-mes');
 var $gastoTotalProximoMes = $('#preco-total-proximo-mes');
 
-var paginaAtualMesAtual = 0;
-var paginaAtualProximoMes = 0;
-var filtroAtual = '';
+var paginaAtualFiltrado = 0;
+
 
 var $btnPesquisarAtual = $('#btnPesquisarAtual');
 var $btnPesquisarProximo = $('#btnPesquisarProximo');
@@ -96,45 +95,59 @@ var getProxPaginaServicosProximoMes = function () {
 };
 
 $(function () {
-    
+
     $formAtual.hide();
     $formProximo.hide();
-    
+
     getDadosDashboard();
-    
+
     buscarDadosEChamarGraficos($containerGraficoMesAtual, $containerGraficoProximoMes);
-    
+
     $verMaisServicosMesAtual.click(function () {
         getProxPaginaServicosMesAtual();
     });
-    
+
     $verMaisServicosProximoMes.click(function () {
         getProxPaginaServicosProximoMes();
     });
-    
-    setarOnClickBotaoPesquisar($btnPesquisarAtual,$btnPesquisarProximo);
+
+    setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo);
     buscaGerentes();
 });
 
-function setarOnClickBotaoPesquisar($btnPesquisarAtual,$btnPesquisarProximo){
+function setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo) {
     debugger;
-    $btnPesquisarAtual.click(function(){
+    $btnPesquisarAtual.click(function () {
         $formAtual.fadeIn(2000);
     });
-    $btnPesquisarProximo.click(function(){
+    $btnPesquisarProximo.click(function () {
         $formProximo.fadeIn(2000);
     });
-    
+
 }
 
-function buscaGerentes(){
+function buscaGerentes() {
     $.ajax({
-        type : 'GET',
-        url : '/buscar-gerentes'
-    }).done(function(data){
-        
-        $.each(data,function(i, gerenteDTO){
+        type: 'GET',
+        url: '/buscar-gerentes'
+    }).done(function (data) {
+
+        $.each(data, function (i, gerenteDTO) {
             select.append($('<option>').val(gerenteDTO.id).text(gerenteDTO.nome));
         });
     });
 }
+
+$formAtual.submit(function (e) {
+    var valor = $formAtual.children('select').val();
+    debugger;
+    $.ajax({
+        type: 'GET',
+        url: '/filtrar-por-gerente?idGerente=' + valor + '&page=' + paginaAtualFiltrado
+    }).done(function (data) {
+        paginaAtualFiltrado++;
+        rederizaListaServicos($containerMesAtual, data);
+    });
+    e.preventDefault();
+});
+

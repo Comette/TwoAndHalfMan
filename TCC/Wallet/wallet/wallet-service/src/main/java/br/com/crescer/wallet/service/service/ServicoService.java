@@ -3,6 +3,7 @@ package br.com.crescer.wallet.service.service;
 
 import br.com.crescer.wallet.entity.Moeda;
 import static br.com.crescer.wallet.entity.Moeda.BRL;
+import br.com.crescer.wallet.entity.Permissao;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.service.dto.DashboardDTO;
@@ -158,5 +159,10 @@ public class ServicoService {
             servico.setDsSituacao(Situacao.INATIVO);
         });
         repository.save(servicosCancelados);
+    }
+
+    public List<ServicoDTO> getServicosDTOFiltradosPorGerentePaginados(Long idGerente, Pageable pageable) {
+        pageable = new PageRequest(pageable.getPageNumber(),PAGE_SIZE,Sort.Direction.DESC, "vlMensalUSD");
+        return this.getServicosDTO(repository.findAllByusuarioIdUsuario_idUsuario(idGerente,pageable));
     }
 }
