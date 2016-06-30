@@ -16,12 +16,60 @@ public class ServicoDTO {
     private String nome;
     private BigDecimal custoMensal;
     private BigDecimal porcentagemCustoTotal;
-
+    private String nmUsuario;
+    private Long idUsuario;
+    private String dsWebsite;
+    private String dsDescricao;
+    
     public ServicoDTO(long id, String nome, BigDecimal custoMensal) {
         this.id = id;
         this.nome = nome;
         this.custoMensal = custoMensal;
     }
+
+    public ServicoDTO(long id, String nome, BigDecimal custoMensal, String nmUsuario, Long idUsuario, String dsWebsite, String dsDescricao) {
+        this.id = id;
+        this.nome = nome;
+        this.custoMensal = custoMensal;
+        this.nmUsuario = nmUsuario;
+        this.idUsuario = idUsuario;
+        this.dsWebsite = dsWebsite;
+        this.dsDescricao = dsDescricao;
+    }
+
+    public String getNmUsuario() {
+        return nmUsuario;
+    }
+
+    public void setNmUsuario(String nmUsuario) {
+        this.nmUsuario = nmUsuario;
+    }
+
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getDsWebsite() {
+        return dsWebsite;
+    }
+
+    public void setDsWebsite(String dsWebsite) {
+        this.dsWebsite = dsWebsite;
+    }
+
+    public String getDsDescricao() {
+        return dsDescricao;
+    }
+
+    public void setDsDescricao(String dsDescricao) {
+        this.dsDescricao = dsDescricao;
+    }
+    
+    
 
     public long getId() {
         return id;

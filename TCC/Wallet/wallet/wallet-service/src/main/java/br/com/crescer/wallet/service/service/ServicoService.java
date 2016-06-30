@@ -110,9 +110,10 @@ public class ServicoService {
         }
         return graficoDTO;
     }
-    
-    public Servico getServico(Long idServico){
-        return repository.findOne(idServico);
+
+    public ServicoDTO getServico(Long idServico) {
+        final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
+        return this.buildDTO(repository.findOne(idServico),medias);
     }
 
     private List<Servico> servicosMesAtual() {
@@ -172,7 +173,10 @@ public class ServicoService {
                     .divide(media, CALC_SCALE, HALF_UP)
                     .multiply(taxa).setScale(PRES_SCALE, HALF_UP);
         }
-        return new ServicoDTO(servico.getIdServico(), servico.getNmServico(), vlrCusto);
+        return new ServicoDTO(servico.getIdServico(), servico.getNmServico(),
+                vlrCusto, servico.getUsuarioIdUsuario().getNmUsuario(),
+                servico.getUsuarioIdUsuario().getIdUsuario(), servico.getDsWebsite(),
+                servico.getDsDescricao());
     }
 
     @Scheduled(cron = "0 1 0 1 1/1 ?")

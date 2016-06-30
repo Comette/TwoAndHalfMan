@@ -47,14 +47,14 @@ public class ServicoController {
     @ResponseBody
     @RequestMapping(value = "/servicos-mes-atual", method = RequestMethod.GET)
     public List<ServicoDTO> servicosMesAtual(@RequestParam(required = false) Long idGerente, Pageable pageable){
-        return idGerente == null ? 
+        return idGerente == null || idGerente == 0 ? 
                 service.getServicosDTOMesAtualPaginados(pageable) : service.getServicosDTOMesAtualFiltradosPorGerentePaginados(idGerente, pageable);
     }
     
     @ResponseBody
     @RequestMapping(value = "/servicos-proximo-mes", method = RequestMethod.GET)
     public List<ServicoDTO> servicosProximosMes(@RequestParam(required = false) Long idGerente, Pageable pageable){
-        return idGerente == null ? 
+        return idGerente == null || idGerente == 0 ? 
                 service.getServicosDTOProximoMesPaginados(pageable) : service.getServicosDTOProximoMesFiltradosPorGerentePaginados(idGerente, pageable);
     }
     
