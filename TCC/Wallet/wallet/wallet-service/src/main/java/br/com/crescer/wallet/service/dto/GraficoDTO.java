@@ -1,6 +1,5 @@
-package br.com.crescer.wallet.web.dto;
+package br.com.crescer.wallet.service.dto;
 
-import br.com.crescer.wallet.service.dto.ServicoDTO;
 import java.util.List;
 
 /**
