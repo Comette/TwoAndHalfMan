@@ -60,8 +60,8 @@ var getDadosDashboard = function () {
         url: "/dashboard?page=0",
         type: "GET"
     }).done(function (dados) {
-        $servicoMaisCaro.text(dados.servicoMaisCaroContratado.nome + " - " + accounting.formatMoney(dados.servicoMaisCaroContratado.custoMensal, "R$ ", 2, ".", ","));
-        
+        $servicoMaisCaro.append( $('<a>').html($('<h3>').attr('style', 'display: inline;').text(dados.servicoMaisCaroContratado.nome)).attr('href', '/servico?idServico=' + dados.servicoMaisCaroContratado.id))
+                .append( $('<h3>').text(" - " + accounting.formatMoney(dados.servicoMaisCaroContratado.custoMensal, "R$ ", 2, ".", ",")));
         $gastoTotalMesAtual.text(accounting.formatMoney(dados.gastoTotalAtual, "R$ ", 2, ".", ","));
         $gastoTotalProximoMes.text(accounting.formatMoney(dados.gastoTotalProximoMes, "R$ ", 2, ".", ","));
         listaServicosMesAtual = dados.servicosMesAtual;
@@ -128,7 +128,6 @@ $(function () {
 });
 
 function setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo) {
-    debugger;
     $btnPesquisarAtual.click(function () {
         $formAtual.fadeIn(2000);
     });
@@ -143,7 +142,6 @@ function buscaGerentes() {
         type: 'GET',
         url: '/buscar-gerentes'
     }).done(function (data) {
-
         $.each(data, function (i, gerenteDTO) {
             selectAtual.append($('<option>').val(gerenteDTO.id).text(gerenteDTO.nome));
             selectProximoMes.append($('<option>').val(gerenteDTO.id).text(gerenteDTO.nome));
@@ -152,7 +150,6 @@ function buscaGerentes() {
 }
 
 $formAtual.submit(function (e) {
-    debugger;
     var idGerente = $formAtual.children('select').val();
     paginaAtualEsteMesFiltrado = -1;
     filtroAtual = idGerente;
@@ -163,7 +160,6 @@ $formAtual.submit(function (e) {
     e.preventDefault();
 });
 $formProximo.submit(function (e) {
-    debugger;
     var idGerente = $formProximo.children('select').val();
     paginaAtualProximoMesFiltrado = -1;
     filtroProximoMes = idGerente;

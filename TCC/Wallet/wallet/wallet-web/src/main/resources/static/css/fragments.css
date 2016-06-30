@@ -68,9 +68,19 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
     color: white;
     margin-top: 40px;  
 }
+.servico-mais-caro h2{
+    margin: 0;
+}
 
-.servico-mais-caro div:first-of-type {      
+.servico-mais-caro > div {      
     margin: 1% 5%;
+    padding: 0px;
+    font-weight: bold;
+}
+.servico-mais-caro .panel-body {      
+     background-color: white; 
+     padding: 1% 0;
+     margin: 0px;
 }
 
 .servico-mais-caro span {
