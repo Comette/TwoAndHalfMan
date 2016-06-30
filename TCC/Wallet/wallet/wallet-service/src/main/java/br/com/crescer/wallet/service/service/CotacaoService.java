@@ -118,13 +118,38 @@ public class CotacaoService implements InitializingBean {
         Map<Moeda, BigDecimal> averages = new HashMap<>();
         {
             BigDecimal totalCotacoes = BigDecimal.valueOf(cotacoes.size());
-            Moeda.getPrincipais().stream().forEach((moeda) -> {
-                averages.put(moeda, cotacoes.stream()
-                        .map(Cotacao::getDsCotacaoReal)
-                        .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP)
-                );
-            });
+            averages.put(Moeda.BRL, cotacoes.stream()
+                    .map(Cotacao::getDsCotacaoReal)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+            averages.put(Moeda.EUR, cotacoes.stream()
+                    .map(Cotacao::getDsCotacaoEuro)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+            averages.put(Moeda.JPY, cotacoes.stream()
+                    .map(Cotacao::getDsCotacaoYen)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+            averages.put(Moeda.GBP, cotacoes.stream()
+                    .map(Cotacao::getDsCotacaoLibra)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+            averages.put(Moeda.AUD, cotacoes.stream()
+                    .map(Cotacao::getDsCotacaoDollarAutraliano)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+            averages.put(Moeda.CAD, cotacoes.stream()
+                    .map(Cotacao::getDsCotacaoDollarCanadense)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+            averages.put(Moeda.CHF, cotacoes.stream()
+                    .map(Cotacao::getDsCotacaoFrancoSuico)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+            averages.put(Moeda.CNY, cotacoes.stream()
+                    .map(Cotacao::getDsCotacaoYuan)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
             averages.put(Moeda.USD, BigDecimal.ONE);
         }
         return averages;
@@ -193,7 +218,7 @@ public class CotacaoService implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {        
+    public void afterPropertiesSet() throws Exception {
         this.databaseIntegrityAgent();
     }
 
