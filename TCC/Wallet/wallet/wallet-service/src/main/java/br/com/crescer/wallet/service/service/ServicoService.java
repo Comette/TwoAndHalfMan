@@ -51,8 +51,10 @@ public class ServicoService {
         servicosDTOProximoMesPaginados.stream().forEach((servico) -> {
             servico.setPorcentagemCustoTotal(gastoTotalProximoMes);
         });
+        
+        ServicoDTO servicoMaisCaro = servicosDTOMesAtualPaginados.get(0);
 
-        return new DashboardDTO(servicosDTOMesAtualPaginados, servicosDTOProximoMesPaginados, gastoTotalAtual, gastoTotalProximoMes);
+        return new DashboardDTO(servicosDTOMesAtualPaginados, servicosDTOProximoMesPaginados, gastoTotalAtual, gastoTotalProximoMes, servicoMaisCaro);
     }
 
     public BigDecimal getGastoTotalAtual() {

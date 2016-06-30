@@ -13,15 +13,17 @@ public class DashboardDTO {
     private List<ServicoDTO> servicosProximoMes;
     private BigDecimal gastoTotalAtual;
     private BigDecimal gastoTotalProximoMes;
+    private ServicoDTO servicoMaisCaroContratado;
 
     public DashboardDTO() {
     }
-        
-    public DashboardDTO(List<ServicoDTO> servicosMesAtual, List<ServicoDTO> servicosProximoMes, BigDecimal gastoTotalAtual, BigDecimal gastoTotalProximoMes) {
+
+    public DashboardDTO(List<ServicoDTO> servicosMesAtual, List<ServicoDTO> servicosProximoMes, BigDecimal gastoTotalAtual, BigDecimal gastoTotalProximoMes, ServicoDTO servicoMaisCaroContratado) {
         this.servicosMesAtual = servicosMesAtual;
         this.servicosProximoMes = servicosProximoMes;
         this.gastoTotalAtual = gastoTotalAtual;
         this.gastoTotalProximoMes = gastoTotalProximoMes;
+        this.servicoMaisCaroContratado = servicoMaisCaroContratado;
     }
 
     public List<ServicoDTO> getServicosMesAtual() {
@@ -54,6 +56,14 @@ public class DashboardDTO {
 
     public void setGastoTotalProximoMes(BigDecimal gastoTotalProximoMes) {
         this.gastoTotalProximoMes = gastoTotalProximoMes;
+    }
+
+    public ServicoDTO getServicoMaisCaroContratado() {
+        return servicoMaisCaroContratado;
+    }
+
+    public void setServicoMaisCaroContratado(ServicoDTO servicoMaisCaroContratado) {
+        this.servicoMaisCaroContratado = servicoMaisCaroContratado;
     }
     
 }
