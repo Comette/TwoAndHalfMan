@@ -43,7 +43,7 @@
         <section class="container main-section col-md-12" th:fragment="main-section(idContainer, idContainerGrafico, idBtnVerMais, idBtnPesquisar, idFormFiltrar)">
             <div th:id="${idContainer}">
                 <section class="services-section">
-                    <section class="general-section-titling text-center">Serviços <a href="#" class="glyphicon glyphicon-search search-link" th:id="${idBtnPesquisar}"/></section>
+                    <section class="general-section-titling text-center">Serviços <a class="glyphicon glyphicon-search search-link" th:id="${idBtnPesquisar}"/></section>
                     <form th:id="${idFormFiltrar}">    
                         <select class="form-control" id="select-gerentes">
                         </select>

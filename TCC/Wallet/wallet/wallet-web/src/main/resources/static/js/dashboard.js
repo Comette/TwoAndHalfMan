@@ -43,14 +43,20 @@ var rederizaListaServicos = function (containerLista, servicos) {
     $.each(servicos, function (i, servico) {
         containerLista.find('#services-container-list').append(
                 $('<section>').addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
-                .append($('<a>').html($('<h5>').addClass('service-name').addClass('text-center').text(servico.nome)).attr('href', '/servico?idServico=' + servico.id))
-                .append($('<h5>').addClass('service-value').addClass('text-center').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
-                .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn')
-                        .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true))
-                        )
-                .append($('<a>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn')
-                        .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true))
-                        )
+                .append( $('<div>')
+                    .append( $('<div>').attr('style', 'border: 0.2px solid #B0B5B8; border-radius: 0px;') 
+                        .append($('<a>').html($('<h5>').addClass('service-name').addClass('text-center').text(servico.nome)).attr('href', '/servico?idServico=' + servico.id))
+                        .append($('<h5>').addClass('service-value').addClass('text-center').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
+                            )
+                    .append( $('<div>').attr('style', 'margin-bottom: 30px;') 
+                        .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn')
+                                .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true))
+                                )
+                        .append($('<a>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn')
+                                .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true))
+                                )
+                            )                        
+                    )
                 );
     });
 };
@@ -60,8 +66,8 @@ var getDadosDashboard = function () {
         url: "/dashboard?page=0",
         type: "GET"
     }).done(function (dados) {
-        $servicoMaisCaro.append( $('<a>').html($('<h3>').attr('style', 'display: inline;').text(dados.servicoMaisCaroContratado.nome)).attr('href', '/servico?idServico=' + dados.servicoMaisCaroContratado.id))
-                .append( $('<h3>').text(" - " + accounting.formatMoney(dados.servicoMaisCaroContratado.custoMensal, "R$ ", 2, ".", ",")));
+        $servicoMaisCaro.append( $('<a>').html($('<h1>').attr('style', 'display: inline; color: #FBAF41; font-weight: bold;').text(dados.servicoMaisCaroContratado.nome)).attr('href', '/servico?idServico=' + dados.servicoMaisCaroContratado.id))
+                .append( $('<h1>').attr('style', 'display: inline; color: #434343; font-weight: bold;').text(" - " + accounting.formatMoney(dados.servicoMaisCaroContratado.custoMensal, "R$ ", 2, ".", ",")));
         $gastoTotalMesAtual.text(accounting.formatMoney(dados.gastoTotalAtual, "R$ ", 2, ".", ","));
         $gastoTotalProximoMes.text(accounting.formatMoney(dados.gastoTotalProximoMes, "R$ ", 2, ".", ","));
         listaServicosMesAtual = dados.servicosMesAtual;
