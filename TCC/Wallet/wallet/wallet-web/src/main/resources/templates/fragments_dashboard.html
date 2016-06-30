@@ -47,15 +47,15 @@
                     <form th:id="${idFormFiltrar}">    
                         <select class="form-control" id="select-gerentes">
                         </select>
-                        <input type="submit" class="btn btn-warning col-md-offset-5" value="Filtrar"/>
+                        <input type="submit" class="btn btn-warning col-md-offset-5" id="btnFiltrar" value="Filtrar"/>
                     </form>
                     <div class="services-container list-group">
                         <section id="services-container-list"></section>
-                        <section class="text-center">
-                            <a class="btn btn-default" th:id="${idBtnVerMais}">Ver mais</a>
-                        </section>
                     </div>
-                    <section class="general-section-content text-center">Impacto no custo total por serviço</section>
+                    <section class="text-center display-block">
+                        <a class="btn btn-default" th:id="${idBtnVerMais}">Ver mais</a>
+                        <section class="general-section-content text-center">Impacto no custo total por serviço</section>
+                    </section>
                     <canvas class="graph-section" th:id="${idContainerGrafico}"></canvas>
                 </section>
             </div>
