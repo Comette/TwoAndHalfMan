@@ -10,5 +10,6 @@ package br.com.crescer.wallet.service.service;
  */
 public class CalculationUtils {
     public static final int CALC_SCALE = 6;
+    public static final int PAGE_SCALE = 4;
     public static final int PRES_SCALE = 2;
 }
