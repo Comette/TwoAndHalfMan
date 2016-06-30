@@ -3,6 +3,14 @@
     src: url('../fonts/OpenSans-Light.ttf');
 }
 
+#btnFiltrar {
+    margin-top: 10px;
+}
+
+.display-block {
+    display: block;
+}
+
 nav {
     height: 70px;
 }
