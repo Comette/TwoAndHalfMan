@@ -9,6 +9,8 @@ import br.com.crescer.wallet.entity.Periodicidade;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.entity.Usuario;
+import br.com.crescer.wallet.service.dto.GraficoDTO;
+import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.repository.ServicoRepository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -91,17 +94,17 @@ public class ServicoServiceTest {
         {
             doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
             doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
-            
+
             doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
             doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
-            
+
             assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosMesAtual().isEmpty());
             assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosProximoMes().isEmpty());
             assertEquals(BigDecimal.ZERO, service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
             assertEquals(BigDecimal.ZERO, service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalProximoMes());
             assertEquals(null, service.geraDadosDashboard(new PageRequest(1, 1)).getServicoMaisCaroContratado());
         }
-        
+
         {
             List listServico = new ArrayList();
             listServico.add(mockServico);
@@ -129,19 +132,28 @@ public class ServicoServiceTest {
             listServico.add(mockServico);
             listServico.add(mockServico2);
             doReturn(listServico).when(repository).findByDsSituacaoNot(any(Situacao.class));
-
             assertEquals(service.getGastoTotalAtual(), BigDecimal.valueOf(1500).setScale(2));
+        }
+        {
+            final List listServico = new ArrayList();
+            doReturn(listServico).when(repository).findByDsSituacaoNot(any(Situacao.class));
+            assertEquals(service.getGastoTotalAtual(), BigDecimal.valueOf(0));
         }
     }
 
     @Test
     public void testGetGastoTotalProximoMes() {
-        final List listServico = new ArrayList();
-        listServico.add(mockServico);
-
-        doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
-
-        assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(1000).setScale(2));
+        {
+            final List listServico = new ArrayList();
+            listServico.add(mockServico);
+            doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
+            assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(1000).setScale(2));
+        }
+        {
+            final List listServico = new ArrayList();
+            doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
+            assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(0));
+        }
     }
 
     @Test
@@ -178,30 +190,41 @@ public class ServicoServiceTest {
             assertEquals(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
         }
     }
-    
-    @Test
-    public void testGetServicosDTOProximoMesFiltradosPorGerentePaginados(){
-        List listServico = new ArrayList();
-            listServico.add(mockServico);
 
-            doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacao(any(Long.class),any(Situacao.class), any(Pageable.class));
-            
-            
-            assertEquals(service.getServicosDTOProximoMesFiltradosPorGerentePaginados(1l ,new PageRequest(1, 1)).size(), 1);
-      
-    }
-    
     @Test
-    public void testGetServicosDTOMesAtualFiltradosPorGerentePaginados(){
+    public void testGetServicosDTOProximoMesFiltradosPorGerentePaginados() {
         {
-           
             List listServico = new ArrayList();
             listServico.add(mockServico);
-
-            doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacaoNot(any(Long.class),any(Situacao.class), any(Pageable.class));
-            
-            
-            assertEquals(service.getServicosDTOMesAtualFiltradosPorGerentePaginados(1l ,new PageRequest(1, 1)).size(), 1);
+            doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacao(any(Long.class), any(Situacao.class), any(Pageable.class));
+            assertEquals(service.getServicosDTOProximoMesFiltradosPorGerentePaginados(1l, new PageRequest(1, 1)).size(), 1);
         }
+        {
+            List listServico = new ArrayList();
+            doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacao(any(Long.class), any(Situacao.class), any(Pageable.class));
+            assertTrue(service.getServicosDTOProximoMesFiltradosPorGerentePaginados(1l, new PageRequest(1, 1)).isEmpty());
+        }
+    }
+
+    @Test
+    public void testGetServicosDTOMesAtualFiltradosPorGerentePaginados() {
+        {
+            {
+                List listServico = new ArrayList();
+                listServico.add(mockServico);
+                doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacaoNot(any(Long.class), any(Situacao.class), any(Pageable.class));
+                assertEquals(service.getServicosDTOMesAtualFiltradosPorGerentePaginados(1l, new PageRequest(1, 1)).size(), 1);
+            }
+            {
+                List listServico = new ArrayList();
+                doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacaoNot(any(Long.class), any(Situacao.class), any(Pageable.class));
+                assertTrue(service.getServicosDTOMesAtualFiltradosPorGerentePaginados(1l, new PageRequest(1, 1)).isEmpty());
+            }
+        }
+    }
+
+    @Test
+    public void testGetServicoDTO() {
+
     }
 }
