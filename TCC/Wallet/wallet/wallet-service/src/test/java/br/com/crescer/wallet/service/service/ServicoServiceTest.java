@@ -117,6 +117,7 @@ public class ServicoServiceTest {
             doReturn(EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
             doReturn(EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
 
+
             assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosMesAtual().isEmpty());
             assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosProximoMes().isEmpty());
             assertEquals(BigDecimal.ZERO, service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
@@ -151,19 +152,28 @@ public class ServicoServiceTest {
             listServico.add(mockServico);
             listServico.add(mockServico2);
             doReturn(listServico).when(repository).findByDsSituacaoNot(any(Situacao.class));
-
             assertEquals(service.getGastoTotalAtual(), BigDecimal.valueOf(1500).setScale(2));
+        }
+        {
+            final List listServico = new ArrayList();
+            doReturn(listServico).when(repository).findByDsSituacaoNot(any(Situacao.class));
+            assertEquals(service.getGastoTotalAtual(), BigDecimal.valueOf(0));
         }
     }
 
     @Test
     public void testGetGastoTotalProximoMes() {
-        final List listServico = new ArrayList();
-        listServico.add(mockServico);
-
-        doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
-
-        assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(1000).setScale(2));
+        {
+            final List listServico = new ArrayList();
+            listServico.add(mockServico);
+            doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
+            assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(1000).setScale(2));
+        }
+        {
+            final List listServico = new ArrayList();
+            doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
+            assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(0));
+        }
     }
 
     @Test
@@ -229,5 +239,41 @@ public class ServicoServiceTest {
             assertEquals(1, service.getDadosGraficoServicos().getServicosProximoMes().size());
             assertEquals(BigDecimal.valueOf(100).setScale(6, HALF_UP), service.getDadosGraficoServicos().getServicosProximoMes().get(0).getPorcentagemCustoTotal());
         }
+    }
+    @Test
+    public void testGetServicosDTOProximoMesFiltradosPorGerentePaginados() {
+        {
+            List listServico = new ArrayList();
+            listServico.add(mockServico);
+            doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacao(any(Long.class), any(Situacao.class), any(Pageable.class));
+            assertEquals(service.getServicosDTOProximoMesFiltradosPorGerentePaginados(1l, new PageRequest(1, 1)).size(), 1);
+        }
+        {
+            List listServico = new ArrayList();
+            doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacao(any(Long.class), any(Situacao.class), any(Pageable.class));
+            assertTrue(service.getServicosDTOProximoMesFiltradosPorGerentePaginados(1l, new PageRequest(1, 1)).isEmpty());
+        }
+    }
+
+    @Test
+    public void testGetServicosDTOMesAtualFiltradosPorGerentePaginados() {
+        {
+            {
+                List listServico = new ArrayList();
+                listServico.add(mockServico);
+                doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacaoNot(any(Long.class), any(Situacao.class), any(Pageable.class));
+                assertEquals(service.getServicosDTOMesAtualFiltradosPorGerentePaginados(1l, new PageRequest(1, 1)).size(), 1);
+            }
+            {
+                List listServico = new ArrayList();
+                doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacaoNot(any(Long.class), any(Situacao.class), any(Pageable.class));
+                assertTrue(service.getServicosDTOMesAtualFiltradosPorGerentePaginados(1l, new PageRequest(1, 1)).isEmpty());
+            }
+        }
+    }
+
+    @Test
+    public void testGetServicoDTO() {
+
     }
 }

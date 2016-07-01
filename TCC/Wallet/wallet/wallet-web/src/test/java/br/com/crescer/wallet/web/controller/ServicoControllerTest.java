@@ -5,8 +5,10 @@
 package br.com.crescer.wallet.web.controller;
 
 import br.com.crescer.wallet.service.dto.DashboardDTO;
+import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.service.ServicoService;
 import java.math.BigDecimal;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +16,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,11 +34,25 @@ public class ServicoControllerTest {
 
     @Mock
     private DashboardDTO dashboardDTO;
+    
+    @Mock
+    private ServicoDTO servicoDTO;
+
+    @Mock
+    private List<ServicoDTO> servicosDTO;
 
     @Before
     public void setUp() {
         Mockito.doReturn(dashboardDTO).when(service).geraDadosDashboard(Mockito.any(Pageable.class));
         Mockito.doReturn(BigDecimal.valueOf(100)).when(dashboardDTO).getGastoTotalAtual();
+        Mockito.doReturn(BigDecimal.valueOf(100)).when(dashboardDTO).getGastoTotalProximoMes();
+        Mockito.doReturn(servicosDTO).when(dashboardDTO).getServicosMesAtual();
+        Mockito.doReturn(servicosDTO).when(dashboardDTO).getServicosProximoMes();
+        Mockito.doReturn(servicoDTO).when(dashboardDTO).getServicoMaisCaroContratado();
+        
+        
+        Mockito.doReturn(BigDecimal.valueOf(100)).when(service).getGastoTotalAtual();
+        Mockito.doReturn(BigDecimal.valueOf(100)).when(service).getGastoTotalProximoMes();
     }
 
     /**
@@ -46,8 +61,12 @@ public class ServicoControllerTest {
     @Test
     public void testDashboard() {
         DashboardDTO dashboard = controller.dashboard(new PageRequest(1, 1));
-        Assert.assertNotNull(dashboardDTO);
-        Assert.assertEquals(dashboardDTO.getGastoTotalAtual(), BigDecimal.valueOf(100));
+        Assert.assertNotNull(dashboard);
+        Assert.assertEquals(dashboard.getGastoTotalAtual(), BigDecimal.valueOf(100));
+        Assert.assertEquals(dashboard.getGastoTotalProximoMes(), BigDecimal.valueOf(100));
+        Assert.assertEquals(dashboard.getServicosMesAtual(), servicosDTO);
+        Assert.assertEquals(dashboard.getServicosProximoMes(), servicosDTO);
+        Assert.assertEquals(dashboard.getServicoMaisCaroContratado(), servicoDTO);
     }
 
     /**
@@ -55,6 +74,9 @@ public class ServicoControllerTest {
      */
     @Test
     public void testGastoTotalAtual() {
+        BigDecimal valor = service.getGastoTotalAtual();
+        Assert.assertEquals(valor,BigDecimal.valueOf(100));
+        
     }
 
     /**
@@ -62,6 +84,7 @@ public class ServicoControllerTest {
      */
     @Test
     public void testGastoTotalProximoMes() {
+        
     }
 
     /**
