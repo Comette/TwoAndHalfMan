@@ -39,22 +39,16 @@ public class ServicoService {
     CotacaoService cotacaoService;
 
     public DashboardDTO geraDadosDashboard(Pageable pageable) {
-        List<ServicoDTO> servicosDTOMesAtualPaginados = this.getServicosDTOMesAtualPaginados(pageable);
-        List<ServicoDTO> servicosDTOProximoMesPaginados = this.getServicosDTOProximoMesPaginados(pageable);
-
-        BigDecimal gastoTotalAtual = this.getGastoTotalAtual();
-        servicosDTOMesAtualPaginados.stream().forEach((servico) -> {
-            servico.setPorcentagemCustoTotal(gastoTotalAtual);
-        });
-
-        BigDecimal gastoTotalProximoMes = this.getGastoTotalProximoMes();
-        servicosDTOProximoMesPaginados.stream().forEach((servico) -> {
-            servico.setPorcentagemCustoTotal(gastoTotalProximoMes);
-        });
-
-        ServicoDTO servicoMaisCaro = servicosDTOMesAtualPaginados.get(0);
-
-        return new DashboardDTO(servicosDTOMesAtualPaginados, servicosDTOProximoMesPaginados, gastoTotalAtual, gastoTotalProximoMes, servicoMaisCaro);
+        DashboardDTO dashboard = new DashboardDTO();
+        {
+            List<ServicoDTO> servicosDTOMesAtualPaginados = this.getServicosDTOMesAtualPaginados(pageable);
+            dashboard.setServicosMesAtual(servicosDTOMesAtualPaginados);
+            dashboard.setServicosProximoMes(this.getServicosDTOProximoMesPaginados(pageable));
+            dashboard.setServicoMaisCaroContratado(servicosDTOMesAtualPaginados.get(0));
+            dashboard.setGastoTotalAtual(this.getGastoTotalAtual());
+            dashboard.setGastoTotalProximoMes(this.getGastoTotalProximoMes());
+        }
+        return dashboard;
     }
 
     public BigDecimal getGastoTotalAtual() {
@@ -111,9 +105,9 @@ public class ServicoService {
         return graficoDTO;
     }
 
-    public ServicoDTO getServico(Long idServico) {
+    public ServicoDTO getServicoDTO(Long idServico) {
         final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
-        return this.buildDTO(repository.findOne(idServico),medias);
+        return this.buildDTO(repository.findOne(idServico), medias);
     }
 
     private List<Servico> servicosMesAtual() {

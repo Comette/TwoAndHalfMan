@@ -66,7 +66,7 @@ public class ServicoController {
     
     @RequestMapping( value = "/servico", method = RequestMethod.GET)
     public String getServico(@RequestParam Long idServico, Model model){
-        model.addAttribute("servico",service.getServico(idServico));
+        model.addAttribute("servico",service.getServicoDTO(idServico));
         return "servico"; 
     }
 }
