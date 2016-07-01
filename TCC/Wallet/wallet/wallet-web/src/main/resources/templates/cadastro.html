@@ -22,7 +22,36 @@
                 </div>
                 <div id="gerente" class="tab-pane fade">
                     <h3>Gerente</h3>
-                    <p>Some content in menu 1.</p>
+                    <div>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="txtNomeUsuario" th:text="#{usuario.nome}"/>
+                                <input id="txtNomeUsuario" name="nmUsuario" type="text" class="form-control" placeholder="Ex.: André Nunes"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtUserName" th:text="#{usuario.username}"/>
+                                <input id="txtUserName" name="dsUserName" type="text" class="form-control" placeholder="Ex.: Nunes"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="slPermissao" th:text="#{usuario.permissao}"/>
+                                <select id="slPermissao" class="form-control">
+                                    <option th:each="permissao : ${T(br.com.crescer.wallet.entity.Permissao).values()}" th:value="${permissao}" th:text="${permissao}"/>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtEmail" th:text="#{usuario.email}"/>
+                                <input id="txtEmail" name="dsEmail" type="email" class="form-control" placeholder="Ex.: you@domain.com"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtSenha" th:text="#{usuario.senha}"/>
+                                <input id="txtSenha" name="dsSenha" type="password" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtConfirmacaoSenha" th:text="#{usuario.confirmar-senha}"/>
+                                <input id="txtConfirmacaoSenha" name="confirmacaoSenha" type="password" class="form-control"/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
