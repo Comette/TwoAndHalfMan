@@ -110,5 +110,36 @@ public class ServicoServiceTest {
 //            assertEquals("O custo deve ser 1k", service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
 //        }
 //    }
+//    @Test
+//    public void testGetServicosDTOMesAtualPaginados() {
+//    }
+//
+//    /**
+//     * Test of getServicosDTOProximoMesPaginados method, of class
+//     * ServicoService.
+//     */
+//    //@Test
+//    public void testGetServicosDTOProximoMesPaginados() {
+//        {
+//            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
+//            assertTrue("A lista não pode ter resultado", service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
+//        }
+//
+//        {
+//            final List list = new ArrayList();
+//            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
+//
+//            final Servico mock = mock(Servico.class);
+//            list.add(mock); 
+//            {
+//                doReturn(Moeda.USD).when(mock).getDsSimboloMoeda();
+//                doReturn(Periodicidade.MENSAL).when(mock).getDsPeriodicidade();
+//                doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mock).getVlTotalServico();
+//            }
+//
+//            assertFalse("A lista não pode nula", service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
+//            assertEquals("O custo deve ser 1k", service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
+//        }
+//    }
 
 }

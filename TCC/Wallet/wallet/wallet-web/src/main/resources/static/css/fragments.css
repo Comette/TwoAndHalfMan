@@ -38,8 +38,7 @@ body {
 nav,
 a.navbar-brand h6:first-of-type,
 a.navbar-brand h6:nth-of-type(2), 
-.btn-default,
-.general-section-content span {
+.btn-default {
     font-weight: bold;
 }
 
@@ -81,12 +80,6 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
      background-color: white; 
      padding: 1% 0;
      margin: 0px;
-}
-
-.servico-mais-caro span {
-    color: #434343;
-    display: inline-block;
-    font-weight: bold;
 }
 
 .search-link {
@@ -150,11 +143,11 @@ li a.dropdown-toggle span.glyphicon{
 }
 
 #separador{
-    color: #666666;
-    margin-right: 12px;
+    color: #737373;
 }
 
 #logged-user-name{
+    margin-left: 12px;
     margin-top: 21px;
     display: block;
     color: #FBAF41;
@@ -166,6 +159,16 @@ li a.dropdown-toggle span.glyphicon{
         margin-top: -14px;
     }
 }
+
+@media(max-width: 768px){
+    #separador{
+        display: none;
+    }
+    .navbar-brand{
+        margin-top: -14px;
+    }
+}
+
 a.navbar-brand h6:first-of-type{
     margin-left: 1px;
     font-size: 1.175em;
@@ -183,14 +186,16 @@ a.navbar-brand h6:nth-of-type(2){
 
 .main-section .general-section-content {
     margin-top: 5%;
+    font-size: 2em;
+    font-weight: bold;
 }
 
-.main-section .general-section-titling, .previsao-prox-mes {
-    font-size: 2em;
+.main-section .general-section-titling, .previsao-prox-mes {    
+    font-weight: bolder;
 }
 
 .general-section-titling{
-    font-weight: 300;
+    font-weight: 500;
     font-size: 2.5em;
 }
 
@@ -204,7 +209,11 @@ a.navbar-brand h6:nth-of-type(2){
 }
 
 .custo-deste-mes {
-    color: white;
+    color: white;    
+}
+
+.custo-deste-mes section{
+    font-size: 1.3em;
 }
 
 .services-container {
@@ -286,7 +295,7 @@ a:-webkit-any-link {
     margin-right: 10%;
 }
 
-.general-section-content span:first-of-type,
+
 .btn-danger:hover,
 a.navbar-brand h6:first-of-type {
     color: #FBAF41;
