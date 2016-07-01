@@ -45,7 +45,10 @@ public class ServicoServiceTest {
     private Servico mockServico;
     
     @Mock
-    private Usuario mockUsuario;   
+    private Servico mockServico2;
+
+    @Mock
+    private Usuario mockUsuario;
 
     @InjectMocks
     private ServicoService service;
@@ -75,22 +78,7 @@ public class ServicoServiceTest {
             doReturn(Periodicidade.MENSAL).when(mockServico).getDsPeriodicidade();
             doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mockServico).getVlTotalServico();
         }
-    }
-
-    @Test
-    public void testGeraDadosDashboard() {
-        
-
-        DashboardDTO dashboardDTO = service.geraDadosDashboard(new PageRequest(1, 1));
-
-    }
-
-    @Test
-    public void testGetGastoTotalAtual() {
-        {
-            Servico mockServico2 = mock(Servico.class);
-            
-
+        {//MOCK SERVICO2
             doReturn(1l).when(mockServico2).getIdServico();
             doReturn("servico").when(mockServico2).getNmServico();
             doReturn(mockUsuario).when(mockServico2).getUsuarioIdUsuario();
@@ -99,7 +87,19 @@ public class ServicoServiceTest {
             doReturn(Moeda.USD).when(mockServico2).getDsSimboloMoeda();
             doReturn(Periodicidade.MENSAL).when(mockServico2).getDsPeriodicidade();
             doReturn(BigDecimal.valueOf(50)).when(mockServico2).getVlTotalServico();
+        }
+    }
 
+    @Test
+    public void testGeraDadosDashboard() {
+
+        DashboardDTO dashboardDTO = service.geraDadosDashboard(new PageRequest(1, 1));
+
+    }
+
+    @Test
+    public void testGetGastoTotalAtual() {
+        {
             final List listServico = new ArrayList();
             listServico.add(mockServico);
             listServico.add(mockServico2);
@@ -113,7 +113,8 @@ public class ServicoServiceTest {
     public void testGetGastoTotalProximoMes() {
         final List listServico = new ArrayList();
         listServico.add(mockServico);
-        doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
+       
+        doReturn(listServico).when(repository).findByDsSituacao(Situacao.ATIVO);
 
         assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(1000).setScale(2));
     }
