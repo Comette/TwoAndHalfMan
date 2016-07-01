@@ -294,9 +294,9 @@ a.navbar-brand h6:first-of-type {
 
 .graph-section {
     border: 1px solid #B0B5B8;
-    height: 300px;
     margin-top: 5%;
     width: 97.5%;
+    margin-bottom: 10%;
 }
 
 .service-value, 

@@ -25,3 +25,32 @@ Created on : 30/06/2016, 18:08:00
     top: -50px;
 }
 
+.btn-editar-servico, .btn-desativar-servico {
+    float : right;
+    margin-right: 10px;
+    font-size: 2em;
+    border-radius: 0px;
+}
+
+.btn-editar-servico {
+    border: 1px solid #FBAF41;
+    color : #FBAF41;
+    transition: background-color .5s ease, color .5s ease;
+}
+
+.btn-editar-servico:hover{
+    background-color: #FBAF41;
+    color: #434343;
+}
+
+.btn-desativar-servico {
+    border: 1px solid #434343;
+    color: #434343;
+    transition: background-color .5s ease, color .5s ease;
+}
+
+.btn-desativar-servico:hover {
+    background-color: #434343;
+    color: #B0B5B6;
+}
+

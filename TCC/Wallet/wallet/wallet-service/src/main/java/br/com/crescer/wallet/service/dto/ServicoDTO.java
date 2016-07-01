@@ -6,6 +6,7 @@ package br.com.crescer.wallet.service.dto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
 
 /**
  *
@@ -15,11 +16,13 @@ public class ServicoDTO {
     private long id;
     private String nome;
     private BigDecimal custoMensal;
+    private String custoMensalFormatado;
     private BigDecimal porcentagemCustoTotal;
     private String nmUsuario;
     private Long idUsuario;
     private String dsWebsite;
     private String dsDescricao;
+    
     
     public ServicoDTO(long id, String nome, BigDecimal custoMensal) {
         this.id = id;
@@ -35,6 +38,15 @@ public class ServicoDTO {
         this.idUsuario = idUsuario;
         this.dsWebsite = dsWebsite;
         this.dsDescricao = dsDescricao;
+        this.custoMensalFormatado = NumberFormat.getCurrencyInstance().format(custoMensal);
+    }
+
+    public String getCustoMensalFormatado() {
+        return custoMensalFormatado;
+    }
+
+    public void setCustoMensalFormatado(String custoMensalFormatado) {
+        this.custoMensalFormatado = custoMensalFormatado;
     }
 
     public String getNmUsuario() {
