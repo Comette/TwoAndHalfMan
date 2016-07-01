@@ -55,91 +55,67 @@ public class ServicoServiceTest {
         }
     }
 
-    /**
-     * Test of geraDadosDashboard method, of class ServicoService.
-     */
+    
     @Test
     public void testGeraDadosDashboard() {
     }
 
-    /**
-     * Test of getGastoTotalAtual method, of class ServicoService.
-     */
+    
     @Test
     public void testGetGastoTotalAtual() {
     }
 
-    /**
-     * Test of getGastoTotalProximoMes method, of class ServicoService.
-     */
     @Test
     public void testGetGastoTotalProximoMes() {
     }
 
-    /**
-     * Test of getServicosDTOMesAtualPaginados method, of class ServicoService.
-     */
-//    @Test
-//    public void testGetServicosDTOMesAtualPaginados() {
-//    }
-//
-//    /**
-//     * Test of getServicosDTOProximoMesPaginados method, of class
-//     * ServicoService.
-//     */
-//    @Test
-//    public void testGetServicosDTOProximoMesPaginados() {
-//        {
-//            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
-//            assertTrue("A lista não pode ter resultado", service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
-//        }
-//
-//        {
-//            final List list = new ArrayList();
-//            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
-//
-//            final Servico mock = mock(Servico.class);
-//            list.add(mock); 
-//            {
-//                doReturn(Moeda.USD).when(mock).getDsSimboloMoeda();
-//                doReturn(Periodicidade.MENSAL).when(mock).getDsPeriodicidade();
-//                doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mock).getVlTotalServico();
-//            }
-//
-//            assertFalse("A lista não pode nula", service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
-//            assertEquals("O custo deve ser 1k", service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
-//        }
-//    }
-//    @Test
-//    public void testGetServicosDTOMesAtualPaginados() {
-//    }
-//
-//    /**
-//     * Test of getServicosDTOProximoMesPaginados method, of class
-//     * ServicoService.
-//     */
-//    //@Test
-//    public void testGetServicosDTOProximoMesPaginados() {
-//        {
-//            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
-//            assertTrue("A lista não pode ter resultado", service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
-//        }
-//
-//        {
-//            final List list = new ArrayList();
-//            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
-//
-//            final Servico mock = mock(Servico.class);
-//            list.add(mock); 
-//            {
-//                doReturn(Moeda.USD).when(mock).getDsSimboloMoeda();
-//                doReturn(Periodicidade.MENSAL).when(mock).getDsPeriodicidade();
-//                doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mock).getVlTotalServico();
-//            }
-//
-//            assertFalse("A lista não pode nula", service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
-//            assertEquals("O custo deve ser 1k", service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
-//        }
-//    }
+    @Test
+    public void testGetServicosDTOMesAtualPaginados() {
+        {
+            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
+            assertTrue(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).isEmpty());
+        }
 
+        {
+            final List list = new ArrayList();
+            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
+
+            final Servico mock = mock(Servico.class);
+            list.add(mock); 
+            {
+                doReturn(Moeda.USD).when(mock).getDsSimboloMoeda();
+                doReturn(Periodicidade.MENSAL).when(mock).getDsPeriodicidade();
+                doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mock).getVlTotalServico();
+            }
+
+            assertFalse(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).isEmpty());
+            assertEquals(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
+        }
+        
+    }
+
+    
+    @Test
+    public void testGetServicosDTOProximoMesPaginados() {
+        {
+            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
+            assertTrue(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
+        }
+
+        {
+            final List list = new ArrayList();
+            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
+
+            final Servico mock = mock(Servico.class);
+            list.add(mock); 
+            {
+                doReturn(Moeda.USD).when(mock).getDsSimboloMoeda();
+                doReturn(Periodicidade.MENSAL).when(mock).getDsPeriodicidade();
+                doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mock).getVlTotalServico();
+            }
+
+            assertFalse(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
+            assertEquals(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
+        }
+    }
 }
