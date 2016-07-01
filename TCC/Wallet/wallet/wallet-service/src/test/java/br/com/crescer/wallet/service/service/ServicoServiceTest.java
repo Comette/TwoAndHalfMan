@@ -9,7 +9,6 @@ import br.com.crescer.wallet.entity.Periodicidade;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.entity.Usuario;
-import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.repository.ServicoRepository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,7 +25,6 @@ import org.mockito.InjectMocks;
 import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,10 +41,8 @@ public class ServicoServiceTest {
     private CotacaoService cotacaoService;
     @Mock
     private Servico mockServico;
-    
     @Mock
     private Servico mockServico2;
-
     @Mock
     private Usuario mockUsuario;
 
@@ -76,14 +72,14 @@ public class ServicoServiceTest {
             doReturn("minha Descricao").when(mockServico).getDsDescricao();
             doReturn(Moeda.USD).when(mockServico).getDsSimboloMoeda();
             doReturn(Periodicidade.MENSAL).when(mockServico).getDsPeriodicidade();
-            doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mockServico).getVlTotalServico();
+            doReturn(BigDecimal.valueOf(100)).when(mockServico).getVlTotalServico();
         }
         {//MOCK SERVICO2
             doReturn(1l).when(mockServico2).getIdServico();
-            doReturn("servico").when(mockServico2).getNmServico();
+            doReturn("servico2").when(mockServico2).getNmServico();
             doReturn(mockUsuario).when(mockServico2).getUsuarioIdUsuario();
-            doReturn("meusite.com").when(mockServico2).getDsWebsite();
-            doReturn("minha Descricao").when(mockServico2).getDsDescricao();
+            doReturn("meusite2.com").when(mockServico2).getDsWebsite();
+            doReturn("minha Descricao2").when(mockServico2).getDsDescricao();
             doReturn(Moeda.USD).when(mockServico2).getDsSimboloMoeda();
             doReturn(Periodicidade.MENSAL).when(mockServico2).getDsPeriodicidade();
             doReturn(BigDecimal.valueOf(50)).when(mockServico2).getVlTotalServico();
@@ -92,9 +88,38 @@ public class ServicoServiceTest {
 
     @Test
     public void testGeraDadosDashboard() {
+        {
+            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
+            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
+            
+            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
+            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
+            
+            assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosMesAtual().isEmpty());
+            assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosProximoMes().isEmpty());
+            assertEquals(BigDecimal.ZERO, service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
+            assertEquals(BigDecimal.ZERO, service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalProximoMes());
+            assertEquals(null, service.geraDadosDashboard(new PageRequest(1, 1)).getServicoMaisCaroContratado());
+        }
+        
+        {
+            List listServico = new ArrayList();
+            listServico.add(mockServico);
+            listServico.add(mockServico2);
+            doReturn(listServico).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
+            doReturn(listServico).when(repository).findByDsSituacaoNot(any(Situacao.class));
 
-        DashboardDTO dashboardDTO = service.geraDadosDashboard(new PageRequest(1, 1));
+            List listServico2 = new ArrayList();
+            listServico2.add(mockServico);
+            doReturn(listServico2).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
+            doReturn(listServico2).when(repository).findByDsSituacao(any(Situacao.class));
 
+            assertEquals(2, service.geraDadosDashboard(new PageRequest(1, 1)).getServicosMesAtual().size());
+            assertEquals(1, service.geraDadosDashboard(new PageRequest(1, 1)).getServicosProximoMes().size());
+            assertEquals(BigDecimal.valueOf(1500).setScale(2), service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
+            assertEquals(BigDecimal.valueOf(1000).setScale(2), service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalProximoMes());
+            assertEquals("meusite.com", service.geraDadosDashboard(new PageRequest(1, 1)).getServicoMaisCaroContratado().getDsWebsite());
+        }
     }
 
     @Test
@@ -113,8 +138,8 @@ public class ServicoServiceTest {
     public void testGetGastoTotalProximoMes() {
         final List listServico = new ArrayList();
         listServico.add(mockServico);
-       
-        doReturn(listServico).when(repository).findByDsSituacao(Situacao.ATIVO);
+
+        doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
 
         assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(1000).setScale(2));
     }
