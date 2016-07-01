@@ -153,9 +153,15 @@ li a.dropdown-toggle span.glyphicon{
     color: #FBAF41;
 }
 
-@media(min-width: 768px){
+@media(min-width: 1024px){
     .navbar>.container-fluid .navbar-brand {
         margin-left: 80px;
+        margin-top: -14px;
+    }
+}
+
+@media(max-width: 1023px){
+    .navbar>.container-fluid .navbar-brand {
         margin-top: -14px;
     }
 }
@@ -166,6 +172,16 @@ li a.dropdown-toggle span.glyphicon{
     }
     .navbar-brand{
         margin-top: -14px;
+    }
+    
+    .graph-section {
+        min-height: 20%;
+    }
+}
+
+@media(max-width: 650px){
+    #grafico-mes-atual, #grafico-proximo-mes {
+        display: none;
     }
 }
 
