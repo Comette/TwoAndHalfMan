@@ -9,6 +9,7 @@ import br.com.crescer.wallet.entity.Periodicidade;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.entity.Usuario;
+import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.repository.ServicoRepository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class ServicoServiceTest {
     @Mock
     private Servico mockServico;
     @Mock
-    private Usuario mockUsuario;
+    private Usuario mockUsuario;   
 
     @InjectMocks
     private ServicoService service;
@@ -53,25 +54,31 @@ public class ServicoServiceTest {
 
     @Before
     public void setUp() {
-        doReturn(medias).when(cotacaoService).findLastAverage();
-        doReturn(BigDecimal.TEN).when(medias).get(Moeda.BRL);
-        doReturn(BigDecimal.ONE).when(medias).get(Moeda.USD);
+        {// MOCK MEDIAS(MOEDA)
+            doReturn(medias).when(cotacaoService).findLastAverage();
+            doReturn(BigDecimal.TEN).when(medias).get(Moeda.BRL);
+            doReturn(BigDecimal.ONE).when(medias).get(Moeda.USD);
+        }
+        {// MOCK USUARIO
+            doReturn("usuario").when(mockUsuario).getNmUsuario();
+            doReturn(1l).when(mockUsuario).getIdUsuario();
+        }
 
-        doReturn("usuario").when(mockUsuario).getNmUsuario();
-        doReturn(1l).when(mockUsuario).getIdUsuario();
-
-        doReturn(1l).when(mockServico).getIdServico();
-        doReturn("servico").when(mockServico).getNmServico();
-        doReturn(mockUsuario).when(mockServico).getUsuarioIdUsuario();
-        doReturn("meusite.com").when(mockServico).getDsWebsite();
-        doReturn("minha Descricao").when(mockServico).getDsDescricao();
-        doReturn(Moeda.USD).when(mockServico).getDsSimboloMoeda();
-        doReturn(Periodicidade.MENSAL).when(mockServico).getDsPeriodicidade();
-        doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mockServico).getVlTotalServico();
+        {// MOCK SERVICO  
+            doReturn(1l).when(mockServico).getIdServico();
+            doReturn("servico").when(mockServico).getNmServico();
+            doReturn(mockUsuario).when(mockServico).getUsuarioIdUsuario();
+            doReturn("meusite.com").when(mockServico).getDsWebsite();
+            doReturn("minha Descricao").when(mockServico).getDsDescricao();
+            doReturn(Moeda.USD).when(mockServico).getDsSimboloMoeda();
+            doReturn(Periodicidade.MENSAL).when(mockServico).getDsPeriodicidade();
+            doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mockServico).getVlTotalServico();
+        }
     }
 
     @Test
     public void testGeraDadosDashboard() {
+        DashboardDTO dashboardDTO = service.geraDadosDashboard(new PageRequest(1, 1));
     }
 
     @Test
@@ -90,10 +97,10 @@ public class ServicoServiceTest {
         }
 
         {
-            final List list = new ArrayList();
+            List list = new ArrayList();
             list.add(mockServico);
-            doReturn(list).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));                      
-
+            doReturn(list).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
+            
             assertFalse(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).isEmpty());
             assertEquals(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
         }
@@ -108,10 +115,10 @@ public class ServicoServiceTest {
         }
 
         {
-            final List list = new ArrayList();
+            List list = new ArrayList();
             list.add(mockServico);
-            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));                      
-
+            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
+            
             assertFalse(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
             assertEquals(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
         }
