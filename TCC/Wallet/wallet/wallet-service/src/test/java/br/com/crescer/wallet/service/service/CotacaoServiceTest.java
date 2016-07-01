@@ -4,6 +4,7 @@ import br.com.crescer.wallet.entity.Cotacao;
 import br.com.crescer.wallet.entity.Moeda;
 import br.com.crescer.wallet.service.repository.CotacaoRepository;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +59,9 @@ public class CotacaoServiceTest {
      */
     @Test
     public void testFindLastExchangeRate() {
-        
+
         doReturn(mockCotacao).when(repository).findFirstByDtCotacaoOrderByIdCotacaoDesc(any(LocalDate.class));
-        
+
         assertFalse(service.findLastExchangeRate() == null);
         assertEquals(BigDecimal.TEN, service.findLastExchangeRate().getDsCotacaoReal());
     }
@@ -72,13 +73,21 @@ public class CotacaoServiceTest {
     public void testFindLastCurrencyAverage() {
         List listaCotacoes = new ArrayList<>();
 
+        doReturn(BigDecimal.valueOf(7).setScale(6,RoundingMode.HALF_UP)).when(mockCotacao).getDsCotacaoDollarAutraliano();
+        doReturn(BigDecimal.valueOf(8).setScale(6,RoundingMode.HALF_UP)).when(mockCotacao).getDsCotacaoDollarCanadense();
+        doReturn(BigDecimal.valueOf(9).setScale(6,RoundingMode.HALF_UP)).when(mockCotacao).getDsCotacaoEuro();
+        doReturn(BigDecimal.valueOf(7).setScale(6,RoundingMode.HALF_UP)).when(mockCotacao1).getDsCotacaoDollarAutraliano();
+        doReturn(BigDecimal.valueOf(8).setScale(6,RoundingMode.HALF_UP)).when(mockCotacao1).getDsCotacaoDollarCanadense();
+        doReturn(BigDecimal.valueOf(9).setScale(6,RoundingMode.HALF_UP)).when(mockCotacao1).getDsCotacaoEuro();
+
         listaCotacoes.add(mockCotacao);
         listaCotacoes.add(mockCotacao1);
-        listaCotacoes.add(mockCotacao2);
 
         doReturn(listaCotacoes).when(repository).findByDtCotacaoBetween(any(LocalDate.class), any(LocalDate.class));
 
-        assertNotNull(service.findLastCurrencyAverage(Moeda.BRL));
+        assertEquals(BigDecimal.valueOf(7).setScale(6,RoundingMode.HALF_UP), service.findLastCurrencyAverage(Moeda.AUD));
+        assertEquals(BigDecimal.valueOf(8).setScale(6,RoundingMode.HALF_UP), service.findLastCurrencyAverage(Moeda.CAD));
+        assertEquals(BigDecimal.valueOf(9).setScale(6,RoundingMode.HALF_UP), service.findLastCurrencyAverage(Moeda.EUR));
     }
 
     /**
@@ -88,21 +97,36 @@ public class CotacaoServiceTest {
     public void testFindLastAverage() {
         {
             List listaCotacoes = new ArrayList<>();
-            
-            doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoDollarAutraliano();
-            doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoDollarCanadense();
-            doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoEuro();
-            doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoFrancoSuico();
-            doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoLibra();
-            doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoReal();
-            doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoYen();
-            doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoYuan();
-            
-            listaCotacoes.add(mockCotacao);
-            
-            doReturn(listaCotacoes).when(repository).findByDtCotacaoBetween(any(LocalDate.class), any(LocalDate.class));
 
-            assertNotNull(service.findLastAverage());
+            {
+                doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoDollarAutraliano();
+                doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoDollarCanadense();
+                doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoEuro();
+                doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoFrancoSuico();
+                doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoLibra();
+                doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoReal();
+                doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoYen();
+                doReturn(BigDecimal.TEN).when(mockCotacao).getDsCotacaoYuan();
+                doReturn(BigDecimal.valueOf(5)).when(mockCotacao1).getDsCotacaoDollarAutraliano();
+                doReturn(BigDecimal.valueOf(5)).when(mockCotacao1).getDsCotacaoDollarCanadense();
+                doReturn(BigDecimal.valueOf(5)).when(mockCotacao1).getDsCotacaoEuro();
+                doReturn(BigDecimal.valueOf(5)).when(mockCotacao1).getDsCotacaoFrancoSuico();
+                doReturn(BigDecimal.valueOf(12)).when(mockCotacao1).getDsCotacaoLibra();
+                doReturn(BigDecimal.valueOf(5)).when(mockCotacao1).getDsCotacaoReal();
+                doReturn(BigDecimal.valueOf(10)).when(mockCotacao1).getDsCotacaoYen();
+                doReturn(BigDecimal.valueOf(5)).when(mockCotacao1).getDsCotacaoYuan();
+
+                listaCotacoes.add(mockCotacao);
+                listaCotacoes.add(mockCotacao1);
+
+                doReturn(listaCotacoes).when(repository).findByDtCotacaoBetween(any(LocalDate.class), any(LocalDate.class));
+
+                assertNotNull(service.findLastAverage());
+                assertEquals(BigDecimal.valueOf(7.5).setScale(6, RoundingMode.HALF_UP), service.findLastAverage().get(Moeda.BRL));
+                assertEquals(BigDecimal.valueOf(11).setScale(6, RoundingMode.HALF_UP), service.findLastAverage().get(Moeda.GBP));
+                assertEquals(BigDecimal.valueOf(10).setScale(6, RoundingMode.HALF_UP), service.findLastAverage().get(Moeda.JPY));
+            }
+
         }
     }
 }

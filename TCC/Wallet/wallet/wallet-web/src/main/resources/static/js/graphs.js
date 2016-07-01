@@ -1,16 +1,17 @@
+
 function renderizarGrafico($container, listaServicos) {
     var labels = [];
     var data = [];
     var colors = [];
-    
-    
-    var randomColorGenerator = function () { 
-    return '#' + (Math.random().toString(16) + '0000000').slice(2, 8); 
-};
-    $.each(listaServicos, function(i){
-       colors[i] = randomColorGenerator(); 
+
+
+    var randomColorGenerator = function () {
+        return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+    };
+    $.each(listaServicos, function (i) {
+        colors[i] = randomColorGenerator();
     });
-    
+
     $.each(listaServicos, function (i, servico) {
         labels[i] = servico.nome;
         data[i] = accounting.toFixed(servico.porcentagemCustoTotal, 2);
@@ -28,6 +29,9 @@ function renderizarGrafico($container, listaServicos) {
                     data: data,
                     backgroundColor: colors
                 }]
+        },
+        options: {
+            responsive: true
         }
     });
 }
