@@ -113,7 +113,6 @@ public class ServicoServiceTest {
             doReturn(EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
             doReturn(EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
 
-
             assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosMesAtual().isEmpty());
             assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosProximoMes().isEmpty());
             assertEquals(BigDecimal.ZERO, service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
@@ -236,6 +235,7 @@ public class ServicoServiceTest {
             assertEquals(BigDecimal.valueOf(100).setScale(6, HALF_UP), service.getDadosGraficoServicos().getServicosProximoMes().get(0).getPorcentagemCustoTotal());
         }
     }
+
     @Test
     public void testGetServicosDTOProximoMesFiltradosPorGerentePaginados() {
         {
@@ -270,6 +270,13 @@ public class ServicoServiceTest {
 
     @Test
     public void testGetServicoDTO() {
-
+        {
+            doReturn(mockServico).when(repository).findOne(any(Long.class));
+            assertEquals(service.getServicoDTO(1l).getNome(), "servico");
+        }
+        {
+            doReturn(null).when(repository).findOne(any(Long.class));
+            assertNull(service.getServicoDTO(1l));
+        }
     }
 }

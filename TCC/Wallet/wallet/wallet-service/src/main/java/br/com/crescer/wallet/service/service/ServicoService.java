@@ -157,6 +157,10 @@ public class ServicoService {
     }
 
     private ServicoDTO buildDTO(Servico servico, Map<Moeda, BigDecimal> medias) {
+        //TODO adicionar exception()nullPointer
+        if(servico == null){
+            return null;
+        }
         BigDecimal vlrCusto;
         {
             BigDecimal periodicidade = BigDecimal.valueOf(servico.getDsPeriodicidade().getNumeral());
