@@ -42,6 +42,7 @@ public class ServicoServiceTest {
     private CotacaoService cotacaoService;
     @Mock
     private Servico mockServico;
+    
     @Mock
     private Usuario mockUsuario;
 
@@ -72,14 +73,40 @@ public class ServicoServiceTest {
 
     @Test
     public void testGeraDadosDashboard() {
+        
     }
 
     @Test
     public void testGetGastoTotalAtual() {
+        {
+            Servico mockServico2 = mock(Servico.class);
+            
+
+            doReturn(1l).when(mockServico2).getIdServico();
+            doReturn("servico").when(mockServico2).getNmServico();
+            doReturn(mockUsuario).when(mockServico2).getUsuarioIdUsuario();
+            doReturn("meusite.com").when(mockServico2).getDsWebsite();
+            doReturn("minha Descricao").when(mockServico2).getDsDescricao();
+            doReturn(Moeda.USD).when(mockServico2).getDsSimboloMoeda();
+            doReturn(Periodicidade.MENSAL).when(mockServico2).getDsPeriodicidade();
+            doReturn(BigDecimal.valueOf(50)).when(mockServico2).getVlTotalServico();
+
+            final List listServico = new ArrayList();
+            listServico.add(mockServico);
+            listServico.add(mockServico2);
+            doReturn(listServico).when(repository).findByDsSituacaoNot(any(Situacao.class));
+
+            assertEquals(service.getGastoTotalAtual(), BigDecimal.valueOf(1500).setScale(2));
+        }
     }
 
     @Test
     public void testGetGastoTotalProximoMes() {
+        final List listServico = new ArrayList();
+        listServico.add(mockServico);
+        doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
+
+        assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(1000).setScale(2));
     }
 
     @Test
@@ -92,7 +119,7 @@ public class ServicoServiceTest {
         {
             final List list = new ArrayList();
             list.add(mockServico);
-            doReturn(list).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));                      
+            doReturn(list).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
 
             assertFalse(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).isEmpty());
             assertEquals(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
@@ -110,7 +137,7 @@ public class ServicoServiceTest {
         {
             final List list = new ArrayList();
             list.add(mockServico);
-            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));                      
+            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
 
             assertFalse(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
             assertEquals(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
