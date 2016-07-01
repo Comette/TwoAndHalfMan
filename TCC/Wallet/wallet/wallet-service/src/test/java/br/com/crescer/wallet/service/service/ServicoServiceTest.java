@@ -9,16 +9,24 @@ import br.com.crescer.wallet.entity.Periodicidade;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.entity.Usuario;
+import br.com.crescer.wallet.service.dto.GraficoDTO;
+import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.repository.ServicoRepository;
 import java.math.BigDecimal;
+import static java.math.RoundingMode.HALF_UP;
 import java.util.ArrayList;
 import java.util.Collections;
+import static java.util.Collections.EMPTY_LIST;
 import java.util.List;
 import java.util.Map;
+import org.junit.After;
+import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -52,6 +60,14 @@ public class ServicoServiceTest {
     @Mock
     Map<Moeda, BigDecimal> medias;
 
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
     @Before
     public void setUp() {
         {// MOCK MEDIAS(MOEDA)
@@ -71,6 +87,7 @@ public class ServicoServiceTest {
             doReturn("meusite.com").when(mockServico).getDsWebsite();
             doReturn("minha Descricao").when(mockServico).getDsDescricao();
             doReturn(Moeda.USD).when(mockServico).getDsSimboloMoeda();
+            doReturn(Situacao.CANCELADO).when(mockServico).getDsSituacao();
             doReturn(Periodicidade.MENSAL).when(mockServico).getDsPeriodicidade();
             doReturn(BigDecimal.valueOf(100)).when(mockServico).getVlTotalServico();
         }
@@ -80,28 +97,33 @@ public class ServicoServiceTest {
             doReturn(mockUsuario).when(mockServico2).getUsuarioIdUsuario();
             doReturn("meusite2.com").when(mockServico2).getDsWebsite();
             doReturn("minha Descricao2").when(mockServico2).getDsDescricao();
+            doReturn(Situacao.CANCELADO).when(mockServico2).getDsSituacao();
             doReturn(Moeda.USD).when(mockServico2).getDsSimboloMoeda();
             doReturn(Periodicidade.MENSAL).when(mockServico2).getDsPeriodicidade();
             doReturn(BigDecimal.valueOf(50)).when(mockServico2).getVlTotalServico();
         }
     }
 
+    @After
+    public void tearDown() throws Exception {
+    }
+
     @Test
     public void testGeraDadosDashboard() {
         {
-            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
-            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
-            
-            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
-            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
-            
+            doReturn(EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
+            doReturn(EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
+
+            doReturn(EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
+            doReturn(EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
+
             assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosMesAtual().isEmpty());
             assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosProximoMes().isEmpty());
             assertEquals(BigDecimal.ZERO, service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
             assertEquals(BigDecimal.ZERO, service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalProximoMes());
             assertEquals(null, service.geraDadosDashboard(new PageRequest(1, 1)).getServicoMaisCaroContratado());
         }
-        
+
         {
             List listServico = new ArrayList();
             listServico.add(mockServico);
@@ -147,7 +169,7 @@ public class ServicoServiceTest {
     @Test
     public void testGetServicosDTOMesAtualPaginados() {
         {
-            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
+            doReturn(EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
             assertTrue(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).isEmpty());
         }
 
@@ -159,13 +181,12 @@ public class ServicoServiceTest {
             assertFalse(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).isEmpty());
             assertEquals(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
         }
-
     }
 
     @Test
     public void testGetServicosDTOProximoMesPaginados() {
         {
-            doReturn(Collections.EMPTY_LIST).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
+            doReturn(EMPTY_LIST).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
             assertTrue(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
         }
 
@@ -176,6 +197,37 @@ public class ServicoServiceTest {
 
             assertFalse(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
             assertEquals(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
+        }
+    }
+
+    /**
+     * Test of getDadosGraficoServicos method, of class ServicoService.
+     */
+    @Test
+    public void testGetDadosGraficoServicos() {
+        {
+            doReturn(EMPTY_LIST).when(repository).findByDsSituacaoNot(any(Situacao.class));
+
+            doReturn(EMPTY_LIST).when(repository).findByDsSituacao(any(Situacao.class));
+
+            assertTrue(service.getDadosGraficoServicos().getServicosDesteMes().isEmpty());
+            assertTrue(service.getDadosGraficoServicos().getServicosProximoMes().isEmpty());
+        }
+
+        {
+            List listServico = new ArrayList();
+            listServico.add(mockServico);
+            listServico.add(mockServico2);
+            doReturn(listServico).when(repository).findByDsSituacaoNot(any(Situacao.class));
+
+            List listServico2 = new ArrayList();
+            listServico2.add(mockServico);
+            doReturn(listServico2).when(repository).findByDsSituacao(any(Situacao.class));
+
+            assertEquals(2, service.getDadosGraficoServicos().getServicosDesteMes().size());
+            assertEquals(BigDecimal.valueOf(66.666667), service.getDadosGraficoServicos().getServicosDesteMes().get(0).getPorcentagemCustoTotal());
+            assertEquals(1, service.getDadosGraficoServicos().getServicosProximoMes().size());
+            assertEquals(BigDecimal.valueOf(100).setScale(6, HALF_UP), service.getDadosGraficoServicos().getServicosProximoMes().get(0).getPorcentagemCustoTotal());
         }
     }
 }
