@@ -19,13 +19,12 @@
                 </div>
             </div>
             <div class="row">
-                <section th:replace="fragments_dashboard :: main-info-section"/>
-            </div>
-            <div class="row">
                 <section class="col-md-6">
+                    <section th:replace="fragments_dashboard :: main-info-section('Mês Atual', 'Gasto total:', 'preco-total-mes')"/>
                     <section th:replace="fragments_dashboard :: main-section('container-mes-atual', 'grafico-mes-atual', 'btnVerMaisAtual', 'btnPesquisarAtual', 'formFiltrarAtual')"/>
                 </section>
                 <section class="col-md-6">
+                    <section th:replace="fragments_dashboard :: main-info-section('Próximo Mês', 'Gasto total previsto:', 'preco-total-proximo-mes')"/>
                     <section th:replace="fragments_dashboard :: main-section('container-proximo-mes', 'grafico-proximo-mes', 'btnVerMaisProximo', 'btnPesquisarProximo', 'formFiltrarProximo')"/>
                 </section>
             </div>
