@@ -153,4 +153,30 @@ public class ServicoServiceTest {
             assertEquals(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
         }
     }
+    
+    @Test
+    public void testGetServicosDTOProximoMesFiltradosPorGerentePaginados(){
+        List listServico = new ArrayList();
+            listServico.add(mockServico);
+
+            doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacao(any(Long.class),any(Situacao.class), any(Pageable.class));
+            
+            
+            assertEquals(service.getServicosDTOProximoMesFiltradosPorGerentePaginados(1l ,new PageRequest(1, 1)).size(), 1);
+      
+    }
+    
+    @Test
+    public void testGetServicosDTOMesAtualFiltradosPorGerentePaginados(){
+        {
+           
+            List listServico = new ArrayList();
+            listServico.add(mockServico);
+
+            doReturn(listServico).when(repository).findAllByusuarioIdUsuario_idUsuarioAndDsSituacaoNot(any(Long.class),any(Situacao.class), any(Pageable.class));
+            
+            
+            assertEquals(service.getServicosDTOMesAtualFiltradosPorGerentePaginados(1l ,new PageRequest(1, 1)).size(), 1);
+        }
+    }
 }
