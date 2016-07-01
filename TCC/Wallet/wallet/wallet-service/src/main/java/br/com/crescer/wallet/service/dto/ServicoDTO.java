@@ -79,9 +79,7 @@ public class ServicoDTO {
 
     public void setDsDescricao(String dsDescricao) {
         this.dsDescricao = dsDescricao;
-    }
-    
-    
+    }   
 
     public long getId() {
         return id;

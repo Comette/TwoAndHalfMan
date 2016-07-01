@@ -83,19 +83,20 @@ public class ServicoService {
 
     public GraficoDTO getDadosGraficoServicos() {
         List<ServicoDTO> servicosDesteMes = this.getServicosDTO(this.servicosMesAtual());
-        {
-            BigDecimal gastoTotalMesAtual = this.calculaGastoTotalMes(servicosDesteMes);
-            servicosDesteMes.stream().forEach((servico) -> {
-                servico.setPorcentagemCustoTotal(gastoTotalMesAtual);
-            });
-        }
-
         List<ServicoDTO> servicosProximoMes = this.getServicosDTO(this.servicosProximoMes());
         {
+            BigDecimal gastoTotalMesAtual = this.calculaGastoTotalMes(servicosDesteMes);
+            if (gastoTotalMesAtual != null) {
+                servicosDesteMes.stream().forEach((servico) -> {
+                    servico.setPorcentagemCustoTotal(gastoTotalMesAtual);
+                });
+            }
             BigDecimal gastoTotalProximoMes = this.calculaGastoTotalMes(servicosProximoMes);
-            servicosProximoMes.stream().forEach((servico) -> {
-                servico.setPorcentagemCustoTotal(gastoTotalProximoMes);
-            });
+            if (gastoTotalProximoMes != null) {
+                servicosProximoMes.stream().forEach((servico) -> {
+                    servico.setPorcentagemCustoTotal(gastoTotalProximoMes);
+                });
+            }
         }
         GraficoDTO graficoDTO = new GraficoDTO();
         {
