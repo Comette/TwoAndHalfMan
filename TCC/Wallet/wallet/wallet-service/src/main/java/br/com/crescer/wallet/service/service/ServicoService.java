@@ -44,7 +44,7 @@ public class ServicoService {
             List<ServicoDTO> servicosDTOMesAtualPaginados = this.getServicosDTOMesAtualPaginados(pageable);
             dashboard.setServicosMesAtual(servicosDTOMesAtualPaginados);
             dashboard.setServicosProximoMes(this.getServicosDTOProximoMesPaginados(pageable));
-            dashboard.setServicoMaisCaroContratado(servicosDTOMesAtualPaginados.get(0));
+            dashboard.setServicoMaisCaroContratado(servicosDTOMesAtualPaginados.isEmpty() ? null : servicosDTOMesAtualPaginados.get(0));
             dashboard.setGastoTotalAtual(this.getGastoTotalAtual());
             dashboard.setGastoTotalProximoMes(this.getGastoTotalProximoMes());
         }
