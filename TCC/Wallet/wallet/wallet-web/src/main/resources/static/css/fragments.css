@@ -304,7 +304,8 @@ a.navbar-brand h6:first-of-type {
 .graph-section {
     border: 1px solid #B0B5B8;
     margin-top: 5%;
-    width: 97.5%;
+    max-width: 87.5%;
+    margin-left: 6%;
     margin-bottom: 10%;
 }
 

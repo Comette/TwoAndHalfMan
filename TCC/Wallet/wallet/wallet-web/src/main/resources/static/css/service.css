@@ -20,9 +20,10 @@ Created on : 30/06/2016, 18:08:00
 }
 
 .service-value {
-    float: right;
     position: relative;
-    top: -50px;
+    float: right;
+    bottom: 80px;
+    right: 20px;
 }
 
 .btn-editar-servico, .btn-desativar-servico {
@@ -34,13 +35,12 @@ Created on : 30/06/2016, 18:08:00
 
 .btn-editar-servico {
     border: 1px solid #FBAF41;
-    color : #FBAF41;
-    transition: background-color .5s ease, color .5s ease;
+    color : #434343;
+    background-color: #FBAF41;
 }
 
 .btn-editar-servico:hover{
     background-color: #FBAF41;
-    color: #434343;
 }
 
 .btn-desativar-servico {
