@@ -14,18 +14,6 @@ Created on : 30/06/2016, 18:08:00
     display: inline;
 }
 
-.service-manager {
-    color: #FBAF41;
-    font-weight: bold;
-}
-
-.service-value {
-    position: relative;
-    float: right;
-    bottom: 80px;
-    right: 20px;
-}
-
 .btn-editar-servico, .btn-desativar-servico {
     float : right;
     margin-right: 10px;
@@ -54,3 +42,19 @@ Created on : 30/06/2016, 18:08:00
     color: #B0B5B6;
 }
 
+.service-website, .service-manager {
+    color: #FBAF41;
+    text-decoration: none;
+    font-weight: normal;
+    transition: color 1s ease, font-weight 0s ease; 
+}
+
+.service-website:hover,
+.service-manager:hover,
+.service-website:focus,
+.service-manager:focus,
+.service-website:active,
+.service-manager:active {
+    color: #FBAF41;
+    font-weight: bold;
+}
