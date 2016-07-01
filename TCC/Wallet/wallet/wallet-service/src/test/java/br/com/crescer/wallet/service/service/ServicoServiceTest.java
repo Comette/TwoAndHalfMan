@@ -8,6 +8,7 @@ import br.com.crescer.wallet.entity.Moeda;
 import br.com.crescer.wallet.entity.Periodicidade;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
+import br.com.crescer.wallet.entity.Usuario;
 import br.com.crescer.wallet.service.repository.ServicoRepository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -39,6 +40,10 @@ public class ServicoServiceTest {
     private ServicoRepository repository;
     @Mock
     private CotacaoService cotacaoService;
+    @Mock
+    private Servico mockServico;
+    @Mock
+    private Usuario mockUsuario;
 
     @InjectMocks
     private ServicoService service;
@@ -48,19 +53,27 @@ public class ServicoServiceTest {
 
     @Before
     public void setUp() {
-        {
-            doReturn(medias).when(cotacaoService).findLastAverage();
-            doReturn(BigDecimal.TEN).when(medias).get(Moeda.BRL);
-            doReturn(BigDecimal.ONE).when(medias).get(Moeda.USD);
-        }
+        doReturn(medias).when(cotacaoService).findLastAverage();
+        doReturn(BigDecimal.TEN).when(medias).get(Moeda.BRL);
+        doReturn(BigDecimal.ONE).when(medias).get(Moeda.USD);
+
+        doReturn("usuario").when(mockUsuario).getNmUsuario();
+        doReturn(1l).when(mockUsuario).getIdUsuario();
+
+        doReturn(1l).when(mockServico).getIdServico();
+        doReturn("servico").when(mockServico).getNmServico();
+        doReturn(mockUsuario).when(mockServico).getUsuarioIdUsuario();
+        doReturn("meusite.com").when(mockServico).getDsWebsite();
+        doReturn("minha Descricao").when(mockServico).getDsDescricao();
+        doReturn(Moeda.USD).when(mockServico).getDsSimboloMoeda();
+        doReturn(Periodicidade.MENSAL).when(mockServico).getDsPeriodicidade();
+        doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mockServico).getVlTotalServico();
     }
 
-    
     @Test
     public void testGeraDadosDashboard() {
     }
 
-    
     @Test
     public void testGetGastoTotalAtual() {
     }
@@ -78,23 +91,15 @@ public class ServicoServiceTest {
 
         {
             final List list = new ArrayList();
-            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
-
-            final Servico mock = mock(Servico.class);
-            list.add(mock); 
-            {
-                doReturn(Moeda.USD).when(mock).getDsSimboloMoeda();
-                doReturn(Periodicidade.MENSAL).when(mock).getDsPeriodicidade();
-                doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mock).getVlTotalServico();
-            }
+            list.add(mockServico);
+            doReturn(list).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));                      
 
             assertFalse(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).isEmpty());
             assertEquals(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
         }
-        
+
     }
 
-    
     @Test
     public void testGetServicosDTOProximoMesPaginados() {
         {
@@ -104,15 +109,8 @@ public class ServicoServiceTest {
 
         {
             final List list = new ArrayList();
-            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
-
-            final Servico mock = mock(Servico.class);
-            list.add(mock); 
-            {
-                doReturn(Moeda.USD).when(mock).getDsSimboloMoeda();
-                doReturn(Periodicidade.MENSAL).when(mock).getDsPeriodicidade();
-                doReturn(BigDecimal.TEN.multiply(BigDecimal.TEN)).when(mock).getVlTotalServico();
-            }
+            list.add(mockServico);
+            doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));                      
 
             assertFalse(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
             assertEquals(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
