@@ -24,26 +24,29 @@
                     <h3>Usuário</h3>
                     <form class="form-horizontal" th:object="${usuario}">
                         <div class="form-group col-md-12">
-                            <input id="txtNomeUsuario" th:field="*{nmUsuario}" type="text" class="form-control" placeholder="Nome"/>
-                            <p th:if="${#fields.hasErrors('nmUsuario')}" th:errors="*{nmUsuario}">Nome vazio ou maior que 255 caracteres!</p>
+                            <input id="txtNomeUsuario" th:field="*{nome}" type="text" class="form-control" placeholder="Nome"/>
+                            <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Nome vazio ou maior que 255 caracteres!</p>
                         </div>
                         <div class="form-group col-md-12">
-                            <input id="txtEmail" th:field="*{dsEmail}" type="email" class="form-control" placeholder="E-mail"/>
-                            <p th:if="${#fields.hasErrors('dsEmail')}" th:errors="*{dsEmail}">Nome inválido!</p>
+                            <input id="txtEmail" th:field="*{email}" type="text" class="form-control" placeholder="E-mail"/>
+                            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email inválido!</p>
                         </div>
                         <div class="form-group col-md-5">
-                            <input id="txtUserName" name="dsUserName" type="text" class="form-control" placeholder="Usuário"/>
+                            <input id="txtUserName" th:field="*{username}" type="text" class="form-control" placeholder="Usuário"/>
+                            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Usuário vazio ou maior que 255 caracteres!</p>
                         </div>
                         <div class="form-group col-md-5 form-padding">                                
                             <label class="radio-inline">
-                                <input type="radio" name="tpPermissao"/>ADMINISTRADOR
+                                <input type="radio" th:field="*{permissao}"/>ADMINISTRADOR
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="tpPermissao"/>GERENTE
+                                <input type="radio" th:field="*{permissao}"/>GERENTE
                             </label>
+                            <p th:if="${#fields.hasErrors('permissao')}" th:errors="*{permissao}">Selecione uma Permissão!</p>
                         </div>                            
                         <div class="form-group col-md-5">
-                            <input id="txtSenha" name="dsSenha" type="password" class="form-control" placeholder="Senha"/>
+                            <input id="txtSenha" th:field="*{senha}" type="password" class="form-control" placeholder="Senha"/>
+                            <p th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}">Senha deve ser maior que 8 caracteres!</p>
                         </div>
                         <div class="form-group col-md-5 form-padding">
                             <input id="txtConfirmacaoSenha" name="confirmacaoSenha" type="password" class="form-control" placeholder="Confirmação de Senha"/>

@@ -31,7 +31,7 @@ public class UsuarioDTO {
     private String username;
 
     @NotEmpty
-    @Length(max = 255)
+    @Length(min = 8, max = 255)
     private String senha;
 
     @NotNull
@@ -83,6 +83,14 @@ public class UsuarioDTO {
 
     public String getSenha() {
         return senha;
+    }
+
+    public Permissao getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(Permissao permissao) {
+        this.permissao = permissao;
     }
 
     public Usuario buildUsuario() {
