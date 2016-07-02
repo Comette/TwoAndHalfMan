@@ -20,28 +20,46 @@
                     <h3>Serviço</h3>
                     <form class="form-horizontal" th:object="${servico}">
                         <div class="form-group col-md-4">
-                            
+                            <input id="txtNomeServico" type="text" th:field="*{nome}" class="form-control" placeholder="Nome"/>
+                            <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Nome vazio ou maior que 255 caracteres!</p>
                         </div>
                         <div class="form-group col-md-4">
-                            
+                            <input id="txtWebSite" type="text" th:field="*{webSite}" class="form-control" placeholder="URL website"/>
+                            <p th:if="${#fields.hasErrors('webSite')}" th:errors="*{webSite}">Url inválido!</p>
                         </div>
                         <div class="form-group col-md-4">
-                            
+                            <select id="slPeriodicidade" th:field="*{periodicidade}" class="form-control">
+                                <option value="0" selected="selected">Selecione a periodicidade...</option>
+                                <option th:each="period : ${T(br.com.crescer.wallet.entity.Periodicidade).values()}" th:value="${period}" th:text="${period}"/>
+                            </select>
+                            <p th:if="${#fields.hasErrors('periodicidade')}" th:errors="*{periodicidade}">Selecione uma periodicidade!</p>
                         </div>
                         <div class="form-group col-md-12">
-                            
+                            <textarea id="txtDescricao" rows="6" class="form-control" th:field="*{descricao}" placeholder="Descrição do Serviço"></textarea>  
+                            <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}">Descrição vazia ou maior que 800 caracteres!</p>
                         </div>
                         <div class="form-group col-md-4">
-                            
+                            <select id="slMoeda" th:field="*{moeda}" class="form-control">
+                                <option value="0" selected="selected">Selecione a moeda (ex.: 'USD')...</option>
+                                <option th:each="coin : ${T(br.com.crescer.wallet.entity.Moeda).values()}" th:value="${coin}" th:text="${coin}"/>
+                            </select>
+                            <p th:if="${#fields.hasErrors('moeda')}" th:errors="*{moeda}">Selecione a moeda do valor do serviço!</p>
                         </div>
                         <div class="form-group col-md-4">
-                            
+                            <input id="numValorTotal" type="text" th:field="*{valorTotal}" class="form-control" placeholder="Valor do Serviço"/>
+                            <p th:if="${#fields.hasErrors('valorTotal')}" th:errors="*{valorTotal}">Valor não pode ser 0!</p>
                         </div>
                         <div class="form-group col-md-4">
-                            
+                            <select id="slUsuarioResponsavel" th:field="*{idUsuarioResponsavel}" class="form-control">
+                                <option value="0" selected="selected">Selecione um usuário responsável...</option>
+                                <option th:each="usuario : ${usuariosCadastrados}" th:value="${usuario.id}" th:text="${usuario.nome}"/>
+                            </select>
+                            <p th:if="${#fields.hasErrors('moeda')}" th:errors="*{moeda}">Selecione um usuário responsável pelo Serviço!</p>
                         </div>
                         <div class="form-group col-md-12">
-                            
+                            <div class="form-group col-md-12">
+                                <button type="submit" class="btn btn-success center-block">Salvar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -77,7 +95,7 @@
                             <input id="txtConfirmacaoSenha" name="confirmacaoSenha" type="password" class="form-control" placeholder="Confirmação de Senha"/>
                         </div>
                         <div class="form-group col-md-12">
-                            <button class="btn btn-success center-block">Salvar</button>
+                            <button type="submit" class="btn btn-success center-block">Salvar</button>
                         </div>
                     </form>
                 </div>

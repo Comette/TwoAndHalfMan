@@ -42,7 +42,7 @@ public class Servico implements Serializable {
     private String nmServico;
 
     @Basic(optional = false)
-    @Column(name = "DS_DESCRICAO")
+    @Column(name = "DS_DESCRICAO", length = 801)
     private String dsDescricao;
 
     @Basic(optional = false)

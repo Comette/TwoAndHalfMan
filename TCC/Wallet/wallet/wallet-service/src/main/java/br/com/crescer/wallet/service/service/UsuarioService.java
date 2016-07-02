@@ -26,12 +26,14 @@ public class UsuarioService {
     
     public List<UsuarioDTO> findAllReturningDTOs(){
         List<UsuarioDTO> list = new ArrayList<>();
-        for ( Usuario u : repository.findAllByTpPermissaoAndDsSituacaoNot(Permissao.GERENTE, Situacao.INATIVO)){
+        repository.findAllByTpPermissaoAndDsSituacaoNot(Permissao.GERENTE, Situacao.INATIVO).stream().map((u) -> {
             UsuarioDTO dto = new UsuarioDTO();
             dto.setId(u.getIdUsuario());
             dto.setNome(u.getNmUsuario());
+            return dto;
+        }).forEach((dto) -> {
             list.add(dto);
-        }
+        });
         return list;
     }
     

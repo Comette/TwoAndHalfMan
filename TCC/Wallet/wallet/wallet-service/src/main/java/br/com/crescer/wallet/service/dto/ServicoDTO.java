@@ -35,7 +35,7 @@ public class ServicoDTO {
     private String webSite;
     
     @NotEmpty
-    @Length(max = 255)
+    @Length(max = 800)
     private String descricao;
     
     @NotNull
@@ -45,6 +45,7 @@ public class ServicoDTO {
     private Moeda moeda;
   
     @NotNull
+    @Range(min = 1)
     private long idUsuarioResponsavel;
     
     @NotNull
