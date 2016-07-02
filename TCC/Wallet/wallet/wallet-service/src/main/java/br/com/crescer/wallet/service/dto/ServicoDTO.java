@@ -31,8 +31,8 @@ public class ServicoDTO {
     private Long idUsuario;
     
     
-    @Length(min = 1, max = 255)
     @NotEmpty
+    @Length(max = 255)
     private String nome;
     
     @Length(min = 1, max = 255)
@@ -55,7 +55,7 @@ public class ServicoDTO {
     private Moeda moeda;
   
     @NotNull
-    private Usuario gerenteResponsavel;
+    private Usuario usuarioResponsavel;
     
     @NotNull
     @Range(min = 0)
@@ -84,7 +84,7 @@ public class ServicoDTO {
         this.dsDescricao = dsDescricao;
         this.periodicidade = periodicidade;
         this.moeda = moeda;
-        this.gerenteResponsavel = gerenteResponsavel;
+        this.usuarioResponsavel = gerenteResponsavel;
         this.valorTotal = valorTotal;
     }
     
@@ -170,7 +170,7 @@ public class ServicoDTO {
         servico.setDsDescricao(this.dsDescricao);
         servico.setDsSimboloMoeda(this.moeda);
         servico.setVlTotalServico(this.valorTotal);
-        servico.setUsuarioIdUsuario(this.gerenteResponsavel);
+        servico.setUsuarioIdUsuario(this.usuarioResponsavel);
         
         return servico;
     }
