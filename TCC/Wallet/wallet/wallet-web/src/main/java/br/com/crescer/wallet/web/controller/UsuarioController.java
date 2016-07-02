@@ -36,18 +36,18 @@ public class UsuarioController {
     }
     
     @RequestMapping(value = "/salvar-usuario", method = RequestMethod.POST)
-    public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioDTO usuarioDTO, BindingResult result, Model model) {
-        if(result.hasErrors()) 
-            return new ModelAndView("cadastros");
-        
-        else {
+    public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioDTO usuarioDTO, BindingResult result) {
+        if(result.hasErrors()){
+            return new ModelAndView("cadastros");        
+        }else {
             UsuarioDTO retornado = service.salvarUsuario(usuarioDTO);
-            model.addAttribute("sucesso", 
+            ModelAndView model = new ModelAndView();
+            model.setViewName("gerente");
+            model.addObject("sucesso", 
                      retornado != null ? 
                             "Usuário " + usuarioDTO.getNome() + " cadastrado com sucesso!" : 
                             "Desculpe-nos, aconteceu algum erro e o usuário não pôde ser cadastrado.");
-            return new ModelAndView("redirect:/");
-        }
-        
+            return new ModelAndView("redirect:/gerente");
+        }        
     } 
 }

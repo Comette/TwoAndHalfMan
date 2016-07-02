@@ -79,9 +79,9 @@ public class ServicoController {
     }
     
     public ModelAndView salvarServico(@ModelAttribute @Valid ServicoDTO servicoDTO, BindingResult results, Model model) {
-        if(results.hasErrors())
+        if(results.hasErrors()){
             return new ModelAndView("cadastrar");
-        else {
+        }else {
             Servico retornado = service.salvarServico(servicoDTO);
             
             model.addAttribute("sucesso", retornado != null ? 
