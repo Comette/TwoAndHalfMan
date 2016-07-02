@@ -42,7 +42,12 @@ public class UsuarioService {
         return new UsuarioDTO(repository.save(user));
     }
 
-    public Usuario fondById(long idUsuario) {
+    public Usuario findOneById(long idUsuario) {
         return repository.findOne(idUsuario);
+    }
+    
+    public UsuarioDTO findDTOById(long idUsuario) {
+        UsuarioDTO dto = new UsuarioDTO(this.findOneById(idUsuario));
+        return dto;
     }
 }

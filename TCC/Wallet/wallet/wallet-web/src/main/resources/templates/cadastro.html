@@ -66,7 +66,7 @@
                 </div>
                 <div id="usuario" class="tab-pane fade">
                     <h3>Usuário</h3>
-                    <form class="form-horizontal" th:object="${usuario}">
+                    <form class="form-horizontal" th:object="${usuario}" th:action="@{/salvar-usuario}" method="POST">
                         <div class="form-group col-md-12">
                             <input id="txtNomeUsuario" th:field="*{nome}" type="text" class="form-control" placeholder="Nome"/>
                             <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Nome vazio ou maior que 255 caracteres!</p>

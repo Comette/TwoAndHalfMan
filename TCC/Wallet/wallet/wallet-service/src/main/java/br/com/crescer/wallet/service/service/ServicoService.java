@@ -204,7 +204,7 @@ public class ServicoService {
         servico.setDsDescricao(servicoDTO.getDescricao());
         servico.setDsSimboloMoeda(servicoDTO.getMoeda());
         servico.setVlTotalServico(servicoDTO.getValorTotal());
-        Usuario usuario = usuarioService.fondById(servicoDTO.getIdUsuarioResponsavel());
+        Usuario usuario = usuarioService.findOneById(servicoDTO.getIdUsuarioResponsavel());
         servico.setUsuarioIdUsuario(usuario);
         return servico;
     }
