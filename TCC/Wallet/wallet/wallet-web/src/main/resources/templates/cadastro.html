@@ -13,11 +13,11 @@
         <nav th:replace="fragments_generico :: navbar"/>
         <div class="container">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#servico">Serviço</a></li>
-                <li><a data-toggle="tab" href="#usuario">Usuário</a></li>
+                <li class="active"><a data-toggle="tab" href="#idServico">Serviço</a></li>
+                <li><a data-toggle="tab" href="#idUsuario">Usuário</a></li>
             </ul>
             <div class="tab-content">
-                <div id="servico" class="tab-pane fade in active">
+                <div id="idServico" class="tab-pane fade in active">
                     <h3>Serviço</h3>
                     <form class="form-horizontal" th:object="${servico}">
                         <div class="form-group col-md-4">
@@ -64,7 +64,7 @@
                         </div>
                     </form>
                 </div>
-                <div id="usuario" class="tab-pane fade">
+                <div id="idUsuario" class="tab-pane fade">
                     <h3>Usuário</h3>
                     <form class="form-horizontal" th:object="${usuario}" th:action="@{/salvar-usuario}" method="POST">
                         <div class="form-group col-md-12">

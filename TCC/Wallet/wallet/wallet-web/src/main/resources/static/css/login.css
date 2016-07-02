@@ -10,7 +10,7 @@ body {
 
 .form-control {
     border-radius: 0px;
-    color: white;
+    color: #434343;
     border-color:  #B0B5B8;
     font-weight: bold;
 }
@@ -54,7 +54,6 @@ header:first-of-type{
 
 .form-horizontal:first-of-type{
     margin-top: 5%;
-    /*margin-left: 33%;*/
 }
 
 #btn-login{

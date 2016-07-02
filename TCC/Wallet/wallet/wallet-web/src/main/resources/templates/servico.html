@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
         <link th:href="@{/css/fragments.css}" type="text/css" rel="stylesheet"/>
+        <link th:href="@{/css/fragments_generico.css}" type="text/css" rel="stylesheet"/>
         <link th:href="@{/css/service.css}" type="text/css" rel="stylesheet"/>
     </head>
     <body>
@@ -19,14 +20,16 @@
             <hr class="m-y-2"/>
             <p> Gerente: <span class='service-manager' th:text="${servico.nomeUsuarioResponsavel}"></span></p>
             <p class="lead">Descrição:</p>
-            <p class="lead service-description" th:text="${servico.descricao}">DESCRICAO</p>
+            <section>
+                <blockquote class="lead service-description" th:text="${servico.descricao}">DESCRICAO</blockquote>
+            </section>
             <hr class="m-y-2"/>
             <p class="lead">
                 <a class="btn btn-warning btn-editar-servico" th:text="Editar"/>
                 <a class="btn btn-warning btn-desativar-servico" th:text="Desativar"/>
             </p>    
         </div>
-        
+
         <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
     </body>
 </html>
