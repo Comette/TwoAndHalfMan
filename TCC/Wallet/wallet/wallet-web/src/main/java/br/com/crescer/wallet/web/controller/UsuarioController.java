@@ -38,7 +38,7 @@ public class UsuarioController {
     @RequestMapping(value = "/salvar-usuario", method = RequestMethod.POST)
     public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioDTO usuarioDTO, BindingResult result, Model model) {
         if(result.hasErrors()) 
-            return new ModelAndView("cadastros");
+            return new ModelAndView("redirect:/cadastro#usuario");
         
         else {
             UsuarioDTO retornado = service.salvarUsuario(usuarioDTO);
