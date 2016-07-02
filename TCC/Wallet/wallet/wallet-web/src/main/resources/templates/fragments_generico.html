@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="https://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Gerentes</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
-        <link th:href="@{/css/fragments.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/fragments_generico.css}" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top" th:fragment="navbar">
@@ -27,7 +27,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a th:href="@{/}" id="li-navbar">Dashboard</a></li>
                         <li><a th:href="@{/cadastro}" id="li-navbar">Cadastros</a></li>
-                        <li><a th:href="@{/gerente}" id="li-navbar">Gerentes</a></li>
+                        <li><a th:href="@{/gerentes}" id="li-navbar">Gerentes</a></li>
                         <li><a id="separador" > | </a></li>
                         <li><span id="logged-user-name" th:text="${#authentication.principal.nmUsuario}"/></li>
                         <li><a th:href="@{/logout}" id="navbar-logout">Sair</a></li>

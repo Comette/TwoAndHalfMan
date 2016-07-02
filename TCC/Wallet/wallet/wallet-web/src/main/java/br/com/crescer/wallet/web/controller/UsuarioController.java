@@ -30,9 +30,9 @@ public class UsuarioController {
         return service.findAllReturningDTOs();
     }
     
-    @RequestMapping(value = "/gerente", method = RequestMethod.GET)
-    public String gerente(){
-        return "gerente";
+    @RequestMapping(value = "/gerentes", method = RequestMethod.GET)
+    public String listGerentes(){
+        return "gerentes";
     }
     
     @RequestMapping(value = "/salvar-usuario", method = RequestMethod.POST)

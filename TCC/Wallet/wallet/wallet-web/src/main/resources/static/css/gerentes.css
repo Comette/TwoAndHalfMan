@@ -1,0 +1,69 @@
+/* 
+    Created on : 02/07/2016, 16:32:50
+    Author     : Hedo
+*/
+
+.panel {
+    border: 1px solid #FBAF41;
+    margin-top: 50px;
+}
+
+.panel-heading {
+    background-color: #FBAF41;
+    text-align: center;
+}
+
+.panel-title {
+    color: #434343;
+    font-weight: bold;
+    font-family: Open Sans, sans-serif;
+    font-size: 2em;
+}
+
+.panel, .panel-heading, list-group, list-group-item, .list-group-item:first-child, .list-group-item:last-child {
+    border-radius: 0px;
+}
+
+.list-group-item {
+    font-family: Open Sans, sans-serif;
+    background-color: #B0B5B6;
+    color: #434343;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    text-align: center;
+}
+
+.list-group-item h4 {
+    display: inline;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.list-group-item .btn-warning {
+    float: right;
+    margin-right: -15px;
+}
+.list-group-item .btn-danger {
+    float: left;
+    margin-left: -15px;
+}
+
+.list-group-item .btn-warning, .list-group-item .btn-danger {
+    border-color: transparent;
+    background-color: transparent;
+    margin-top: -11px;
+    font-size: 1.2em;
+    color: #434343;
+    border-radius: 0px;
+    height: 44px;
+    transition: color 0.2s ease-in-out;
+}
+
+a.list-group-item:hover {
+    color: #B0B5B6;
+    background-color: #434343;
+}
+
+a.list-group-item:hover > .btn-danger, a.list-group-item:hover > .btn-warning {
+    color: #FBAF41;
+}
+
