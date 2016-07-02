@@ -29,22 +29,19 @@ public class ServicoDTO {
     private BigDecimal custoMensal;
     private BigDecimal porcentagemCustoTotal;
     private Long idUsuario;
+    private String nmUsuario;
     
     
     @NotEmpty
     @Length(max = 255)
     private String nome;
     
-    @Length(min = 1, max = 255)
     @NotEmpty
-    private String nmUsuario;
-    
-    @Length(min = 1, max = 255)
-    @NotEmpty
+    @Length(max = 255)
     @Pattern(regexp = "/^(https?:\\/\\/)([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/")
     private String dsWebsite;
     
-    @Length(min = 1, max = 255)
+    @Length(max = 255)
     @NotEmpty
     private String dsDescricao;
     
@@ -78,13 +75,13 @@ public class ServicoDTO {
         this.custoMensalFormatado = NumberFormat.getCurrencyInstance().format(custoMensal);
     }
 
-    public ServicoDTO(String nome, String dsWebsite, String dsDescricao, Periodicidade periodicidade, Moeda moeda, Usuario gerenteResponsavel, BigDecimal valorTotal) {
+    public ServicoDTO(String nome, String dsWebsite, String dsDescricao, Periodicidade periodicidade, Moeda moeda, Usuario usuarioResponsavel, BigDecimal valorTotal) {
         this.nome = nome;
         this.dsWebsite = dsWebsite;
         this.dsDescricao = dsDescricao;
         this.periodicidade = periodicidade;
         this.moeda = moeda;
-        this.usuarioResponsavel = gerenteResponsavel;
+        this.usuarioResponsavel = usuarioResponsavel;
         this.valorTotal = valorTotal;
     }
     
