@@ -1,19 +1,24 @@
 package br.com.crescer.wallet.web.controller;
 
+import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.service.ServicoService;
 import br.com.crescer.wallet.service.dto.GraficoDTO;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -69,4 +74,19 @@ public class ServicoController {
         model.addAttribute("servico",service.getServicoDTO(idServico));
         return "servico"; 
     }
+    
+    public ModelAndView salvarServico(@ModelAttribute @Valid ServicoDTO servicoDTO, BindingResult results, Model model) {
+        if(results.hasErrors())
+            return new ModelAndView("cadastrar");
+        else {
+            Servico retornado = service.salvarServico(servicoDTO);
+            
+            model.addAttribute("sucesso", retornado != null ? 
+                            "Serviço " + retornado.getNmServico() + " cadastrado com sucesso!" : 
+                            "Desculpe-nos, aconteceu algum erro e o serviço não pôde ser cadastrado.");
+            
+            return new ModelAndView("redirect:/");
+        }
+    }
+    
 }
