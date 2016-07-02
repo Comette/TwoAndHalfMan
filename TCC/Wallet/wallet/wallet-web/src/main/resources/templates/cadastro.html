@@ -18,7 +18,32 @@
             <div class="tab-content">
                 <div id="servico" class="tab-pane fade in active">
                     <h3>Serviço</h3>
-                    <p>Some content.</p>
+                    <form class="form-horizontal" th:object="${servico}">
+                        <div class="form-group col-md-4">
+                            
+                        </div>
+                        <div class="form-group col-md-4">
+                            
+                        </div>
+                        <div class="form-group col-md-4">
+                            
+                        </div>
+                        <div class="form-group col-md-12">
+                            
+                        </div>
+                        <div class="form-group col-md-4">
+                            
+                        </div>
+                        <div class="form-group col-md-4">
+                            
+                        </div>
+                        <div class="form-group col-md-4">
+                            
+                        </div>
+                        <div class="form-group col-md-12">
+                            
+                        </div>
+                    </form>
                 </div>
                 <div id="usuario" class="tab-pane fade">
                     <h3>Usuário</h3>
@@ -37,10 +62,10 @@
                         </div>
                         <div class="form-group col-md-5 form-padding">                                
                             <label class="radio-inline">
-                                <input type="radio" th:field="*{permissao}"/>ADMINISTRADOR
+                                <input type="radio" th:field="*{permissao}" value="ADMINISTRADOR"/>ADMINISTRADOR
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" th:field="*{permissao}"/>GERENTE
+                                <input type="radio" th:field="*{permissao}" value="GERENTE"/>GERENTE
                             </label>
                             <p th:if="${#fields.hasErrors('permissao')}" th:errors="*{permissao}">Selecione uma Permissão!</p>
                         </div>                            
@@ -55,7 +80,6 @@
                             <button class="btn btn-success center-block">Salvar</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.service.ServicoService;
 import br.com.crescer.wallet.service.dto.GraficoDTO;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,9 @@ public class ServicoController {
     
     @RequestMapping( value = "/servico", method = RequestMethod.GET)
     public String getServico(@RequestParam Long idServico, Model model){
-        model.addAttribute("servico",service.getServicoDTO(idServico));
+        ServicoDTO servico = service.getServicoDTO(idServico);
+        model.addAttribute("servico",servico);
+        model.addAttribute("valorServicoFormatado", NumberFormat.getCurrencyInstance().format(servico.getCustoMensal()));
         return "servico"; 
     }
     

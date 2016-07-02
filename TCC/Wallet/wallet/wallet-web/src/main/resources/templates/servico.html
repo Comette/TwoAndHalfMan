@@ -13,13 +13,13 @@
         <div class="jumbotron container">
             <div class="row">
                 <h1 class="display-3 service-name col-md-3" th:text="${servico.nome}">NOME SERVICO</h1>
-                <h1 class="display-3 service-value col-md-4 col-md-offset-5" th:text="${servico.custoMensalFormatado}">VALOR SERVICO</h1>
+                <h1 class="display-3 service-value col-md-4 col-md-offset-5" th:text="${valorServicoFormatado}">VALOR SERVICO</h1>
             </div>
-            <a class="lead service-website" th:text="${servico.dsWebsite}" th:href="${servico.dsWebsite}">WEBSITE</a>
+            <a class="lead service-website" th:text="${servico.webSite}" th:href="${servico.webSite}">WEBSITE</a>
             <hr class="m-y-2"/>
-            <p> Gerente: <span class='service-manager' th:text="${servico.nmUsuario}"></span></p>
+            <p> Gerente: <span class='service-manager' th:text="${servico.nomeUsuarioResponsavel}"></span></p>
             <p class="lead">Descrição:</p>
-            <p class="lead service-description" th:text="${servico.dsDescricao}">DESCRICAO</p>
+            <p class="lead service-description" th:text="${servico.descricao}">DESCRICAO</p>
             <hr class="m-y-2"/>
             <p class="lead">
                 <a class="btn btn-warning btn-editar-servico" th:text="Editar"/>

@@ -41,12 +41,14 @@ var selectProximoMes = $containerProximoMes.find('#select-gerentes');
 
 var rederizaListaServicos = function (containerLista, servicos) {
     $.each(servicos, function (i, servico) {
+        debugger;
+        console.log(servico);
         containerLista.find('#services-container-list').append(
                 $('<section>').fadeIn(400).addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
                 .append($('<div>')
                         .append($('<div>').addClass('text-center').attr('style', 'border: 0.2px solid #B0B5B8; border-radius: 0px;')
                                 .append($('<a>').html($('<h5>').addClass('service-name').text(servico.nome)).attr('href', '/servico?idServico=' + servico.id))
-                                .append($('<h5>').text("(" + servico.nmUsuario + ")"))
+                                .append($('<h5>').text("(" + servico.nomeUsuarioResponsavel + ")"))
                                 .append($('<h5>').addClass('service-value').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
                                 )
                         .append($('<div>').attr('style', 'margin-bottom: 30px;')

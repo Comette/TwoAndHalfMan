@@ -137,7 +137,7 @@ public class ServicoServiceTest {
             assertEquals(1, service.geraDadosDashboard(new PageRequest(1, 1)).getServicosProximoMes().size());
             assertEquals(BigDecimal.valueOf(1500).setScale(2), service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
             assertEquals(BigDecimal.valueOf(1000).setScale(2), service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalProximoMes());
-            assertEquals("meusite.com", service.geraDadosDashboard(new PageRequest(1, 1)).getServicoMaisCaroContratado().getDsWebsite());
+            assertEquals("meusite.com", service.geraDadosDashboard(new PageRequest(1, 1)).getServicoMaisCaroContratado().getWebSite());
         }
     }
 

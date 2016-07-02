@@ -39,4 +39,8 @@ public class UsuarioService {
         Usuario user = dto.buildUsuario();        
         return new UsuarioDTO(repository.save(user));
     }
+
+    public Usuario fondById(long idUsuario) {
+        return repository.findOne(idUsuario);
+    }
 }

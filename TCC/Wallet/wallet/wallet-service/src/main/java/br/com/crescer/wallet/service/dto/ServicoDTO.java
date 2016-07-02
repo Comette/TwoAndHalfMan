@@ -6,11 +6,8 @@ package br.com.crescer.wallet.service.dto;
 
 import br.com.crescer.wallet.entity.Moeda;
 import br.com.crescer.wallet.entity.Periodicidade;
-import br.com.crescer.wallet.entity.Servico;
-import br.com.crescer.wallet.entity.Usuario;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.NumberFormat;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
@@ -21,16 +18,12 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author victor.ribeiro
  */
-public class ServicoDTO {
-    
+public class ServicoDTO {    
     
     private long id;
-    private String custoMensalFormatado;
     private BigDecimal custoMensal;
     private BigDecimal porcentagemCustoTotal;
-    private Long idUsuario;
-    private String nmUsuario;
-    
+    private String nomeUsuarioResponsavel;
     
     @NotEmpty
     @Length(max = 255)
@@ -39,11 +32,11 @@ public class ServicoDTO {
     @NotEmpty
     @Length(max = 255)
     @Pattern(regexp = "/^(https?:\\/\\/)([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/")
-    private String dsWebsite;
+    private String webSite;
     
-    @Length(max = 255)
     @NotEmpty
-    private String dsDescricao;
+    @Length(max = 255)
+    private String descricao;
     
     @NotNull
     private Periodicidade periodicidade;
@@ -52,78 +45,26 @@ public class ServicoDTO {
     private Moeda moeda;
   
     @NotNull
-    private Usuario usuarioResponsavel;
+    private long idUsuarioResponsavel;
     
     @NotNull
     @Range(min = 0)
-    private BigDecimal valorTotal;
-    
-    public ServicoDTO(long id, String nome, BigDecimal custoMensal) {
-        this.id = id;
-        this.nome = nome;
-        this.custoMensal = custoMensal;
+    private BigDecimal valorTotal;   
+
+    public String getWebSite() {
+        return webSite;
     }
 
-    public ServicoDTO(long id, String nome, BigDecimal custoMensal, String nmUsuario, Long idUsuario, String dsWebsite, String dsDescricao) {
-        this.id = id;
-        this.nome = nome;
-        this.custoMensal = custoMensal;
-        this.nmUsuario = nmUsuario;
-        this.idUsuario = idUsuario;
-        this.dsWebsite = dsWebsite;
-        this.dsDescricao = dsDescricao;
-        this.custoMensalFormatado = NumberFormat.getCurrencyInstance().format(custoMensal);
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
     }
 
-    public ServicoDTO(String nome, String dsWebsite, String dsDescricao, Periodicidade periodicidade, Moeda moeda, Usuario usuarioResponsavel, BigDecimal valorTotal) {
-        this.nome = nome;
-        this.dsWebsite = dsWebsite;
-        this.dsDescricao = dsDescricao;
-        this.periodicidade = periodicidade;
-        this.moeda = moeda;
-        this.usuarioResponsavel = usuarioResponsavel;
-        this.valorTotal = valorTotal;
-    }
-    
-
-    public String getCustoMensalFormatado() {
-        return custoMensalFormatado;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setCustoMensalFormatado(String custoMensalFormatado) {
-        this.custoMensalFormatado = custoMensalFormatado;
-    }
-
-    public String getNmUsuario() {
-        return nmUsuario;
-    }
-
-    public void setNmUsuario(String nmUsuario) {
-        this.nmUsuario = nmUsuario;
-    }
-
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getDsWebsite() {
-        return dsWebsite;
-    }
-
-    public void setDsWebsite(String dsWebsite) {
-        this.dsWebsite = dsWebsite;
-    }
-
-    public String getDsDescricao() {
-        return dsDescricao;
-    }
-
-    public void setDsDescricao(String dsDescricao) {
-        this.dsDescricao = dsDescricao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }   
 
     public long getId() {
@@ -157,18 +98,45 @@ public class ServicoDTO {
     public void setPorcentagemCustoTotal(BigDecimal gastoTotal) {
         BigDecimal porcentCustoTotal = this.custoMensal.multiply(BigDecimal.valueOf(100)).divide(gastoTotal, 6, RoundingMode.HALF_UP);
         this.porcentagemCustoTotal = porcentCustoTotal;
+    }    
+
+    public Periodicidade getPeriodicidade() {
+        return periodicidade;
     }
-    
-    public Servico buildServico(){
-        Servico servico = new Servico();
-        servico.setNmServico(this.nome);
-        servico.setDsWebsite(this.dsWebsite);
-        servico.setDsPeriodicidade(this.periodicidade);
-        servico.setDsDescricao(this.dsDescricao);
-        servico.setDsSimboloMoeda(this.moeda);
-        servico.setVlTotalServico(this.valorTotal);
-        servico.setUsuarioIdUsuario(this.usuarioResponsavel);
-        
-        return servico;
+
+    public void setPeriodicidade(Periodicidade periodicidade) {
+        this.periodicidade = periodicidade;
+    }
+
+    public Moeda getMoeda() {
+        return moeda;
+    }
+
+    public void setMoeda(Moeda moeda) {
+        this.moeda = moeda;
+    }
+
+    public long getIdUsuarioResponsavel() {
+        return idUsuarioResponsavel;
+    }
+
+    public void setIdUsuarioResponsavel(long idUsuarioResponsavel) {
+        this.idUsuarioResponsavel = idUsuarioResponsavel;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public String getNomeUsuarioResponsavel() {
+        return nomeUsuarioResponsavel;
+    }
+
+    public void setNomeUsuarioResponsavel(String nomeUsuarioResponsavel) {
+        this.nomeUsuarioResponsavel = nomeUsuarioResponsavel;
     }
 }

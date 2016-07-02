@@ -73,7 +73,7 @@ public class Servico implements Serializable {
     private Situacao dsSituacao;
 
     @JoinColumn(name = "USUARIO_ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false)    
     private Usuario usuarioIdUsuario;
 
     public Servico() {
