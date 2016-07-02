@@ -78,12 +78,6 @@ var getDadosDashboard = function () {
     });
 };
 
-var verificaTipoDeDado = function(data){
-    if(typeof data === 'string'){
-        location.reload();
-    }
-};
-
 var getProxPaginaServicosProximoMes = function () {
     var url = filtroProximoMes !== null ?
             '/servicos-proximo-mes?idGerente=' + filtroProximoMes + '&page=' + ++paginaAtualProximoMesFiltrado
@@ -93,12 +87,15 @@ var getProxPaginaServicosProximoMes = function () {
         type: 'GET',
         url: url
     }).done(function (data) {
-        if(verificaTipoDeDado(data));
-        if (data.length < 4) {
-            $('#btnVerMaisProximo').text("Não existem mais serviços").attr('style', 'margin-left: 31%; margin-right: 40%;');
-            $('#btnVerMaisProximo').addClass('disabled');
+        if (typeof data === 'string') {
+            location.reload();
+        } else {
+            if (data.length < 4) {
+                $('#btnVerMaisProximo').text("Não existem mais serviços").attr('style', 'margin-left: 31%; margin-right: 40%;');
+                $('#btnVerMaisProximo').addClass('disabled');
+            }
+            rederizaListaServicos($containerProximoMes, data);
         }
-        rederizaListaServicos($containerProximoMes, data);
     });
 };
 
@@ -111,12 +108,15 @@ var getProxPaginaServicosEsteMes = function () {
         type: 'GET',
         url: url
     }).done(function (data) {
-        if(verificaTipoDeDado(data));
-        if (data.length < 4) {
-            $('#btnVerMaisAtual').text('Não existem mais serviços.').attr('style', 'margin-left: 31%; margin-right: 40%;');
-            $('#btnVerMaisAtual').addClass('disabled');
+        if (typeof data === 'string') {
+            location.reload();
+        } else {
+            if (data.length < 4) {
+                $('#btnVerMaisAtual').text('Não existem mais serviços.').attr('style', 'margin-left: 31%; margin-right: 40%;');
+                $('#btnVerMaisAtual').addClass('disabled');
+            }
+            rederizaListaServicos($containerMesAtual, data);
         }
-        rederizaListaServicos($containerMesAtual, data);
     });
 };
 

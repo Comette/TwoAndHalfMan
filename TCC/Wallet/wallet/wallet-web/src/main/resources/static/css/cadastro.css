@@ -3,7 +3,35 @@
 */
 
 ul.nav.nav-tabs a {
-  color: #FBAF41;
-  margin-top: 30px;
+    color: #FBAF41;
+    margin-top: 30px;
+}
+
+.form-horizontal .form-group{
+    margin-left: 0;
+}
+
+h3{
+    margin-left: 15px;
+    margin-bottom: 30px;
+}
+
+.form-group .radio-inline:nth-of-type(1) {
+    margin-right: 25%;
+}
+
+.form-group .radio-inline {
+    margin-bottom: 7px;
+    margin-left: 0;
+}
+@media(min-width: 1024px){
+    .form-horizontal .form-padding{
+        margin-left: 8.33333%;
+    }
+}
+.form-horizontal button{
+    width: 30%;
+    font-size: 1.3em;
+    margin-top: 20px;
 }
 

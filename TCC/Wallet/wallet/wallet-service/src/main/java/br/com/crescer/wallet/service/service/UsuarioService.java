@@ -34,4 +34,9 @@ public class UsuarioService {
         }
         return list;
     }
+    
+    public UsuarioDTO salvarUsuario(UsuarioDTO dto){
+        Usuario user = dto.buildUsuario();        
+        return new UsuarioDTO(repository.save(user));
+    }
 }

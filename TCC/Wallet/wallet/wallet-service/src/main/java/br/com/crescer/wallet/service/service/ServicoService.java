@@ -110,6 +110,10 @@ public class ServicoService {
         final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
         return this.buildDTO(repository.findOne(idServico), medias);
     }
+    
+    public Servico salvarServico(ServicoDTO dto) {
+        return repository.save(dto.buildServico());
+    }
 
     private List<Servico> servicosMesAtual() {
         return repository.findByDsSituacaoNot(Situacao.INATIVO);

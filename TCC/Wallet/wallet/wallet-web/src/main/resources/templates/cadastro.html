@@ -13,45 +13,46 @@
         <div class="container">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#servico">Serviço</a></li>
-                <li><a data-toggle="tab" href="#gerente">Gerente</a></li>
+                <li><a data-toggle="tab" href="#usuario">Usuário</a></li>
             </ul>
             <div class="tab-content">
                 <div id="servico" class="tab-pane fade in active">
                     <h3>Serviço</h3>
                     <p>Some content.</p>
                 </div>
-                <div id="gerente" class="tab-pane fade">
-                    <h3>Gerente</h3>
-                    <div>
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="txtNomeUsuario" th:text="#{usuario.nome}"/>
-                                <input id="txtNomeUsuario" name="nmUsuario" type="text" class="form-control" placeholder="Ex.: André Nunes"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="txtUserName" th:text="#{usuario.username}"/>
-                                <input id="txtUserName" name="dsUserName" type="text" class="form-control" placeholder="Ex.: Nunes"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="slPermissao" th:text="#{usuario.permissao}"/>
-                                <select id="slPermissao" class="form-control">
-                                    <option th:each="permissao : ${T(br.com.crescer.wallet.entity.Permissao).values()}" th:value="${permissao}" th:text="${permissao}"/>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="txtEmail" th:text="#{usuario.email}"/>
-                                <input id="txtEmail" name="dsEmail" type="email" class="form-control" placeholder="Ex.: you@domain.com"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="txtSenha" th:text="#{usuario.senha}"/>
-                                <input id="txtSenha" name="dsSenha" type="password" class="form-control"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="txtConfirmacaoSenha" th:text="#{usuario.confirmar-senha}"/>
-                                <input id="txtConfirmacaoSenha" name="confirmacaoSenha" type="password" class="form-control"/>
-                            </div>
-                        </form>
-                    </div>
+                <div id="usuario" class="tab-pane fade">
+                    <h3>Usuário</h3>
+                    <form class="form-horizontal" th:object="${usuario}">
+                        <div class="form-group col-md-12">
+                            <input id="txtNomeUsuario" th:field="*{nmUsuario}" type="text" class="form-control" placeholder="Nome"/>
+                            <p th:if="${#fields.hasErrors('nmUsuario')}" th:errors="*{nmUsuario}">Nome vazio ou maior que 255 caracteres!</p>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input id="txtEmail" th:field="*{dsEmail}" type="email" class="form-control" placeholder="E-mail"/>
+                            <p th:if="${#fields.hasErrors('dsEmail')}" th:errors="*{dsEmail}">Nome inválido!</p>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <input id="txtUserName" name="dsUserName" type="text" class="form-control" placeholder="Usuário"/>
+                        </div>
+                        <div class="form-group col-md-5 form-padding">                                
+                            <label class="radio-inline">
+                                <input type="radio" name="tpPermissao"/>ADMINISTRADOR
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="tpPermissao"/>GERENTE
+                            </label>
+                        </div>                            
+                        <div class="form-group col-md-5">
+                            <input id="txtSenha" name="dsSenha" type="password" class="form-control" placeholder="Senha"/>
+                        </div>
+                        <div class="form-group col-md-5 form-padding">
+                            <input id="txtConfirmacaoSenha" name="confirmacaoSenha" type="password" class="form-control" placeholder="Confirmação de Senha"/>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <button class="btn btn-success center-block">Salvar</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
