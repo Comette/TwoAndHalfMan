@@ -10,6 +10,11 @@ Created on : 30/06/2016, 18:08:00
     font-family: Open Sans, sans-serif;
 }
 
+.service-description {
+    word-break: break-all;
+    word-wrap: normal;
+}
+
 .jumbotron h1 {
     display: inline;
 }
