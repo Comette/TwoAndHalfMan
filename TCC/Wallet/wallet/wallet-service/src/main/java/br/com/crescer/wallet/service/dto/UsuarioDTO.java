@@ -46,6 +46,7 @@ public class UsuarioDTO {
         this.email = usuario.getDsEmail();
         this.username = usuario.getDsUserName();
         this.senha = usuario.getDsSenha();
+        this.permissao = usuario.getTpPermissao();
     }
 
     public String getNome() {
@@ -92,7 +93,6 @@ public class UsuarioDTO {
         user.setDsUserName(username);
         user.setNmUsuario(nome);
         user.setTpPermissao(permissao);
-
         return user;
     }
 

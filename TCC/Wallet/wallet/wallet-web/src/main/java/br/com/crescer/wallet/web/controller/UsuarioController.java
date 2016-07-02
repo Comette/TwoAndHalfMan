@@ -1,6 +1,7 @@
 package br.com.crescer.wallet.web.controller;
 
-import br.com.crescer.wallet.service.dto.GerenteDTO;
+
+import br.com.crescer.wallet.service.dto.UsuarioDTO;
 import br.com.crescer.wallet.service.service.UsuarioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class UsuarioController {
     
     @ResponseBody
     @RequestMapping(value = "/buscar-gerentes", method = RequestMethod.GET)
-    public List<GerenteDTO> getGerentes() {
+    public List<UsuarioDTO> getGerentes() {
         return service.findAllReturningDTOs();
     }
     
