@@ -44,7 +44,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/salvar-usuario", method = RequestMethod.POST)
-    public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioDTO usuarioDTO, BindingResult result) {
+    public ModelAndView salvarUsuario(@ModelAttribute("usuario") @Valid UsuarioDTO usuarioDTO, BindingResult result) {
         if (result.hasErrors()) {
             ModelAndView model = new ModelAndView();
             model.addObject("usuario", usuarioDTO);

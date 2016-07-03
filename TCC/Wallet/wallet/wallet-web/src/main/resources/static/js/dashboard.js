@@ -162,26 +162,32 @@ function buscaGerentes() {
     });
 }
 
-$formAtual.submit(function (e) {
-    var idGerente = $formAtual.children('select').val();
-    paginaAtualEsteMesFiltrado = -1;
-    filtroAtual = idGerente;
-    limparContainer($containerMesAtual.find('#services-container-list'));
-    $verMaisServicosMesAtual.removeClass('disabled');
-    $verMaisServicosMesAtual.text('Ver mais');
-    getProxPaginaServicosEsteMes();
-    e.preventDefault();
+$('#select-gerentes').change(function () {
+
+    $formAtual.submit(function (e) {
+        var idGerente = selectAtual.val();
+        paginaAtualEsteMesFiltrado = -1;
+        filtroAtual = idGerente;
+        limparContainer($containerMesAtual.find('#services-container-list'));
+        $verMaisServicosMesAtual.removeClass('disabled');
+        $verMaisServicosMesAtual.text('Ver mais');
+        getProxPaginaServicosEsteMes();
+        e.preventDefault();
+    });
 });
-$formProximo.submit(function (e) {
-    var idGerente = $formProximo.children('select').val();
-    paginaAtualProximoMesFiltrado = -1;
-    filtroProximoMes = idGerente;
-    limparContainer($containerProximoMes.find('#services-container-list'));
-    $verMaisServicosProximoMes.removeClass('disabled');
-    $verMaisServicosProximoMes.text('Ver mais');
-    getProxPaginaServicosProximoMes();
-    e.preventDefault();
-});
+
+//$('#select-gerentes').change(function () {
+//    $formProximo.submit(function (e) {
+//        var idGerente = selectProximoMes.val();
+//        paginaAtualProximoMesFiltrado = -1;
+//        filtroProximoMes = idGerente;
+//        limparContainer($containerProximoMes.find('#services-container-list'));
+//        $verMaisServicosProximoMes.removeClass('disabled');
+//        $verMaisServicosProximoMes.text('Ver mais');
+//        getProxPaginaServicosProximoMes();
+//        e.preventDefault();
+//    });
+//});
 
 function limparContainer($container) {
     $container.html('');

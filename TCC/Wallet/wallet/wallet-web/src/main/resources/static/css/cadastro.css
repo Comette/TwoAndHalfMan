@@ -48,7 +48,8 @@ textarea{
 
 .btn-success{
     transition: background-color 0.4s ease, color 0.4s ease;
-    background-color: #FBAF41;
+    background-color: #434343;
+    color: #FBAF41;
     width: 30%;
     font-size: 1.3em;
     margin-top: 20px;
@@ -57,14 +58,25 @@ textarea{
 }
 
 .btn-success:hover{
-    background-color: #434343;
-    color: #FBAF41;
+    background-color: #fbaf41;
+    color: #434343;
 }
 
-.btn-success:active:hover, .btn-success.active:hover, .btn-success:active{
-    background-color: #434343;
-    color: #FBAF41;
+.btn-success:active:hover, .btn-success.active:hover, .btn-success:active, .btn-success:active:focus{
+    background-color: #fbaf41;
+    color: #434343;
 }
 
+.error-message {
+    color: #FBAF41;
+    font-size: 1.2em;
+    font-family: Open Sans, sans-serif;
+    font-weight: bold;
+}
+
+.still-wrong {
+    border:1px solid #f00;
+    box-shadow:0 0 4px 0 #f00;
+}
 
 
