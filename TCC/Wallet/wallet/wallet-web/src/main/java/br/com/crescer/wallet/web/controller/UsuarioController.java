@@ -43,6 +43,7 @@ public class UsuarioController {
             ModelAndView model = new ModelAndView();
             model.addObject("usuario", usuarioDTO);
             model.addObject("servico", new ServicoDTO());
+            model.addObject("guia", "usuario");
             model.setViewName("cadastro");
             return model;        
         }else {
