@@ -1,4 +1,3 @@
-// Error reading included file Templates/Classes/Templates/Licenses/license-wallet-br.txt
 package br.com.crescer.wallet.service.service;
 
 import br.com.crescer.wallet.entity.Moeda;
@@ -204,7 +203,7 @@ public class ServicoService {
         servico.setDsDescricao(servicoDTO.getDescricao());
         servico.setDsSimboloMoeda(servicoDTO.getMoeda());
         servico.setVlTotalServico(servicoDTO.getValorTotal());
-        Usuario usuario = usuarioService.fondById(servicoDTO.getIdUsuarioResponsavel());
+        Usuario usuario = usuarioService.findById(servicoDTO.getIdUsuarioResponsavel());
         servico.setUsuarioIdUsuario(usuario);
         return servico;
     }

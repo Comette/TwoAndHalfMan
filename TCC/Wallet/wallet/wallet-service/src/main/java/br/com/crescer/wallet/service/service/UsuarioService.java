@@ -27,10 +27,7 @@ public class UsuarioService {
     public List<UsuarioDTO> findAllReturningDTOs(){
         List<UsuarioDTO> list = new ArrayList<>();
         repository.findAllByTpPermissaoAndDsSituacaoNot(Permissao.GERENTE, Situacao.INATIVO).stream().map((u) -> {
-            UsuarioDTO dto = new UsuarioDTO();
-            dto.setId(u.getIdUsuario());
-            dto.setNome(u.getNmUsuario());
-            return dto;
+            return buildDTO(u);
         }).forEach((dto) -> {
             list.add(dto);
         });
@@ -42,7 +39,21 @@ public class UsuarioService {
         return new UsuarioDTO(repository.save(user));
     }
 
-    public Usuario fondById(long idUsuario) {
+    public Usuario findById(long idUsuario) {
         return repository.findOne(idUsuario);
+    }
+    
+    public UsuarioDTO findByIdReturningDTO(long idUsuario) {
+        return buildDTO(repository.findOne(idUsuario));
+    }
+    
+    private UsuarioDTO buildDTO(Usuario usuario) {
+        UsuarioDTO dto = new UsuarioDTO();
+        dto.setId(usuario.getIdUsuario());
+        dto.setNome(usuario.getNmUsuario());
+        dto.setEmail(usuario.getDsEmail());
+        dto.setUsername(usuario.getDsUserName());
+        dto.setSituacao(usuario.getDsSituacao());
+        return dto;
     }
 }

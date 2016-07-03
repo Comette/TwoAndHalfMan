@@ -41,8 +41,6 @@ var selectProximoMes = $containerProximoMes.find('#select-gerentes');
 
 var rederizaListaServicos = function (containerLista, servicos) {
     $.each(servicos, function (i, servico) {
-        debugger;
-        console.log(servico);
         containerLista.find('#services-container-list').append(
                 $('<section>').fadeIn(400).addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
                 .append($('<div>')

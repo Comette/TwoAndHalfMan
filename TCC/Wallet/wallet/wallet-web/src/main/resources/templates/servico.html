@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="https://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title th:text="${servico.nome} + ' | Onde está Wallet?'"/>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
@@ -29,7 +29,6 @@
                 <a class="btn btn-warning btn-desativar-servico" th:text="Desativar"/>
             </p>    
         </div>
-
-        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+            <div th:replace="fragments_dashboard :: scripts"></div>
     </body>
 </html>

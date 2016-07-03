@@ -14,10 +14,30 @@
 }
 
 .panel-title {
-    color: #434343;
+    display: inline;
+    color: white;
     font-weight: bold;
     font-family: Open Sans, sans-serif;
     font-size: 2em;
+}
+
+.panel-heading a {
+    float: right;
+    border-color: transparent;
+    font-size: 2.5em;
+    margin-top: -18px;
+    background-color: transparent;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.panel-heading a:hover,
+.panel-heading a:active,
+.panel-heading a:focus,
+.panel-heading a:active:hover,
+.panel-heading a:active:focus {
+    background-color: transparent;
+    color: #434343;
+    border-color: transparent;
 }
 
 .panel, .panel-heading, list-group, list-group-item, .list-group-item:first-child, .list-group-item:last-child {
@@ -62,6 +82,11 @@ a.list-group-item:hover {
     color: #B0B5B6;
     background-color: #434343;
 }
+
+a.list-group-item button:active:focus, a.list-group-item button:active, a.list-group-item button:focus {
+    background-color: transparent;
+}
+
 
 a.list-group-item:hover > .btn-danger, a.list-group-item:hover > .btn-warning {
     color: #FBAF41;

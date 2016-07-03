@@ -7,14 +7,12 @@ var $btnEditar = $('button[name="btn-editar-gerente"');
 var $btnExcluir = $('button[name="btn-excluir-gerente"');
 
 $(function(){
-   debugger;
     $.ajax({
         type: 'GET',
         url: '/buscar-gerentes'
     }).done(function(data){
         var lista1 = [];
         var lista2 = [];
-        debugger;
         lista1 = data.splice(0,(data.length / 2).toFixed(1));
         lista2 = data;
         

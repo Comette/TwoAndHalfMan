@@ -36,6 +36,8 @@ public class UsuarioDTO {
 
     @NotNull
     private Permissao permissao;
+    
+    private Situacao situacao;
 
     public UsuarioDTO() {
     }
@@ -93,6 +95,14 @@ public class UsuarioDTO {
         this.permissao = permissao;
     }
 
+    public Situacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Situacao situacao) {
+        this.situacao = situacao;
+    }
+    
     public Usuario buildUsuario() {
         Usuario user = new Usuario();
         user.setDsEmail(email);
