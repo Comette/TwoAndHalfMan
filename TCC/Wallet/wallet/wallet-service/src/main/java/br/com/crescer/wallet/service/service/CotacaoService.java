@@ -103,6 +103,9 @@ public class CotacaoService implements InitializingBean {
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
                         .divide(BigDecimal.valueOf(cotacoes.size()));
                 break;
+            case "USD":
+                average = BigDecimal.ONE;
+                break;
             default:
                 //TODO: throws exception
                 average = BigDecimal.ZERO;
