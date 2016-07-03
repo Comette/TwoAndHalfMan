@@ -7,50 +7,63 @@ Created on : 30/06/2016, 18:08:00
     margin-top: 100px;
     border: 1px solid #B0B5B6;
     box-shadow: 3px 3px 3px #B0B5B6;
-    font-family: Open Sans, sans-serif;
+    font-family: Open Sans, sans-serif;    
+    padding: 3% 5%;
+}
+
+.jumbotron p{
+    font-weight: 500;  
+    color: #B0B5B6;
+}
+
+.jumbotron p.lead:first-of-type, p.text-right, p.text-left{
+    margin: 0px;
+    padding: 0 2%;
+}
+
+p.text-right, p.text-left{
+    font-size: 0.33em;
 }
 
 .service-description {
     word-break: break-all;
     word-wrap: normal;
-}
-
-.jumbotron h1 {
-    display: inline;
+    font-weight: 600;
 }
 
 .btn-editar-servico, .btn-desativar-servico {
     float : right;
     margin-right: 10px;
-    font-size: 2em;
+    font-size: 1.3em;
     border-radius: 0px;
+    transition: all .7s ease;
 }
 
 .btn-editar-servico {
-    border: 1px solid #FBAF41;
-    color : #434343;
-    background-color: #FBAF41;
+    border: 1px solid #B0B5B6;
+    color : white;
+    background-color: #B0B5B6;    
 }
 
 .btn-editar-servico:hover{
-    background-color: #FBAF41;
+    color: #434343;
 }
 
 .btn-desativar-servico {
     border: 1px solid #434343;
-    color: #434343;
-    transition: background-color .5s ease, color .5s ease;
+    background-color: #434343;
+    color: white;
 }
 
 .btn-desativar-servico:hover {
     background-color: #434343;
-    color: #B0B5B6;
+    color: #FBAF41;
 }
 
 .service-website, .service-manager {
     color: #FBAF41;
     text-decoration: none;
-    font-weight: normal;
+    font-weight: 500;
     transition: color 1s ease, font-weight 0s ease; 
 }
 
@@ -62,4 +75,14 @@ Created on : 30/06/2016, 18:08:00
 .service-manager:active {
     color: #FBAF41;
     font-weight: bold;
+}
+
+.service-name, .service-value{
+    font-size: 4.5em;      
+    display: inline-block;
+}
+@media(max-width: 760px){
+    .jumbotron .service-value, p.text-right{
+        text-align: left;
+    }
 }
