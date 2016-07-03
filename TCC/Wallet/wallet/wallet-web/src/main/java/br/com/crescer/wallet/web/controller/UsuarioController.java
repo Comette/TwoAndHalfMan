@@ -27,8 +27,13 @@ public class UsuarioController {
     UsuarioService service;
 
     @ResponseBody
-    @RequestMapping(value = "/buscar-gerentes", method = RequestMethod.GET)
-    public List<UsuarioDTO> getGerentes() {
+    @RequestMapping(value = "/buscar-gerentes-ativos", method = RequestMethod.GET)
+    public List<UsuarioDTO> getGerentesAtivos() {
+        return service.findAllActiveReturningDTOs();
+    }
+    @ResponseBody
+    @RequestMapping(value = "/buscar-todos-gerentes", method = RequestMethod.GET)
+    public List<UsuarioDTO> getGerentesQualquerStatus() {
         return service.findAllReturningDTOs();
     }
 

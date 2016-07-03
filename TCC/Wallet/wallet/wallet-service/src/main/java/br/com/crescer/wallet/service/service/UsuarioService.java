@@ -24,9 +24,19 @@ public class UsuarioService {
         return repository.findUsuarioByDsUserName(dsUserName);
     }
     
-    public List<UsuarioDTO> findAllReturningDTOs(){
+    public List<UsuarioDTO> findAllActiveReturningDTOs(){
         List<UsuarioDTO> list = new ArrayList<>();
         repository.findAllByTpPermissaoAndDsSituacaoNot(Permissao.GERENTE, Situacao.INATIVO).stream().map((u) -> {
+            return buildDTO(u);
+        }).forEach((dto) -> {
+            list.add(dto);
+        });
+        return list;
+    }
+    
+    public List<UsuarioDTO> findAllReturningDTOs(){
+        List<UsuarioDTO> list = new ArrayList<>();
+        repository.findAllByTpPermissao(Permissao.GERENTE).stream().map((u) -> {
             return buildDTO(u);
         }).forEach((dto) -> {
             list.add(dto);

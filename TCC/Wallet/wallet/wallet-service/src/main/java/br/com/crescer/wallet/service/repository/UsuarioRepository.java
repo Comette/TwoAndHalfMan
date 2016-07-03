@@ -16,4 +16,5 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
     
     public Usuario findUsuarioByDsUserName(String dsUserName);
     public List<Usuario> findAllByTpPermissaoAndDsSituacaoNot(Permissao permissao, Situacao situacao);
+    public List<Usuario> findAllByTpPermissao(Permissao permissao);
 }

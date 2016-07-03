@@ -9,11 +9,11 @@ var $btnExcluir = $('button[name="btn-excluir-gerente"');
 $(function(){
     $.ajax({
         type: 'GET',
-        url: '/buscar-gerentes'
+        url: '/buscar-todos-gerentes'
     }).done(function(data){
         var lista1 = [];
         var lista2 = [];
-        lista1 = data.splice(0,(data.length / 2).toFixed(1));
+        lista1 = data.splice(0,Math.ceil((data.length / 2)));
         lista2 = data;
         
         appendarGerentesNaLista(lista1,$lista1);
