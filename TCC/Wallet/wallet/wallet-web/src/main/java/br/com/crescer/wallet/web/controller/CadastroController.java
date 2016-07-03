@@ -27,7 +27,7 @@ public class CadastroController {
     @RequestMapping(value = "/cadastro", method = RequestMethod.GET)
     public String cadastro(Model model, @RequestParam(required = false) Long idUsuario, @RequestParam(required = false) Long idServico){
         if(idUsuario != null && idUsuario > 0){
-            model.addAttribute("usuario", usuarioService.findDTOById(idUsuario));
+            model.addAttribute("usuario", usuarioService.findByIdReturningDTO(idUsuario));
         }else{
             model.addAttribute("usuario", new UsuarioDTO());
         }

@@ -59,49 +59,49 @@ public class CotacaoService implements InitializingBean {
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoEuro)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()));
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
                 break;
             case "BRL":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoReal)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()));
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
                 break;
             case "JPY":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoYen)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()));
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
                 break;
             case "GBP":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoLibra)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()));
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
                 break;
             case "AUD":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoDollarAutraliano)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()));
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
                 break;
             case "CAD":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoDollarCanadense)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()));
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
                 break;
             case "CHF":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoFrancoSuico)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()));
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
                 break;
             case "CNY":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoYuan)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()));
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
                 break;
             case "USD":
                 average = BigDecimal.ONE;

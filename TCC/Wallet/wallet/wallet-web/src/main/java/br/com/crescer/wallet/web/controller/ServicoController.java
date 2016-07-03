@@ -80,7 +80,7 @@ public class ServicoController {
     }
 
     @RequestMapping( value = "/salvar-servico", method = RequestMethod.POST)    
-    public ModelAndView salvarServico(@ModelAttribute @Valid ServicoDTO servicoDTO, BindingResult result) {
+    public ModelAndView salvarServico(@ModelAttribute("servico") @Valid ServicoDTO servicoDTO, BindingResult result) {
         if(result.hasErrors()){
             ModelAndView model = new ModelAndView();
             model.addObject("usuario", new UsuarioDTO());

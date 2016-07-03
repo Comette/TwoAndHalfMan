@@ -219,8 +219,8 @@ public class ServicoService {
 
     private BigDecimal calculaGastoMensalUSD(Periodicidade periodicidade, BigDecimal valorTotal, Moeda moedaOriginal) {
         BigDecimal mensalUSD = valorTotal
-                .divide(BigDecimal.valueOf(periodicidade.getNumeral()))
-                .divide(cotacaoService.findLastCurrencyAverage(moedaOriginal));
+                .divide(BigDecimal.valueOf(periodicidade.getNumeral()),CALC_SCALE,HALF_UP)
+                .divide(cotacaoService.findLastCurrencyAverage(moedaOriginal),CALC_SCALE,HALF_UP);
         return mensalUSD;
     }
 
