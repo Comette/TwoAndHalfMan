@@ -13,13 +13,20 @@
         <nav th:replace="fragments_generico :: navbar"/>
         <div class="jumbotron container">
             <div class="row">
-                <h1 class="display-3 service-name col-md-3" th:text="${servico.nome}">NOME SERVICO</h1>
-                <h1 class="display-3 service-value col-md-4 col-md-offset-5" th:text="${valorServicoFormatado}">VALOR SERVICO</h1>
+                <div class="service-name col-md-6 col-sm-6">
+                    <p class="text-left">Serviço</p>
+                    <span class="display-3" th:text="${servico.nome}">NOME SERVICO</span>
+                </div>
+                <div class="service-value col-md-6 col-sm-6 text-right">
+                    <p class="text-right">Custo mensal</p>
+                    <span class="display-3" th:text="${valorServicoFormatado}">VALOR SERVICO</span>
+                </div>
             </div>
             <a class="lead service-website" th:text="${servico.webSite}" th:href="${servico.webSite}">WEBSITE</a>
             <hr class="m-y-2"/>
-            <p> Gerente: <span class='service-manager' th:text="${servico.nomeUsuarioResponsavel}"></span></p>
-            <p class="lead">Descrição:</p>
+            <p class="text-muted"> Gerente: <span class='service-manager' th:text="${servico.nomeUsuarioResponsavel}"></span></p>
+            <p class="text-muted"> Periodicidade: <span class='service-manager' th:text="${servico.periodicidade}"></span></p>
+            <p class="lead text-muted">Descrição:</p>
             <section>
                 <blockquote class="lead service-description" th:text="${servico.descricao}">DESCRICAO</blockquote>
             </section>
@@ -29,6 +36,6 @@
                 <a class="btn btn-warning btn-desativar-servico" th:text="Desativar"/>
             </p>    
         </div>
-            <div th:replace="fragments_dashboard :: scripts"></div>
+        <div th:replace="fragments_dashboard :: scripts"></div>
     </body>
 </html>
