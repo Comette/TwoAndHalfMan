@@ -66,4 +66,8 @@ public class UsuarioService {
         dto.setSituacao(usuario.getDsSituacao());
         return dto;
     }
+
+    public boolean checkUsernameAvailability(String username) {
+        return repository.findUsuarioByDsUserName(username) == null;
+    }
 }

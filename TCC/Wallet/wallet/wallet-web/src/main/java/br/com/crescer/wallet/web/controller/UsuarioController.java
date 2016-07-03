@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,5 +68,11 @@ public class UsuarioController {
                             : "Desculpe-nos, aconteceu algum erro e o usuário não pôde ser cadastrado.");
             return model;
         }
+    }
+    
+    @RequestMapping(value = "/check-username", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean checkUsername(@RequestParam String username){
+        return service.checkUsernameAvailability(username);
     }
 }
