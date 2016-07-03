@@ -26,7 +26,7 @@ public class WalletWebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
                 .antMatchers("/css/**", "/fonts/**").permitAll()
-                .antMatchers("/cadastro/**", "/gerente/**").hasAuthority("ADMINISTRADOR")
+                .antMatchers("/cadastro/**", "/usuario/**", "/usuarios/**").hasAuthority("ADMINISTRADOR")
                 .anyRequest().fullyAuthenticated()
                 .and().exceptionHandling().accessDeniedPage("/acesso-negado")
                 .and().formLogin().loginPage("/login")

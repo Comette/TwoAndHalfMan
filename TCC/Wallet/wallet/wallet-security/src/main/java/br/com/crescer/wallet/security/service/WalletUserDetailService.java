@@ -37,7 +37,7 @@ public class WalletUserDetailService implements UserDetailsService {
             Collection<WalletRoles> permissoes = new ArrayList<>();
             permissoes.add(WalletRoles.valueOf(user.getTpPermissao().toString()));
             return new UsuarioSessaoUser
-                (user.getIdUsuario(), user.getNmUsuario(), user.getDsEmail(),
+                (user.getIdUsuario(), user.getNmUsuario(), user.getDsEmail(), user.getTpPermissao(),
                     user.getDsUserName(), user.getDsSenha(), permissoes);
         }
     }

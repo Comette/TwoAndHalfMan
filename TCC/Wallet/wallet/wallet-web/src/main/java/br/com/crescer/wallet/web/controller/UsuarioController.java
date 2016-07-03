@@ -3,6 +3,7 @@ package br.com.crescer.wallet.web.controller;
 import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.dto.UsuarioDTO;
 import br.com.crescer.wallet.service.service.UsuarioService;
+import br.com.crescer.wallet.web.utils.LoggedInUserUtils;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,25 +28,26 @@ public class UsuarioController {
     UsuarioService service;
 
     @ResponseBody
-    @RequestMapping(value = "/buscar-gerentes-ativos", method = RequestMethod.GET)
-    public List<UsuarioDTO> getGerentesAtivos() {
+    @RequestMapping(value = "/buscar-usuarios-ativos", method = RequestMethod.GET)
+    public List<UsuarioDTO> getUsuariosAtivos() {
         return service.findAllActiveReturningDTOs();
     }
+
     @ResponseBody
-    @RequestMapping(value = "/buscar-todos-gerentes", method = RequestMethod.GET)
-    public List<UsuarioDTO> getGerentesQualquerStatus() {
+    @RequestMapping(value = "/buscar-todos-usuarios", method = RequestMethod.GET)
+    public List<UsuarioDTO> getUsuariosQualquerStatus() {
         return service.findAllReturningDTOs();
     }
 
-    @RequestMapping(value = "/gerentes", method = RequestMethod.GET)
-    public String listGerentes() {
-        return "gerentes";
+    @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
+    public String listUsuarios() {
+        return "usuarios";
     }
 
-    @RequestMapping(value = "/gerente", method = RequestMethod.GET)
-    public String getGerente(@RequestParam Long idGerente, Model model) {
-        model.addAttribute("usuario", service.findByIdReturningDTO(idGerente));
-        return "gerente";
+    @RequestMapping(value = "/usuario", method = RequestMethod.GET)
+    public String getUsuario(@RequestParam Long idUsuario, Model model) {
+        model.addAttribute("usuario", service.findByIdReturningDTO(idUsuario));
+        return "usuario";
     }
 
     @RequestMapping(value = "/salvar-usuario", method = RequestMethod.POST)
@@ -60,7 +62,7 @@ public class UsuarioController {
         } else {
             UsuarioDTO retornado = service.salvarUsuario(usuarioDTO);
             ModelAndView model = new ModelAndView();
-            model.setViewName("gerentes");
+            model.setViewName("usuarios");
             model.addObject("sucesso",
                     retornado != null
                             ? "Usuário " + usuarioDTO.getNome() + " cadastrado com sucesso!"
@@ -68,4 +70,12 @@ public class UsuarioController {
             return model;
         }
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/inativar-usuario", method = RequestMethod.POST)
+    public boolean inativarUsuario(@RequestParam Long idUsuario) {
+        
+        return LoggedInUserUtils.checkIfUserIsAdmin() ? service.inativarUsuario(idUsuario) : false;
+    }
+
 }

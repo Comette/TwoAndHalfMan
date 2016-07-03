@@ -114,11 +114,26 @@ public class ServicoService {
         final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
         return this.buildDTO(repository.findOne(idServico), medias);
     }
+    
+    public ServicoDTO findOneDTOById(Long idServico){
+        final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
+        Servico s = repository.findOne(idServico);
+        return this.buildDTO(s, medias);
+    }
 
     public Servico salvarServico(ServicoDTO dto) {
         return repository.save(this.buildServico(dto));
     }
 
+    public boolean excluirServico(Long idServico) {
+        try {
+            repository.delete(idServico);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
     private List<Servico> servicosMesAtual() {
         return repository.findByDsSituacaoNot(Situacao.INATIVO);
     }
@@ -219,8 +234,8 @@ public class ServicoService {
 
     private BigDecimal calculaGastoMensalUSD(Periodicidade periodicidade, BigDecimal valorTotal, Moeda moedaOriginal) {
         BigDecimal mensalUSD = valorTotal
-                .divide(BigDecimal.valueOf(periodicidade.getNumeral()),CALC_SCALE,HALF_UP)
-                .divide(cotacaoService.findLastCurrencyAverage(moedaOriginal),CALC_SCALE,HALF_UP);
+                .divide(BigDecimal.valueOf(periodicidade.getNumeral()), CALC_SCALE, HALF_UP)
+                .divide(cotacaoService.findLastCurrencyAverage(moedaOriginal), CALC_SCALE, HALF_UP);
         return mensalUSD;
     }
 
@@ -231,6 +246,10 @@ public class ServicoService {
             servico.setDsSituacao(Situacao.INATIVO);
         });
         repository.save(servicosCancelados);
+    }
+
+    public long countServicosByUsuarioId(Long idUsuario) {
+        return repository.countByUsuarioIdUsuario_idUsuario(idUsuario);
     }
 
 }

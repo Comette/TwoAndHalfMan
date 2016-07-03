@@ -6,6 +6,7 @@ import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.service.ServicoService;
 import br.com.crescer.wallet.service.dto.GraficoDTO;
 import br.com.crescer.wallet.service.dto.UsuarioDTO;
+import br.com.crescer.wallet.web.utils.LoggedInUserUtils;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
@@ -53,16 +54,16 @@ public class ServicoController {
     
     @ResponseBody
     @RequestMapping(value = "/servicos-mes-atual", method = RequestMethod.GET)
-    public List<ServicoDTO> servicosMesAtual(@RequestParam(required = false) Long idGerente, Pageable pageable){
-        return idGerente == null || idGerente == 0 ? 
-                service.getServicosDTOMesAtualPaginados(pageable) : service.getServicosDTOMesAtualFiltradosPorGerentePaginados(idGerente, pageable);
+    public List<ServicoDTO> servicosMesAtual(@RequestParam(required = false) Long idUsuario, Pageable pageable){
+        return idUsuario == null || idUsuario == 0 ? 
+                service.getServicosDTOMesAtualPaginados(pageable) : service.getServicosDTOMesAtualFiltradosPorGerentePaginados(idUsuario, pageable);
     }
     
     @ResponseBody
     @RequestMapping(value = "/servicos-proximo-mes", method = RequestMethod.GET)
-    public List<ServicoDTO> servicosProximosMes(@RequestParam(required = false) Long idGerente, Pageable pageable){
-        return idGerente == null || idGerente == 0 ? 
-                service.getServicosDTOProximoMesPaginados(pageable) : service.getServicosDTOProximoMesFiltradosPorGerentePaginados(idGerente, pageable);
+    public List<ServicoDTO> servicosProximosMes(@RequestParam(required = false) Long idUsuario, Pageable pageable){
+        return idUsuario == null || idUsuario == 0 ? 
+                service.getServicosDTOProximoMesPaginados(pageable) : service.getServicosDTOProximoMesFiltradosPorGerentePaginados(idUsuario, pageable);
     }
     
     @ResponseBody
@@ -99,5 +100,40 @@ public class ServicoController {
             return model;
         }
     }
+    @ResponseBody
+    @RequestMapping(value = "/excluir-servico")
+    public String excluirServico(@RequestParam Long idServico) {
+        if(LoggedInUserUtils.checkIfUserIsAdmin()) {
+            return service.excluirServico(idServico) ? "Serviço excluído com sucesso!" : "Algo errado aconteceu e o serviço não foi excluído.";
+        }
+        else {
+            return "Você não tem a autorização necessária para excluir este serviço.";
+        }
+    }
     
+    @RequestMapping(value = "/editar-servico")
+    public ModelAndView editarServico(@RequestParam Long idServico) {
+        if(LoggedInUserUtils.checkIfUserIsAdmin()) {
+            ServicoDTO dto = service.findOneDTOById(idServico);
+            ModelAndView model = new ModelAndView();
+            model.addObject("usuario",new UsuarioDTO());
+            model.addObject("servico",dto);
+            model.addObject("guia","servico");
+            model.setViewName("cadastro");
+            
+            return model;
+        } else {
+            ModelAndView model = new ModelAndView();
+            model.addObject("sucesso", "Você não tem a permissão necessária para excluir este serviço.");
+            model.setViewName("dashboard");
+            
+            return model;
+        }
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/count-servicos-by-usuario", method = RequestMethod.GET)
+    public long countServicosByUsuarioId(@RequestParam Long idUsuario){
+        return service.countServicosByUsuarioId(idUsuario);
+    }
 }
