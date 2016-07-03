@@ -9,18 +9,10 @@ $(function () {
         return (value === '0' || value === 0) ? false : true;
     }, "Selecione uma opção válida!");
 
-//    jQuery.validator.addMethod("checkUsernameAvailability", function (value, element) {
-//        var username = value;
-//        $.ajax({
-//            url: "/check-username",
-//            type: "GET",
-//            contentType: "application/json",
-//            dataType: 'json',
-//            data: JSON.stringify(username)
-//        }).done(function (res) {
-//            return res;
-//        });
-//    }, "Username já está sendo utilizado!");
+    jQuery.validator.addMethod("checkEmail", function (value, element) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(value);
+    }, "Email inválido!");
 
     $formServico.validate({
         rules: {
@@ -100,7 +92,7 @@ $(function () {
             },
             email: {//TODO REGEX EMAIL
                 required: true,
-                email: true
+                checkEmail: true
             },
             username: {
                 required: true,
@@ -109,7 +101,9 @@ $(function () {
                 remote: {
                     url: "/check-username",
                     type: "GET",
-                    data: {username: function(){return $('#txtUserName').val();}}
+                    data: {username: function () {
+                            return $('#txtUserName').val();
+                        }}
                 }
             },
             permissao: {
@@ -132,8 +126,7 @@ $(function () {
                 maxlength: "O tamanho máximo é de 255."
             },
             email: {
-                required: "O campo email é obrigatório.",
-                email: "Email inválido!"
+                required: "O campo email é obrigatório."
             },
             username: {
                 required: "O campo usuário é obrigatório.",
