@@ -7,7 +7,7 @@ ul.nav.nav-tabs a {
     margin-top: 30px;
 }
 
-.form-horizontal .form-group{
+.form-horizontal .form-group, .form-horizontal .row{
     margin-left: 0;
     margin-right: 0;
 }
@@ -62,14 +62,14 @@ textarea{
     color: #434343;
 }
 
-.btn-success:active:hover, .btn-success.active:hover, .btn-success:active, .btn-success:active:focus{
+.btn-success:active, .btn-success:hover, .btn-success:focus, .btn-success:active:hover, .btn-success:active:focus{
     background-color: #fbaf41;
     color: #434343;
 }
 
-.error-message {
+.error-message, label.error {
     color: #FBAF41;
-    font-size: 1.2em;
+    font-size: 1em;
     font-family: Open Sans, sans-serif;
     font-weight: bold;
 }

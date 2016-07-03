@@ -1,4 +1,4 @@
-package br.com.crescer.wallet.web.controller;
+﻿package br.com.crescer.wallet.web.controller;
 
 import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.dto.UsuarioDTO;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,6 +77,12 @@ public class UsuarioController {
     public boolean inativarUsuario(@RequestParam Long idUsuario) {
         
         return LoggedInUserUtils.checkIfUserIsAdmin() ? service.inativarUsuario(idUsuario) : false;
+    }
+    
+    @RequestMapping(value = "/check-username", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean checkUsername(@RequestParam String username){
+        return service.checkUsernameAvailability(username);
     }
 
 }
