@@ -5,6 +5,7 @@ import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.service.ServicoService;
 import br.com.crescer.wallet.service.dto.GraficoDTO;
+import br.com.crescer.wallet.service.dto.UsuarioDTO;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
@@ -77,18 +78,25 @@ public class ServicoController {
         model.addAttribute("valorServicoFormatado", NumberFormat.getCurrencyInstance().format(servico.getCustoMensal()));
         return "servico"; 
     }
-    
-    public ModelAndView salvarServico(@ModelAttribute @Valid ServicoDTO servicoDTO, BindingResult results, Model model) {
-        if(results.hasErrors()){
-            return new ModelAndView("cadastrar");
+
+    @RequestMapping( value = "/salvar-servico", method = RequestMethod.POST)    
+    public ModelAndView salvarServico(@ModelAttribute @Valid ServicoDTO servicoDTO, BindingResult result) {
+        if(result.hasErrors()){
+            ModelAndView model = new ModelAndView();
+            model.addObject("usuario", new UsuarioDTO());
+            model.addObject("servico", servicoDTO);
+            model.addObject("guia", "servico");
+            model.setViewName("cadastro");
+            return model;        
         }else {
             Servico retornado = service.salvarServico(servicoDTO);
-            
-            model.addAttribute("sucesso", retornado != null ? 
+            ModelAndView model = new ModelAndView();
+            model.setViewName("dashboard");
+            model.addObject("sucesso", 
+                     retornado != null ? 
                             "Serviço " + retornado.getNmServico() + " cadastrado com sucesso!" : 
                             "Desculpe-nos, aconteceu algum erro e o serviço não pôde ser cadastrado.");
-            
-            return new ModelAndView("redirect:/");
+            return model;
         }
     }
     

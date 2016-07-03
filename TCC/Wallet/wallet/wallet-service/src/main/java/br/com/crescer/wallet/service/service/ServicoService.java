@@ -2,6 +2,7 @@ package br.com.crescer.wallet.service.service;
 
 import br.com.crescer.wallet.entity.Moeda;
 import static br.com.crescer.wallet.entity.Moeda.BRL;
+import br.com.crescer.wallet.entity.Periodicidade;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.entity.Usuario;
@@ -167,7 +168,7 @@ public class ServicoService {
         //TODO adicionar exception()nullPointer
         if (servico == null) {
             return null;
-        }        
+        }
         BigDecimal vlrCusto;
         {
             BigDecimal periodicidade = BigDecimal.valueOf(servico.getDsPeriodicidade().getNumeral());
@@ -197,15 +198,30 @@ public class ServicoService {
 
     private Servico buildServico(ServicoDTO servicoDTO) {
         Servico servico = new Servico();
-        servico.setNmServico(servicoDTO.getNome());
-        servico.setDsWebsite(servicoDTO.getWebSite());
-        servico.setDsPeriodicidade(servicoDTO.getPeriodicidade());
-        servico.setDsDescricao(servicoDTO.getDescricao());
-        servico.setDsSimboloMoeda(servicoDTO.getMoeda());
-        servico.setVlTotalServico(servicoDTO.getValorTotal());
-        Usuario usuario = usuarioService.findById(servicoDTO.getIdUsuarioResponsavel());
-        servico.setUsuarioIdUsuario(usuario);
+        {
+            servico.setNmServico(servicoDTO.getNome());
+            servico.setDsWebsite(servicoDTO.getWebSite());
+            servico.setDsPeriodicidade(servicoDTO.getPeriodicidade());
+            servico.setDsDescricao(servicoDTO.getDescricao());
+            servico.setDsSimboloMoeda(servicoDTO.getMoeda());
+            servico.setVlTotalServico(servicoDTO.getValorTotal());
+        }
+        {
+            Usuario usuario = usuarioService.findById(servicoDTO.getIdUsuarioResponsavel());
+            servico.setUsuarioIdUsuario(usuario);
+
+            servico.setVlMensalUSD(this.calculaGastoMensalUSD(servicoDTO.getPeriodicidade(), servicoDTO.getValorTotal(), servicoDTO.getMoeda()));
+
+            servico.setDsSituacao(Situacao.ATIVO);
+        }
         return servico;
+    }
+
+    private BigDecimal calculaGastoMensalUSD(Periodicidade periodicidade, BigDecimal valorTotal, Moeda moedaOriginal) {
+        BigDecimal mensalUSD = valorTotal
+                .divide(BigDecimal.valueOf(periodicidade.getNumeral()))
+                .divide(cotacaoService.findLastCurrencyAverage(moedaOriginal));
+        return mensalUSD;
     }
 
     @Scheduled(cron = "0 1 0 1 1/1 ?")

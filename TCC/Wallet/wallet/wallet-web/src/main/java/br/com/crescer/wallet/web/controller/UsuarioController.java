@@ -1,12 +1,12 @@
 package br.com.crescer.wallet.web.controller;
 
+import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.dto.UsuarioDTO;
 import br.com.crescer.wallet.service.service.UsuarioService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,19 +44,22 @@ public class UsuarioController {
     
     @RequestMapping(value = "/salvar-usuario", method = RequestMethod.POST)
     public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioDTO usuarioDTO, BindingResult result) {
-        if(result.hasErrors()) 
-            return new ModelAndView("redirect:/cadastro#usuario");
-        
-        else {
-
+        if(result.hasErrors()){
+            ModelAndView model = new ModelAndView();
+            model.addObject("usuario", usuarioDTO);
+            model.addObject("servico", new ServicoDTO());
+            model.addObject("guia", "usuario");
+            model.setViewName("cadastro");
+            return model;        
+        }else {
             UsuarioDTO retornado = service.salvarUsuario(usuarioDTO);
             ModelAndView model = new ModelAndView();
-            model.setViewName("gerente");
+            model.setViewName("gerentes");
             model.addObject("sucesso", 
                      retornado != null ? 
                             "Usuário " + usuarioDTO.getNome() + " cadastrado com sucesso!" : 
                             "Desculpe-nos, aconteceu algum erro e o usuário não pôde ser cadastrado.");
-            return new ModelAndView("redirect:/gerente");
+            return model;
         }        
     } 
 }

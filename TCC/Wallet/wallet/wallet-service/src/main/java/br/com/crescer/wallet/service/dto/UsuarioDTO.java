@@ -87,6 +87,10 @@ public class UsuarioDTO {
         return senha;
     }
 
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public Permissao getPermissao() {
         return permissao;
     }

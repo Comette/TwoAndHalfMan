@@ -11,15 +11,16 @@
     </head>
     <body>
         <nav th:replace="fragments_generico :: navbar"/>
+        <span id="guia-selecionada" class="hidden" th:text="${guia}"/>
         <div class="container">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#idServico">Serviço</a></li>
-                <li><a data-toggle="tab" href="#idUsuario">Usuário</a></li>
+                <li class="active"><a data-toggle="tab" href="#servico">Serviço</a></li>
+                <li><a data-toggle="tab" href="#usuario">Usuário</a></li>
             </ul>
             <div class="tab-content">
-                <div id="idServico" class="tab-pane fade in active">
+                <div id="servico" class="tab-pane fade in active">
                     <h3>Serviço</h3>
-                    <form class="form-horizontal" th:object="${servico}">
+                    <form class="form-horizontal" th:object="${servico}" th:action="@{/salvar-servico}" method="POST">
                         <div class="form-group col-md-4">
                             <input id="txtNomeServico" type="text" th:field="*{nome}" class="form-control" placeholder="Nome"/>
                             <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Nome vazio ou maior que 255 caracteres!</p>
@@ -64,9 +65,9 @@
                         </div>
                     </form>
                 </div>
-                <div id="idUsuario" class="tab-pane fade">
+                <div id="usuario" class="tab-pane fade">
                     <h3>Usuário</h3>
-                    <form class="form-horizontal" th:object="${usuario}" th:action="@{/salvar-usuario}" th:method="POST">
+                    <form class="form-horizontal" th:object="${usuario}" th:action="@{/salvar-usuario}" method="POST">
                         <div class="form-group col-md-12">
                             <input id="txtNomeUsuario" th:field="*{nome}" type="text" class="form-control" placeholder="Nome"/>
                             <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Nome vazio ou maior que 255 caracteres!</p>
