@@ -196,10 +196,11 @@
 }
 
 .service-name {
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: 600;
     color: #FBAF41;
     transition: color 0.3s ease;
+    word-break: break-all;
 }
 
 a:-webkit-any-link {

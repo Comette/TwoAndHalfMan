@@ -1,16 +1,21 @@
 'use strict';
-function alterarModal(mensagem, titulo, displayBotaoModal, textoBotaoFecharModal) {
 
+var $lista1 = $('#lista-gerentes-1');
+var $lista2 = $('#lista-gerentes-2');
+
+
+function alterarModal(mensagem, titulo, displayBotaoModal, textoBotaoPrincipalModal) {
+
+    var $btnPrincipal = $('#btnPrincipal');
     if (displayBotaoModal) {
-        $('#btnPrincipal').hide();
+        $btnPrincipal.hide();
     }
     if (!displayBotaoModal) {
-        $('#btnPrincipal').show();
+        $btnPrincipal.show();
     }
-
     $('#modalCabecalho').text(titulo);
     $('#modalCorpo').text(mensagem);
-    $('#btnPrincipal').text(textoBotaoFecharModal);
+    $btnPrincipal.text(textoBotaoPrincipalModal);
 }
 ;
 
@@ -24,23 +29,19 @@ function chamarExclusao($button, trueParaUsuarioEFalseParaServico) {
 function excluirObjeto(values, trueParaUsuarioEFalseParaServico) {
     var url = trueParaUsuarioEFalseParaServico ? '/inativar-usuario' : '/cancelar-servico';
 
-    var idExclusao = parseInt(values.idUsuario);
     $.ajax({
         url: url,
         type: 'POST',
         data: values
-    }).done(function (res) {
-        if (res) {
-            if (trueParaUsuarioEFalseParaServico)
-                excluirListItemUsuario(idExclusao);
-        }
-        alterarModal('Operação concluída com sucesso!', 'Sucesso', true, 'Fechar');
-        $('#modalCoringa').modal();
-        if (url === '/cancelar-servico')
-            window.location.reload();
-
+    }).done(function () {
+        if (trueParaUsuarioEFalseParaServico)
+            fazerRequestUsuarios();
+        else
+            getDadosDashboard();
+        alterarModal('Operação concluída com sucesso!', 'Sucesso', true, '');
     });
 }
+;
 
 function adicionarOnClickExcluirServico($btn) {
     $btn.on("click", function (e) {
@@ -50,10 +51,9 @@ function adicionarOnClickExcluirServico($btn) {
             var $btnExclusao = $('#btnPrincipal');
             $btnExclusao.val(parseInt($(this).val()));
 
-            alterarModal('Deseja realmente cancelar este serviço?', 'Cancelar Serviço', false, 'Confirmar');
-            $('#modalCoringa').modal();
+            alterarModal('Deseja realmente cancelar este serviço?', 'Cancelar Serviço', false,'Confirmar');
+            $('#modalCoringa').modal('show');
         }
-            e.preventDefault();
     });
 }
 
@@ -74,11 +74,30 @@ function adicionarOnClickExcluir($btn) {
                     'Deseja realmente inativar este usuário?';
 
             alterarModal(texto, 'Inativar', false, 'Inativar');
-            $('#modalCoringa').modal();
-//            window.location.reload();
+            $('#modalCoringa').modal('show');
         });
 
         e.preventDefault();
     });
 }
 ;
+
+function fazerRequestUsuarios() {
+    $.ajax({
+        type: 'GET',
+        url: '/buscar-usuarios-ativos'
+    }).done(function (data) {
+        var lista1 = [];
+        var lista2 = [];
+        lista1 = data.splice(0, Math.ceil((data.length / 2)));
+        lista2 = data;
+
+        appendarUsuariosNaLista(lista1, $lista1);
+        appendarUsuariosNaLista(lista2, $lista2);
+
+        adicionarOnClickExcluir($('button[name="btn-excluir-gerente"]'));
+        $('#btnPrincipal').click(function () {
+            chamarExclusao($(this), true);
+        });
+    });
+}
