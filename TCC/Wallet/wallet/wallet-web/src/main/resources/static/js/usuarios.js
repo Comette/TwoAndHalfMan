@@ -29,7 +29,8 @@ function appendarUsuariosNaLista(usuarios, $lista) {
                 $('<a href="/usuario?idUsuario=' + usuario.id + '" class="list-group-item">').append(
                 $('<a class="btn btn-warning glyphicon glyphicon-pencil" name="btn-editar-gerente" href="/editar-usuario?idUsuario=' + usuario.id + '">'))
                 .append($('<h4>').text(usuario.nome))
-                .append('<button class="btn btn-danger glyphicon glyphicon-remove" name="btn-excluir-gerente" value="' + usuario.id + '">'));
+                .append('<button class="btn btn-danger glyphicon glyphicon-remove" name="btn-excluir-gerente" value="' + usuario.id + '">')
+                .append($('<small>').text('( ' + usuario.situacao + ' ) ').attr('style','font-weight: bold; margin-left: 10px;')));
     });
 }
 

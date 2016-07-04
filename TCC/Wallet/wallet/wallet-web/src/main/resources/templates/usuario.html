@@ -26,12 +26,15 @@
                         <h1 class="display-2" th:text="${usuario.situacao}"/>
                     </div>
                     <div class="row">
-                        <a class="btn glyphicon glyphicon-trash btn-excluir-gerente" th:href="@{'/excluir-usuario?idUsuario=' + ${usuario.id}}"/>
+                        <button class="btn glyphicon glyphicon-trash btn-excluir-gerente" th:value="${usuario.id}"/>
                         <a class="btn glyphicon glyphicon-pencil btn-editar-gerente" th:href="@{'/editar-usuario?idUsuario=' + ${usuario.id}}"/>
                     </div>
                 </div>
             </div>
         </div>
+        <div th:replace="fragments_generico :: modal"></div>
         <div th:replace="fragments_dashboard :: scripts"></div>
+        <script th:src="@{/js/modal-helpers.js}" type="text/javascript"/>
+        <script th:src="@{/js/usuario.js}" type="text/javascript"/>
     </body>
 </html> 

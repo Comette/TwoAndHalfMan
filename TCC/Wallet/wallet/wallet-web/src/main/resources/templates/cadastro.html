@@ -21,6 +21,7 @@
                 <div id="servico" class="tab-pane fade in active">
                     <h3>Serviço</h3>
                     <form class="form-horizontal" th:object="${servico}" th:action="@{/salvar-servico}" method="POST" id="form-servico">
+                        <input type="hidden" th:field="*{id}"/>
                         <div class="form-group col-md-4">
                             <input id="txtNomeServico" type="text" th:field="*{nome}" class="form-control" placeholder="Nome"/>
                             <p class="error-message" th:if="${#fields.hasErrors('nome')}">Nome vazio ou maior que 255 caracteres!</p>
@@ -69,6 +70,7 @@
                 <div id="usuario" class="tab-pane fade">
                     <h3>Usuário</h3>
                     <form class="form-horizontal" th:object="${usuario}" th:action="@{/salvar-usuario}" method="POST" id="form-usuario">
+                        <input type="hidden" th:field="*{id}"/>
                         <div class="form-group col-md-12">
                             <input id="txtNomeUsuario" th:field="*{nome}" type="text" class="form-control" placeholder="Nome"/>
                             <p class="error-message" th:if="${#fields.hasErrors('nome')}">Nome vazio ou maior que 255 caracteres!</p>

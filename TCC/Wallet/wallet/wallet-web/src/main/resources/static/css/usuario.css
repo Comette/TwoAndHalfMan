@@ -42,3 +42,7 @@
 .btn-excluir-gerente:hover, .btn-editar-gerente:hover {
     color: #FBAF41;
 }
+
+.btn {
+    background-color: transparent;
+}

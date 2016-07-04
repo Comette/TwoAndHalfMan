@@ -33,7 +33,7 @@ public class ServicoController {
 
     @Autowired
     ServicoService service;
-    
+
     @Autowired
     UsuarioService usuarioService;
 
@@ -91,6 +91,8 @@ public class ServicoController {
             model.addObject("servico", servicoDTO);
             model.addObject("guia", "servico");
             model.setViewName("cadastro");
+            model.addObject("usuariosCadastrados", usuarioService.findAllActiveReturningDTOs());
+
             return model;
         } else {
             Servico retornado = service.salvarServico(servicoDTO);
@@ -98,7 +100,7 @@ public class ServicoController {
             model.setViewName("dashboard");
             model.addObject("sucesso",
                     retornado != null
-                            ? "Serviço " + retornado.getNmServico() + " cadastrado com sucesso!"
+                            ? "Serviço " + retornado.getNmServico() + " salvo com sucesso!"
                             : "Desculpe-nos, aconteceu algum erro e o serviço não pôde ser cadastrado.");
             return model;
         }
@@ -138,8 +140,8 @@ public class ServicoController {
 
     private ModelAndView addAttributesToModel(UsuarioDTO userDTO, ServicoDTO servicoDTO, String targetNavTab, String targetViewName) {
         ModelAndView model = new ModelAndView();
-        model.addObject("usuario",userDTO);
-        model.addObject("servico",servicoDTO);
+        model.addObject("usuario", userDTO);
+        model.addObject("servico", servicoDTO);
         model.addObject("guia", targetNavTab);
         model.setViewName(targetViewName);
         model.addObject("usuariosCadastrados", usuarioService.findAllActiveReturningDTOs());

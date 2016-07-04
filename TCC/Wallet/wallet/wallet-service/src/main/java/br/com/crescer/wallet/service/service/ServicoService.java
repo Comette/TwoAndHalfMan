@@ -230,6 +230,7 @@ public class ServicoService {
     private Servico buildServico(ServicoDTO servicoDTO) {
         Servico servico = new Servico();
         {
+            servico.setIdServico(servicoDTO.getId());
             servico.setNmServico(servicoDTO.getNome());
             servico.setDsWebsite(servicoDTO.getWebSite());
             servico.setDsPeriodicidade(servicoDTO.getPeriodicidade());
@@ -243,7 +244,11 @@ public class ServicoService {
             
             servico.setVlMensalUSD(this.calculaGastoMensalUSD(servicoDTO.getPeriodicidade(), servicoDTO.getValorTotal(), servicoDTO.getMoeda()));
             
-            servico.setDsSituacao(Situacao.ATIVO);
+            if (servico.getDsSituacao() == null) {
+                servico.setDsSituacao(Situacao.ATIVO);
+            } else {
+                servico.setDsSituacao(servicoDTO.getSituacao());
+            }
         }
         return servico;
     }
