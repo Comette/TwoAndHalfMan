@@ -6,6 +6,7 @@ package br.com.crescer.wallet.service.service;
 
 import br.com.crescer.wallet.entity.Cotacao;
 import br.com.crescer.wallet.entity.Moeda;
+import static br.com.crescer.wallet.entity.Moeda.*;
 import br.com.crescer.wallet.service.repository.CotacaoRepository;
 import static br.com.crescer.wallet.service.service.ServiceUtils.CALC_SCALE;
 import br.com.crescer.wallet.service.webservice.Rates;
@@ -41,13 +42,25 @@ public class CotacaoService implements InitializingBean {
     @Autowired
     CotacaoRepository repository;
 
-    public Cotacao findLastExchangeRate() {
+    public Map<Moeda, BigDecimal> findLastExchangeRate() {
+        Map<Moeda, BigDecimal> currency = new HashMap<>();        
         Cotacao cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(LocalDate.now());
         if (cotacao == null) {
             LocalDate today = LocalDate.now();
             cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(today.plusDays(-1));
         }
-        return cotacao;
+        {
+            currency.put(USD, BigDecimal.ONE);
+            currency.put(BRL, cotacao.getDsCotacaoReal());
+            currency.put(GBP, cotacao.getDsCotacaoLibra());
+            currency.put(EUR, cotacao.getDsCotacaoEuro());
+            currency.put(AUD, cotacao.getDsCotacaoDollarAutraliano());
+            currency.put(CAD, cotacao.getDsCotacaoDollarCanadense());
+            currency.put(JPY, cotacao.getDsCotacaoYen());
+            currency.put(CHF, cotacao.getDsCotacaoFrancoSuico());            
+            currency.put(CNY, cotacao.getDsCotacaoYuan());
+        }        
+        return currency;
     }
 
     public BigDecimal findLastCurrencyAverage(Moeda moeda) {
@@ -157,7 +170,7 @@ public class CotacaoService implements InitializingBean {
         }
         return averages;
     }
-
+    
     public void databaseIntegrityAgent() {
         LocalDate today = LocalDate.now();
         LocalDate verificationDay;

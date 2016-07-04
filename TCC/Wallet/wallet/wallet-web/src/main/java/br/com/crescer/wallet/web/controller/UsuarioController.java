@@ -75,7 +75,7 @@ public class UsuarioController {
     @RequestMapping(value = "/inativar-usuario", method = RequestMethod.POST)
     public boolean inativarUsuario(@RequestParam Long idUsuario) {
         if (LoggedInUserUtils.checkIfUserIsAdmin() && servicoService.countServicosByUsuarioId(idUsuario) > 0) {
-            servicoService.cancelarServicos(idUsuario);
+            servicoService.cancelarServicosByIdUsuario(idUsuario);
             return usuarioService.inativarUsuario(idUsuario);
         } else {
             return usuarioService.inativarUsuario(idUsuario);

@@ -45,6 +45,7 @@ public class ServicoService {
     public DashboardDTO geraDadosDashboard(Pageable pageable) {
         DashboardDTO dashboard = new DashboardDTO();
         {
+            //TODO: EXCEPTION
             List<ServicoDTO> servicosDTOMesAtualPaginados = this.getServicosDTOMesAtualPaginados(pageable);
             dashboard.setServicosMesAtual(servicosDTOMesAtualPaginados);
             dashboard.setServicosProximoMes(this.getServicosDTOProximoMesPaginados(pageable));
@@ -56,38 +57,38 @@ public class ServicoService {
     }
     
     public BigDecimal getGastoTotalAtual() {
-        List<ServicoDTO> servicosDTOMesAtual = this.getServicosDTO(this.servicosMesAtual());
+        List<ServicoDTO> servicosDTOMesAtual = this.getServicosDTOMesAtual(this.servicosMesAtual());
         BigDecimal gastoTotalAtual = this.calculaGastoTotalMes(servicosDTOMesAtual);
         return gastoTotalAtual;
     }
     
     public BigDecimal getGastoTotalProximoMes() {
-        List<ServicoDTO> servicosDTOProximoMes = this.getServicosDTO(this.servicosProximoMes());
+        List<ServicoDTO> servicosDTOProximoMes = this.getServicosDTOProximoMes(this.servicosProximoMes());
         BigDecimal gastoTotalProximoMes = this.calculaGastoTotalMes(servicosDTOProximoMes);
         return gastoTotalProximoMes;
     }
     
     public List<ServicoDTO> getServicosDTOMesAtualPaginados(Pageable pageable) {
-        return this.getServicosDTO(this.servicosMesAtualPaginados(pageable));
+        return this.getServicosDTOMesAtual(this.servicosMesAtualPaginados(pageable));
     }
     
     public List<ServicoDTO> getServicosDTOProximoMesPaginados(Pageable pageable) {
-        return this.getServicosDTO(this.servicosProximoMesPaginados(pageable));
+        return this.getServicosDTOProximoMes(this.servicosProximoMesPaginados(pageable));
     }
     
     public List<ServicoDTO> getServicosDTOMesAtualFiltradosPorGerentePaginados(Long idGerente, Pageable pageable) {
         pageable = new PageRequest(pageable.getPageNumber(), PAGE_SIZE, Sort.Direction.DESC, "vlMensalUSD");
-        return this.getServicosDTO(this.servicosMesAtualPaginadosFiltradosPorGerente(idGerente, pageable));
+        return this.getServicosDTOMesAtual(this.servicosMesAtualPaginadosFiltradosPorGerente(idGerente, pageable));
     }
     
     public List<ServicoDTO> getServicosDTOProximoMesFiltradosPorGerentePaginados(Long idGerente, Pageable pageable) {
         pageable = new PageRequest(pageable.getPageNumber(), PAGE_SIZE, Sort.Direction.DESC, "vlMensalUSD");
-        return this.getServicosDTO(this.servicosProximoMesPaginadosFiltradosPorGerente(idGerente, pageable));
+        return this.getServicosDTOProximoMes(this.servicosProximoMesPaginadosFiltradosPorGerente(idGerente, pageable));
     }
     
     public GraficoDTO getDadosGraficoServicos() {
-        List<ServicoDTO> servicosDesteMes = this.getServicosDTO(this.servicosMesAtual());
-        List<ServicoDTO> servicosProximoMes = this.getServicosDTO(this.servicosProximoMes());
+        List<ServicoDTO> servicosDesteMes = this.getServicosDTOMesAtual(this.servicosMesAtual());
+        List<ServicoDTO> servicosProximoMes = this.getServicosDTOProximoMes(this.servicosProximoMes());
         {
             BigDecimal gastoTotalMesAtual = this.calculaGastoTotalMes(servicosDesteMes);
             if (gastoTotalMesAtual != null) {
@@ -132,6 +133,7 @@ public class ServicoService {
             repository.save(s);
             return true;
         } catch (Exception e) {
+            //TODO: EXCEPTION 
             return false;
         }
     }
@@ -140,7 +142,7 @@ public class ServicoService {
         return repository.countByUsuarioIdUsuario_idUsuarioAndDsSituacao(idUsuario, Situacao.ATIVO);
     }
     
-    public void cancelarServicos(Long idUsuario) {
+    public void cancelarServicosByIdUsuario(Long idUsuario) {
         List<Servico> servicos = repository.findAllByusuarioIdUsuario_idUsuario(idUsuario);
         servicos.stream().forEach((servico) -> {
             servico.setDsSituacao(Situacao.CANCELADO);
@@ -185,8 +187,17 @@ public class ServicoService {
         return gastoTotal;
     }
     
-    private List<ServicoDTO> getServicosDTO(List<Servico> servicos) {
+    private List<ServicoDTO> getServicosDTOProximoMes(List<Servico> servicos) {
         final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
+        List<ServicoDTO> servicosDTO = new ArrayList<>();
+        servicos.stream().forEach((servico) -> {
+            servicosDTO.add(this.buildDTO(servico, medias));
+        });
+        return servicosDTO;
+    }
+    
+    private List<ServicoDTO> getServicosDTOMesAtual(List<Servico> servicos) {
+        final Map<Moeda, BigDecimal> medias = cotacaoService.findLastExchangeRate();
         List<ServicoDTO> servicosDTO = new ArrayList<>();
         servicos.stream().forEach((servico) -> {
             servicosDTO.add(this.buildDTO(servico, medias));

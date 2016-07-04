@@ -72,6 +72,7 @@ public class ServicoServiceTest {
     public void setUp() {
         {// MOCK MEDIAS(MOEDA)
             doReturn(medias).when(cotacaoService).findLastAverage();
+            doReturn(medias).when(cotacaoService).findLastExchangeRate();
             doReturn(BigDecimal.TEN).when(medias).get(Moeda.BRL);
             doReturn(BigDecimal.ONE).when(medias).get(Moeda.USD);
             doReturn(BigDecimal.TEN).when(cotacaoService).findLastCurrencyAverage(any(Moeda.class));
