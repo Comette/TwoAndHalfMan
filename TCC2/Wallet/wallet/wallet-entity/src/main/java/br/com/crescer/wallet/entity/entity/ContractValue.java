@@ -19,7 +19,6 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,7 +28,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CONTRACT_VALUE", 
-        indexes = @Index(columnList = "VL_MONTHLY_USD", name = "index_vl_monthly_usd_contract_value")
+        indexes = @Index(columnList = "VL_MONTHLY_USD", name = "index_vl_monthly_usd")
 )
 public class ContractValue implements Serializable{
     @Id

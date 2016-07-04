@@ -240,3 +240,7 @@ a:-webkit-any-link {
 .servico-mais-caro {
     font-family: Open Sans, sans-serif;
 }
+
+.word-break{
+    word-break: break-all;
+}

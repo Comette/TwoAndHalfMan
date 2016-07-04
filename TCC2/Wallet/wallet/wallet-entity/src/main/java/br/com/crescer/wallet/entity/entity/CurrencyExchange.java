@@ -32,7 +32,7 @@ import javax.persistence.Table;
 @Table(name = "CURRENCY_EXCHANGE",
        indexes = {
            @Index(columnList = "DT_CURRENCY_EXCHANGE", name = "index_dt_currency_exchange"),
-           @Index(columnList = "DS_COIN", name = "index_ds_coin_currency_exchange")
+           @Index(columnList = "DS_COIN", name = "index_ds_coin")
        }
 )
 public class CurrencyExchange implements Serializable{
