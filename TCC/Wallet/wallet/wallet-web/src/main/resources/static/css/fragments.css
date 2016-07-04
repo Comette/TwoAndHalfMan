@@ -97,6 +97,22 @@
     #grafico-mes-atual, #grafico-proximo-mes {
         display: none;
     }
+    .servico-mais-caro {
+        font-size: 1.2em;
+        background-color: #FBAF41;    
+        color: white;
+        margin-top: 40px;  
+    }
+    .servico-mais-caro h2, .servico-mais-caro h1 {
+        font-size: 25px;
+    }
+    .general-section-content{
+        font-size: 1.4em;
+        margin-left: 5%;
+        margin-right: 5%;
+        display: block;
+        text-align: center;
+    }
 }
 
 .main-section{
@@ -213,9 +229,9 @@ a:-webkit-any-link {
 }
 
 .general-section-content{
-    font-size: 1.6em;
-    margin-left: 10%;
-    margin-right: 10%;
+    font-size: 1.4em;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 

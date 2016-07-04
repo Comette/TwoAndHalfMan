@@ -119,7 +119,7 @@ public class ServicoController {
     @RequestMapping(value = "/editar-servico")
     public ModelAndView editarServico(@RequestParam Long idServico) {
         if (LoggedInUserUtils.checkIfUserIsAdmin()) {
-            ServicoDTO dto = service.findOneDTOById(idServico);
+            ServicoDTO dto = service.getServicoDTO(idServico);
 
             return addAttributesToModel(new UsuarioDTO(), dto, "servico", "cadastro");
 
