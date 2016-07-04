@@ -1,33 +1,18 @@
 'use strict';
 
-var $lista1 = $('#lista-gerentes-1');
-var $lista2 = $('#lista-gerentes-2');
 
-$(function (e) {
-    $.ajax({
-        type: 'GET',
-        url: '/buscar-todos-usuarios'
-    }).done(function (data) {
-        var lista1 = [];
-        var lista2 = [];
-        lista1 = data.splice(0, Math.ceil((data.length / 2)));
-        lista2 = data;
-
-        appendarUsuariosNaLista(lista1, $lista1);
-        appendarUsuariosNaLista(lista2, $lista2);
-
-        adicionarOnClickExcluir($('button[name="btn-excluir-gerente"]'));
-        $('#btnPrincipal').click(function () {
-            chamarExclusao($(this), true);
-        });
-    });
+$(function () {
+    fazerRequestUsuarios();
 });
 
+
+
 function appendarUsuariosNaLista(usuarios, $lista) {
+    $lista.html('');
     $.each(usuarios, function (i, usuario) {
         var $listGroup = $('<a href="/usuario?idUsuario=' + usuario.id + '" class="list-group-item">');
         var $buttonExcluir = $('<button class="btn btn-danger glyphicon glyphicon-remove" name="btn-excluir-gerente" value="' + usuario.id + '">');
-        var $small = $('<small>').text('( ' + usuario.situacao + ' ) ').attr('style', 'font-weight: bold; margin-left: 10px;');
+        var $small = $('<small>').text('( ' + usuario.permissao + ' ) ').attr('style', 'font-weight: bold; margin-left: 10px;');
         var $btnEditar = $('<a class="btn btn-warning glyphicon glyphicon-pencil" name="btn-editar-gerente" href="/editar-usuario?idUsuario=' + usuario.id + '">');
         var $h4 = $('<h4>').text(usuario.nome);
 
@@ -54,8 +39,8 @@ function adicionarOnClickExcluir($btn) {
                     data > 0 ? 'Este usuário tem serviços em sua supervisão. Se inativá-lo, os serviços aos quais ele gerencia serão cancelados.' :
                     'Deseja realmente inativar este usuário?';
 
-            alterarModal(texto, 'Inativar', false, 'Inativar');
-            $('#modalCoringa').modal();
+            alterarModal(texto, 'Inativar', false,'Inativar');
+            $('#modalCoringa').modal('show');
         });
 
         e.preventDefault();
@@ -63,13 +48,6 @@ function adicionarOnClickExcluir($btn) {
 }
 ;
 
-
-
-function excluirListItem(idBotaoMaisProximo) {
-    $('.list-group :button').filter(function () {
-        return this.value === idBotaoMaisProximo;
-    }).closest('.list-group-item').remove();
-}
 
 function checarSeUsuarioTemServicos(idUsuario) {
     $.ajax({

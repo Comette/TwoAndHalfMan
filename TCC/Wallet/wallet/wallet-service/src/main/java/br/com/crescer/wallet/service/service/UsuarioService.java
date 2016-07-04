@@ -93,6 +93,7 @@ public class UsuarioService {
         dto.setEmail(usuario.getDsEmail());
         dto.setUsername(usuario.getDsUserName());
         dto.setSituacao(usuario.getDsSituacao());
+        dto.setPermissao(usuario.getTpPermissao());
         return dto;
     }
 

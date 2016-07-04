@@ -27,7 +27,7 @@ public class UsuarioDTO {
     private String email;
 
     @NotEmpty
-    @Length(max = 255)
+    @Length(max = 30)
     private String username;
 
     @NotEmpty
