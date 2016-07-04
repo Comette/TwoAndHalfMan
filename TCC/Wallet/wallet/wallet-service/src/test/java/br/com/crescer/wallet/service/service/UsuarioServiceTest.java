@@ -105,7 +105,7 @@ public class UsuarioServiceTest {
     @Test
     public void testCheckUsernameAvailability() {
         doReturn(null).when(mockUsuarioRepository).findUsuarioByDsUserName(any(String.class));
-        assertTrue(mockUsuarioService.checkUsernameAvailability(null));
+        assertTrue(mockUsuarioService.checkUsernameAvailability(mockUsuario.getDsUserName(), mockUsuario.getIdUsuario()));
     }
 
     @Test
