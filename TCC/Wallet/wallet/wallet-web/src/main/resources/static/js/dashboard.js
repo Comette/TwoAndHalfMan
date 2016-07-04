@@ -83,7 +83,7 @@ var rederizaListaServicos = function (containerLista, servicos) {
                                     .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').addClass('disabled')
                                             .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true))
                                             )
-                                    .append($btnDelete)
+                                    .append($btnDelete.addClass('disabled'))
 
                                     )
                             ));
