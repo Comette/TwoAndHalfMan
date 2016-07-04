@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+    <head th:fragment="head">
+        <title>Dashboard | Onde está Wallet?</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/fragments.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/fragments_generico.css}" rel="stylesheet" type="text/css"/>
+        
+        
+    </head>
+    <body>
+        <section th:fragment="main-info-section(txtTitulo, txtCorpo, idCampoValor)">
+            <div class="panel general-info-section">
+                <section class="general-section-titling custo-deste-mes panel-heading text-center">
+                    <span th:text="${txtTitulo}"/>
+                </section>
+                <div class="general-section-content custo-deste-mes panel-body">
+                    <section>
+                        <span th:text="${txtCorpo}"/><strong th:id="${idCampoValor}" class="preco-total"/>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="container main-section col-md-12" th:fragment="main-section(idContainer, idContainerGrafico, idBtnVerMais, idBtnPesquisar, idFormFiltrar)">
+            <div th:id="${idContainer}">
+                <section class="services-section">
+                    <section class="general-section-titling text-center">Serviços <a class="glyphicon glyphicon-search search-link" th:id="${idBtnPesquisar}"/></section>
+                    <form th:id="${idFormFiltrar}">    
+                        <select class="form-control" id="select-gerentes">
+                            <option value="0">Todos os gerentes</option>
+                        </select>
+                        <input type="submit" class="btn btn-warning col-md-offset-5" id="btnFiltrar" value="Filtrar"/>
+                    </form>
+                    <div class="services-container list-group">
+                        <section id="services-container-list"></section>
+                    </div>
+                    <section class="text-center display-block">
+                        <a class="btn btn-default btn-ver-mais" th:id="${idBtnVerMais}">Ver mais</a>
+                        <section class="general-section-content text-center">Percentual de impacto no custo total mensal por serviço</section>
+                    </section>
+                    <canvas class="graph-section" th:id="${idContainerGrafico}"></canvas>
+                </section>
+            </div>
+        </section>
+        <div th:fragment="scripts">
+            <script th:src="@{/js/jquery-2.2.3.min.js}" type="text/javascript"></script>
+            <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+            <script th:src="@{/js/Chart.min.js}" type="text/javascript"></script>
+        </div>
+    </body>
+</html>

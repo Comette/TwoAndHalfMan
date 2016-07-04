@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+    <head>
+        <title th:text="${servico.nome} + ' | Onde está Wallet?'"/>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
+        <link th:href="@{/css/fragments.css}" type="text/css" rel="stylesheet"/>
+        <link th:href="@{/css/fragments_generico.css}" type="text/css" rel="stylesheet"/>
+        <link th:href="@{/css/service.css}" type="text/css" rel="stylesheet"/>
+    </head>
+    <body>
+        <nav th:replace="fragments_generico :: navbar"/>
+        <div class="jumbotron container">
+            <div class="row">
+                <div class="service-name col-md-6 col-sm-6">
+                    <p class="text-left">Serviço</p>
+                    <span class="display-3" th:text="${servico.nome}">NOME SERVICO</span>
+                </div>
+                <div class="service-value col-md-6 col-sm-6 text-right">
+                    <p class="text-right">Custo mensal</p>
+                    <span class="display-3" th:text="${valorServicoFormatado}">VALOR SERVICO</span>
+                </div>
+            </div>
+            <a class="lead service-website" th:text="${servico.webSite}" th:href="${servico.webSite}">WEBSITE</a>
+            <hr class="m-y-2"/>
+            <p class="text-muted"> Gerente: <span class='service-manager' th:text="${servico.nomeUsuarioResponsavel}"></span></p>
+            <p class="text-muted"> Periodicidade: <span class='service-manager' th:text="${servico.periodicidade}"></span></p>
+            <p class="lead text-muted">Descrição:</p>
+            <section>
+                <blockquote class="lead service-description" th:text="${servico.descricao}">DESCRICAO</blockquote>
+            </section>
+            <hr class="m-y-2"/>
+            <p class="lead">
+                <a class="btn btn-warning btn-editar-servico" th:text="Editar"/>
+                <a class="btn btn-warning btn-desativar-servico" th:text="Desativar"/>
+            </p>    
+        </div>
+        <div th:replace="fragments_dashboard :: scripts"></div>
+    </body>
+</html>
