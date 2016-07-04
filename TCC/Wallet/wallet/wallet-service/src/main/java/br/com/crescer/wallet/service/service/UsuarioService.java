@@ -96,7 +96,12 @@ public class UsuarioService {
         return dto;
     }
 
-    public boolean checkUsernameAvailability(String username) {
-        return repository.findUsuarioByDsUserName(username) == null;
+    public boolean checkUsernameAvailability(String username, long id) {
+        Usuario usuario = repository.findOne(id);
+        if(usuario == null){
+            return repository.findUsuarioByDsUserName(username) == null;
+        }else{
+            return usuario.getDsUserName().equals(username) ? true : repository.findUsuarioByDsUserName(username) == null;                       
+        }        
     }
 }

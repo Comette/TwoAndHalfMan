@@ -101,8 +101,8 @@ public class UsuarioController {
 
     @RequestMapping(value = "/check-username", method = RequestMethod.GET)
     @ResponseBody
-    public boolean checkUsername(@RequestParam String username) {
-        return usuarioService.checkUsernameAvailability(username);
+    public boolean checkUsername(@RequestParam String username, @RequestParam long id) {
+        return usuarioService.checkUsernameAvailability(username, id);
     }
 
     private ModelAndView addAttributesToModel(UsuarioDTO userDTO, ServicoDTO serviceDTO, String targetNavTab, String viewName, boolean ehEdicao) {
