@@ -23,8 +23,12 @@
     color: white;
     font-size: 2.3em;
     font-family: Open Sans, sans-serif;
+
 }
 
+#div-gerente .display-3,#div-gerente .display-2 {
+    word-break: break-all;
+}
 .btn-excluir-gerente {
     float: left;
 }
