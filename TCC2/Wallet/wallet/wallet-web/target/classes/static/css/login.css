@@ -1,0 +1,83 @@
+@font-face {
+    font-family: Open Sans;
+    src: url('../fonts/OpenSans-Light.ttf');
+}
+
+body {
+    font-family: Open Sans, sans-serif;
+    background-color: #434343;
+}
+
+.form-control {
+    border-radius: 0px;
+    color: #434343;
+    border-color:  #B0B5B8;
+    font-weight: bold;
+}
+
+.form-control:focus{
+    border: none;
+    box-shadow: 0px 0px 7px #FBAF41;
+}
+
+section.container{
+    position: relative;
+    top: 290px;
+}
+
+.header-login {
+    font-weight: bold;
+    line-height: 40px;
+
+}
+
+.header-login:first-of-type {
+    color: #FBAF41;
+    font-size: 4em;
+}
+
+.header-login:nth-of-type(2){
+    font-size: 6em;
+    color: white;
+}   
+
+header:first-of-type{
+    margin-top: 10%;
+    margin-bottom: 8%;
+}
+
+@media(max-width: 768px){
+    header:first-of-type{
+        margin-bottom: 20%;
+    }
+}
+
+.form-horizontal:first-of-type{
+    margin-top: 5%;
+}
+
+#btn-login{
+    font-weight: bold;
+    border-radius: 0px;
+    background-color: #FBAF41;
+    border-color: #FBAF41;
+    transition: all 0.2s ease;
+}
+
+#btn-login:hover{
+    border-color: #434343;
+    background-color: #B0B5B6;
+    color: #434343;
+}
+
+label.checkbox-inline{
+    color: #434343;
+}
+
+.login-error{
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: #B0B5B6;
+    color: #434343;
+    border-radius: 0px;
+}

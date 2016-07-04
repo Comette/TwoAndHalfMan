@@ -1,7 +1,0 @@
-#surefire
-#Mon Jun 27 13:27:06 BRT 2016
-maven.ext.class.path=C\:\\Program Files\\NetBeans 8.1\\java\\maven-nblib\\netbeans-eventspy.jar
-user.dir=C\:\\Users\\victor.ribeiro\\Documents\\Modulo01\\TCC\\TCC\\PRE_TCC\\wallet-dominio
-file.encoding=UTF-8
-localRepository=C\:\\Users\\victor.ribeiro\\.m2\\repository
-basedir=C\:\\Users\\victor.ribeiro\\Documents\\Modulo01\\TCC\\TCC\\PRE_TCC\\wallet-dominio

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+    <head>
+        <title> Gerentes | Onde está Wallet? </title>
+        <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/fragments_generico.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/gerentes.css}" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <nav th:replace="fragments_generico :: navbar"/>
+        <div class="container">
+            <h1 th:text="${sucesso}"/>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Todos os Gerentes</h3>
+                    <a class="btn btn-danger glyphicon glyphicon-plus" href="/cadastro?idUsuario="/>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group col-md-6" id="lista-gerentes-1">
+                    </div>
+                    <div class="list-group col-md-6" id="lista-gerentes-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="fragments_dashboard :: scripts"></div>
+        <script th:src="@{/js/gerentes.js}" type="text/javascript"/>
+    </body>
+</html>

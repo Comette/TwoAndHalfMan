@@ -1,0 +1,88 @@
+/*
+Created on : 30/06/2016, 18:08:00
+    Author     : Hedo
+*/
+
+.jumbotron {
+    margin-top: 100px;
+    border: 1px solid #B0B5B6;
+    box-shadow: 3px 3px 3px #B0B5B6;
+    font-family: Open Sans, sans-serif;    
+    padding: 3% 5%;
+}
+
+.jumbotron p{
+    font-weight: 500;  
+    color: #B0B5B6;
+}
+
+.jumbotron p.lead:first-of-type, p.text-right, p.text-left{
+    margin: 0px;
+    padding: 0 2%;
+}
+
+p.text-right, p.text-left{
+    font-size: 0.33em;
+}
+
+.service-description {
+    word-break: break-all;
+    word-wrap: normal;
+    font-weight: 600;
+}
+
+.btn-editar-servico, .btn-desativar-servico {
+    float : right;
+    margin-right: 10px;
+    font-size: 1.3em;
+    border-radius: 0px;
+    transition: all .7s ease;
+}
+
+.btn-editar-servico {
+    border: 1px solid #B0B5B6;
+    color : white;
+    background-color: #B0B5B6;    
+}
+
+.btn-editar-servico:hover{
+    color: #434343;
+}
+
+.btn-desativar-servico {
+    border: 1px solid #434343;
+    background-color: #434343;
+    color: white;
+}
+
+.btn-desativar-servico:hover {
+    background-color: #434343;
+    color: #FBAF41;
+}
+
+.service-website, .service-manager {
+    color: #FBAF41;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 1s ease, font-weight 0s ease; 
+}
+
+.service-website:hover,
+.service-manager:hover,
+.service-website:focus,
+.service-manager:focus,
+.service-website:active,
+.service-manager:active {
+    color: #FBAF41;
+    font-weight: bold;
+}
+
+.service-name, .service-value{
+    font-size: 4.5em;      
+    display: inline-block;
+}
+@media(max-width: 760px){
+    .jumbotron .service-value, p.text-right{
+        text-align: left;
+    }
+}

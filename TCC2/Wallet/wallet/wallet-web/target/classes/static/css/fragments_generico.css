@@ -1,0 +1,131 @@
+/*    Created on : 02/07/2016, 15:56:44
+    Author     : Hedo
+*/
+nav {
+    height: 70px;
+}
+
+@font-face{
+    font-family: Open Sans;
+    src: url('../fonts/OpenSans-Light.ttf');
+}
+
+
+.display-block {
+    display: block;
+}
+
+.navbar-right {
+    margin-right: 5.72%;
+}
+
+.navbar-collapse {
+    background-color: #434343;
+    border: none;
+}
+
+#btn-collapse{
+    margin-top: 20px;
+    margin-bottom: 16px;
+}
+body {
+    margin-top: 70px;
+}
+.navbar-default {
+    background-color: #434343;
+}
+
+nav,
+a.navbar-brand h6:first-of-type,
+a.navbar-brand h6:nth-of-type(2) {
+    font-weight: bold;
+}
+
+a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
+    line-height: 15px;
+}
+
+#li-navbar, #navbar-logout, #logged-user-name, #separador{
+    margin-top: 8px;
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+#li-navbar, #li-navbar a, #navbar-logout {
+    transition: color 0.5s ease;
+}
+
+#li-navbar, #li-navbar a, a.navbar-brand h6:nth-of-type(2), #navbar-logout {
+    color: white;
+}
+
+#li-navbar:hover, #li-navbar a:hover, #navbar-logout:hover {
+    color: #FBAF41;
+}
+
+#navbar-logout{
+    display: block;
+}
+
+#separador{
+    color: #737373;
+}
+
+#logged-user-name{
+    margin-left: 12px;
+    margin-top: 21px;
+    display: block;
+    color: #FBAF41;
+}
+
+@media(min-width: 1024px){
+    .navbar>.container-fluid .navbar-brand {
+        margin-left: 80px;
+        margin-top: -14px;
+    }
+}
+
+@media(max-width: 1023px){
+    .navbar>.container-fluid .navbar-brand {
+        margin-top: -14px;
+    }
+}
+
+@media(max-width: 768px){
+    #separador{
+        display: none;
+    }
+    .navbar-brand{
+        margin-top: -14px;
+    }
+}
+
+a.navbar-brand h6:first-of-type{
+    margin-left: 1px;
+    font-size: 1.175em;
+}
+a.navbar-brand h6:nth-of-type(2){
+    font-size: 1.8em;
+}
+
+.general-section-titling{
+    font-weight: 500;
+    font-size: 2.5em;
+}
+
+a:-webkit-any-link {
+    text-decoration: none;
+}
+
+a.navbar-brand h6:first-of-type {
+    color: #FBAF41;
+}
+
+.btn-default, 
+.general-section-titling, 
+nav,
+a.navbar-brand h6:first-of-type,
+a.navbar-brand h6:nth-of-type(2),
+.servico-mais-caro {
+    font-family: Open Sans, sans-serif;
+}

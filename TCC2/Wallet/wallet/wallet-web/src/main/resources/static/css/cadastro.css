@@ -1,0 +1,87 @@
+/*    Created on : 01/07/2016, 00:33:42
+    Author     : Hedo
+*/
+
+ul.nav.nav-tabs a {
+    color: #FBAF41;
+    margin-top: 30px;
+}
+
+.form-horizontal .form-group, .form-horizontal .row{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+h3{
+    margin-left: 15px;
+    margin-bottom: 30px;
+}
+
+.form-group .radio-inline:nth-of-type(1) {
+    margin-right: 25%;
+}
+
+.form-group .radio-inline {
+    margin-bottom: 7px;
+    margin-left: 0;
+}
+
+.form-control{
+    border-radius: 0;
+}
+
+.form-control:focus{
+    box-shadow: 0px 0px 5px #B0B5B8;
+    border-color: #B0B5B8;
+}
+
+@media(min-width: 1024px){
+    .form-horizontal .form-padding{
+        margin-left: 8.33333%;
+    }
+}
+
+textarea{
+    resize: vertical;
+    margin-right: 15px;
+}
+
+.btn-success{
+    transition: background-color 0.4s ease, color 0.4s ease;
+    background-color: #434343;
+    color: #FBAF41;
+    width: 30%;
+    font-size: 1.3em;
+    margin-top: 20px;
+    border: none;
+    border-radius: 0;
+}
+
+.btn-success:hover{
+    background-color: #fbaf41;
+    color: #434343;
+}
+
+.btn-success:active, .btn-success:hover, .btn-success:focus, .btn-success:active:hover, .btn-success:active:focus{
+    background-color: #fbaf41;
+    color: #434343;
+}
+
+.error-message, label.error {
+    color: #FBAF41;
+    font-size: 1em;
+    font-family: Open Sans, sans-serif;
+    font-weight: bold;
+}
+
+.still-wrong {
+    border:1px solid #f00;
+    box-shadow:0 0 4px 0 #f00;
+}
+
+.countdown {
+    color: #FBAF41;
+    font-size: 1.2em;
+}
+
+

@@ -1,0 +1,241 @@
+@font-face{
+    font-family: Open Sans;
+    src: url('../fonts/OpenSans-Light.ttf');
+}
+
+#btnFiltrar {
+    margin-top: 10px;
+}
+
+.display-block {
+    display: block;
+}
+
+.btn-danger, .btn-danger:hover, .btn-default {
+    background-color: #434343;
+}
+
+.btn-default {
+    font-weight: bold;
+}
+
+.panel-default > .panel-heading {
+    background-color: #434343;
+}
+
+.panel {
+    background-color: #434343;
+    box-shadow: 3px 3px 3px #B0B5B8;
+    border-radius: 0px;
+    color: white;
+}
+
+.panel strong {
+    color: #FBAF41;
+}
+
+.servico-mais-caro {
+    font-size: 2em;
+    background-color: #FBAF41;    
+    color: white;
+    margin-top: 40px;  
+}
+.servico-mais-caro h2{
+    margin: 0;
+}
+
+.servico-mais-caro > div {      
+    margin: 1% 5%;
+    padding: 0px;
+    font-weight: bold;
+}
+.servico-mais-caro .panel-body {      
+    background-color: white; 
+    padding: 1% 0;
+    margin: 0px;
+}
+
+.search-link {
+    color: #FBAF41;
+    font-size: .7em;
+    text-decoration: none;
+    transition: color .5s ease-in-out;
+}
+
+#formFiltrarAtual input, #formFiltrarProximo input {
+    font-family: Open Sans, sans-serif;
+    border-radius: 0px;
+}
+
+#formFitrarAtual .form-control {
+    background-color: #434343;
+    color: white;
+    font-family: Open Sans, sans-serif;
+}
+
+.search-link:hover, .search-link:active, .search-link:focus {
+    text-decoration: none;
+    color: orange;
+}
+
+.panel-container-top {
+    background-color: white;
+    border-color: transparent !important;
+}
+
+.btn-default {
+    color: white;
+}
+
+@media(max-width: 768px){
+    .graph-section {
+        min-height: 20%;
+    }
+}
+
+@media(max-width: 650px){
+    #grafico-mes-atual, #grafico-proximo-mes {
+        display: none;
+    }
+}
+
+.main-section{
+    border: 1px solid #B0B5B8;
+    box-shadow: 3px 3px 3px #B0B5B8;
+    min-height: 900px;
+    margin-bottom: 60px;
+}
+
+.main-section .general-section-content {
+    margin-top: 5%;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.main-section .general-section-titling, .previsao-prox-mes {    
+    font-weight: bolder;
+}
+
+.general-section-titling{
+    font-weight: 500;
+    font-size: 2.5em;
+}
+
+.previsao-prox-mes {
+    float: right;
+    color: white;
+}
+
+.preco-total{    
+    float: right;
+}
+
+.custo-deste-mes {
+    color: white;    
+}
+
+.custo-deste-mes section{
+    font-size: 1.3em;
+}
+
+.services-container {
+    margin-top: 10px;
+}
+
+.btn-ver-mais{
+    margin-left: 43%;
+    margin-right: 40%;
+}
+
+.single-service-container{
+    border: none;
+}
+
+.service-edit-btn, .service-delete-btn {
+    width: 50%;
+    float: right;
+}
+
+.btn-danger {
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-danger, .btn-danger:hover {
+    border-color: #434343;
+}
+
+.btn-warning {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-warning:hover, .btn-default:hover, .service-value {
+    color: #434343;
+}
+
+.btn-warning, .btn-warning:hover {
+    background-color: #B0B5B8;
+    border-color: transparent;
+}
+
+.btn-default, .service-edit-btn, .service-delete-btn {
+    border-radius: 0px;
+
+}
+
+.btn-default {
+    transition: background-color 0.5s ease, color 0.5s ease;
+    margin-top: 5%;
+}
+
+.btn-default:hover {
+    background-color: white;
+}
+
+.service-edit-btn span, .service-delete-btn span {
+    font-size: 1.2em;
+}
+
+.service-name {
+    font-size: 2em;
+    font-weight: 600;
+    color: #FBAF41;
+    transition: color 0.3s ease;
+}
+
+a:-webkit-any-link {
+    text-decoration: none;
+}
+
+.service-value {
+    font-size: 1.8em;
+    font-weight: 500;    
+}
+
+.general-section-content{
+    font-size: 1.6em;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+
+.btn-danger:hover {
+    color: #FBAF41;
+}
+
+.graph-section {
+    border: 1px solid #B0B5B8;
+    margin-top: 5%;
+    padding-bottom: 5%;
+    max-width: 87.5%;
+    margin-left: 6%;
+    margin-bottom: 10%;
+}
+
+.service-value, 
+.service-name, 
+.btn-default, 
+.general-section-titling, 
+.general-section-content,
+.servico-mais-caro {
+    font-family: Open Sans, sans-serif;
+}

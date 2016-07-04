@@ -1,0 +1,44 @@
+/* 
+    Created on : 02/07/2016, 20:12:23
+    Author     : Hedo
+*/
+
+#div-gerente {
+    margin-top: 80px;
+    text-align: center;
+    background-color: #434343;
+    border-radius: 0px;
+    border: 1px solid #434343;
+    box-shadow: 1px 1px 1px #434343;
+}
+
+#div-gerente .display-3 {
+    font-family: Open Sans, sans-serif;
+    color: #FBAF41;
+    font-size: 4em;
+    margin-top: -20px;
+}
+
+#div-gerente .display-2 {
+    color: white;
+    font-size: 2.3em;
+    font-family: Open Sans, sans-serif;
+}
+
+.btn-excluir-gerente {
+    float: left;
+}
+
+.btn-editar-gerente {
+    float: right;
+}
+
+.btn-excluir-gerente, .btn-editar-gerente {
+    color: white;
+    font-size: 5em;
+    transition: color 0.2s ease;
+}
+
+.btn-excluir-gerente:hover, .btn-editar-gerente:hover {
+    color: #FBAF41;
+}
