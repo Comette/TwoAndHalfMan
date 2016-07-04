@@ -1,55 +1,63 @@
 'use strict';
 
 // MES ATUAL
+//containeres
 var $containerMesAtual = $('#container-mes-atual');
 var $containerGraficoMesAtual = $('#grafico-mes-atual');
+//spans
 var $gastoTotalMesAtual = $('#preco-total-mes');
+//buttons
 var $verMaisServicosMesAtual = $('#btnVerMaisAtual');
+var $btnPesquisarAtual = $('#btnPesquisarAtual');
+//paginação
 var paginaAtualMesAtual = 0;
+var paginaAtualEsteMesFiltrado = 0;
+//filtragem
+var filtroAtual = null;
+var $formAtual = $('#formFiltrarAtual');
+var $formAtualSelect = $('#formFiltrarAtual select');
+//listagem
 var listaServicosMesAtual;
 
 // PROXIMO MES
+//containeres
 var $containerProximoMes = $('#container-proximo-mes');
 var $containerGraficoProximoMes = $('#grafico-proximo-mes');
+//spans
 var $gastoTotalProximoMes = $('#preco-total-proximo-mes');
+//buttons
 var $verMaisServicosProximoMes = $('#btnVerMaisProximo');
+var $btnPesquisarProximo = $('#btnPesquisarProximo');
+//paginação
 var paginaAtualProximoMes = 0;
+var paginaAtualProximoMesFiltrado = 0;
+//filtragem
+var filtroProximoMes = null;
+var $formProximo = $('#formFiltrarProximo');
+var $formProximoSelect = $('#formFiltrarProximo select');
+//listagem
 var listaServicosProximoMes;
 
 //GERAL
+var roleUsuarioLogado = $('#role-usuario-logado').val();
 var $servicoMaisCaro = $('#servico-mais-caro');
 
-var $gastoTotalMesAtual = $('#preco-total-mes');
-var $gastoTotalProximoMes = $('#preco-total-proximo-mes');
 
-var paginaAtualEsteMesFiltrado = 0;
-var paginaAtualProximoMesFiltrado = 0;
-var filtroAtual = null;
-var filtroProximoMes = null;
-
-
-var $btnPesquisarAtual = $('#btnPesquisarAtual');
-var $btnPesquisarProximo = $('#btnPesquisarProximo');
-
-var $formAtual = $('#formFiltrarAtual');
-var $formAtualSelect = $('#formFiltrarAtual select');
-var $formProximo = $('#formFiltrarProximo');
-var $formProximoSelect = $('#formFiltrarProximo select');
-
-var selectAtual = $containerMesAtual.find('#select-gerentes');
-var selectProximoMes = $containerProximoMes.find('#select-gerentes');
-
-
-var rederizaListaServicos = function (containerLista, servicos) {
-    var roleUsuarioLogado = $('#role-usuario-logado').val();
+var renderizaListaServicos = function ($containerLista, servicos) {
     $.each(servicos, function (i, servico) {
-            var res = servico.nome.length > 13 ? servico.nome.substring(0,11) + '...' : servico.nome; 
-        if (servico.situacao === 'CANCELADO')
+        var res = servico.nome.length > 13 ? servico.nome.substring(0, 11) + '...' : servico.nome;
+        if (servico.situacao === 'CANCELADO') {
             var $btnDelete = $('<button>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').attr('value', servico.id).addClass('disabled')
                     .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true));
-        else
+            var $btnEdit = $('<button>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').addClass('disabled').attr('action', '/editar-servico?idServico=' + servico.id)
+                    .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true));
+        } else {
             var $btnDelete = $('<button>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').attr('value', servico.id)
                     .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true));
+            var $btnEdit = $('<button>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').attr('action', '/editar-servico?idServico=' + servico.id)
+                    .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true));
+
+        }
 
         if (roleUsuarioLogado === 'ADMINISTRADOR') {
             containerLista.find('#services-container-list').append(
@@ -62,15 +70,13 @@ var rederizaListaServicos = function (containerLista, servicos) {
                                     .append($('<h5>').addClass('service-value').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
                                     )
                             .append($('<div>').attr('style', 'margin-bottom: 30px;')
-                                    .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').attr('href', '/editar-servico?idServico=' + servico.id)
-                                            .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true))
-                                            )
+                                    .append($btnEdit)
                                     .append($btnDelete)
                                     )
                             )
                     );
         } else if (roleUsuarioLogado === 'GERENTE') {
-            
+
             containerLista.find('#services-container-list').append(
                     $('<section>').fadeIn(400).addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
                     .append($('<div>')
@@ -81,13 +87,12 @@ var rederizaListaServicos = function (containerLista, servicos) {
                                     .append($('<h5>').addClass('service-value').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
                                     )
                             .append($('<div>').attr('style', 'margin-bottom: 30px;')
-                                    .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').addClass('disabled')
-                                            .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true))
-                                            )
-                                    .append($btnDelete.addClass('disabled'))
-
+                                    .append($btnEdit.addClass('disabled'))
                                     )
-                            ));
+                            .append($btnDelete.addClass('disabled'))
+
+                            )
+                    );
         }
     });
 };
