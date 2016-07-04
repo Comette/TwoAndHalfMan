@@ -44,12 +44,16 @@ function excluirObjeto(values, trueParaUsuarioEFalseParaServico) {
 
 function adicionarOnClickExcluirServico($btn) {
     $btn.on("click", function (e) {
-        var $btnExclusao = $('#btnPrincipal');
-        $btnExclusao.val(parseInt($(this).val()));
+        if ($(this).hasClass('disabled'))
+            return false;
+        else {
+            var $btnExclusao = $('#btnPrincipal');
+            $btnExclusao.val(parseInt($(this).val()));
 
-        alterarModal('Deseja realmente cancelar este serviço?', 'Cancelar Serviço', false, 'Confirmar');
-        $('#modalCoringa').modal();
-        e.preventDefault();
+            alterarModal('Deseja realmente cancelar este serviço?', 'Cancelar Serviço', false, 'Confirmar');
+            $('#modalCoringa').modal();
+        }
+            e.preventDefault();
     });
 }
 
@@ -66,14 +70,14 @@ function adicionarOnClickExcluir($btn) {
             }
         }).done(function (data) {
             var texto =
-                    data > 0 ? 'Este usuário tem serviços em sua supervisão. Se inativá-lo, os serviços aos quais ele gerencia serão cancelados.' :
+                    data > 0 ? 'Este usuário tem serviços ativos em sua supervisão. Se inativá-lo, os serviços aos quais ele gerencia serão cancelados.' :
                     'Deseja realmente inativar este usuário?';
 
             alterarModal(texto, 'Inativar', false, 'Inativar');
             $('#modalCoringa').modal();
 //            window.location.reload();
-    });
-        
+        });
+
         e.preventDefault();
     });
 }

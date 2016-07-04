@@ -317,7 +317,7 @@ public class ServicoServiceTest {
     
     @Test
     public void testCountServicosByUsuarioId(){
-        doReturn(1l).when(repository).countByUsuarioIdUsuario_idUsuario(any(Long.class));
+        doReturn(1l).when(repository).countByUsuarioIdUsuario_idUsuarioAndDsSituacao(any(Long.class), any(Situacao.class));
         
         assertEquals(1l,service.countServicosByUsuarioId(1l));
     }

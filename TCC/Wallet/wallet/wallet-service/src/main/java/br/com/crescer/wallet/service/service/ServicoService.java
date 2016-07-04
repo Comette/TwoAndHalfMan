@@ -137,7 +137,7 @@ public class ServicoService {
     }
     
     public long countServicosByUsuarioId(Long idUsuario) {
-        return repository.countByUsuarioIdUsuario_idUsuario(idUsuario);
+        return repository.countByUsuarioIdUsuario_idUsuarioAndDsSituacao(idUsuario, Situacao.ATIVO);
     }
     
     public void cancelarServicos(Long idUsuario) {
@@ -244,7 +244,7 @@ public class ServicoService {
             
             servico.setVlMensalUSD(this.calculaGastoMensalUSD(servicoDTO.getPeriodicidade(), servicoDTO.getValorTotal(), servicoDTO.getMoeda()));
             
-            if (servico.getDsSituacao() == null) {
+            if (servicoDTO.getSituacao() == null) {
                 servico.setDsSituacao(Situacao.ATIVO);
             } else {
                 servico.setDsSituacao(servicoDTO.getSituacao());

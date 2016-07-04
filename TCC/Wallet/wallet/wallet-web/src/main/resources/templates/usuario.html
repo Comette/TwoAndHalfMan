@@ -26,7 +26,7 @@
                         <h1 class="display-2" th:text="${usuario.situacao}"/>
                     </div>
                     <div class="row">
-                        <button class="btn glyphicon glyphicon-trash btn-excluir-gerente" th:value="${usuario.id}"/>
+                        <button class="btn glyphicon glyphicon-trash btn-excluir-gerente" th:value="${usuario.id}" th:if="${usuario.situacao == T(br.com.crescer.wallet.entity.Situacao).ATIVO}"/>
                         <a class="btn glyphicon glyphicon-pencil btn-editar-gerente" th:href="@{'/editar-usuario?idUsuario=' + ${usuario.id}}"/>
                     </div>
                 </div>

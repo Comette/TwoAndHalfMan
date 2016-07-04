@@ -44,6 +44,13 @@ var rederizaListaServicos = function (containerLista, servicos) {
     var roleUsuarioLogado = $('#role-usuario-logado').val();
     $.each(servicos, function (i, servico) {
 
+        if (servico.situacao === 'CANCELADO')
+            var $btnDelete = $('<button>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').attr('value', servico.id).addClass('disabled')
+                    .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true));
+        else
+            var $btnDelete = $('<button>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').attr('value', servico.id)
+                    .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true));
+
         if (roleUsuarioLogado === 'ADMINISTRADOR') {
             containerLista.find('#services-container-list').append(
                     $('<section>').fadeIn(400).addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
@@ -51,15 +58,14 @@ var rederizaListaServicos = function (containerLista, servicos) {
                             .append($('<div>').addClass('text-center').attr('style', 'border: 1px solid #e6e6e6; border-radius: 0px;')
                                     .append($('<a>').html($('<h5>').addClass('service-name').text(servico.nome)).attr('href', '/servico?idServico=' + servico.id))
                                     .append($('<h5>').text("(" + servico.nomeUsuarioResponsavel + ")"))
+                                    .append($('<h5>').text("(" + servico.situacao + ")"))
                                     .append($('<h5>').addClass('service-value').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
                                     )
                             .append($('<div>').attr('style', 'margin-bottom: 30px;')
-                                    .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').attr('href','/editar-servico?idServico='+ servico.id)
+                                    .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').attr('href', '/editar-servico?idServico=' + servico.id)
                                             .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true))
                                             )
-                                    .append($('<button>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').attr('value', servico.id)
-                                            .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true))
-                                            )
+                                    .append($btnDelete)
                                     )
                             )
                     );
@@ -70,15 +76,15 @@ var rederizaListaServicos = function (containerLista, servicos) {
                             .append($('<div>').addClass('text-center').attr('style', 'border: 1px solid #e6e6e6; border-radius: 0px;')
                                     .append($('<a>').html($('<h5>').addClass('service-name').text(servico.nome)).attr('href', '/servico?idServico=' + servico.id))
                                     .append($('<h5>').text("(" + servico.nomeUsuarioResponsavel + ")"))
+                                    .append($('<h5>').text("(" + servico.situacao + ")"))
                                     .append($('<h5>').addClass('service-value').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
                                     )
                             .append($('<div>').attr('style', 'margin-bottom: 30px;')
                                     .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').addClass('disabled')
                                             .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true))
                                             )
-                                    .append($('<a>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').addClass('disabled')
-                                            .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').addClass('disabled').attr('aria-hidden', true))
-                                            )
+                                    .append($btnDelete)
+
                                     )
                             ));
         }
@@ -105,6 +111,7 @@ var getDadosDashboard = function () {
     });
 };
 var getProxPaginaServicosProximoMes = function () {
+
     var url = filtroProximoMes !== null ?
             '/servicos-proximo-mes?idUsuario=' + filtroProximoMes + '&page=' + ++paginaAtualProximoMesFiltrado
             : '/servicos-proximo-mes?page=' + ++paginaAtualProximoMesFiltrado;
@@ -121,6 +128,7 @@ var getProxPaginaServicosProximoMes = function () {
             }
             rederizaListaServicos($containerProximoMes, data);
             adicionarOnClickExcluirServico($('.service-delete-btn'));
+//        }
         }
     });
 };
@@ -135,6 +143,7 @@ var getProxPaginaServicosEsteMes = function () {
         if (typeof data === 'string') {
             location.reload();
         } else {
+
             if (data.length < 4) {
                 $('#btnVerMaisAtual').text('Não existem mais serviços.').attr('style', 'margin-left: 31%; margin-right: 40%;');
                 $('#btnVerMaisAtual').addClass('disabled');
@@ -156,7 +165,6 @@ $(function () {
         getProxPaginaServicosProximoMes();
     });
     setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo);
-
     buscaGerentes();
 });
 function setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo) {
@@ -180,30 +188,25 @@ function buscaGerentes() {
     });
 }
 
-$('#select-gerentes').change(function () {
-
-    $formAtual.submit(function (e) {
-        var idGerente = selectAtual.val();
-        paginaAtualEsteMesFiltrado = -1;
-        filtroAtual = idGerente;
-        limparContainer($containerMesAtual.find('#services-container-list'));
-        $verMaisServicosMesAtual.removeClass('disabled');
-        $verMaisServicosMesAtual.text('Ver mais');
-        getProxPaginaServicosEsteMes();
-        e.preventDefault();
-    });
+$formAtual.submit(function (e) {
+    var idGerente = selectAtual.val();
+    paginaAtualEsteMesFiltrado = -1;
+    filtroAtual = idGerente;
+    limparContainer($containerMesAtual.find('#services-container-list'));
+    $verMaisServicosMesAtual.removeClass('disabled');
+    $verMaisServicosMesAtual.text('Ver mais');
+    getProxPaginaServicosEsteMes();
+    e.preventDefault();
 });
-$('#select-gerentes').change(function () {
-    $formProximo.submit(function (e) {
-        var idGerente = selectProximoMes.val();
-        paginaAtualProximoMesFiltrado = -1;
-        filtroProximoMes = idGerente;
-        limparContainer($containerProximoMes.find('#services-container-list'));
-        $verMaisServicosProximoMes.removeClass('disabled');
-        $verMaisServicosProximoMes.text('Ver mais');
-        getProxPaginaServicosProximoMes();
-        e.preventDefault();
-    });
+$formProximo.submit(function (e) {
+    var idGerente = selectProximoMes.val();
+    paginaAtualProximoMesFiltrado = -1;
+    filtroProximoMes = idGerente;
+    limparContainer($containerProximoMes.find('#services-container-list'));
+    $verMaisServicosProximoMes.removeClass('disabled');
+    $verMaisServicosProximoMes.text('Ver mais');
+    getProxPaginaServicosProximoMes();
+    e.preventDefault();
 });
 function limparContainer($container) {
     $container.html('');

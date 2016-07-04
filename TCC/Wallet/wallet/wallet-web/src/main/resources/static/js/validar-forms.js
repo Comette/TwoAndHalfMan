@@ -4,6 +4,21 @@ var $formServico = $('#form-servico');
 var $formUsuario = $('#form-usuario');
 
 $(function () {
+    $('#numValorTotal').maskMoney({
+        thousands: '.',
+        decimal: ',',
+        allowZero: false
+    });
+
+    $('#slMoeda').change(function () {
+        var self = $(this);
+        $('#numValorTotal').maskMoney({
+            thousands: '.',
+            decimal: ',',
+            allowZero: false,
+            suffix: ' ' + self.val()
+        });
+    });
 
     jQuery.validator.addMethod("checkSelect", function (value, element) {
         return (value === '0' || value === 0) ? false : true;
@@ -41,7 +56,7 @@ $(function () {
             },
             valorTotal: {
                 required: true,
-                min: 0
+                minlength: 0
             },
             idUsuarioResponsavel: {
                 required: true,
@@ -79,6 +94,9 @@ $(function () {
             }
         },
         submitHandler: function ($formServico) {
+            var $input = $('#numValorTotal');
+            var novoValor = $input.maskMoney('unmasked')[0].toString();
+            $input.val(novoValor);
             $formServico.submit();
         }
     });

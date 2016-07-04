@@ -18,19 +18,23 @@ $(function (e) {
 
         adicionarOnClickExcluir($('button[name="btn-excluir-gerente"]'));
         $('#btnPrincipal').click(function () {
-            chamarExclusao($(this),true);
+            chamarExclusao($(this), true);
         });
     });
 });
 
 function appendarUsuariosNaLista(usuarios, $lista) {
     $.each(usuarios, function (i, usuario) {
-        $lista.append(
-                $('<a href="/usuario?idUsuario=' + usuario.id + '" class="list-group-item">').append(
-                $('<a class="btn btn-warning glyphicon glyphicon-pencil" name="btn-editar-gerente" href="/editar-usuario?idUsuario=' + usuario.id + '">'))
-                .append($('<h4>').text(usuario.nome))
-                .append('<button class="btn btn-danger glyphicon glyphicon-remove" name="btn-excluir-gerente" value="' + usuario.id + '">')
-                .append($('<small>').text('( ' + usuario.situacao + ' ) ').attr('style','font-weight: bold; margin-left: 10px;')));
+        var $listGroup = $('<a href="/usuario?idUsuario=' + usuario.id + '" class="list-group-item">');
+        var $buttonExcluir = $('<button class="btn btn-danger glyphicon glyphicon-remove" name="btn-excluir-gerente" value="' + usuario.id + '">');
+        var $small = $('<small>').text('( ' + usuario.situacao + ' ) ').attr('style', 'font-weight: bold; margin-left: 10px;');
+        var $btnEditar = $('<a class="btn btn-warning glyphicon glyphicon-pencil" name="btn-editar-gerente" href="/editar-usuario?idUsuario=' + usuario.id + '">');
+        var $h4 = $('<h4>').text(usuario.nome);
+
+        if (usuario.situacao === 'INATIVO')
+            $lista.append($listGroup.append($btnEditar).append($h4).append($small));
+        else
+            $lista.append($listGroup.append($btnEditar).append($h4).append($buttonExcluir).append($small));
     });
 }
 
@@ -56,7 +60,8 @@ function adicionarOnClickExcluir($btn) {
 
         e.preventDefault();
     });
-};
+}
+;
 
 
 
