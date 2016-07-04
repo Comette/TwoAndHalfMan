@@ -6,6 +6,7 @@ package br.com.crescer.wallet.service.dto;
 
 import br.com.crescer.wallet.entity.Moeda;
 import br.com.crescer.wallet.entity.Periodicidade;
+import br.com.crescer.wallet.entity.Situacao;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import javax.validation.constraints.NotNull;
@@ -51,6 +52,16 @@ public class ServicoDTO {
     @NotNull
     @Range(min = 0)
     private BigDecimal valorTotal;   
+    
+    private Situacao situacao;
+
+    public Situacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Situacao situacao) {
+        this.situacao = situacao;
+    }
 
     public String getWebSite() {
         return webSite;

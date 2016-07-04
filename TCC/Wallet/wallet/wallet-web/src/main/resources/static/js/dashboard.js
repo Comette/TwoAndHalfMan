@@ -57,7 +57,7 @@ var rederizaListaServicos = function (containerLista, servicos) {
                                     .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').attr('href','/editar-servico?idServico='+ servico.id)
                                             .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true))
                                             )
-                                    .append($('<a>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').attr('href','/excluir-servico?idServico='+ servico.id)
+                                    .append($('<button>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').attr('value', servico.id)
                                             .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true))
                                             )
                                     )
@@ -97,6 +97,11 @@ var getDadosDashboard = function () {
         rederizaListaServicos($containerMesAtual, listaServicosMesAtual);
         listaServicosProximoMes = dados.servicosProximoMes;
         rederizaListaServicos($containerProximoMes, listaServicosProximoMes);
+        adicionarOnClickExcluirServico($('.service-delete-btn'));
+        $('#btnPrincipal').click(function () {
+            chamarExclusao($(this), false);
+        });
+
     });
 };
 var getProxPaginaServicosProximoMes = function () {
@@ -115,6 +120,7 @@ var getProxPaginaServicosProximoMes = function () {
                 $('#btnVerMaisProximo').addClass('disabled');
             }
             rederizaListaServicos($containerProximoMes, data);
+            adicionarOnClickExcluirServico($('.service-delete-btn'));
         }
     });
 };
@@ -134,6 +140,7 @@ var getProxPaginaServicosEsteMes = function () {
                 $('#btnVerMaisAtual').addClass('disabled');
             }
             rederizaListaServicos($containerMesAtual, data);
+            adicionarOnClickExcluirServico($('.service-delete-btn'));
         }
     });
 };
@@ -149,6 +156,7 @@ $(function () {
         getProxPaginaServicosProximoMes();
     });
     setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo);
+
     buscaGerentes();
 });
 function setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo) {

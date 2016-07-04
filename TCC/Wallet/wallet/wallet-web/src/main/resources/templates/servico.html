@@ -14,7 +14,7 @@
         <div class="jumbotron container">
             <div class="row">
                 <div class="service-name col-md-6 col-sm-6">
-                    <p class="text-left">Serviço</p>
+                    <p class="text-left" th:text="'Serviço ' + ${servico.situacao}">Serviço</p>
                     <span class="display-3" th:text="${servico.nome}">NOME SERVICO</span>
                 </div>
                 <div class="service-value col-md-6 col-sm-6 text-right">
@@ -32,10 +32,13 @@
             </section>
             <hr class="m-y-2"/>
             <p class="lead">
-                <a class="btn btn-warning btn-editar-servico" th:text="Editar"/>
-                <a class="btn btn-warning btn-desativar-servico" th:text="Desativar"/>
+                <a class="btn btn-warning btn-editar-servico" th:text="Editar" th:href="@{'/editar-servico?idServico=' + ${servico.id}}" th:if="${#authentication.principal.permissao == T(br.com.crescer.wallet.entity.Permissao).ADMINISTRADOR}"/>
+                <button class="btn btn-warning btn-desativar-servico" th:text="Cancelar" th:value="${servico.id}" th:if="${#authentication.principal.permissao == T(br.com.crescer.wallet.entity.Permissao).ADMINISTRADOR AND servico.situacao != T(br.com.crescer.wallet.entity.Situacao).CANCELADO}"/>
             </p>    
         </div>
+        <div th:replace="fragments_generico :: modal"/>
         <div th:replace="fragments_dashboard :: scripts"></div>
+        <script th:src="@{/js/modal-helpers.js}" type="text/javascript"/>
+        <script th:src="@{/js/servico.js}" type="text/javascript"/>
     </body>
 </html>

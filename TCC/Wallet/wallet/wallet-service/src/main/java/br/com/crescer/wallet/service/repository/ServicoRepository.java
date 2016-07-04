@@ -24,6 +24,8 @@ public interface ServicoRepository extends PagingAndSortingRepository<Servico, L
     public List<Servico> findByDsSituacao(Situacao situacao, Pageable pageable);
     
     public List<Servico> findAllByusuarioIdUsuario_idUsuario(Long idUsuario, Pageable pageable);
+
+    public List<Servico> findAllByusuarioIdUsuario_idUsuario(Long idUsuario);
     
     public List<Servico> findAllByusuarioIdUsuario_idUsuarioAndDsSituacaoNot(Long idUsuario, Situacao dsSituacao, Pageable pageable);
     
