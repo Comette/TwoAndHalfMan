@@ -44,51 +44,51 @@ public class ContractService {
     @Autowired
     ClientService userService;
     
-    public DashboardDTO generateDashboardData(Pageable pageable) {
+    public DashboardDTO generateDashboardData(Pageable pageable, Coin presentationCoin) {
         DashboardDTO dashboard = new DashboardDTO();
         {
-            List<ContractDTO> thisMonthPagedContractDTOs = this.getThisMonthPagedContractDTOs(pageable);
+            List<ContractDTO> thisMonthPagedContractDTOs = this.getThisMonthPagedContractDTOs(pageable, presentationCoin);
             dashboard.setThisMonthContractDTOs(thisMonthPagedContractDTOs);
-            dashboard.setNextMonthContractDTOs(this.getNextMonthPagedContractDTOs(pageable));
+            dashboard.setNextMonthContractDTOs(this.getNextMonthPagedContractDTOs(pageable, presentationCoin));
             //TODO: throws exception
             dashboard.setMostExpensiveContract(thisMonthPagedContractDTOs.isEmpty() ? null : thisMonthPagedContractDTOs.get(0));
-            dashboard.setThisMonthAmountExpense(this.getThisMonthAmountExpense());
-            dashboard.setNextMonthAmountExpense(this.getNextMonthAmountExpense());
+            dashboard.setThisMonthAmountExpense(this.getThisMonthAmountExpense(presentationCoin));
+            dashboard.setNextMonthAmountExpense(this.getNextMonthAmountExpense(presentationCoin));
         }
         return dashboard;
     }
     
-    public BigDecimal getThisMonthAmountExpense() {
-        List<ContractDTO> thisMonthContractDTOs = this.getThisMonthContractDTOs(this.getThisMonthContracts());
+    public BigDecimal getThisMonthAmountExpense(Coin presentationCoin) {
+        List<ContractDTO> thisMonthContractDTOs = this.getThisMonthContractDTOs(this.getThisMonthContracts(), presentationCoin);
         BigDecimal thisMonthAmountExpense = this.calculateAmountExpense(thisMonthContractDTOs);
         return thisMonthAmountExpense;
     }
     
-    public BigDecimal getNextMonthAmountExpense() {
-        List<ContractDTO> nextMonthContractDTOs = this.getNextMonthContractDTOs(this.getNextMonthContracts());
+    public BigDecimal getNextMonthAmountExpense(Coin presentationCoin) {
+        List<ContractDTO> nextMonthContractDTOs = this.getNextMonthContractDTOs(this.getNextMonthContracts(), presentationCoin);
         BigDecimal nextMonthAmountExpense = this.calculateAmountExpense(nextMonthContractDTOs);
         return nextMonthAmountExpense;
     }
     
-    public List<ContractDTO> getThisMonthPagedContractDTOs(Pageable pageable) {
-        return this.getThisMonthContractDTOs(this.getThisMonthPagedContracts(pageable));
+    public List<ContractDTO> getThisMonthPagedContractDTOs(Pageable pageable, Coin presentationCoin) {
+        return this.getThisMonthContractDTOs(this.getThisMonthPagedContracts(pageable), presentationCoin);
     }
     
-    public List<ContractDTO> getNextMonthPagedContractDTOs(Pageable pageable) {
-        return this.getNextMonthContractDTOs(this.getNextMonthPagedContracts(pageable));
+    public List<ContractDTO> getNextMonthPagedContractDTOs(Pageable pageable, Coin presentationCoin) {
+        return this.getNextMonthContractDTOs(this.getNextMonthPagedContracts(pageable), presentationCoin);
     }
     
-    public List<ContractDTO> getThisMonthPagedAndFilteredByUserContractDTOs(Long idUser, Pageable pageable) {
-        return this.getThisMonthContractDTOs(this.getThisMonthPagedAndFilteredByUserContracts(idUser, pageable));
+    public List<ContractDTO> getThisMonthPagedAndFilteredByUserContractDTOs(Long idUser, Pageable pageable, Coin presentationCoin) {
+        return this.getThisMonthContractDTOs(this.getThisMonthPagedAndFilteredByUserContracts(idUser, pageable), presentationCoin);
     }
         
-    public List<ContractDTO> getNextMonthPagedAndFilteredByUserContractDTOs(Long idUser, Pageable pageable) {
-        return this.getNextMonthContractDTOs(this.getNextMonthPagedAndFilteredByUserContracts(idUser, pageable));
+    public List<ContractDTO> getNextMonthPagedAndFilteredByUserContractDTOs(Long idUser, Pageable pageable, Coin presentationCoin) {
+        return this.getNextMonthContractDTOs(this.getNextMonthPagedAndFilteredByUserContracts(idUser, pageable), presentationCoin);
     }
     
-    public GraphDTO generateGranphData() {
-        List<ContractDTO> thisMonthContracts = this.getThisMonthContractDTOs(this.getThisMonthContracts());
-        List<ContractDTO> nextMonthContracts = this.getNextMonthContractDTOs(this.getNextMonthContracts());
+    public GraphDTO generateGranphData(Coin presentationCoin) {
+        List<ContractDTO> thisMonthContracts = this.getThisMonthContractDTOs(this.getThisMonthContracts(), presentationCoin);
+        List<ContractDTO> nextMonthContracts = this.getNextMonthContractDTOs(this.getNextMonthContracts(), presentationCoin);
         {
             //TODO: throws exception
             BigDecimal thisMonthAmoutExpense = this.calculateAmountExpense(thisMonthContracts);
@@ -113,9 +113,9 @@ public class ContractService {
         return graphDTO;
     }
     
-    public ContractDTO getContractDTO(Long idContract) {
+    public ContractDTO getContractDTO(Long idContract, Coin presentationCoin) {
         final Map<Coin, BigDecimal> averages = currencyExchangeService.findLastExchangeRate();
-        return this.buildDTO(contractRepository.findOne(idContract), averages);
+        return this.buildDTO(contractRepository.findOne(idContract), averages, presentationCoin);
     }
     
     public Contract saveContract(ContractDTO dto) {
@@ -182,25 +182,25 @@ public class ContractService {
         return amountExpense.setScale(CALC_SCALE, HALF_UP);
     }
     
-    private List<ContractDTO> getThisMonthContractDTOs(List<Contract> contracts) {
+    private List<ContractDTO> getThisMonthContractDTOs(List<Contract> contracts, Coin presentationCoin) {
         final Map<Coin, BigDecimal> averages = currencyExchangeService.findLastExchangeRate();
         List<ContractDTO> contractDTO = new ArrayList<>();
         contracts.stream().forEach((contract) -> {
-            contractDTO.add(this.buildDTO(contract, averages));
+            contractDTO.add(this.buildDTO(contract, averages, presentationCoin));
         });
         return contractDTO;
     }
     
-    private List<ContractDTO> getNextMonthContractDTOs(List<Contract> contracts) {
+    private List<ContractDTO> getNextMonthContractDTOs(List<Contract> contracts, Coin presentationCoin) {
         final Map<Coin, BigDecimal> averages = currencyExchangeService.findLastAverage();
         List<ContractDTO> contractDTO = new ArrayList<>();
         contracts.stream().forEach((contract) -> {
-            contractDTO.add(this.buildDTO(contract, averages));
+            contractDTO.add(this.buildDTO(contract, averages, presentationCoin));
         });
         return contractDTO;
     }
     
-    private ContractDTO buildDTO(Contract contract, Map<Coin, BigDecimal> averages) {
+    private ContractDTO buildDTO(Contract contract, Map<Coin, BigDecimal> averages, Coin presentationCoin) {
         //TODO adicionar exception()nullPointer
         if (contract == null) {
             return null;
