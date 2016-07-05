@@ -20,9 +20,9 @@ var renderizaListaServicos = function ($containerLista, servicos) {
                 .append($('<div>')
                         .append($('<div>').addClass('text-center').attr('style', 'border: 0.2px solid #B0B5B8; border-radius: 0px;')
                                 .append($('<a>').html($('<h5>').addClass('service-name').text(res)).attr('href', '/servico?idContract=' + servico.id))
-                                .append($('<h5>').text(nomeUsuario).attr('style', 'color: #cccccc; font-family: Open Sans, sans-serif;').addClass('word-break'))
-                                .append($('<h6>').text(servico.state).attr('style', 'color: #cccccc;').addClass('word-break'))
-                                .append($('<h5>').addClass('service-value').text(custoMensal)))
+                                .append($('<h5>').text(nomeUsuario).attr('style', 'color: #8c8c8c; font-family: Open Sans, sans-serif;').addClass('word-break'))
+                                .append($('<h6>').text(servico.state).attr('style', 'color: #8c8c8c; font-family: Open Sans, sans-serif;').addClass('word-break'))
+                                .append($('<h5>').addClass('service-value').attr('style', 'font-weight: bold; font-family: Open Sans, sans-serif;').text(custoMensal)))
                         )
 
                 .append($('<div>').attr('style', 'margin-bottom: 30px;')

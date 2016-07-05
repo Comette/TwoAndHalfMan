@@ -247,6 +247,7 @@ public class ContractService {
         }
         {
             ContractValue cValue = this.buildContractValue(contractDTO.getPeriodicity(), contractDTO.getAmountCost(), contractDTO.getCoin());
+            cValue.setContractIdContract(contract);
             contract.setContractValue(cValue);            
         }
         return contract;

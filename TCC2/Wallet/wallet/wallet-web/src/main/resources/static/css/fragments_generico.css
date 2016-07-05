@@ -16,7 +16,7 @@ nav {
 }
 
 .navbar-right {
-    margin-right: 5.72%;
+    margin-right: 20px;
 }
 
 .navbar-collapse {
@@ -80,7 +80,7 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
 
 @media(min-width: 1024px){
     .navbar>.container-fluid .navbar-brand {
-        margin-left: 80px;
+        margin-left: 20px;
         margin-top: -14px;
     }
 }
@@ -165,3 +165,9 @@ a.navbar-brand h6:nth-of-type(2),
 .modal-content .modal-header button.close, #btnPrincipal, #btnCancelar {
     color: white;
 }
+
+#fragments-alert{
+    padding-left: 40px;
+    margin-top: 20px;
+}
+
