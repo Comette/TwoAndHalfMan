@@ -5,6 +5,7 @@ import br.com.crescer.wallet.service.dto.ContractDTO;
 import br.com.crescer.wallet.service.dto.ClientDTO;
 import br.com.crescer.wallet.service.service.ContractService;
 import br.com.crescer.wallet.service.service.ClientService;
+import br.com.crescer.wallet.web.utils.LoggedInUserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,7 @@ public class RegisterController {
             model.addAttribute("usuario", new ClientDTO());
         }
         if(idContract != null && idContract > 0){
-            Coin presentationCoin;
+            Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
             model.addAttribute("servico", contractService.getContractDTO(idContract, presentationCoin));
         }else{
             model.addAttribute("servico", new ContractDTO());

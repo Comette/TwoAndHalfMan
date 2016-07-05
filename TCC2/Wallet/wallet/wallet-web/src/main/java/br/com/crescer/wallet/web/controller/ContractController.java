@@ -42,28 +42,28 @@ public class ContractController {
     @ResponseBody
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public DashboardDTO dashboard(@RequestParam Pageable pageable){ 
-        Coin presentationCoin;
+        Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return service.generateDashboardData(pageable, presentationCoin);
     }
     
     @ResponseBody
     @RequestMapping(value = "/gasto-total-atual", method = RequestMethod.GET)
     public BigDecimal gastoTotalAtual(){
-        
+        Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return service.getThisMonthAmountExpense(presentationCoin);
     }
     
     @ResponseBody
     @RequestMapping(value = "/gasto-total-proximo-mes", method = RequestMethod.GET)
     public BigDecimal gastoTotalProximoMes(){
-        Coin presentationCoin;
+        Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return service.getNextMonthAmountExpense(presentationCoin);
     }
     
     @ResponseBody
     @RequestMapping(value = "/servicos-mes-atual", method = RequestMethod.GET)
     public List<ContractDTO> servicosMesAtual(@RequestParam(required = false) Long idUser, Pageable pageable){
-        Coin presentationCoin;
+        Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return idUser == null || idUser == 0 ? 
                 service.getThisMonthPagedContractDTOs(pageable, presentationCoin) : service.getThisMonthPagedAndFilteredByUserContractDTOs(idUser, pageable, presentationCoin);
     }
@@ -71,7 +71,7 @@ public class ContractController {
     @ResponseBody
     @RequestMapping(value = "/servicos-proximo-mes", method = RequestMethod.GET)
     public List<ContractDTO> servicosProximosMes(@RequestParam(required = false) Long idUser, Pageable pageable){
-        Coin presentationCoin;
+        Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return idUser == null || idUser == 0 ? 
                 service.getNextMonthPagedContractDTOs(pageable, presentationCoin) : service.getNextMonthPagedAndFilteredByUserContractDTOs(idUser, pageable, presentationCoin);
     }
@@ -79,13 +79,13 @@ public class ContractController {
     @ResponseBody
     @RequestMapping( value = "/servicos-inflar-grafico", method = RequestMethod.GET)
     public GraphDTO inflarGrafico(){
-        Coin presentationCoin;
+        Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return service.generateGranphData(presentationCoin);
     }
     
     @RequestMapping( value = "/servico", method = RequestMethod.GET)
     public String getServico(@RequestParam Long idContract, Model model){
-        Coin presentationCoin;
+        Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         ContractDTO contract = service.getContractDTO(idContract, presentationCoin);
         model.addAttribute("servico",contract);
         model.addAttribute("valorServicoFormatado", NumberFormat.getCurrencyInstance().format(contract.getMonthlyExpense()));
@@ -126,7 +126,7 @@ public class ContractController {
     @RequestMapping(value = "/editar-servico", method = RequestMethod.GET)
     public ModelAndView editarServico(@RequestParam Long idContract) {
         if (LoggedInUserUtils.checkIfUserIsAdmin()) {
-            Coin presentationCoin;
+            Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
             ContractDTO dto = service.getContractDTO(idContract, presentationCoin);
             return addAttributesToModel(new ClientDTO(), dto, "servico", "register");
 
