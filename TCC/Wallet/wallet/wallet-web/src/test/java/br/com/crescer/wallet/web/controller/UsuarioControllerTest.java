@@ -2,16 +2,18 @@ package br.com.crescer.wallet.web.controller;
 
 import br.com.crescer.wallet.entity.Permissao;
 import br.com.crescer.wallet.entity.Situacao;
+import br.com.crescer.wallet.security.extensions.UsuarioSessaoUser;
 import br.com.crescer.wallet.service.dto.UsuarioDTO;
 import br.com.crescer.wallet.service.service.UsuarioService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import org.junit.Test;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import static org.mockito.Matchers.any;
@@ -24,13 +26,29 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  *
  * @author DOUGLAS
  */
 @RunWith(MockitoJUnitRunner.class)
+@WebAppConfiguration
 public class UsuarioControllerTest {
+
+    MockHttpSession mockSession;
+
+    WebApplicationContext wac;
+
+    @Mock
+    UserDetails mockUserDetails;
+
+    @Mock
+    UsuarioSessaoUser mockUsuarioSessaoUser;
 
     @Mock
     UsuarioService mockUsuarioServico;
@@ -53,11 +71,21 @@ public class UsuarioControllerTest {
             doReturn(Permissao.GERENTE).when(mockUsuarioDTO).getPermissao();
             doReturn(Situacao.ATIVO).when(mockUsuarioDTO).getSituacao();
         }
+        {
+            InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+            viewResolver.setPrefix("/templates/");
+            viewResolver.setSuffix(".html");
+            mockMvc = MockMvcBuilders.standaloneSetup(usuarioController).setViewResolvers(viewResolver).build();
+            //this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/templates/");
-        viewResolver.setSuffix(".html");
-        mockMvc = MockMvcBuilders.standaloneSetup(usuarioController).setViewResolvers(viewResolver).build();
+        }
+        {
+            doReturn("seila").when(mockUsuarioSessaoUser).getNmUsuario();
+            doReturn("GERENTE").when(mockUsuarioSessaoUser).getUsername();
+            doReturn(1l).when(mockUsuarioSessaoUser).getIdUsuario();
+            doReturn("gerente@gerente.com").when(mockUsuarioSessaoUser).getEmUsuario();
+            doReturn(Permissao.GERENTE).when(mockUsuarioSessaoUser).getPermissao();
+        }
     }
 
     @Test
@@ -107,27 +135,53 @@ public class UsuarioControllerTest {
 
     @Test
     public void testListUsuarios() throws Exception {
-        mockMvc.perform(get("/usuarios"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("usuarios"));
+        {
+            mockMvc.perform(get("/usuarios"))
+                    .andExpect(status().isOk())
+                    .andExpect(view().name("usuarios"));
+        }
     }
 
     @Test
     public void testGetUsuario() throws Exception {
-        
-        doReturn(mockUsuarioDTO).when(mockUsuarioServico).findByIdReturningDTO(any(Long.class));
-        mockMvc.perform(get("/usuario").param("idUsuario", "3"))
+        {
+            doReturn(mockUsuarioDTO).when(mockUsuarioServico).findByIdReturningDTO(any(Long.class));
+            mockMvc.perform(get("/usuario").param("idUsuario", "3"))
+                    .andExpect(status().isOk())
+                    .andExpect(view().name("usuario"));
+
+        }
+    }
+
+    @Test
+    //Testando cadastro com erro
+    public void testSalvarUsuario() throws Exception {
+        UsuarioDTO dto = new UsuarioDTO();
+        dto.setId(1l);
+        dto.setNome("douglas");
+        dto.setEmail("teste@teste.com");
+        dto.setUsername("DOUGLAS");
+        dto.setSenha("12345567");
+        dto.setPermissao(Permissao.ADMINISTRADOR);
+
+        when(mockUsuarioServico.salvarUsuario(any(UsuarioDTO.class))).thenReturn(dto);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/salvar-usuario")
+                .param("usuarioDTO", "dto"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("usuario"));
+                .andExpect(view().name("cadastro"));
+
     }
 
     @Test
-    public void testSalvarUsuario() {
- 
-    }
-
-    @Test
-    public void testInativarUsuario() {
+    public void testInativarUsuario() throws Exception {
+        UsuarioDTO dto = new UsuarioDTO();
+        dto.setId(1l);
+        doReturn(false).when(mockUsuarioServico).inativarUsuario(dto.getId());
+        mockMvc.perform(MockMvcRequestBuilders.post("/inativar-usuario")
+                .param("idUsuario", "1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"));
     }
 
     @Test

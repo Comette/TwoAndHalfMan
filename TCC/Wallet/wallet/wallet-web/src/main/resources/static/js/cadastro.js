@@ -14,7 +14,6 @@ var tabManager = function () {
 };
 
 var checkEditionMode = function(){
-    debugger;
     var idClient = $('#id-usuario').val();
     if(idClient !== null && idClient > 0){
         $('#txtSenha').hide();

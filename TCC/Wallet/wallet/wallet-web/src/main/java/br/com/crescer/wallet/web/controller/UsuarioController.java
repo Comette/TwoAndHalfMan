@@ -74,11 +74,16 @@ public class UsuarioController {
     @ResponseBody
     @RequestMapping(value = "/inativar-usuario", method = RequestMethod.POST)
     public boolean inativarUsuario(@RequestParam Long idUsuario) {
-        if (LoggedInUserUtils.checkIfUserIsAdmin() && servicoService.countServicosByUsuarioId(idUsuario) > 0) {
-            servicoService.cancelarServicosByIdUsuario(idUsuario);
-            return usuarioService.inativarUsuario(idUsuario);
-        } else {
-            return usuarioService.inativarUsuario(idUsuario);
+        try {
+            if (LoggedInUserUtils.checkIfUserIsAdmin() && servicoService.countServicosByUsuarioId(idUsuario) > 0) {
+                servicoService.cancelarServicosByIdUsuario(idUsuario);
+                return usuarioService.inativarUsuario(idUsuario);
+            } else {
+                return usuarioService.inativarUsuario(idUsuario);
+            }
+        } catch (NullPointerException e) {
+            e.getMessage();
+            return false;
         }
     }
 
@@ -86,9 +91,7 @@ public class UsuarioController {
     public ModelAndView editarUsuario(@RequestParam Long idUsuario) {
         UsuarioDTO dto = usuarioService.findByIdReturningDTO(idUsuario);
         if (LoggedInUserUtils.checkIfUserIsAdmin()) {
-
             return addAttributesToModel(dto, new ServicoDTO(), "usuario", "cadastro");
-            
         } else {
 
             ModelAndView model = new ModelAndView();

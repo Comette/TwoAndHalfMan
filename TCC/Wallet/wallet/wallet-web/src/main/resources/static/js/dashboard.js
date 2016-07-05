@@ -42,60 +42,6 @@ var listaServicosProximoMes;
 var roleUsuarioLogado = $('#role-usuario-logado').val();
 var $servicoMaisCaro = $('#servico-mais-caro');
 
-//
-//var renderizaListaServicos = function ($containerLista, servicos) {
-//    $.each(servicos, function (i, servico) {
-//        var res = servico.nome.length > 13 ? servico.nome.substring(0, 11) + '...' : servico.nome;
-//        if (servico.situacao === 'CANCELADO') {
-//            var $btnDelete = $('<button>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').attr('value', servico.id).addClass('disabled')
-//                    .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true));
-//            var $btnEdit = $('<button>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').addClass('disabled').attr('action', '/editar-servico?idServico=' + servico.id)
-//                    .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true));
-//        } else {
-//            var $btnDelete = $('<button>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').attr('value', servico.id)
-//                    .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true));
-//            var $btnEdit = $('<button>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').attr('action', '/editar-servico?idServico=' + servico.id)
-//                    .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true));
-//
-//        }
-//
-//        if (roleUsuarioLogado === 'ADMINISTRADOR') {
-//            containerLista.find('#services-container-list').append(
-//                    $('<section>').fadeIn(400).addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
-//                    .append($('<div>')
-//                            .append($('<div>').addClass('text-center').attr('style', 'border: 1px solid #e6e6e6; border-radius: 0px;')
-//                                    .append($('<a>').html($('<h5>').addClass('service-name').text(servico.nome)).attr('href', '/servico?idServico=' + servico.id))
-//                                    .append($('<h5>').text("(" + servico.nomeUsuarioResponsavel + ")").addClass("word-break"))
-//                                    .append($('<h5>').text("(" + servico.situacao + ")"))
-//                                    .append($('<h5>').addClass('service-value').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
-//                                    )
-//                            .append($('<div>').attr('style', 'margin-bottom: 30px;')
-//                                    .append($btnEdit)
-//                                    .append($btnDelete)
-//                                    )
-//                            )
-//                    );
-//        } else if (roleUsuarioLogado === 'GERENTE') {
-//
-//            containerLista.find('#services-container-list').append(
-//                    $('<section>').fadeIn(400).addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
-//                    .append($('<div>')
-//                            .append($('<div>').addClass('text-center').attr('style', 'border: 1px solid #e6e6e6; border-radius: 0px;')
-//                                    .append($('<a>').html($('<h5>').addClass('service-name').text(servico.nome)).attr('href', '/servico?idServico=' + servico.id))
-//                                    .append($('<h5>').text("(" + servico.nomeUsuarioResponsavel + ")").addClass("word-break"))
-//                                    .append($('<h5>').text("(" + servico.situacao + ")"))
-//                                    .append($('<h5>').addClass('service-value').text(accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",")))
-//                                    )
-//                            .append($('<div>').attr('style', 'margin-bottom: 30px;')
-//                                    .append($btnEdit.addClass('disabled'))
-//                                    )
-//                            .append($btnDelete.addClass('disabled'))
-//
-//                            )
-//                    );
-//        }
-//    });
-//};
 var getDadosDashboard = function () {
     $.ajax({
         url: "/dashboard?page=0",
@@ -203,7 +149,7 @@ function buscaGerentes() {
 }
 
 $formAtual.submit(function (e) {
-    var idGerente = $formProximoSelect.val();
+    var idGerente = $formAtualSelect.val();
     paginaAtualEsteMesFiltrado = -1;
     filtroAtual = idGerente;
     limparContainer($containerMesAtual.find('#services-container-list'));
