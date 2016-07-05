@@ -167,8 +167,12 @@ a.navbar-brand h6:nth-of-type(2),
 }
 
 #fragments-alert{
+    background-color: #B0B5B6;
+    color: #434343;
     padding-left: 40px;
     margin-top: 20px;
+    border-radius: 0;
+    box-shadow: 0px 0px 3px #FBAF41;
 }
 
 #select-gerentes {

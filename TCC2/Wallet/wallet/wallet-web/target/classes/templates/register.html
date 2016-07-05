@@ -74,6 +74,7 @@
                     <form class="form-horizontal" th:object="${usuario}" th:action="@{/salvar-usuario}" method="POST" id="form-usuario">
                         <input id="id-usuario" type="hidden" th:field="*{id}"/>
                         <input type="hidden" th:field="*{state}"/>
+                        <input type="hidden" th:field="*{preferredCoin}"/>
                         <div class="form-group col-md-12">
                             <input id="txtNomeUsuario" th:field="*{name}" type="text" class="form-control" placeholder="Nome"/>
                             <p class="error-message" th:if="${#fields.hasErrors('name')}">Nome vazio ou maior que 255 caracteres!</p>
@@ -89,10 +90,10 @@
                             </div>
                             <div class="form-group col-md-5 form-padding">
                                 <label class="radio-inline">
-                                    <input type="radio" th:field="*{permission}" value="ADMINISTRADOR"/>ADMINISTRADOR
+                                    <input type="radio" th:field="*{permission}" value="ADMINISTRATOR"/>ADMINISTRADOR
                                 </label>
                                 <label id="ultima-permissao" class="radio-inline">
-                                    <input type="radio" th:field="*{permission}" value="GERENTE"/>GERENTE
+                                    <input type="radio" th:field="*{permission}" value="MANAGER"/>GERENTE
                                 </label>
                                 <p class="error-message" th:if="${#fields.hasErrors('permission')}">Selecione uma Permissão!</p>
                             </div>

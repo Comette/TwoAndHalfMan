@@ -3,6 +3,7 @@ package br.com.crescer.wallet.service.service;
 import br.com.crescer.wallet.entity.util.Permission;
 import static br.com.crescer.wallet.entity.util.State.*;
 import br.com.crescer.wallet.entity.entity.Client;
+import br.com.crescer.wallet.entity.util.Coin;
 import br.com.crescer.wallet.service.dto.ClientDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class ClientService {
                 found.setDsUserName(dto.getUsername());
                 found.setNmClient(dto.getName());
                 found.setTpPermission(dto.getPermission());
-                found.setDsPreferredCoin(dto.getPreferredCoin());
+                found.setDsPreferredCoin(dto.getPreferredCoin() != null ? dto.getPreferredCoin() : Coin.BRL);
                 return new ClientDTO(repository.save(found));
             }
             Client client = dto.buildClient();
