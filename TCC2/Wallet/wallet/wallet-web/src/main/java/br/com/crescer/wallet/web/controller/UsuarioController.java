@@ -1,7 +1,7 @@
 package br.com.crescer.wallet.web.controller;
 
 import br.com.crescer.wallet.service.dto.ContractDTO;
-import br.com.crescer.wallet.service.dto.UsuarioDTO;
+import br.com.crescer.wallet.service.dto.ClientDTO;
 import br.com.crescer.wallet.service.service.ClientService;
 import java.util.List;
 import javax.validation.Valid;
@@ -28,12 +28,12 @@ public class UsuarioController {
 
     @ResponseBody
     @RequestMapping(value = "/buscar-gerentes-ativos", method = RequestMethod.GET)
-    public List<UsuarioDTO> getGerentesAtivos() {
+    public List<ClientDTO> getGerentesAtivos() {
         return service.findAllActiveReturningDTOs();
     }
     @ResponseBody
     @RequestMapping(value = "/buscar-todos-gerentes", method = RequestMethod.GET)
-    public List<UsuarioDTO> getGerentesQualquerStatus() {
+    public List<ClientDTO> getGerentesQualquerStatus() {
         return service.findAllReturningDTOs();
     }
 
@@ -49,7 +49,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/salvar-usuario", method = RequestMethod.POST)
-    public ModelAndView salvarUsuario(@ModelAttribute("usuario") @Valid UsuarioDTO usuarioDTO, BindingResult result) {
+    public ModelAndView salvarUsuario(@ModelAttribute("usuario") @Valid ClientDTO usuarioDTO, BindingResult result) {
         if (result.hasErrors()) {
             ModelAndView model = new ModelAndView();
             model.addObject("usuario", usuarioDTO);
@@ -58,12 +58,12 @@ public class UsuarioController {
             model.setViewName("cadastro");
             return model;
         } else {
-            UsuarioDTO retornado = service.salvarUsuario(usuarioDTO);
+            ClientDTO retornado = service.saveClient(usuarioDTO);
             ModelAndView model = new ModelAndView();
             model.setViewName("gerentes");
             model.addObject("sucesso",
                     retornado != null
-                            ? "Usuário " + usuarioDTO.getNome() + " cadastrado com sucesso!"
+                            ? "Usuário " + usuarioDTO.getName() + " cadastrado com sucesso!"
                             : "Desculpe-nos, aconteceu algum erro e o usuário não pôde ser cadastrado.");
             return model;
         }

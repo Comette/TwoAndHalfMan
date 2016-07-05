@@ -13,13 +13,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  *
  * @author Hedo
  */
-public class UsuarioDTO {
+public class ClientDTO {
 
     private Long id;
 
     @NotEmpty
     @Length(max = 255)
-    private String nome;
+    private String name;
 
     @Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
     @NotEmpty
@@ -32,31 +32,31 @@ public class UsuarioDTO {
 
     @NotEmpty
     @Length(min = 8, max = 255)
-    private String senha;
+    private String password;
 
     @NotNull
-    private Permission permissao;
+    private Permission permission;
     
-    private State situacao;
+    private State state;
 
-    public UsuarioDTO() {
+    public ClientDTO() {
     }
 
-    public UsuarioDTO(Client usuario) {
-        this.id = usuario.getIdClient();
-        this.nome = usuario.getNmClient();
-        this.email = usuario.getDsEmail();
-        this.username = usuario.getDsUserName();
-        this.senha = usuario.getDsPassword();
-        this.permissao = usuario.getTpPermission();
+    public ClientDTO(Client client) {
+        this.id = client.getIdClient();
+        this.name = client.getNmClient();
+        this.email = client.getDsEmail();
+        this.username = client.getDsUserName();
+        this.password = client.getDsPassword();
+        this.permission = client.getTpPermission();
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -83,42 +83,42 @@ public class UsuarioDTO {
         this.username = username;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Permission getPermissao() {
-        return permissao;
+    public Permission getPermission() {
+        return permission;
     }
 
-    public void setPermissao(Permission permissao) {
-        this.permissao = permissao;
+    public void setPermission(Permission permission) {
+        this.permission = permission;
     }
 
-    public State getSituacao() {
-        return situacao;
+    public State getState() {
+        return state;
     }
 
-    public void setSituacao(State situacao) {
-        this.situacao = situacao;
+    public void setState(State state) {
+        this.state = state;
     }
     
     public Client buildUsuario() {
         Client user = new Client();
         user.setDsEmail(email);
-        user.setDsPassword(Criptografar(senha));
+        user.setDsPassword(Encode(password));
         user.setDsState(State.ACTIVE);
         user.setDsUserName(username);
-        user.setNmClient(nome);
-        user.setTpPermission(permissao);
+        user.setNmClient(name);
+        user.setTpPermission(permission);
         return user;
     }
 
-    private String Criptografar(String senha) {
+    private String Encode(String senha) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(senha);
 
