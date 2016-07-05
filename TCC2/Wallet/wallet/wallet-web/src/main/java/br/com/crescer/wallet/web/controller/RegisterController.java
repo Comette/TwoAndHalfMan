@@ -37,7 +37,7 @@ public class RegisterController {
             model.addAttribute("servico", new ContractDTO());
         }        
         model.addAttribute("tab", (tab != null ? tab : "nenhuma"));
-        model.addAttribute("usuariosCadastrados", userService.findAllReturningDTOs());
+        model.addAttribute("usuariosCadastrados", userService.findAllActiveReturningDTOs());
         return "register";
     }
 }
