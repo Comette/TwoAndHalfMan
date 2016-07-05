@@ -42,7 +42,7 @@ public class UsuarioService {
     }
 
     public List<UsuarioDTO> findAllReturningDTOs() {
-        try{
+        try {
             List<UsuarioDTO> list = new ArrayList<>();
             repository.findAll().stream().map((u) -> {
                 return buildDTO(u);
@@ -50,18 +50,26 @@ public class UsuarioService {
                 list.add(dto);
             });
             return list;
-        }catch(NullPointerException e){
-            LOG.info(e.getMessage());
+        } catch (NullPointerException e) {
+            LOG.error(e.getMessage());
             return null;
         }
     }
 
     public UsuarioDTO salvarUsuario(UsuarioDTO dto) {
         try {
+            if(dto.getId() != null && dto.getId() > 0){
+                Usuario cadastrado = repository.findOne(dto.getId());
+                cadastrado.setDsEmail(dto.getEmail());
+                cadastrado.setDsUserName(dto.getUsername());
+                cadastrado.setNmUsuario(dto.getNome());
+                cadastrado.setTpPermissao(dto.getPermissao());
+                return new UsuarioDTO(repository.save(cadastrado));
+            }
             Usuario user = dto.buildUsuario();
             return new UsuarioDTO(repository.save(user));
         } catch (NullPointerException e) {
-            LOG.info(e.getMessage());
+            LOG.error(e.getMessage());
             return null;
         }
 
@@ -99,10 +107,10 @@ public class UsuarioService {
 
     public boolean checkUsernameAvailability(String username, long id) {
         Usuario usuario = repository.findOne(id);
-        if(usuario == null){
+        if (usuario == null) {
             return repository.findUsuarioByDsUserName(username) == null;
-        }else{
-            return usuario.getDsUserName().equals(username) ? true : repository.findUsuarioByDsUserName(username) == null;                       
-        }        
+        } else {
+            return usuario.getDsUserName().equals(username) ? true : repository.findUsuarioByDsUserName(username) == null;
+        }
     }
 }

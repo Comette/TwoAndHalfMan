@@ -10,22 +10,12 @@ $(function () {
         allowZero: false
     });
 
-    $('#slMoeda').change(function () {
-        var self = $(this);
-        $('#numValorTotal').maskMoney({
-            thousands: '.',
-            decimal: ',',
-            allowZero: false,
-            suffix: ' ' + self.val()
-        });
-    });
-
     jQuery.validator.addMethod("checkSelect", function (value, element) {
         return (value === '0' || value === 0) ? false : true;
     }, "Selecione uma opção válida!");
 
     jQuery.validator.addMethod("checkEmail", function (value, element) {
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$/;
         return regex.test(value);
     }, "Email inválido!");
     
@@ -33,6 +23,17 @@ $(function () {
         var regex = /https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
         return regex.test(value);
     }, "Website inválido!");
+    
+    jQuery.validator.addMethod("checkPassword", function (value, element) {
+        var findIdClient = function(){return $('#id-usuario').val();};
+        var idClient = findIdClient();
+        if(idClient > 0){
+            return true;
+        }else{
+            debugger;
+            return (value.length > 7 && value.length < 255);
+        }
+    }, "Senha muito curta!");
     
     $formServico.validate({
         rules: {
@@ -132,12 +133,9 @@ $(function () {
                 required: true
             },
             senha: {
-                required: true,
-                minlength: 8,
-                maxlength: 255
+                checkPassword: true
             },
             confirmacaoSenha: {
-                required: true,
                 equalTo: '#txtSenha'
             }
         },
