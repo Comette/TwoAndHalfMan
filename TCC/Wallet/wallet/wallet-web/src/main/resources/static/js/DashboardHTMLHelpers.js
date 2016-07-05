@@ -20,11 +20,12 @@ var renderizaListaServicos = function ($containerLista, servicos) {
         
         
         $lista.append(
-                $('<section>').fadeIn(400).addClass('col-md-6').addClass('single-service-container').addClass('list-group-item').attr('style', servico.situacao === 'ATIVO' ? 'background-color: rgba(251,175,65,0.3);' : 'background-color: rgba(67,67,67,0.3);')
+                $('<section>').fadeIn(400).addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
                 .append($('<div>')
                         .append($('<div>').addClass('text-center').attr('style', 'border: 0.2px solid #B0B5B8; border-radius: 0px;')
                                 .append($('<a>').html($('<h5>').addClass('service-name').text(res)).attr('href', '/servico?idServico=' + servico.id))
-                                .append($('<h5>').text(servico.nomeUsuarioResponsavel))
+                                .append($('<h5>').text(servico.nomeUsuarioResponsavel).attr('style','color: #434343; font-family: Open Sans, sans-serif;').addClass('word-break'))
+                                .append($('<h6>').text(servico.situacao).attr('style','color: #777777;').addClass('word-break'))
                                 .append($('<h5>').addClass('service-value').text(custoMensal)))
                         )
                 

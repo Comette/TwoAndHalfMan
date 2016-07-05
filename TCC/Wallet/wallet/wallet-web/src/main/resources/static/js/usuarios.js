@@ -14,7 +14,7 @@ function appendarUsuariosNaLista(usuarios, $lista) {
         var $buttonExcluir = $('<button class="btn btn-danger glyphicon glyphicon-remove" name="btn-excluir-gerente" value="' + usuario.id + '">');
         var $small = $('<small>').text('( ' + usuario.permissao + ' ) ').attr('style', 'font-weight: bold; margin-left: 10px;');
         var $btnEditar = $('<a class="btn btn-warning glyphicon glyphicon-pencil" name="btn-editar-gerente" href="/editar-usuario?idUsuario=' + usuario.id + '">');
-        var $h4 = $('<h4>').text(usuario.nome);
+        var $h4 = $('<h4>').text(usuario.username);
 
         if (usuario.situacao === 'INATIVO')
             $lista.append($listGroup.append($btnEditar).append($h4).append($small));
