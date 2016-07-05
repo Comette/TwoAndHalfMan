@@ -37,7 +37,7 @@ public class CadastroController {
             model.addAttribute("servico", new ServicoDTO());
         }        
         model.addAttribute("guia", "nenhum");
-        model.addAttribute("usuariosCadastrados", usuarioService.findAllReturningDTOs());
+        model.addAttribute("usuariosCadastrados", usuarioService.findAllActiveReturningDTOs());
         return "cadastro";
     }
 }

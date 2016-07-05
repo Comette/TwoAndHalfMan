@@ -57,7 +57,7 @@ public class UsuarioController {
     @RequestMapping(value = "/salvar-usuario", method = RequestMethod.POST)
     public ModelAndView salvarUsuario(@ModelAttribute("usuario") @Valid UsuarioDTO usuarioDTO, BindingResult result) {
         if (result.hasErrors()) {
-            return addAttributesToModel(usuarioDTO, new ServicoDTO(), "usuario", "cadastro");
+            return addAttributesToModel(usuarioDTO, new ServicoDTO(), "usuario", "cadastro",false);
         } else {
 
             UsuarioDTO retornado = usuarioService.salvarUsuario(usuarioDTO);
@@ -75,7 +75,7 @@ public class UsuarioController {
     @RequestMapping(value = "/inativar-usuario", method = RequestMethod.POST)
     public boolean inativarUsuario(@RequestParam Long idUsuario) {
         if (LoggedInUserUtils.checkIfUserIsAdmin() && servicoService.countServicosByUsuarioId(idUsuario) > 0) {
-            servicoService.cancelarServicos(idUsuario);
+            servicoService.cancelarServicosByIdUsuario(idUsuario);
             return usuarioService.inativarUsuario(idUsuario);
         } else {
             return usuarioService.inativarUsuario(idUsuario);
@@ -87,8 +87,8 @@ public class UsuarioController {
         UsuarioDTO dto = usuarioService.findByIdReturningDTO(idUsuario);
         if (LoggedInUserUtils.checkIfUserIsAdmin()) {
 
-            return addAttributesToModel(dto, new ServicoDTO(), "usuario", "cadastro");
-
+            return addAttributesToModel(dto, new ServicoDTO(), "usuario", "cadastro", true);
+            
         } else {
 
             ModelAndView model = new ModelAndView();
@@ -101,17 +101,17 @@ public class UsuarioController {
 
     @RequestMapping(value = "/check-username", method = RequestMethod.GET)
     @ResponseBody
-    public boolean checkUsername(@RequestParam String username) {
-        return usuarioService.checkUsernameAvailability(username);
+    public boolean checkUsername(@RequestParam String username, @RequestParam long id) {
+        return usuarioService.checkUsernameAvailability(username, id);
     }
 
-    private ModelAndView addAttributesToModel(UsuarioDTO userDTO, ServicoDTO serviceDTO, String targetNavTab, String viewName) {
+    private ModelAndView addAttributesToModel(UsuarioDTO userDTO, ServicoDTO serviceDTO, String targetNavTab, String viewName, boolean ehEdicao) {
         ModelAndView model = new ModelAndView();
         model.addObject("usuario", userDTO);
         model.addObject("servico", serviceDTO);
         model.addObject("guia", targetNavTab);
+        model.addObject("ehEdicao", ehEdicao);
         model.setViewName(viewName);
-
         return model;
     }
 }

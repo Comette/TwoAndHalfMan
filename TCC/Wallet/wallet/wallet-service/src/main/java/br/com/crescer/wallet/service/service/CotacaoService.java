@@ -6,6 +6,7 @@ package br.com.crescer.wallet.service.service;
 
 import br.com.crescer.wallet.entity.Cotacao;
 import br.com.crescer.wallet.entity.Moeda;
+import static br.com.crescer.wallet.entity.Moeda.*;
 import br.com.crescer.wallet.service.repository.CotacaoRepository;
 import static br.com.crescer.wallet.service.service.ServiceUtils.CALC_SCALE;
 import br.com.crescer.wallet.service.webservice.Rates;
@@ -15,7 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import static java.math.RoundingMode.HALF_EVEN;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -41,13 +42,25 @@ public class CotacaoService implements InitializingBean {
     @Autowired
     CotacaoRepository repository;
 
-    public Cotacao findLastExchangeRate() {
+    public Map<Moeda, BigDecimal> findLastExchangeRate() {
+        Map<Moeda, BigDecimal> currency = new HashMap<>();        
         Cotacao cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(LocalDate.now());
         if (cotacao == null) {
             LocalDate today = LocalDate.now();
             cotacao = repository.findFirstByDtCotacaoOrderByIdCotacaoDesc(today.plusDays(-1));
         }
-        return cotacao;
+        {
+            currency.put(USD, BigDecimal.ONE);
+            currency.put(BRL, cotacao.getDsCotacaoReal());
+            currency.put(GBP, cotacao.getDsCotacaoLibra());
+            currency.put(EUR, cotacao.getDsCotacaoEuro());
+            currency.put(AUD, cotacao.getDsCotacaoDollarAutraliano());
+            currency.put(CAD, cotacao.getDsCotacaoDollarCanadense());
+            currency.put(JPY, cotacao.getDsCotacaoYen());
+            currency.put(CHF, cotacao.getDsCotacaoFrancoSuico());            
+            currency.put(CNY, cotacao.getDsCotacaoYuan());
+        }        
+        return currency;
     }
 
     public BigDecimal findLastCurrencyAverage(Moeda moeda) {
@@ -59,49 +72,49 @@ public class CotacaoService implements InitializingBean {
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoEuro)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE, HALF_EVEN);
                 break;
             case "BRL":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoReal)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,HALF_EVEN);
                 break;
             case "JPY":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoYen)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,HALF_EVEN);
                 break;
             case "GBP":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoLibra)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,HALF_EVEN);
                 break;
             case "AUD":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoDollarAutraliano)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,HALF_EVEN);
                 break;
             case "CAD":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoDollarCanadense)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,HALF_EVEN);
                 break;
             case "CHF":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoFrancoSuico)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,HALF_EVEN);
                 break;
             case "CNY":
                 average = cotacoes.stream()
                         .map(Cotacao::getDsCotacaoYuan)
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,RoundingMode.HALF_UP);
+                        .divide(BigDecimal.valueOf(cotacoes.size()),CALC_SCALE,HALF_EVEN);
                 break;
             case "USD":
                 average = BigDecimal.ONE;
@@ -124,40 +137,40 @@ public class CotacaoService implements InitializingBean {
             averages.put(Moeda.BRL, cotacoes.stream()
                     .map(Cotacao::getDsCotacaoReal)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+                    .divide(totalCotacoes, CALC_SCALE, HALF_EVEN));
             averages.put(Moeda.EUR, cotacoes.stream()
                     .map(Cotacao::getDsCotacaoEuro)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+                    .divide(totalCotacoes, CALC_SCALE, HALF_EVEN));
             averages.put(Moeda.JPY, cotacoes.stream()
                     .map(Cotacao::getDsCotacaoYen)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+                    .divide(totalCotacoes, CALC_SCALE, HALF_EVEN));
             averages.put(Moeda.GBP, cotacoes.stream()
                     .map(Cotacao::getDsCotacaoLibra)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+                    .divide(totalCotacoes, CALC_SCALE, HALF_EVEN));
             averages.put(Moeda.AUD, cotacoes.stream()
                     .map(Cotacao::getDsCotacaoDollarAutraliano)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+                    .divide(totalCotacoes, CALC_SCALE, HALF_EVEN));
             averages.put(Moeda.CAD, cotacoes.stream()
                     .map(Cotacao::getDsCotacaoDollarCanadense)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+                    .divide(totalCotacoes, CALC_SCALE, HALF_EVEN));
             averages.put(Moeda.CHF, cotacoes.stream()
                     .map(Cotacao::getDsCotacaoFrancoSuico)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+                    .divide(totalCotacoes, CALC_SCALE, HALF_EVEN));
             averages.put(Moeda.CNY, cotacoes.stream()
                     .map(Cotacao::getDsCotacaoYuan)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    .divide(totalCotacoes, CALC_SCALE, RoundingMode.HALF_UP));
+                    .divide(totalCotacoes, CALC_SCALE, HALF_EVEN));
             averages.put(Moeda.USD, BigDecimal.ONE);
         }
         return averages;
     }
-
+    
     public void databaseIntegrityAgent() {
         LocalDate today = LocalDate.now();
         LocalDate verificationDay;

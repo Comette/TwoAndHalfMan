@@ -7,8 +7,9 @@ package br.com.crescer.wallet.service.dto;
 import br.com.crescer.wallet.entity.Moeda;
 import br.com.crescer.wallet.entity.Periodicidade;
 import br.com.crescer.wallet.entity.Situacao;
+import static br.com.crescer.wallet.service.service.ServiceUtils.CALC_SCALE;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import static java.math.RoundingMode.HALF_EVEN;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
@@ -108,7 +109,7 @@ public class ServicoDTO {
     }
 
     public void setPorcentagemCustoTotal(BigDecimal gastoTotal) {
-        BigDecimal porcentCustoTotal = this.custoMensal.multiply(BigDecimal.valueOf(100)).divide(gastoTotal, 6, RoundingMode.HALF_UP);
+        BigDecimal porcentCustoTotal = this.custoMensal.multiply(BigDecimal.valueOf(100)).divide(gastoTotal, CALC_SCALE, HALF_EVEN);
         this.porcentagemCustoTotal = porcentCustoTotal;
     }    
 

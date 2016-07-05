@@ -27,7 +27,7 @@ public class UsuarioDTO {
     private String email;
 
     @NotEmpty
-    @Length(max = 255)
+    @Length(max = 30)
     private String username;
 
     @NotEmpty
@@ -109,9 +109,10 @@ public class UsuarioDTO {
     
     public Usuario buildUsuario() {
         Usuario user = new Usuario();
+        user.setIdUsuario(id == null ? 0 : id);
         user.setDsEmail(email);
         user.setDsSenha(Criptografar(senha));
-        user.setDsSituacao(Situacao.ATIVO);
+        user.setDsSituacao(situacao != null ? situacao : Situacao.ATIVO);
         user.setDsUserName(username);
         user.setNmUsuario(nome);
         user.setTpPermissao(permissao);

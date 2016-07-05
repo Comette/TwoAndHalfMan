@@ -11,10 +11,8 @@ import br.com.crescer.wallet.service.dto.GraficoDTO;
 import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.repository.ServicoRepository;
 import static br.com.crescer.wallet.service.service.ServiceUtils.CALC_SCALE;
-import static br.com.crescer.wallet.service.service.ServiceUtils.PRES_SCALE;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import static java.math.RoundingMode.HALF_UP;
+import static java.math.RoundingMode.HALF_EVEN;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +43,7 @@ public class ServicoService {
     public DashboardDTO geraDadosDashboard(Pageable pageable) {
         DashboardDTO dashboard = new DashboardDTO();
         {
+            //TODO: EXCEPTION
             List<ServicoDTO> servicosDTOMesAtualPaginados = this.getServicosDTOMesAtualPaginados(pageable);
             dashboard.setServicosMesAtual(servicosDTOMesAtualPaginados);
             dashboard.setServicosProximoMes(this.getServicosDTOProximoMesPaginados(pageable));
@@ -56,38 +55,38 @@ public class ServicoService {
     }
     
     public BigDecimal getGastoTotalAtual() {
-        List<ServicoDTO> servicosDTOMesAtual = this.getServicosDTO(this.servicosMesAtual());
+        List<ServicoDTO> servicosDTOMesAtual = this.getServicosDTOMesAtual(this.servicosMesAtual());
         BigDecimal gastoTotalAtual = this.calculaGastoTotalMes(servicosDTOMesAtual);
         return gastoTotalAtual;
     }
     
     public BigDecimal getGastoTotalProximoMes() {
-        List<ServicoDTO> servicosDTOProximoMes = this.getServicosDTO(this.servicosProximoMes());
+        List<ServicoDTO> servicosDTOProximoMes = this.getServicosDTOProximoMes(this.servicosProximoMes());
         BigDecimal gastoTotalProximoMes = this.calculaGastoTotalMes(servicosDTOProximoMes);
         return gastoTotalProximoMes;
     }
     
     public List<ServicoDTO> getServicosDTOMesAtualPaginados(Pageable pageable) {
-        return this.getServicosDTO(this.servicosMesAtualPaginados(pageable));
+        return this.getServicosDTOMesAtual(this.servicosMesAtualPaginados(pageable));
     }
     
     public List<ServicoDTO> getServicosDTOProximoMesPaginados(Pageable pageable) {
-        return this.getServicosDTO(this.servicosProximoMesPaginados(pageable));
+        return this.getServicosDTOProximoMes(this.servicosProximoMesPaginados(pageable));
     }
     
     public List<ServicoDTO> getServicosDTOMesAtualFiltradosPorGerentePaginados(Long idGerente, Pageable pageable) {
         pageable = new PageRequest(pageable.getPageNumber(), PAGE_SIZE, Sort.Direction.DESC, "vlMensalUSD");
-        return this.getServicosDTO(this.servicosMesAtualPaginadosFiltradosPorGerente(idGerente, pageable));
+        return this.getServicosDTOMesAtual(this.servicosMesAtualPaginadosFiltradosPorGerente(idGerente, pageable));
     }
     
     public List<ServicoDTO> getServicosDTOProximoMesFiltradosPorGerentePaginados(Long idGerente, Pageable pageable) {
         pageable = new PageRequest(pageable.getPageNumber(), PAGE_SIZE, Sort.Direction.DESC, "vlMensalUSD");
-        return this.getServicosDTO(this.servicosProximoMesPaginadosFiltradosPorGerente(idGerente, pageable));
+        return this.getServicosDTOProximoMes(this.servicosProximoMesPaginadosFiltradosPorGerente(idGerente, pageable));
     }
     
     public GraficoDTO getDadosGraficoServicos() {
-        List<ServicoDTO> servicosDesteMes = this.getServicosDTO(this.servicosMesAtual());
-        List<ServicoDTO> servicosProximoMes = this.getServicosDTO(this.servicosProximoMes());
+        List<ServicoDTO> servicosDesteMes = this.getServicosDTOMesAtual(this.servicosMesAtual());
+        List<ServicoDTO> servicosProximoMes = this.getServicosDTOProximoMes(this.servicosProximoMes());
         {
             BigDecimal gastoTotalMesAtual = this.calculaGastoTotalMes(servicosDesteMes);
             if (gastoTotalMesAtual != null) {
@@ -111,12 +110,7 @@ public class ServicoService {
     }
     
     public ServicoDTO getServicoDTO(Long idServico) {
-        final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
-        return this.buildDTO(repository.findOne(idServico), medias);
-    }
-    
-    public ServicoDTO findOneDTOById(Long idServico) {
-        final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
+        final Map<Moeda, BigDecimal> medias = cotacaoService.findLastExchangeRate();
         Servico s = repository.findOne(idServico);
         return this.buildDTO(s, medias);
     }
@@ -132,20 +126,20 @@ public class ServicoService {
             repository.save(s);
             return true;
         } catch (Exception e) {
+            //TODO: EXCEPTION 
             return false;
         }
     }
     
     public long countServicosByUsuarioId(Long idUsuario) {
-        return repository.countByUsuarioIdUsuario_idUsuario(idUsuario);
+        return repository.countByUsuarioIdUsuario_idUsuarioAndDsSituacao(idUsuario, Situacao.ATIVO);
     }
     
-    public void cancelarServicos(Long idUsuario) {
+    public void cancelarServicosByIdUsuario(Long idUsuario) {
         List<Servico> servicos = repository.findAllByusuarioIdUsuario_idUsuario(idUsuario);
         servicos.stream().forEach((servico) -> {
             servico.setDsSituacao(Situacao.CANCELADO);
-        });
-        
+        });        
         repository.save(servicos);
     }
     
@@ -180,12 +174,21 @@ public class ServicoService {
     private BigDecimal calculaGastoTotalMes(List<ServicoDTO> servicosDTO) {
         BigDecimal gastoTotal = BigDecimal.ZERO;
         for (ServicoDTO servico : servicosDTO) {
-            gastoTotal = gastoTotal.add(servico.getCustoMensal()).setScale(PRES_SCALE, RoundingMode.HALF_UP);
+            gastoTotal = gastoTotal.add(servico.getCustoMensal());
         }
-        return gastoTotal;
+        return gastoTotal.setScale(CALC_SCALE, HALF_EVEN);
     }
     
-    private List<ServicoDTO> getServicosDTO(List<Servico> servicos) {
+    private List<ServicoDTO> getServicosDTOMesAtual(List<Servico> servicos) {
+        final Map<Moeda, BigDecimal> medias = cotacaoService.findLastExchangeRate();
+        List<ServicoDTO> servicosDTO = new ArrayList<>();
+        servicos.stream().forEach((servico) -> {
+            servicosDTO.add(this.buildDTO(servico, medias));
+        });
+        return servicosDTO;
+    }
+    
+    private List<ServicoDTO> getServicosDTOProximoMes(List<Servico> servicos) {
         final Map<Moeda, BigDecimal> medias = cotacaoService.findLastAverage();
         List<ServicoDTO> servicosDTO = new ArrayList<>();
         servicos.stream().forEach((servico) -> {
@@ -206,9 +209,9 @@ public class ServicoService {
             BigDecimal taxa = medias.get(BRL);
             
             vlrCusto = servico.getVlTotalServico()
-                    .divide(periodicidade, CALC_SCALE, HALF_UP)
-                    .divide(media, CALC_SCALE, HALF_UP)
-                    .multiply(taxa).setScale(PRES_SCALE, HALF_UP);
+                    .divide(periodicidade, CALC_SCALE, HALF_EVEN)
+                    .divide(media, CALC_SCALE, HALF_EVEN)
+                    .multiply(taxa).setScale(CALC_SCALE, HALF_EVEN);
         }
         ServicoDTO servicoDTO = new ServicoDTO();
         {
@@ -244,7 +247,7 @@ public class ServicoService {
             
             servico.setVlMensalUSD(this.calculaGastoMensalUSD(servicoDTO.getPeriodicidade(), servicoDTO.getValorTotal(), servicoDTO.getMoeda()));
             
-            if (servico.getDsSituacao() == null) {
+            if (servicoDTO.getSituacao() == null) {
                 servico.setDsSituacao(Situacao.ATIVO);
             } else {
                 servico.setDsSituacao(servicoDTO.getSituacao());
@@ -255,8 +258,8 @@ public class ServicoService {
     
     private BigDecimal calculaGastoMensalUSD(Periodicidade periodicidade, BigDecimal valorTotal, Moeda moedaOriginal) {
         BigDecimal mensalUSD = valorTotal
-                .divide(BigDecimal.valueOf(periodicidade.getNumeral()), CALC_SCALE, HALF_UP)
-                .divide(cotacaoService.findLastCurrencyAverage(moedaOriginal), CALC_SCALE, HALF_UP);
+                .divide(BigDecimal.valueOf(periodicidade.getNumeral()), CALC_SCALE, HALF_EVEN)
+                .divide(cotacaoService.findLastCurrencyAverage(moedaOriginal), CALC_SCALE, HALF_EVEN);
         return mensalUSD;
     }
     

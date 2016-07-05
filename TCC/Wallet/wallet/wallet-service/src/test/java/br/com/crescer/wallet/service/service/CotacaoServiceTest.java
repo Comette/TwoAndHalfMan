@@ -2,6 +2,7 @@ package br.com.crescer.wallet.service.service;
 
 import br.com.crescer.wallet.entity.Cotacao;
 import br.com.crescer.wallet.entity.Moeda;
+import static br.com.crescer.wallet.entity.Moeda.BRL;
 import br.com.crescer.wallet.service.repository.CotacaoRepository;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -63,7 +64,7 @@ public class CotacaoServiceTest {
         doReturn(mockCotacao).when(repository).findFirstByDtCotacaoOrderByIdCotacaoDesc(any(LocalDate.class));
 
         assertFalse(service.findLastExchangeRate() == null);
-        assertEquals(BigDecimal.TEN, service.findLastExchangeRate().getDsCotacaoReal());
+        assertEquals(BigDecimal.TEN, service.findLastExchangeRate().get(BRL));
     }
 
     /**

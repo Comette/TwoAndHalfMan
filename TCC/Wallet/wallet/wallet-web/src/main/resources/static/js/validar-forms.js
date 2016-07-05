@@ -4,6 +4,21 @@ var $formServico = $('#form-servico');
 var $formUsuario = $('#form-usuario');
 
 $(function () {
+    $('#numValorTotal').maskMoney({
+        thousands: '.',
+        decimal: ',',
+        allowZero: false
+    });
+
+    $('#slMoeda').change(function () {
+        var self = $(this);
+        $('#numValorTotal').maskMoney({
+            thousands: '.',
+            decimal: ',',
+            allowZero: false,
+            suffix: ' ' + self.val()
+        });
+    });
 
     jQuery.validator.addMethod("checkSelect", function (value, element) {
         return (value === '0' || value === 0) ? false : true;
@@ -13,7 +28,12 @@ $(function () {
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         return regex.test(value);
     }, "Email inválido!");
-
+    
+    jQuery.validator.addMethod("checkWebsite", function (value, element) {
+        var regex = /https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+        return regex.test(value);
+    }, "Website inválido!");
+    
     $formServico.validate({
         rules: {
             nome: {
@@ -22,7 +42,8 @@ $(function () {
                 maxlength: 255
             },
             webSite: {
-                required: true,
+                required: true,                
+                checkWebsite: true,
                 minlength: 1,
                 maxlength: 255
             },
@@ -41,7 +62,7 @@ $(function () {
             },
             valorTotal: {
                 required: true,
-                min: 0
+                minlength: 0
             },
             idUsuarioResponsavel: {
                 required: true,
@@ -57,7 +78,7 @@ $(function () {
             webSite: {
                 required: "O campo website é obrigatório.",
                 minlength: "O tamanho mínimo é de 1.",
-                maxlength: "O tamanho máximo é de 255."
+                maxlength: "O tamanho máximo é de 255."                
             },
             periodicidade: {
                 required: "Selecione uma periodicidade"
@@ -79,6 +100,9 @@ $(function () {
             }
         },
         submitHandler: function ($formServico) {
+            var $input = $('#numValorTotal');
+            var novoValor = $input.maskMoney('unmasked')[0].toString();
+            $input.val(novoValor);
             $formServico.submit();
         }
     });
@@ -90,20 +114,18 @@ $(function () {
                 minlength: 1,
                 maxlength: 255
             },
-            email: {//TODO REGEX EMAIL
+            email: {
                 required: true,
                 checkEmail: true
             },
             username: {
                 required: true,
                 minlength: 1,
-                maxlength: 255,
+                maxlength: 30,
                 remote: {
                     url: "/check-username",
                     type: "GET",
-                    data: {username: function () {
-                            return $('#txtUserName').val();
-                        }}
+                    data: {username: function(){return $('#txtUserName').val();}, id: function(){return $('#id-usuario').val() || 0;}}
                 }
             },
             permissao: {
@@ -131,8 +153,8 @@ $(function () {
             username: {
                 required: "O campo usuário é obrigatório.",
                 minlength: "O tamanho mínimo é de 1.",
-                maxlength: "O tamanho máximo é de 255.",
-                remote: "O usuário informado já está sendo utilizado."
+                maxlength: "O tamanho máximo é de 30.",
+                remote: "Esse username já está sendo utilizado!"
             },
             permissao: {
                 required: "Selecione uma permissao!"

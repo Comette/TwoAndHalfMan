@@ -9,6 +9,7 @@ import br.com.crescer.wallet.entity.Periodicidade;
 import br.com.crescer.wallet.entity.Servico;
 import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.entity.Usuario;
+import br.com.crescer.wallet.service.dto.ServicoDTO;
 import br.com.crescer.wallet.service.repository.ServicoRepository;
 import java.math.BigDecimal;
 import static java.math.RoundingMode.HALF_UP;
@@ -45,18 +46,20 @@ public class ServicoServiceTest {
     @Mock
     private CotacaoService cotacaoService;
     @Mock
+    private UsuarioService usuarioService;
+    @Mock
     private Servico mockServico;
     @Mock
     private Servico mockServico2;
     @Mock
     private Usuario mockUsuario;
-
     @InjectMocks
     private ServicoService service;
-
     @Mock
-    Map<Moeda, BigDecimal> medias;
-
+    private Map<Moeda, BigDecimal> medias;
+    @Mock
+    private ServicoDTO mockServicoDTO;
+    
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
@@ -69,8 +72,10 @@ public class ServicoServiceTest {
     public void setUp() {
         {// MOCK MEDIAS(MOEDA)
             doReturn(medias).when(cotacaoService).findLastAverage();
+            doReturn(medias).when(cotacaoService).findLastExchangeRate();
             doReturn(BigDecimal.TEN).when(medias).get(Moeda.BRL);
             doReturn(BigDecimal.ONE).when(medias).get(Moeda.USD);
+            doReturn(BigDecimal.TEN).when(cotacaoService).findLastCurrencyAverage(any(Moeda.class));
         }
         {// MOCK USUARIO
             doReturn("usuario").when(mockUsuario).getNmUsuario();
@@ -98,6 +103,16 @@ public class ServicoServiceTest {
             doReturn(Moeda.USD).when(mockServico2).getDsSimboloMoeda();
             doReturn(Periodicidade.MENSAL).when(mockServico2).getDsPeriodicidade();
             doReturn(BigDecimal.valueOf(50)).when(mockServico2).getVlTotalServico();
+        }
+        {//MOCK SERVICODTO 
+            doReturn(1l).when(mockServicoDTO).getId();
+            doReturn("servico").when(mockServicoDTO).getNome();
+            doReturn("meusite.com").when(mockServicoDTO).getWebSite();
+            doReturn(Periodicidade.MENSAL).when(mockServicoDTO).getPeriodicidade();
+            doReturn("descricao").when(mockServicoDTO).getDescricao();
+            doReturn(Moeda.AUD).when(mockServicoDTO).getMoeda();
+            doReturn(BigDecimal.TEN).when(mockServicoDTO).getCustoMensal();
+            doReturn(BigDecimal.TEN).when(mockServicoDTO).getValorTotal();
         }
     }
 
@@ -279,5 +294,32 @@ public class ServicoServiceTest {
             doReturn(null).when(repository).findOne(any(Long.class));
             assertNull(service.getServicoDTO(1l));
         }
+    }
+    
+    @Test
+    public void testSalvarServico() {
+        {
+            doReturn(mockServico).when(repository).save(any(Servico.class));
+            doReturn(mockUsuario).when(usuarioService).findById(any(Long.class));
+            
+            assertEquals(mockServico.getNmServico(), service.salvarServico(mockServicoDTO).getNmServico());
+            assertEquals(mockServico.getDsSimboloMoeda(), service.salvarServico(mockServicoDTO).getDsSimboloMoeda());
+            assertEquals(mockServico.getDsDescricao(), service.salvarServico(mockServicoDTO).getDsDescricao());
+            assertEquals(mockServico.getDsPeriodicidade(), service.salvarServico(mockServicoDTO).getDsPeriodicidade());
+        }
+    }
+    
+    @Test
+    public void testCancelarServico() {
+        doReturn(mockServico).when(repository).findOne(any(Long.class));
+        
+        assertTrue(service.cancelarServico(1l));
+    }
+    
+    @Test
+    public void testCountServicosByUsuarioId(){
+        doReturn(1l).when(repository).countByUsuarioIdUsuario_idUsuarioAndDsSituacao(any(Long.class), any(Situacao.class));
+        
+        assertEquals(1l,service.countServicosByUsuarioId(1l));
     }
 }
