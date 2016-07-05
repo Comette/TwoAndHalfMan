@@ -223,6 +223,7 @@ public class ContractService {
             contractDTO.setWebSite(contract.getDsWebsite());
             contractDTO.setDescription(contract.getDsDescription());
             contractDTO.setPeriodicity(contract.getContractValue().getDsPeriodicity());
+            contractDTO.setState(contract.getDsState());
             contractDTO.setCoin(contract.getContractValue().getDsCoin());
             contractDTO.setAmountCost(contract.getContractValue().getVlAmountContractValue());
             contractDTO.setMonthlyExpense(monthlyExpense);

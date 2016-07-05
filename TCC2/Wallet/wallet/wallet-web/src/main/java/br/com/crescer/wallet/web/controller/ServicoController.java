@@ -81,7 +81,7 @@ public class ServicoController {
         ContractDTO contract = service.getContractDTO(idContract);
         model.addAttribute("servico",contract);
         model.addAttribute("valorServicoFormatado", NumberFormat.getCurrencyInstance().format(contract.getMonthlyExpense()));
-        return "servico"; 
+        return "contract"; 
     }
 
     @RequestMapping( value = "/salvar-servico", method = RequestMethod.POST)    
@@ -90,8 +90,8 @@ public class ServicoController {
             ModelAndView model = new ModelAndView();
             model.addObject("usuario", new ClientDTO());
             model.addObject("servico", contractDTO);
-            model.addObject("guia", "servico");
-            model.setViewName("cadastro");
+            model.addObject("tag", "servico");
+            model.setViewName("register");
             return model;        
         }else {
             Contract returned = service.saveContract(contractDTO);
@@ -115,12 +115,12 @@ public class ServicoController {
         }
     }
 
-    @RequestMapping(value = "/editar-servico", method = RequestMethod.POST)
-    public ModelAndView editarServico(@RequestParam Long idServico) {
+    @RequestMapping(value = "/editar-servico", method = RequestMethod.GET)
+    public ModelAndView editarServico(@RequestParam Long idContract) {
         if (LoggedInUserUtils.checkIfUserIsAdmin()) {
-            ContractDTO dto = service.getContractDTO(idServico);
+            ContractDTO dto = service.getContractDTO(idContract);
 
-            return addAttributesToModel(new ClientDTO(), dto, "servico", "cadastro");
+            return addAttributesToModel(new ClientDTO(), dto, "servico", "register");
 
         } else {
             ModelAndView model = new ModelAndView();
@@ -141,7 +141,7 @@ public class ServicoController {
         ModelAndView model = new ModelAndView();
         model.addObject("usuario", userDTO);
         model.addObject("servico", servicoDTO);
-        model.addObject("guia", targetNavTab);
+        model.addObject("tag", targetNavTab);
         model.setViewName(targetViewName);
         model.addObject("usuariosCadastrados", clientService.findAllActiveReturningDTOs());
         return model;

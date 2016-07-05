@@ -41,8 +41,7 @@ var $servicoMaisCaro = $('#servico-mais-caro');
 var getDadosDashboard = function () {
     AJAXgetByUrl("/dashboard?page=0").done(function (dados) {
         limparContainer($servicoMaisCaro);
-        debugger;
-        $servicoMaisCaro.append($('<a>').html($('<h1>').attr('style', 'display: inline; color: #FBAF41; font-weight: bold;').text(dados.mostExpensiveContract.name)).attr('href', '/servico?idServico=' + dados.mostExpensiveContract.id))
+        $servicoMaisCaro.append($('<a>').html($('<h1>').attr('style', 'display: inline; color: #FBAF41; font-weight: bold;').text(dados.mostExpensiveContract.name)).attr('href', '/servico?idContract=' + dados.mostExpensiveContract.id))
                 .append($('<h1>').attr('style', 'display: inline; color: #434343; font-weight: bold;').text(" - " + accounting.formatMoney(dados.mostExpensiveContract.monthlyExpense, "R$ ", 2, ".", ",")));
 
         $gastoTotalMesAtual.text(accounting.formatMoney(dados.thisMonthAmountExpense, "R$ ", 2, ".", ","));
