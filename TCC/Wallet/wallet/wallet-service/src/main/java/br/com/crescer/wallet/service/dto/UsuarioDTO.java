@@ -3,6 +3,7 @@ package br.com.crescer.wallet.service.dto;
 import br.com.crescer.wallet.entity.Permissao;
 import br.com.crescer.wallet.entity.Situacao;
 import br.com.crescer.wallet.entity.Usuario;
+import br.com.crescer.wallet.service.validators.EditPassword;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  *
  * @author Hedo
  */
+@EditPassword
 public class UsuarioDTO {
 
     private Long id;
@@ -30,8 +32,8 @@ public class UsuarioDTO {
     @Length(max = 30)
     private String username;
 
-    @NotEmpty
-    @Length(min = 8, max = 255)
+//    @NotEmpty
+//    @Length(min = 8, max = 255)
     private String senha;
 
     @NotNull
