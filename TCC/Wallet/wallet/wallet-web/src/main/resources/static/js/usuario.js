@@ -1,8 +1,8 @@
 'use strict';
 $(function () {
-    adicionarOnClickExcluir($('.btn-excluir-gerente'));
+    adicionarOnClickExcluir($('.btn-excluir-gerente'), 'USUARIO');
     $('#btnPrincipal').click(function () {
-        chamarExclusao($(this), true);
+        chamarExclusao($(this), 'USUARIO');
     });
 });
 

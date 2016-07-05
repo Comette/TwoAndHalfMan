@@ -1,5 +1,6 @@
+'use strict';
 
-function renderizarGrafico($container, listaServicos) {
+var renderizarGrafico = function($container, listaServicos) {
     var labels = [];
     var data = [];
     var colors = [];
@@ -34,16 +35,12 @@ function renderizarGrafico($container, listaServicos) {
             responsive: true
         }
     });
-}
+};
 
-function buscarDadosEChamarGraficos($container1, $container2) {
-    debugger;
+var buscarDadosEChamarGraficos = function($container1, $container2) {
     
-    $.ajax({
-        url: '/servicos-inflar-grafico',
-        type: 'GET'
-    }).done(function (data) {
+    AJAXgetByUrl('/servicos-inflar-grafico').done(function (data) {
         renderizarGrafico($container1, data.servicosDesteMes);
         renderizarGrafico($container2, data.servicosProximoMes);
     });
-}
+};

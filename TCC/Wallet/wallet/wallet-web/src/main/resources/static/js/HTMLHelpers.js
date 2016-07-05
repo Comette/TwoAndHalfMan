@@ -1,6 +1,7 @@
 'use strict';
 //geral
 var roleUsuarioLogado = $('#role-usuario-logado').val();
+
 var renderizaListaServicos = function ($containerLista, servicos) {
     {
         var res;
@@ -48,27 +49,43 @@ var limparContainer = function ($container) {
     $container.html('');
 };
 
-var adicionarOnClickExcluir =  function($btn) {
+var adicionarOnClickExcluir = function ($btn, entidade) {
     $btn.on("click", function (e) {
         var btnExclusao = $('#btnPrincipal');
         btnExclusao.val(parseInt($(this).val()));
+        var texto;
+        if (entidade === 'USUARIO') {
+            texto = 'Deseja realmente inativar este usuário? Qualquer serviço supervisionado por ele será cancelado.';
+        } else
+            texto = 'Deseja realmente cancelar este serviço?';
 
-        $.ajax({
-            url: '/count-servicos-by-usuario',
-            type: 'GET',
-            data: {
-                idUsuario: btnExclusao.val()
-            }
-        }).done(function (data) {
-            var texto =
-                    data > 0 ? 'Este usuário tem serviços ativos em sua supervisão. Se inativá-lo, os serviços aos quais ele gerencia serão cancelados.' :
-                    'Deseja realmente inativar este usuário?';
-
-            alterarModal(texto, 'Inativar', false, 'Inativar');
-            $('#modalCoringa').modal('show');
-        });
-
+        alterarModal(texto, 'Confirmar ação', false, 'Confirmar');
+        mostrarModal();
         e.preventDefault();
     });
 };
 
+var mostrarModal = function () {
+    $('#modalCoringa').modal('show');
+};
+
+var chamarExclusao = function ($button, entidade) {
+    var idObjetoAtual = parseInt($button.val());
+
+    var values = entidade === 'USUARIO' ? {idUsuario: idObjetoAtual} : {idServico: idObjetoAtual};
+    excluirEntidade(values, entidade);
+};
+
+var excluirEntidade = function (values, entidade) {
+    var url = entidade === 'USUARIO' ? '/inativar-usuario' : '/cancelar-servico';
+
+    AJAXPost(url, values).done(function () {
+        if (typeof getDadosDashboard() === 'undefined' || typeof fazerRequestUsuarios() === 'undefined') {
+            alterarModal('Operação concluída com sucesso!', 'Sucesso', true, '');
+            mostrarModal();
+        } else
+            entidade === 'USUARIO' ? fazerRequestUsuarios() : getDadosDashboard();
+            alterarModal('Operação concluída com sucesso!', 'Sucesso', true, '');
+            mostrarModal();
+    });
+};

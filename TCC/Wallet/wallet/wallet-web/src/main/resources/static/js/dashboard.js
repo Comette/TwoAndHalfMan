@@ -36,31 +36,35 @@ var $formProximoSelect = $('#formFiltrarProximo select');
 //listagem
 var listaServicosProximoMes;
 //GERAL
-var roleUsuarioLogado = $('#role-usuario-logado').val();
 var $servicoMaisCaro = $('#servico-mais-caro');
 
 var getDadosDashboard = function () {
-    $.ajax({
-        url: "/dashboard?page=0",
-        type: "GET"
-    }).done(function (dados) {
+    AJAXgetByUrl("/dashboard?page=0").done(function (dados) {
         limparContainer($servicoMaisCaro);
+        debugger;
         $servicoMaisCaro.append($('<a>').html($('<h1>').attr('style', 'display: inline; color: #FBAF41; font-weight: bold;').text(dados.servicoMaisCaroContratado.nome)).attr('href', '/servico?idServico=' + dados.servicoMaisCaroContratado.id))
                 .append($('<h1>').attr('style', 'display: inline; color: #434343; font-weight: bold;').text(" - " + accounting.formatMoney(dados.servicoMaisCaroContratado.custoMensal, "R$ ", 2, ".", ",")));
+
         $gastoTotalMesAtual.text(accounting.formatMoney(dados.gastoTotalAtual, "R$ ", 2, ".", ","));
         $gastoTotalProximoMes.text(accounting.formatMoney(dados.gastoTotalProximoMes, "R$ ", 2, ".", ","));
+
         listaServicosMesAtual = dados.servicosMesAtual;
+        listaServicosProximoMes = dados.servicosProximoMes;
+
         limparContainer($containerMesAtual.find('#services-container-list'));
         toggleBtnVerMais('Ver Mais', $verMaisServicosMesAtual, true);
         renderizaListaServicos($containerMesAtual, listaServicosMesAtual);
+
         limparContainer($containerProximoMes.find('#services-container-list'));
         toggleBtnVerMais('Ver Mais', $verMaisServicosProximoMes, true);
-        listaServicosProximoMes = dados.servicosProximoMes;
         renderizaListaServicos($containerProximoMes, listaServicosProximoMes);
-        adicionarOnClickExcluirServico($('.service-delete-btn'));
+
+        adicionarOnClickExcluir($('.service-delete-btn'), 'SERVICO');
+
         setarOnClickBotoesVerMais();
+
         $('#btnPrincipal').click(function () {
-            chamarExclusao($(this), false);
+            chamarExclusao($(this), 'SERVICO');
         });
     });
 };
@@ -92,27 +96,74 @@ var setarOnClickBotoesVerMais = function () {
     });
 };
 
+var formSubmit = function ($form, $formSelect, $container, $btnVerMais, paginaAtualFiltrado, mes) {
+    $form.submit(function (e) {
+        debugger;
+        var idGerente = $formSelect.val();
+        paginaAtualFiltrado = -1;
+        filtroAtual = idGerente;
+        limparContainer($container.find('#services-container-list'));
+        toggleBtnVerMais('Ver mais', $btnVerMais, true);
+        getProxPaginaServicos($container, mes, filtroAtual, $btnVerMais);
+        e.preventDefault();
+    });
+};
 
 {
-    $formAtual.submit(function (e) {
-        var idGerente = $formAtualSelect.val();
-        paginaAtualEsteMesFiltrado = -1;
-        filtroAtual = idGerente;
-        limparContainer($containerMesAtual.find('#services-container-list'));
-        $verMaisServicosMesAtual.removeClass('disabled');
-        $verMaisServicosMesAtual.text('Ver mais');
-        getProxPaginaServicos($containerMesAtual, 'ATUAL', filtroAtual, $verMaisServicosMesAtual);
-        e.preventDefault();
-    });
-    $formProximo.submit(function (e) {
-        var idGerente = $formProximoSelect.val();
-        paginaAtualProximoMesFiltrado = -1;
-        filtroProximoMes = idGerente;
-        limparContainer($containerProximoMes.find('#services-container-list'));
-        $verMaisServicosProximoMes.removeClass('disabled');
-        $verMaisServicosProximoMes.text('Ver mais');
-        getProxPaginaServicos($containerProximoMes, 'PROXIMO', filtroProximoMes, $verMaisServicosProximoMes);
-        e.preventDefault();
-    });
+    formSubmit($formAtual,$formAtualSelect,$containerMesAtual,$verMaisServicosMesAtual, paginaAtualEsteMesFiltrado, 'ATUAL');
+    formSubmit($formProximo,$formProximoSelect,$containerProximoMes,$verMaisServicosProximoMes,paginaAtualProximoMesFiltrado, 'PROXIMO');
+//    $formAtual.submit(function (e) {
+//        var idGerente = $formAtualSelect.val();
+//        paginaAtualEsteMesFiltrado = -1;
+//        filtroAtual = idGerente;
+//        limparContainer($containerMesAtual.find('#services-container-list'));
+//        toggleBtnVerMais('Ver mais', $verMaisServicosMesAtual, true);
+//        getProxPaginaServicos($containerMesAtual, 'ATUAL', filtroAtual, $verMaisServicosMesAtual);
+//        e.preventDefault();
+//    });
+//    $formProximo.submit(function (e) {
+//        var idGerente = $formProximoSelect.val();
+//        paginaAtualProximoMesFiltrado = -1;
+//        filtroProximoMes = idGerente;
+//        limparContainer($containerProximoMes.find('#services-container-list'));
+//        toggleBtnVerMais('Ver mais', $verMaisServicosProximoMes, true);
+//        getProxPaginaServicos($containerProximoMes, 'PROXIMO', filtroProximoMes, $verMaisServicosProximoMes);
+//        e.preventDefault();
+//    });
 }
 
+var getProxPaginaServicos = function ($container, mes, filtroAtual, $verMaisAtual) {
+    var url = verificaURL(mes, filtroAtual);
+    AJAXgetByUrl(url).done(function (data) {
+        if (typeof data === 'string') {
+            location.reload();
+        } else {
+            if (data.length < 4) {
+                toggleBtnVerMais('Não existem mais serviços.', $verMaisAtual, false);
+            }
+            renderizaListaServicos($container, data);
+            adicionarOnClickExcluir($('.service-delete-btn'), 'SERVICO');
+        }
+    });
+};
+
+var verificaURL = function (mes, filtroAtual) {
+    if (mes === 'ATUAL') {
+        return filtroAtual !== null ?
+                '/servicos-mes-atual?idUsuario=' + filtroAtual + '&page=' + ++paginaAtualEsteMesFiltrado
+                : '/servicos-mes-atual?page=' + ++paginaAtualEsteMesFiltrado;
+    } else if (mes === 'PROXIMO') {
+        return filtroAtual !== null ?
+                '/servicos-proximo-mes?idUsuario=' + filtroAtual + '&page=' + ++paginaAtualProximoMesFiltrado
+                : '/servicos-proximo-mes?page=' + ++paginaAtualProximoMesFiltrado;
+    }
+};
+
+var buscaGerentes = function () {
+    AJAXgetByUrl('/buscar-usuarios-ativos').done(function (data) {
+        $.each(data, function (i, gerenteDTO) {
+            $formAtualSelect.append($('<option>').val(gerenteDTO.id).text(gerenteDTO.nome));
+            $formProximoSelect.append($('<option>').val(gerenteDTO.id).text(gerenteDTO.nome));
+        });
+    });
+};

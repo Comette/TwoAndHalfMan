@@ -1,8 +1,8 @@
 'use strict';
 $(function () {
-    adicionarOnClickExcluir($('.btn-desativar-servico'));
+    adicionarOnClickExcluir($('.btn-desativar-servico'),'SERVICO');
     $('#btnPrincipal').click(function () {
-        chamarExclusao($(this), false);
+        chamarExclusao($(this), 'SERVICO');
     });
 });
 
