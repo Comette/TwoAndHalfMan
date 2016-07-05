@@ -70,6 +70,16 @@ public class CurrencyExchangeService implements InitializingBean {
         return averages;
     }
 
+    public Map<Coin, BigDecimal> findLastExchangeRate() {
+        LocalDate today = LocalDate.now();
+        List<CurrencyExchange> currencyExchanges = currencyExchangeRepository.findByDtCurrencyExchange(today);
+        Map<Coin, BigDecimal> averages = new HashMap<>();
+        currencyExchanges.stream().forEach((currencyExchange) -> {
+            averages.put(currencyExchange.getDsCoin(), currencyExchange.getVlRate());
+        });
+        return averages;
+    }
+
     public void databaseIntegrityAgent() {
         LocalDate today = LocalDate.now();
         LocalDate verificationDay;
@@ -137,7 +147,7 @@ public class CurrencyExchangeService implements InitializingBean {
         List<CurrencyExchange> list = new ArrayList<>();
 
         for (Field field : rate.getClass().getDeclaredFields()) {
-             // if you want to modify private fields
+            // if you want to modify private fields
             try {
                 field.setAccessible(true);
                 Coin coin = Coin.valueOf(field.getName());
@@ -156,7 +166,7 @@ public class CurrencyExchangeService implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         this.databaseIntegrityAgent();
     }
-    
+
     @Scheduled(cron = "0 20 18 1/1 * ?")
     public void findClosureExchangeRate() {
         this.databaseIntegrityAgent();

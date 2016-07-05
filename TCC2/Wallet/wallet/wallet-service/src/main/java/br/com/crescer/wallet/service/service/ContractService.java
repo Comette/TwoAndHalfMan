@@ -59,36 +59,36 @@ public class ContractService {
     }
     
     public BigDecimal getThisMonthAmountExpense() {
-        List<ContractDTO> thisMonthContractDTOs = this.getContractDTOs(this.getThisMonthContracts());
+        List<ContractDTO> thisMonthContractDTOs = this.getThisMonthContractDTOs(this.getThisMonthContracts());
         BigDecimal thisMonthAmountExpense = this.calculateAmountExpense(thisMonthContractDTOs);
         return thisMonthAmountExpense;
     }
     
     public BigDecimal getNextMonthAmountExpense() {
-        List<ContractDTO> nextMonthContractDTOs = this.getContractDTOs(this.getNextMonthContracts());
+        List<ContractDTO> nextMonthContractDTOs = this.getNextMonthContractDTOs(this.getNextMonthContracts());
         BigDecimal nextMonthAmountExpense = this.calculateAmountExpense(nextMonthContractDTOs);
         return nextMonthAmountExpense;
     }
     
     public List<ContractDTO> getThisMonthPagedContractDTOs(Pageable pageable) {
-        return this.getContractDTOs(this.getThisMonthPagedContracts(pageable));
+        return this.getThisMonthContractDTOs(this.getThisMonthPagedContracts(pageable));
     }
     
     public List<ContractDTO> getNextMonthPagedContractDTOs(Pageable pageable) {
-        return this.getContractDTOs(this.getNextMonthPagedContracts(pageable));
+        return this.getNextMonthContractDTOs(this.getNextMonthPagedContracts(pageable));
     }
     
     public List<ContractDTO> getThisMonthPagedAndFilteredByUserContractDTOs(Long idUser, Pageable pageable) {
-        return this.getContractDTOs(this.getThisMonthPagedAndFilteredByUserContracts(idUser, pageable));
+        return this.getThisMonthContractDTOs(this.getThisMonthPagedAndFilteredByUserContracts(idUser, pageable));
     }
         
     public List<ContractDTO> getNextMonthPagedAndFilteredByUserContractDTOs(Long idUser, Pageable pageable) {
-        return this.getContractDTOs(this.getNextMonthPagedAndFilteredByUserContracts(idUser, pageable));
+        return this.getNextMonthContractDTOs(this.getNextMonthPagedAndFilteredByUserContracts(idUser, pageable));
     }
     
     public GraphDTO generateGranphData() {
-        List<ContractDTO> thisMonthContracts = this.getContractDTOs(this.getThisMonthContracts());
-        List<ContractDTO> nextMonthContracts = this.getContractDTOs(this.getNextMonthContracts());
+        List<ContractDTO> thisMonthContracts = this.getThisMonthContractDTOs(this.getThisMonthContracts());
+        List<ContractDTO> nextMonthContracts = this.getNextMonthContractDTOs(this.getNextMonthContracts());
         {
             //TODO: throws exception
             BigDecimal thisMonthAmoutExpense = this.calculateAmountExpense(thisMonthContracts);
@@ -114,13 +114,37 @@ public class ContractService {
     }
     
     public ContractDTO getContractDTO(Long idContract) {
-        final Map<Coin, BigDecimal> averages = currencyExchangeService.findLastAverage();
+        final Map<Coin, BigDecimal> averages = currencyExchangeService.findLastExchangeRate();
         return this.buildDTO(contractRepository.findOne(idContract), averages);
     }
     
     public Contract saveContract(ContractDTO dto) {
         return contractRepository.save(this.buildContract(dto));
     }
+        
+    public boolean cancelContract(Long idContract){
+        try {
+            Contract contract = contractRepository.findOne(idContract);
+            contract.setDsState(CANCELED);
+            contractRepository.save(contract);
+            return true;
+        } catch (Exception e) {
+            //TODO: EXCEPTION 
+            return false;
+        }
+    }
+        
+    public long countServicosByUsuarioId(Long idClient) {
+        return contractRepository.countByClientIdClient_idClientAndDsState(idClient, ACTIVE);
+    }
+    
+    public void cancelContractByIdClient(Long idClient){
+        List<Contract> contracts = contractRepository.findByClientIdClient_idClient(idClient);
+        contracts.stream().forEach((contract) -> {
+            contract.setDsState(CANCELED);
+        });        
+        contractRepository.save(contracts);
+    }    
     
     private List<Contract> getThisMonthContracts() {
         return contractRepository.findByDsStateNot(INACTIVE);
@@ -158,7 +182,16 @@ public class ContractService {
         return amountExpense.setScale(CALC_SCALE, HALF_UP);
     }
     
-    private List<ContractDTO> getContractDTOs(List<Contract> contracts) {
+    private List<ContractDTO> getThisMonthContractDTOs(List<Contract> contracts) {
+        final Map<Coin, BigDecimal> averages = currencyExchangeService.findLastExchangeRate();
+        List<ContractDTO> contractDTO = new ArrayList<>();
+        contracts.stream().forEach((contract) -> {
+            contractDTO.add(this.buildDTO(contract, averages));
+        });
+        return contractDTO;
+    }
+    
+    private List<ContractDTO> getNextMonthContractDTOs(List<Contract> contracts) {
         final Map<Coin, BigDecimal> averages = currencyExchangeService.findLastAverage();
         List<ContractDTO> contractDTO = new ArrayList<>();
         contracts.stream().forEach((contract) -> {

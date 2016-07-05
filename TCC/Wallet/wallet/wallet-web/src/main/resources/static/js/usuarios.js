@@ -22,41 +22,4 @@ function appendarUsuariosNaLista(usuarios, $lista) {
             $lista.append($listGroup.append($btnEditar).append($h4).append($buttonExcluir).append($small));
     });
 }
-
-function adicionarOnClickExcluir($btn) {
-    $btn.on("click", function (e) {
-        var btnExclusao = $('#btnPrincipal');
-        btnExclusao.val(parseInt($(this).val()));
-
-        $.ajax({
-            url: '/count-servicos-by-usuario',
-            type: 'GET',
-            data: {
-                idUsuario: btnExclusao.val()
-            }
-        }).done(function (data) {
-            var texto =
-                    data > 0 ? 'Este usuário tem serviços em sua supervisão. Se inativá-lo, os serviços aos quais ele gerencia serão cancelados.' :
-                    'Deseja realmente inativar este usuário?';
-
-            alterarModal(texto, 'Inativar', false,'Inativar');
-            $('#modalCoringa').modal('show');
-        });
-
-        e.preventDefault();
-    });
-}
 ;
-
-
-function checarSeUsuarioTemServicos(idUsuario) {
-    $.ajax({
-        url: '/count-servicos-by-usuario',
-        type: 'GET',
-        data: {
-            idUsuario: idUsuario
-        }
-    }).done(function (data) {
-        return data;
-    });
-}

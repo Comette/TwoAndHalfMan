@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="https://www.thymeleaf.org">
     <head>
-        <title th:text="${user.name} + ' | Onde está Wallet?'"/>
+        <title th:text="${usuario.name} + ' | Onde está Wallet?'"/>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
@@ -14,19 +14,19 @@
             <div class="row">
                 <div class="jumbotron" id="div-gerente">
                     <div class="row">
-                        <h1 class="display-3 word-break" th:text="${user.name}"/>
+                        <h1 class="display-3 word-break" th:text="${usuario.name}"/>
                     </div>
                     <div class="row">
-                        <h1 class="display-2" th:text="${user.email}"/>
+                        <h1 class="display-2" th:text="${usuario.email}"/>
                     </div>
                     <div class="row">
-                        <h1 class="display-2" th:text="${user.username}"/>
+                        <h1 class="display-2" th:text="${usuario.username}"/>
                     </div>
                     <div class="row">
-                        <h1 class="display-2" th:text="${user.situation}"/>
+                        <h1 class="display-2" th:text="${usuario.state}"/>
                     </div>
                     <div class="row">
-                        <button class="btn glyphicon glyphicon-trash btn-excluir-gerente" th:value="${usuario.id}" th:if="${usuario.situacao == T(br.com.crescer.wallet.entity.Situacao).ATIVO}"/>
+                        <button class="btn glyphicon glyphicon-trash btn-excluir-gerente" th:value="${usuario.id}" th:if="${usuario.state == T(br.com.crescer.wallet.entity.State).ACTIVE}"/>
                         <a class="btn glyphicon glyphicon-pencil btn-editar-gerente" th:href="@{'/editar-usuario?idUsuario=' + ${usuario.id}}"/>
                     </div>
                 </div>

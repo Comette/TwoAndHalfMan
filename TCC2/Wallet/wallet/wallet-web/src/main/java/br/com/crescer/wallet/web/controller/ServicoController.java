@@ -4,7 +4,7 @@ import br.com.crescer.wallet.entity.entity.Contract;
 import br.com.crescer.wallet.service.dto.ContractDTO;
 import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.dto.GraphDTO;
-import br.com.crescer.wallet.service.dto.UsuarioDTO;
+import br.com.crescer.wallet.service.dto.ClientDTO;
 import br.com.crescer.wallet.service.service.ContractService;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -83,7 +83,7 @@ public class ServicoController {
     public ModelAndView salvarServico(@ModelAttribute("servico") @Valid ContractDTO contractDTO, BindingResult result) {
         if(result.hasErrors()){
             ModelAndView model = new ModelAndView();
-            model.addObject("usuario", new UsuarioDTO());
+            model.addObject("usuario", new ClientDTO());
             model.addObject("servico", contractDTO);
             model.addObject("guia", "servico");
             model.setViewName("cadastro");

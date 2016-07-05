@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="https://www.thymeleaf.org">
     <head>
-        <title th:text="${contract.name} + ' | Onde está Wallet?'"/>
+        <title th:text="${servico.name} + ' | Onde está Wallet?'"/>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
@@ -13,30 +13,30 @@
         <nav th:replace="fragments_generico :: navbar"/>
         <div class="jumbotron container">
             <div class="row">
-                <div class="service-name col-md-6 col-sm-6">
-                    <p class="text-left " th:text="#{dashboard.service}"></p>
-                    <span class="display-3" th:text="${contract.name}">NOME SERVICO</span>
+                <div class="service-name col-md-6 col-sm-6">                    
+                    <p class="text-left" th:text="'Serviço ' + ${servico.state}">Serviço</p>
+                    <span class="display-3" th:text="${servico.name}">NOME SERVICO</span>
                 </div>
                 <div class="service-value col-md-6 col-sm-6 text-right">
                     <p class="text-right">Custo mensal</p>
                     <span class="display-3" th:text="${formattedcontractcost}">VALOR SERVICO</span>
                 </div>
             </div>
-            <a class="lead service-website" th:text="${contract.webSite}" th:href="${contract.webSite}">WEBSITE</a>
+            <a class="lead service-website" th:text="${servico.webSite}" th:href="${servico.webSite}">WEBSITE</a>
             <hr class="m-y-2"/>
-            <p class="text-muted"> Gerente: <span class='service-manager' th:text="${contract.responsibleusername}"></span></p>
-            <p class="text-muted"> Periodicidade: <span class='service-manager' th:text="${contract.periodicity}"></span></p>
+            <p class="text-muted"> Gerente: <span class='service-manager' th:text="${servico.responsibleUserName}"></span></p>
+            <p class="text-muted"> Periodicidade: <span class='service-manager' th:text="${servico.periodicity}"></span></p>
             <p class="lead text-muted">Descrição:</p>
             <section>
-                <blockquote class="lead service-description" th:text="${contract.description}">DESCRICAO</blockquote>
+                <blockquote class="lead service-description" th:text="${servico.description}">DESCRICAO</blockquote>
             </section>
             <hr class="m-y-2"/>
             <p class="lead">
-                <a class="btn btn-warning btn-editar-servico" th:text="Editar"/>
-                <a class="btn btn-warning btn-desativar-servico" th:text="Desativar"/>
+                <a class="btn btn-warning btn-editar-servico" th:text="Editar" th:href="@{'/editar-servico?idServico=' + ${servico.id}}" th:if="${#authentication.principal.permission == T(br.com.crescer.wallet.entity.Permission).ADMINISTRATOR}"/>
+                <button class="btn btn-warning btn-desativar-servico" th:text="Cancelar" th:value="${servico.id}" th:if="${#authentication.principal.permission == T(br.com.crescer.wallet.entity.Permission).ADMINISTRATOR AND servico.state != T(br.com.crescer.wallet.entity.State).CANCELED}"/>
             </p>    
         </div>
-        <div th:replace="fragments_generico :: modal"></div>
+        <div th:replace="fragments_generico :: modal"/>
         <div th:replace="fragments_dashboard :: scripts"></div>
         <script th:src="@{/js/modal-helpers.js}" type="text/javascript"/>
         <script th:src="@{/js/servico.js}" type="text/javascript"/>

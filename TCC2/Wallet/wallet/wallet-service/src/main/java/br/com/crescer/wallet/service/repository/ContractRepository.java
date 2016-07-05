@@ -30,4 +30,8 @@ public interface ContractRepository extends CrudRepository<Contract, Long>{
 
     public List<Contract> findByClientIdClient_idClientAndDsStateNot(Long idClient, State state, Pageable pageable);
 
+    public List<Contract> findByClientIdClient_idClient(Long idClient);
+
+    public long countByClientIdClient_idClientAndDsState(Long idClient, State state);
+
 }

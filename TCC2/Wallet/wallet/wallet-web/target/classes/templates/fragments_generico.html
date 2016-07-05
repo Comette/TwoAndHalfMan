@@ -26,10 +26,10 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a th:href="@{/}" id="li-navbar">Dashboard</a></li>
-                        <li><a th:href="@{/cadastro}" id="li-navbar">Cadastros</a></li>
-                        <li><a th:href="@{/gerentes}" id="li-navbar">Gerentes</a></li>
+                        <li><a th:href="@{/cadastro}" th:if="${#authentication.principal.permission == T(br.com.crescer.wallet.entity.Permission).ADMINISTRATOR}" id="li-navbar">Cadastros</a></li>
+                        <li><a th:href="@{/usuarios}" th:if="${#authentication.principal.permission == T(br.com.crescer.wallet.entity.Permission).ADMINISTRATOR}" id="li-navbar">Usuários</a></li>
                         <li><a id="separador" > | </a></li>
-                        <li><span id="logged-user-name" th:text="${#authentication.principal.nmUsuario}"/></li>
+                        <li><span id="logged-user-name" th:text="${#authentication.principal.username}"/></li>
                         <li><a th:href="@{/logout}" id="navbar-logout">Sair</a></li>
                     </ul>
                 </div>

@@ -9,11 +9,11 @@
     <body>
         <nav th:replace="fragments_generico :: navbar"/>
         <div class="container">
-            <h1 th:text="${sucess}"/>
+            <h1 th:text="${sucesso}"/>
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title" th:text="#{client.everybody}"></h3>
-                    <a class="btn btn-danger glyphicon glyphicon-plus" href="/cadastro?guia=usuario"/>
+                    <h3 class="panel-title" th:text="clients.everybody"></h3>
+                    <a class="btn btn-danger glyphicon glyphicon-plus" href="/cadastro?tag=usuario"/>
                 </div>
                 <div class="panel-body">
                     <div class="list-group col-md-6" id="lista-gerentes-1">
