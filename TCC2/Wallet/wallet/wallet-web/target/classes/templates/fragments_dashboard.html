@@ -29,7 +29,7 @@
             <div th:id="${idContainer}">
                 <section class="services-section">
                     <section class="general-section-titling text-center">Serviços <a class="glyphicon glyphicon-search search-link" th:id="${idBtnPesquisar}"/></section>
-                    <input type="hidden" th:value="${#authentication.principal.permissao}" id="role-usuario-logado"/>
+                    <input type="hidden" th:value="${#authentication.principal.permission}" id="role-usuario-logado"/>
                     <form th:id="${idFormFiltrar}">    
                         <select class="form-control" id="select-gerentes">
                             <option value="0">Todos os usuários</option>
