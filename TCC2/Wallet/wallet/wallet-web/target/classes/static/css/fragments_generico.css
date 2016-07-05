@@ -30,6 +30,7 @@ nav {
 }
 body {
     margin-top: 70px;
+    overflow-x: hidden;
 }
 .navbar-default {
     background-color: #434343;
@@ -73,9 +74,64 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
 
 #logged-user-name{
     margin-left: 12px;
+    margin-right: 12px;
     margin-top: 21px;
     display: block;
     color: #FBAF41;
+}
+
+#dropdownNavbar {
+    margin-top: 13px;
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/ 
+    
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(204,204,204,0.8); 
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/ 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(204,204,204,0.4); 
+}
+.dropdown-menu {
+    min-width: 62px;
+    max-height: 283px;
+    max-width: 62px;
+    background-color: #434343;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left: .3px solid white;
+    border-right: .3px solid white;
+    border-bottom: .3px solid white;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+
+.dropdown-menu>li:hover >a {
+    color: #FBAF41;
+}
+
+.dropdown-menu>li>a {
+    background-color: #434343 !important;
+    color: white;
+    margin-left: -8px;
+}
+
+#btnDropdownNavbar {
+    border-color: #B0B5B6;
+    font-weight: normal;
 }
 
 @media(min-width: 1024px){
