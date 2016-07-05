@@ -72,7 +72,7 @@ $(function () {
     $formAtual.hide();
     $formProximo.hide();
     getDadosDashboard();
-    buscarDadosEChamarGraficos($containerGraficoMesAtual, $containerGraficoProximoMes);
+//    buscarDadosEChamarGraficos($containerGraficoMesAtual, $containerGraficoProximoMes);
     setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo);
     buscaGerentes();
 });
@@ -95,36 +95,24 @@ var setarOnClickBotoesVerMais = function () {
     });
 };
 
-var formSubmit = function ($form, $formSelect, $container, $btnVerMais, paginaAtualFiltrado, mes) {
-    $form.submit(function (e) {
-        var idGerente = $formSelect.val();
-        paginaAtualFiltrado = -1;
-        filtroAtual = idGerente;
-        limparContainer($container.find('#services-container-list'));
-        toggleBtnVerMais('Ver mais', $btnVerMais, true);
-        getProxPaginaServicos($container, mes, filtroAtual, $btnVerMais);
-        e.preventDefault();
-    });
-};
-
 {
-    $formAtual.submit(function (e) {
-        var idUser = $formAtualSelect.val();
-        paginaAtualEsteMesFiltrado = -1;
-        filtroAtual = idUser;
-        limparContainer($containerMesAtual.find('#services-container-list'));
-        toggleBtnVerMais('Ver mais', $verMaisServicosMesAtual, true);
-        getProxPaginaServicos($containerMesAtual, 'ATUAL', filtroAtual, $verMaisServicosMesAtual);
-        e.preventDefault();
+    $formAtualSelect.change(function () {
+        debugger;
+            var idUser = $formAtualSelect.val();
+            paginaAtualEsteMesFiltrado = -1;
+            filtroAtual = idUser;
+            limparContainer($containerMesAtual.find('#services-container-list'));
+            toggleBtnVerMais('Ver mais', $verMaisServicosMesAtual, true);
+            getProxPaginaServicos($containerMesAtual, 'ATUAL', filtroAtual, $verMaisServicosMesAtual);
     });
-    $formProximo.submit(function (e) {
-        var idGerente = $formProximoSelect.val();
-        paginaAtualProximoMesFiltrado = -1;
-        filtroProximoMes = idGerente;
-        limparContainer($containerProximoMes.find('#services-container-list'));
-        toggleBtnVerMais('Ver mais', $verMaisServicosProximoMes, true);
-        getProxPaginaServicos($containerProximoMes, 'PROXIMO', filtroProximoMes, $verMaisServicosProximoMes);
-        e.preventDefault();
+    $formProximoSelect.change(function () {
+        debugger;
+            var idGerente = $formProximoSelect.val();
+            paginaAtualProximoMesFiltrado = -1;
+            filtroProximoMes = idGerente;
+            limparContainer($containerProximoMes.find('#services-container-list'));
+            toggleBtnVerMais('Ver mais', $verMaisServicosProximoMes, true);
+            getProxPaginaServicos($containerProximoMes, 'PROXIMO', filtroProximoMes, $verMaisServicosProximoMes);
     });
 }
 
