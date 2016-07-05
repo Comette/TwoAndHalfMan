@@ -4,6 +4,7 @@
         <title th:text="${usuario.name} + ' | Onde está Wallet?'"/>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel='shortcut icon' type='image/x-icon' href='/imgs/Wallet_Money.ico'/>
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
         <link th:href="@{/css/fragments_generico.css}" rel="stylesheet" type="text/css"/>
         <link th:href="@{/css/usuario.css}" rel="stylesheet" type="text/css"/>
@@ -26,8 +27,8 @@
                         <h1 class="display-2" th:text="${usuario.state}"/>
                     </div>
                     <div class="row">
-                        <button class="btn glyphicon glyphicon-trash btn-excluir-gerente" th:value="${usuario.id}" th:if="${usuario.state == T(br.com.crescer.wallet.entity.util.State).ACTIVE}"/>
-                        <a class="btn glyphicon glyphicon-pencil btn-editar-gerente" th:href="@{'/editar-usuario?idClient=' + ${usuario.id}}"/>
+                        <button class="btn glyphicon glyphicon-trash btn-excluir-gerente" th:value="${usuario.id}" th:if="${usuario.state == T(br.com.crescer.wallet.entity.util.State).ACTIVE AND #authentication.principal.idUsuario != usuario.id}"/>
+                        <a class="btn glyphicon glyphicon-pencil btn-editar-gerente" th:href="@{'/editar-usuario?idClient=' + ${usuario.id}}" th:if="${usuario.state == T(br.com.crescer.wallet.entity.util.State).ACTIVE}"/>
                     </div>
                 </div>
             </div>

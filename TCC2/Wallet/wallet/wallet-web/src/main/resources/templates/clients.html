@@ -2,6 +2,7 @@
 <html xmlns="https://www.thymeleaf.org">
     <head>
         <title> Usuários | Onde está Wallet? </title>
+        <link rel='shortcut icon' type='image/x-icon' href='/imgs/Wallet_Money.ico'/>
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
         <link th:href="@{/css/fragments_generico.css}" rel="stylesheet" type="text/css"/>
         <link th:href="@{/css/usuarios.css}" rel="stylesheet" type="text/css"/>
@@ -13,7 +14,7 @@
             <div class="panel">
                 <div class="panel-heading">
                     <h3 class="panel-title" th:text="#{clients.everybody}"></h3>
-                    <a class="btn btn-danger glyphicon glyphicon-plus" href="/cadastro?tag=usuario"/>
+                    <a class="btn btn-danger glyphicon glyphicon-plus" href="/cadastro?tab=usuario"/>
                 </div>
                 <div class="panel-body">
                     <div class="list-group col-md-6" id="lista-gerentes-1">
@@ -23,6 +24,7 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" th:value="${#authentication.principal.idUsuario}" id="inputIdUsuario"/>
         <div th:replace="fragments_generico :: modal"/>
         <div th:replace="fragments_generico :: generic-scripts"/>   
         <div th:replace="fragments_generico :: helper-scripts"/>
