@@ -1,5 +1,6 @@
+'use strict';
 
-function renderizarGrafico($container, listaServicos) {
+var renderizarGrafico = function($container, listaServicos) {
     var labels = [];
     var data = [];
     var colors = [];
@@ -13,8 +14,8 @@ function renderizarGrafico($container, listaServicos) {
     });
 
     $.each(listaServicos, function (i, servico) {
-        labels[i] = servico.name;
-        data[i] = accounting.toFixed(servico.totalCostPercentage, 2);
+        labels[i] = servico.nome;
+        data[i] = accounting.toFixed(servico.porcentagemCustoTotal, 2);
     });
 
     var ctx = $container;
@@ -34,14 +35,12 @@ function renderizarGrafico($container, listaServicos) {
             responsive: true
         }
     });
-}
+};
 
-function buscarDadosEChamarGraficos($container1, $container2) {
-    $.ajax({
-        url: '/servicos-inflar-grafico',
-        type: 'GET'
-    }).done(function (data) {
-        renderizarGrafico($container1, data.thisMonthContracts);
-        renderizarGrafico($container2, data.nextMonthContracts);
+var buscarDadosEChamarGraficos = function($container1, $container2) {
+    
+    AJAXgetByUrl('/servicos-inflar-grafico').done(function (data) {
+        renderizarGrafico($container1, data.servicosDesteMes);
+        renderizarGrafico($container2, data.servicosProximoMes);
     });
-}
+};

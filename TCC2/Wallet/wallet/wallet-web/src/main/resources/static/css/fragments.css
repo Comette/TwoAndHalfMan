@@ -97,6 +97,22 @@
     #grafico-mes-atual, #grafico-proximo-mes {
         display: none;
     }
+    .servico-mais-caro {
+        font-size: 1.2em;
+        background-color: #FBAF41;    
+        color: white;
+        margin-top: 40px;  
+    }
+    .servico-mais-caro h2, .servico-mais-caro h1 {
+        font-size: 25px;
+    }
+    .general-section-content{
+        font-size: 1.4em;
+        margin-left: 5%;
+        margin-right: 5%;
+        display: block;
+        text-align: center;
+    }
 }
 
 .main-section{
@@ -173,7 +189,7 @@
 }
 
 .btn-warning, .btn-warning:hover {
-    background-color: #B0B5B8;
+    background-color: #777777;
     border-color: transparent;
 }
 
@@ -196,10 +212,11 @@
 }
 
 .service-name {
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: 600;
     color: #FBAF41;
     transition: color 0.3s ease;
+    word-break: break-all;
 }
 
 a:-webkit-any-link {
@@ -212,9 +229,9 @@ a:-webkit-any-link {
 }
 
 .general-section-content{
-    font-size: 1.6em;
-    margin-left: 10%;
-    margin-right: 10%;
+    font-size: 1.4em;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 
@@ -238,4 +255,8 @@ a:-webkit-any-link {
 .general-section-content,
 .servico-mais-caro {
     font-family: Open Sans, sans-serif;
+}
+
+.word-break{
+    word-break: break-all;
 }

@@ -56,6 +56,7 @@
     display: inline;
     font-size: 1.5em;
     font-weight: bold;
+    word-break: break-all;
 }
 
 .list-group-item .btn-warning {
@@ -71,7 +72,7 @@
     border-color: transparent;
     background-color: transparent;
     margin-top: -11px;
-    font-size: 1.2em;
+    font-size: 1.4em;
     color: #434343;
     border-radius: 0px;
     height: 44px;
@@ -83,7 +84,7 @@ a.list-group-item:hover {
     background-color: #434343;
 }
 
-a.list-group-item button:active:focus, a.list-group-item button:active, a.list-group-item button:focus {
+a.list-group-item a:active:focus, a.list-group-item a:active, a.list-group-item a:focus {
     background-color: transparent;
 }
 

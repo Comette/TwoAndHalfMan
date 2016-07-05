@@ -5,7 +5,9 @@ import br.com.crescer.wallet.service.dto.ContractDTO;
 import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.dto.GraphDTO;
 import br.com.crescer.wallet.service.dto.ClientDTO;
+import br.com.crescer.wallet.service.service.ClientService;
 import br.com.crescer.wallet.service.service.ContractService;
+import br.com.crescer.wallet.web.utils.LoggedInUserUtils;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
@@ -32,6 +34,9 @@ public class ServicoController {
     
     @Autowired
     ContractService service;
+    
+    @Autowired
+    ClientService clientService;
     
     @ResponseBody
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
@@ -98,6 +103,48 @@ public class ServicoController {
                             "Desculpe-nos, aconteceu algum erro e o serviço não pôde ser cadastrado.");
             return model;
         }
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/cancelar-servico", method = RequestMethod.POST)
+    public String cancelarServico(@RequestParam Long idServico) {
+        if (LoggedInUserUtils.checkIfUserIsAdmin()) {
+            return service.cancelContract(idServico) ? "Serviço cancelado com sucesso!" : "Algo errado aconteceu e o serviço não foi cancelado.";
+        } else {
+            return "Você não tem a autorização necessária para cancelar este serviço.";
+        }
+    }
+
+    @RequestMapping(value = "/editar-servico", method = RequestMethod.POST)
+    public ModelAndView editarServico(@RequestParam Long idServico) {
+        if (LoggedInUserUtils.checkIfUserIsAdmin()) {
+            ContractDTO dto = service.getContractDTO(idServico);
+
+            return addAttributesToModel(new ClientDTO(), dto, "servico", "cadastro");
+
+        } else {
+            ModelAndView model = new ModelAndView();
+            model.addObject("sucesso", "Você não tem a permissão necessária para excluir este serviço.");
+            model.setViewName("dashboard");
+
+            return model;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/count-servicos-by-usuario", method = RequestMethod.GET)
+    public long countServicosByUsuarioId(@RequestParam Long idUsuario) {
+        return service.countServicosByUsuarioId(idUsuario);
+    }
+
+    private ModelAndView addAttributesToModel(ClientDTO userDTO, ContractDTO servicoDTO, String targetNavTab, String targetViewName) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("usuario", userDTO);
+        model.addObject("servico", servicoDTO);
+        model.addObject("guia", targetNavTab);
+        model.setViewName(targetViewName);
+        model.addObject("usuariosCadastrados", clientService.findAllActiveReturningDTOs());
+        return model;
     }
     
 }

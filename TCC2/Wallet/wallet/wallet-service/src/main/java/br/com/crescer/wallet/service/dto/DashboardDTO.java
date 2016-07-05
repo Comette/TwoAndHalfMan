@@ -16,7 +16,7 @@ public class DashboardDTO {
     private List<ContractDTO> nextMonthContractDTOs;
     private BigDecimal thisMonthAmountExpense;
     private BigDecimal nextMonthAmountExpense;
-    private ContractDTO moreExpensiveContract;
+    private ContractDTO mostExpensiveContract;
 
     public DashboardDTO() {
     }
@@ -53,12 +53,12 @@ public class DashboardDTO {
         this.nextMonthContractDTOs = nextMonthContractDTOs;
     }
 
-    public ContractDTO getMoreExpensiveContract() {
-        return moreExpensiveContract;
+    public ContractDTO getMostExpensiveContract() {
+        return mostExpensiveContract;
     }
 
-    public void setMoreExpensiveContract(ContractDTO moreExpensiveContract) {
-        this.moreExpensiveContract = moreExpensiveContract;
+    public void setMostExpensiveContract(ContractDTO mostExpensiveContract) {
+        this.mostExpensiveContract = mostExpensiveContract;
     }
     
     

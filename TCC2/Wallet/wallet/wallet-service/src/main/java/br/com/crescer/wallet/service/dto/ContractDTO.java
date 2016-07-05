@@ -6,6 +6,7 @@ package br.com.crescer.wallet.service.dto;
 
 import br.com.crescer.wallet.entity.util.Coin;
 import br.com.crescer.wallet.entity.util.Periodicity;
+import br.com.crescer.wallet.entity.util.State;
 import java.math.BigDecimal;
 import static java.math.RoundingMode.HALF_UP;
 import javax.validation.constraints.NotNull;
@@ -52,6 +53,8 @@ public class ContractDTO {
     @Range(min = 0)
     private BigDecimal amountCost;   
 
+    private State state;
+    
     public ContractDTO() {
     }
     
@@ -142,6 +145,14 @@ public class ContractDTO {
 
     public void setAmountCost(BigDecimal amountCost) {
         this.amountCost = amountCost;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
     
     

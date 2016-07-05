@@ -51,7 +51,7 @@ public class ContractService {
             dashboard.setThisMonthContractDTOs(thisMonthPagedContractDTOs);
             dashboard.setNextMonthContractDTOs(this.getNextMonthPagedContractDTOs(pageable));
             //TODO: throws exception
-            dashboard.setMoreExpensiveContract(thisMonthPagedContractDTOs.isEmpty() ? null : thisMonthPagedContractDTOs.get(0));
+            dashboard.setMostExpensiveContract(thisMonthPagedContractDTOs.isEmpty() ? null : thisMonthPagedContractDTOs.get(0));
             dashboard.setThisMonthAmountExpense(this.getThisMonthAmountExpense());
             dashboard.setNextMonthAmountExpense(this.getNextMonthAmountExpense());
         }

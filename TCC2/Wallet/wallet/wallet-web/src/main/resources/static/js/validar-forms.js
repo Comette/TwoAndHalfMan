@@ -5,51 +5,73 @@ var $formUsuario = $('#form-usuario');
 
 $(function () {
 
+    $('#numValorTotal').maskMoney({
+        thousands: '.',
+        decimal: ',',
+        allowZero: false
+    });
+
     jQuery.validator.addMethod("checkSelect", function (value, element) {
         return (value === '0' || value === 0) ? false : true;
     }, "Selecione uma opção válida!");
 
     jQuery.validator.addMethod("checkEmail", function (value, element) {
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$/;
         return regex.test(value);
     }, "Email inválido!");
+    
+    jQuery.validator.addMethod("checkWebsite", function (value, element) {
+        var regex = /https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+        return regex.test(value);
+    }, "Website inválido!");
+    
+    jQuery.validator.addMethod("checkPassword", function (value, element) {
+        var findIdClient = function(){return $('#id-usuario').val();};
+        var idClient = findIdClient();
+        if(idClient > 0){
+            return true;
+        }else{
+            return (value.length > 7 && value.length < 255);
+        }
+    }, "Senha muito curta!");
 
     $formServico.validate({
         rules: {
-            nome: {
+            name: {
                 required: true,
                 minlength: 1,
                 maxlength: 255
             },
             webSite: {
                 required: true,
+                checkWebsite: true,
                 minlength: 1,
                 maxlength: 255
             },
-            periodicidade: {
+            periodicity: {
                 required: true,
                 checkSelect: true
             },
-            descricao: {
+            description: {
                 required: true,
                 minlength: 1,
                 maxlength: 800
             },
-            moeda: {
+            coin: {
                 required: true,
                 checkSelect: true
             },
-            valorTotal: {
+            amountCost: {
                 required: true,
                 min: 0
             },
-            idUsuarioResponsavel: {
+            responsibleUserID: {
                 required: true,
                 checkSelect: true
             }
         },
         messages: {
-            nome: {
+            name: {
                 required: "O campo nome é obrigatório.",
                 minlength: "O tamanho mínimo é de 1.",
                 maxlength: "O tamanho máximo é de 255."
@@ -57,35 +79,38 @@ $(function () {
             webSite: {
                 required: "O campo website é obrigatório.",
                 minlength: "O tamanho mínimo é de 1.",
-                maxlength: "O tamanho máximo é de 255."
+                maxlength: "O tamanho máximo é de 255." 
             },
-            periodicidade: {
+            periodicity: {
                 required: "Selecione uma periodicidade"
             },
-            descricao: {
+            description: {
                 required: "O campo descrição é obrigatório.",
                 minlength: "O tamanho mínimo é de 1.",
                 maxlength: "O tamanho máximo é de 800."
             },
-            moeda: {
+            coin: {
                 required: "Selecione uma moeda."
             },
-            valorTotal: {
+            amountCost: {
                 required: "O campo valor é obrigatório.",
                 min: "O valor mínimo é de 0."
             },
-            idUsuarioResponsavel: {
+            responsibleUserID: {
                 required: "Selecione um usuário responsável."
             }
         },
         submitHandler: function ($formServico) {
+            var $input = $('#numValorTotal');
+            var novoValor = $input.maskMoney('unmasked')[0].toString();
+            $input.val(novoValor);
             $formServico.submit();
         }
     });
 
     $formUsuario.validate({
         rules: {
-            nome: {
+            name: {
                 required: true,
                 minlength: 1,
                 maxlength: 255
@@ -101,26 +126,22 @@ $(function () {
                 remote: {
                     url: "/check-username",
                     type: "GET",
-                    data: {username: function () {
-                            return $('#txtUserName').val();
-                        }}
+                    data: {username: function(){return $('#txtUserName').val();}, id: function(){return $('#id-usuario').val() || 0;}}
                 }
             },
-            permissao: {
+            permission: {
                 required: true
             },
-            senha: {
-                required: true,
-                minlength: 8,
+            password: {
+                checkPassword: true,
                 maxlength: 255
             },
-            confirmacaoSenha: {
-                required: true,
+            passwordCheck: {
                 equalTo: '#txtSenha'
             }
         },
         messages: {
-            nome: {
+            name: {
                 required: "O campo nome é obrigatório.",
                 minlength: "O tamanho mínimo é de 1.",
                 maxlength: "O tamanho máximo é de 255."
@@ -134,16 +155,13 @@ $(function () {
                 maxlength: "O tamanho máximo é de 255.",
                 remote: "O usuário informado já está sendo utilizado."
             },
-            permissao: {
+            permission: {
                 required: "Selecione uma permissao!"
             },
-            senha: {
-                required: "O campo senha é obrigatório.",
-                minlength: "O tamanho mínimo é de 8.",
+            password: {
                 maxlength: "O tamanho máximo é de 255."
             },
-            confirmacaoSenha: {
-                required: "O campo Confirmação de Senha é obrigatório.",
+            passwordCheck: {                
                 equalTo: "As senhas não coincidem!"
             }
         },
