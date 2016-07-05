@@ -31,9 +31,7 @@
                         <li><a id="separador" > | </a></li>
                         <li><span id="logged-user-name" th:text="${#authentication.principal.username}"/></li>
                         <li class="dropdown" id="dropdownNavbar">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="btnDropdownNavbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                BRL 
-                                <span class="caret"></span>
+                            <button class="btn btn-default dropdown-toggle" type="button" id="btnDropdownNavbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${#authentication.principal.preferredCoin}"><span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="#ulDropdownNavbar">
                                     <li><a href="#">USD</a></li>
