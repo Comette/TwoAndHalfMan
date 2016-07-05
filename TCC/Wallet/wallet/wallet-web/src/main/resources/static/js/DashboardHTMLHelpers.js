@@ -1,8 +1,6 @@
 'use strict';
-
 //geral
 var roleUsuarioLogado = $('#role-usuario-logado').val();
-
 var renderizaListaServicos = function ($containerLista, servicos) {
     {
         var res;
@@ -17,23 +15,21 @@ var renderizaListaServicos = function ($containerLista, servicos) {
         custoMensal = accounting.formatMoney(servico.custoMensal, "R$ ", 2, ".", ",");
         nomeUsuario = servico.nomeUsuarioResponsavel;
         checkSituacao = servico.situacao === 'CANCELADO' || roleUsuarioLogado === 'GERENTE';
-        
-        
         $lista.append(
                 $('<section>').fadeIn(400).addClass('col-md-6').addClass('single-service-container').addClass('list-group-item')
                 .append($('<div>')
                         .append($('<div>').addClass('text-center').attr('style', 'border: 0.2px solid #B0B5B8; border-radius: 0px;')
                                 .append($('<a>').html($('<h5>').addClass('service-name').text(res)).attr('href', '/servico?idServico=' + servico.id))
-                                .append($('<h5>').text(servico.nomeUsuarioResponsavel).attr('style','color: #434343; font-family: Open Sans, sans-serif;').addClass('word-break'))
-                                .append($('<h6>').text(servico.situacao).attr('style','color: #777777;').addClass('word-break'))
+                                .append($('<h5>').text(servico.nomeUsuarioResponsavel).attr('style', 'color: #434343; font-family: Open Sans, sans-serif;').addClass('word-break'))
+                                .append($('<h6>').text(servico.situacao).attr('style', 'color: #777777;').addClass('word-break'))
                                 .append($('<h5>').addClass('service-value').text(custoMensal)))
                         )
-                
+
                 .append($('<div>').attr('style', 'margin-bottom: 30px;')
-                        .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').addClass(checkSituacao ? 'disabled' : '').attr('href','/editar-servico?idServico=' + servico.id)
+                        .append($('<a>').addClass('btn').addClass('btn-warning').addClass('service-edit-btn').addClass(checkSituacao ? 'disabled' : '').attr('href', '/editar-servico?idServico=' + servico.id)
                                 .append($('<span>').addClass('glyphicon').addClass('glyphicon-pencil').attr('aria-hidden', true))
                                 )
-                        .append($('<button>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').addClass(checkSituacao ? 'disabled' : '').attr('value',servico.id)
+                        .append($('<button>').addClass('btn').addClass('btn-danger').addClass('service-delete-btn').addClass(checkSituacao ? 'disabled' : '').attr('value', servico.id)
                                 .append($('<span>').addClass('glyphicon').addClass('glyphicon-trash').attr('aria-hidden', true))
                                 )
 
@@ -41,3 +37,38 @@ var renderizaListaServicos = function ($containerLista, servicos) {
                         ));
     });
 };
+
+var toggleBtnVerMais = function (text, $btn, estadoClasse) {
+    $btn.text(text).attr('style', 'margin-left: 31%; margin-right: 40%;');
+    $btn.toggleClass('disabled');
+    estadoClasse ? $btn.removeClass('disabled') : $btn.addClass('disabled');
+};
+
+var limparContainer = function ($container) {
+    $container.html('');
+};
+
+var adicionarOnClickExcluir =  function($btn) {
+    $btn.on("click", function (e) {
+        var btnExclusao = $('#btnPrincipal');
+        btnExclusao.val(parseInt($(this).val()));
+
+        $.ajax({
+            url: '/count-servicos-by-usuario',
+            type: 'GET',
+            data: {
+                idUsuario: btnExclusao.val()
+            }
+        }).done(function (data) {
+            var texto =
+                    data > 0 ? 'Este usuário tem serviços ativos em sua supervisão. Se inativá-lo, os serviços aos quais ele gerencia serão cancelados.' :
+                    'Deseja realmente inativar este usuário?';
+
+            alterarModal(texto, 'Inativar', false, 'Inativar');
+            $('#modalCoringa').modal('show');
+        });
+
+        e.preventDefault();
+    });
+};
+

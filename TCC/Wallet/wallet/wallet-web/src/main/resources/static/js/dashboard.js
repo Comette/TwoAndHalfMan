@@ -1,5 +1,4 @@
 'use strict';
-
 // MES ATUAL
 //containeres
 var $containerMesAtual = $('#container-mes-atual');
@@ -18,7 +17,6 @@ var $formAtual = $('#formFiltrarAtual');
 var $formAtualSelect = $('#formFiltrarAtual select');
 //listagem
 var listaServicosMesAtual;
-
 // PROXIMO MES
 //containeres
 var $containerProximoMes = $('#container-proximo-mes');
@@ -37,7 +35,6 @@ var $formProximo = $('#formFiltrarProximo');
 var $formProximoSelect = $('#formFiltrarProximo select');
 //listagem
 var listaServicosProximoMes;
-
 //GERAL
 var roleUsuarioLogado = $('#role-usuario-logado').val();
 var $servicoMaisCaro = $('#servico-mais-caro');
@@ -61,55 +58,13 @@ var getDadosDashboard = function () {
         listaServicosProximoMes = dados.servicosProximoMes;
         renderizaListaServicos($containerProximoMes, listaServicosProximoMes);
         adicionarOnClickExcluirServico($('.service-delete-btn'));
-
         setarOnClickBotoesVerMais();
-
         $('#btnPrincipal').click(function () {
             chamarExclusao($(this), false);
         });
     });
 };
-var getProxPaginaServicosProximoMes = function () {
 
-    var url = filtroProximoMes !== null ?
-            '/servicos-proximo-mes?idUsuario=' + filtroProximoMes + '&page=' + ++paginaAtualProximoMesFiltrado
-            : '/servicos-proximo-mes?page=' + ++paginaAtualProximoMesFiltrado;
-    $.ajax({
-        type: 'GET',
-        url: url
-    }).done(function (data) {
-        if (typeof data === 'string') {
-            location.reload();
-        } else {
-            if (data.length < 4) {
-                toggleBtnVerMais("Não existem mais serviços", $verMaisServicosProximoMes, false);
-            }
-            renderizaListaServicos($containerProximoMes, data);
-            adicionarOnClickExcluirServico($('.service-delete-btn'));
-//        }
-        }
-    });
-};
-var getProxPaginaServicosEsteMes = function () {
-    var url = filtroAtual !== null ?
-            '/servicos-mes-atual?idUsuario=' + filtroAtual + '&page=' + ++paginaAtualEsteMesFiltrado
-            : '/servicos-mes-atual?page=' + ++paginaAtualEsteMesFiltrado;
-    $.ajax({
-        type: 'GET',
-        url: url
-    }).done(function (data) {
-        if (typeof data === 'string') {
-            location.reload();
-        } else {
-
-            if (data.length < 4) {
-                toggleBtnVerMais('Não existem mais serviços.', $verMaisServicosMesAtual, false);
-            }
-            renderizaListaServicos($containerMesAtual, data);
-            adicionarOnClickExcluirServico($('.service-delete-btn'));
-        }
-    });
-};
 $(function () {
     $formAtual.hide();
     $formProximo.hide();
@@ -118,63 +73,46 @@ $(function () {
     setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo);
     buscaGerentes();
 });
-function setarOnClickBotaoPesquisar($btnPesquisarAtual, $btnPesquisarProximo) {
+
+var setarOnClickBotaoPesquisar = function ($btnPesquisarAtual, $btnPesquisarProximo) {
     $btnPesquisarAtual.click(function () {
         $formAtual.toggle(250, 'linear');
     });
     $btnPesquisarProximo.click(function () {
         $formProximo.toggle(250, 'linear');
     });
-}
+};
 
-function setarOnClickBotoesVerMais() {
+var setarOnClickBotoesVerMais = function () {
     $verMaisServicosMesAtual.click(function () {
-        getProxPaginaServicosEsteMes();
+        getProxPaginaServicos($containerMesAtual, 'ATUAL', filtroAtual, $verMaisServicosMesAtual);
     });
     $verMaisServicosProximoMes.click(function () {
-        getProxPaginaServicosProximoMes();
+        getProxPaginaServicos($containerProximoMes, 'PROXIMO', filtroProximoMes, $verMaisServicosProximoMes);
+    });
+};
+
+
+{
+    $formAtual.submit(function (e) {
+        var idGerente = $formAtualSelect.val();
+        paginaAtualEsteMesFiltrado = -1;
+        filtroAtual = idGerente;
+        limparContainer($containerMesAtual.find('#services-container-list'));
+        $verMaisServicosMesAtual.removeClass('disabled');
+        $verMaisServicosMesAtual.text('Ver mais');
+        getProxPaginaServicos($containerMesAtual, 'ATUAL', filtroAtual, $verMaisServicosMesAtual);
+        e.preventDefault();
+    });
+    $formProximo.submit(function (e) {
+        var idGerente = $formProximoSelect.val();
+        paginaAtualProximoMesFiltrado = -1;
+        filtroProximoMes = idGerente;
+        limparContainer($containerProximoMes.find('#services-container-list'));
+        $verMaisServicosProximoMes.removeClass('disabled');
+        $verMaisServicosProximoMes.text('Ver mais');
+        getProxPaginaServicos($containerProximoMes, 'PROXIMO', filtroProximoMes, $verMaisServicosProximoMes);
+        e.preventDefault();
     });
 }
 
-function buscaGerentes() {
-    $.ajax({
-        type: 'GET',
-        url: '/buscar-usuarios-ativos'
-    }).done(function (data) {
-        $.each(data, function (i, gerenteDTO) {
-            $formAtualSelect.append($('<option>').val(gerenteDTO.id).text(gerenteDTO.nome));
-            $formProximoSelect.append($('<option>').val(gerenteDTO.id).text(gerenteDTO.nome));
-        });
-    });
-}
-
-$formAtual.submit(function (e) {
-    var idGerente = $formAtualSelect.val();
-    paginaAtualEsteMesFiltrado = -1;
-    filtroAtual = idGerente;
-    limparContainer($containerMesAtual.find('#services-container-list'));
-    $verMaisServicosMesAtual.removeClass('disabled');
-    $verMaisServicosMesAtual.text('Ver mais');
-    getProxPaginaServicosEsteMes();
-    e.preventDefault();
-});
-$formProximo.submit(function (e) {
-    var idGerente = $formProximoSelect.val();
-    paginaAtualProximoMesFiltrado = -1;
-    filtroProximoMes = idGerente;
-    limparContainer($containerProximoMes.find('#services-container-list'));
-    $verMaisServicosProximoMes.removeClass('disabled');
-    $verMaisServicosProximoMes.text('Ver mais');
-    getProxPaginaServicosProximoMes();
-    e.preventDefault();
-});
-function limparContainer($container) {
-    $container.html('');
-}
-
-function toggleBtnVerMais(text, $btn, estadoClasse) {
-    $btn.text(text).attr('style', 'margin-left: 31%; margin-right: 40%;');
-    $btn.toggleClass('disabled');
-
-    estadoClasse ? $btn.removeClass('disabled') : $btn.addClass('disabled');
-}
