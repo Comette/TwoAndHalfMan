@@ -175,3 +175,7 @@ a.navbar-brand h6:nth-of-type(2),
     box-shadow: 0px 0px 3px #FBAF41;
 }
 
+#select-gerentes {
+    border-color: #FBAF41;
+    font-family: Open Sans, sans-serif;
+}
