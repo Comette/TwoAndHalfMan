@@ -37,6 +37,8 @@ function renderizarGrafico($container, listaServicos) {
 }
 
 function buscarDadosEChamarGraficos($container1, $container2) {
+    debugger;
+    
     $.ajax({
         url: '/servicos-inflar-grafico',
         type: 'GET'
