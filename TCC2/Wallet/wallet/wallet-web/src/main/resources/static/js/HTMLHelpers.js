@@ -49,6 +49,10 @@ var limparContainer = function ($container) {
 };
 
 var adicionarOnClickExcluir = function ($btn, entidade) {
+    if($btn.hasClass('disabled')){
+        return false;
+    }
+    
     $btn.on("click", function (e) {
         var btnExclusao = $('#btnPrincipal');
         btnExclusao.val(parseInt($(this).val()));
@@ -71,13 +75,13 @@ var mostrarModal = function () {
 var chamarExclusao = function ($button, entidade) {
     var idObjetoAtual = parseInt($button.val());
 
-    var values = entidade === 'USUARIO' || entidade === 'USUARIOS' ? {idUsuario: idObjetoAtual} : {idContract: idObjetoAtual};
+    var values = entidade === 'USUARIO' || entidade === 'USUARIOS' ? {idClient: idObjetoAtual} : {idContract: idObjetoAtual};
     excluirEntidade(values, entidade);
 };
 
 var excluirEntidade = function (values, entidade) {
     var url = entidade === 'USUARIO' || entidade === 'USUARIOS' ? '/inativar-usuario' : '/cancelar-servico';
-    AJAXPost(url, values).done(function () {
+    AJAXDelete(url, values).done(function () {
         alterarModal('Operação concluída com sucesso!', 'Sucesso', true, '');
         switch (entidade) {
             case 'USUARIO' || 'SERVICO':

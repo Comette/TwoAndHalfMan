@@ -15,6 +15,14 @@ var AJAXPost = function (url, data) {
     });
 };
 
+var AJAXDelete = function(url, data) {
+    return $.ajax({
+        type: 'GET',
+        url: url,
+        data: data
+    });
+};
+
 var checarSeUsuarioTemServicos = function (idUsuario) {
     return $.ajax({
         url: '/count-servicos-by-usuario',

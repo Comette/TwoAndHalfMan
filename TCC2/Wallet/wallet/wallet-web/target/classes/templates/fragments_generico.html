@@ -30,6 +30,18 @@
                         <li><a th:href="@{/usuarios}" th:if="${#authentication.principal.permission == T(br.com.crescer.wallet.entity.util.Permission).ADMINISTRATOR}" id="li-navbar">Usuários</a></li>
                         <li><a id="separador" > | </a></li>
                         <li><span id="logged-user-name" th:text="${#authentication.principal.username}"/></li>
+                        <li class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                BRL 
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="#">USD</a></li>
+                                    <li><a href="#">EUR</a></li>
+                                    <li><a href="#">CNY</a></li>
+                                    <li><a href="#">JPY</a></li>
+                            </ul>
+                        </li>
                         <li><a th:href="@{/logout}" id="navbar-logout">Sair</a></li>
                     </ul>
                 </div>
