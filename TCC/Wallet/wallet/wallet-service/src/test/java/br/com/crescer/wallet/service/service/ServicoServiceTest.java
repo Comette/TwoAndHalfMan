@@ -131,8 +131,8 @@ public class ServicoServiceTest {
 
             assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosMesAtual().isEmpty());
             assertTrue(service.geraDadosDashboard(new PageRequest(1, 1)).getServicosProximoMes().isEmpty());
-            assertEquals(BigDecimal.ZERO, service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
-            assertEquals(BigDecimal.ZERO, service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalProximoMes());
+            assertEquals(BigDecimal.ZERO.setScale(6), service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
+            assertEquals(BigDecimal.ZERO.setScale(6), service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalProximoMes());
             assertEquals(null, service.geraDadosDashboard(new PageRequest(1, 1)).getServicoMaisCaroContratado());
         }
 
@@ -150,8 +150,8 @@ public class ServicoServiceTest {
 
             assertEquals(2, service.geraDadosDashboard(new PageRequest(1, 1)).getServicosMesAtual().size());
             assertEquals(1, service.geraDadosDashboard(new PageRequest(1, 1)).getServicosProximoMes().size());
-            assertEquals(BigDecimal.valueOf(1500).setScale(2), service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
-            assertEquals(BigDecimal.valueOf(1000).setScale(2), service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalProximoMes());
+            assertEquals(BigDecimal.valueOf(1500).setScale(6), service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalAtual());
+            assertEquals(BigDecimal.valueOf(1000).setScale(6), service.geraDadosDashboard(new PageRequest(1, 1)).getGastoTotalProximoMes());
             assertEquals("meusite.com", service.geraDadosDashboard(new PageRequest(1, 1)).getServicoMaisCaroContratado().getWebSite());
         }
     }
@@ -163,12 +163,12 @@ public class ServicoServiceTest {
             listServico.add(mockServico);
             listServico.add(mockServico2);
             doReturn(listServico).when(repository).findByDsSituacaoNot(any(Situacao.class));
-            assertEquals(service.getGastoTotalAtual(), BigDecimal.valueOf(1500).setScale(2));
+            assertEquals(service.getGastoTotalAtual(), BigDecimal.valueOf(1500).setScale(6));
         }
         {
             final List listServico = new ArrayList();
             doReturn(listServico).when(repository).findByDsSituacaoNot(any(Situacao.class));
-            assertEquals(service.getGastoTotalAtual(), BigDecimal.valueOf(0));
+            assertEquals(service.getGastoTotalAtual(), BigDecimal.valueOf(0).setScale(6));
         }
     }
 
@@ -178,12 +178,12 @@ public class ServicoServiceTest {
             final List listServico = new ArrayList();
             listServico.add(mockServico);
             doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
-            assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(1000).setScale(2));
+            assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(1000).setScale(6));
         }
         {
             final List listServico = new ArrayList();
             doReturn(listServico).when(repository).findByDsSituacao(any(Situacao.class));
-            assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(0));
+            assertEquals(service.getGastoTotalProximoMes(), BigDecimal.valueOf(0).setScale(6));
         }
     }
 
@@ -200,7 +200,7 @@ public class ServicoServiceTest {
             doReturn(list).when(repository).findByDsSituacaoNot(any(Situacao.class), any(Pageable.class));
 
             assertFalse(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).isEmpty());
-            assertEquals(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
+            assertEquals(service.getServicosDTOMesAtualPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(6));
         }
     }
 
@@ -217,7 +217,7 @@ public class ServicoServiceTest {
             doReturn(list).when(repository).findByDsSituacao(any(Situacao.class), any(Pageable.class));
 
             assertFalse(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).isEmpty());
-            assertEquals(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(2));
+            assertEquals(service.getServicosDTOProximoMesPaginados(new PageRequest(1, 1)).get(0).getCustoMensal(), BigDecimal.valueOf(1000).setScale(6));
         }
     }
 
