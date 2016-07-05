@@ -61,9 +61,10 @@ public class ClientService {
                 found.setDsUserName(dto.getUsername());
                 found.setNmClient(dto.getName());
                 found.setTpPermission(dto.getPermission());
+                found.setDsPreferredCoin(dto.getPreferredCoin());
                 return new ClientDTO(repository.save(found));
             }
-            Client client = dto.buildUsuario();
+            Client client = dto.buildClient();
             return new ClientDTO(repository.save(client));
         } catch (NullPointerException e) {
             LOG.error(e.getMessage());
@@ -100,6 +101,7 @@ public class ClientService {
         dto.setUsername(client.getDsUserName());
         dto.setState(client.getDsState());
         dto.setPermission(client.getTpPermission());
+        dto.setPreferredCoin(client.getDsPreferredCoin());
         return dto;
     }
 

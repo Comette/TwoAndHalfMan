@@ -16,7 +16,7 @@ $(function () {
     }, "Selecione uma opção válida!");
 
     jQuery.validator.addMethod("checkEmail", function (value, element) {
-        var regex = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$/;
+        var regex = /^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/;
         return regex.test(value);
     }, "Email inválido!");
     
