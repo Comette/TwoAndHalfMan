@@ -23,5 +23,7 @@ public interface CurrencyExchangeRepository extends CrudRepository<CurrencyExcha
     public List<CurrencyExchange> findByDsCoinAndDtCurrencyExchangeBetween(Coin coin, LocalDate minusDays, LocalDate today);
 
     public List<CurrencyExchange> findByDtCurrencyExchangeBetween(LocalDate minusDays, LocalDate today);
+
+    public List<CurrencyExchange> findByDtCurrencyExchange(LocalDate today);
     
 }
