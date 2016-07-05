@@ -4,6 +4,7 @@
         <title>Cadastros | Onde está Wallet?</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel='shortcut icon' type='image/x-icon' href='/imgs/favicon.ico'/>
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
         <link th:href="@{/css/fragments.css}" rel="stylesheet" type="text/css"/>
         <link th:href="@{/css/fragments_generico.css}" rel="stylesheet" type="text/css"/>
@@ -11,7 +12,7 @@
     </head>
     <body>
         <nav th:replace="fragments_generico :: navbar"/>
-        <span id="guia-selecionada" class="hidden" th:text="${guia}"/>
+        <span id="guia-selecionada" class="hidden" th:text="${tab}"/>
         <div class="container">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#servico">Serviço</a></li>
