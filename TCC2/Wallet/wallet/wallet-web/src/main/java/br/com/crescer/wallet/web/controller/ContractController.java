@@ -30,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-public class ServicoController {
+public class ContractController {
     
     @Autowired
     ContractService service;
@@ -99,7 +99,7 @@ public class ServicoController {
             model.setViewName("dashboard");
             model.addObject("sucesso", 
                      returned != null ? 
-                            "Serviço " + returned.getNmContract()+ " cadastrado com sucesso!" : 
+                            "Serviço " + returned.getNmContract()+ " salvo com sucesso!" : 
                             "Desculpe-nos, aconteceu algum erro e o serviço não pôde ser cadastrado.");
             return model;
         }

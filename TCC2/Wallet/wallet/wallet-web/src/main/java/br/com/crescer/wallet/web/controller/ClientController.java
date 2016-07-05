@@ -56,11 +56,11 @@ public class ClientController {
     @RequestMapping(value = "/salvar-usuario", method = RequestMethod.POST)
     public ModelAndView salvarUsuario(@ModelAttribute("usuario") @Valid ClientDTO clientDTO, BindingResult result) {
         if (result.hasErrors()) {
-            return addAttributesToModel(clientDTO, new ContractDTO(), "usuario", "cadastro");
+            return addAttributesToModel(clientDTO, new ContractDTO(), "usuario", "register");
         } else {
             ClientDTO retornado = clientService.saveClient(clientDTO);
             ModelAndView model = new ModelAndView();
-            model.setViewName("usuarios");
+            model.setViewName("clients");
             model.addObject("sucesso",
                     retornado != null
                             ? "Usuário " + clientDTO.getName() + " salvo com sucesso!"
@@ -89,7 +89,7 @@ public class ClientController {
     public ModelAndView editClient(@RequestParam Long idClient) {
         ClientDTO dto = clientService.findByIdReturningDTO(idClient);
         if (LoggedInUserUtils.checkIfUserIsAdmin()) {
-            return addAttributesToModel(dto, new ContractDTO(), "usuario", "cadastro");
+            return addAttributesToModel(dto, new ContractDTO(), "usuario", "register");
         } else {
             ModelAndView model = new ModelAndView();
             model.addObject("sucesso", "Você não tem as permissões necessárias para editar este usuário.");
@@ -109,7 +109,7 @@ public class ClientController {
         ModelAndView model = new ModelAndView();
         model.addObject("usuario", clientDTO);
         model.addObject("servico", contractDTO);
-        model.addObject("guia", targetNavTab);
+        model.addObject("tab", targetNavTab);
         model.setViewName(viewName);
         return model;
     }

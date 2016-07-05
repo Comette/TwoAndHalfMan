@@ -33,8 +33,6 @@ public class ClientDTO {
     @Length(max = 255)
     private String username;
 
-    @NotEmpty
-    @Length(min = 8, max = 255)
     private String password;
 
     @NotNull
@@ -126,7 +124,7 @@ public class ClientDTO {
         user.setDsUserName(username);
         user.setNmClient(name);
         user.setTpPermission(permission);
-        user.setDsPreferredCoin(preferredCoin);
+        user.setDsPreferredCoin(preferredCoin != null ? preferredCoin : Coin.BRL);
         return user;
     }
 
