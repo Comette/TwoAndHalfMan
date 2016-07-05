@@ -106,10 +106,10 @@ public class ServicoController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/cancelar-servico", method = RequestMethod.POST)
-    public String cancelarServico(@RequestParam Long idServico) {
+    @RequestMapping(value = "/cancelar-servico")
+    public String cancelarServico(@RequestParam Long idContract) {
         if (LoggedInUserUtils.checkIfUserIsAdmin()) {
-            return service.cancelContract(idServico) ? "Serviço cancelado com sucesso!" : "Algo errado aconteceu e o serviço não foi cancelado.";
+            return service.cancelContract(idContract) ? "Serviço cancelado com sucesso!" : "Algo errado aconteceu e o serviço não foi cancelado.";
         } else {
             return "Você não tem a autorização necessária para cancelar este serviço.";
         }

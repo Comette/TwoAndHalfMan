@@ -53,7 +53,7 @@ var adicionarOnClickExcluir = function ($btn, entidade) {
         var btnExclusao = $('#btnPrincipal');
         btnExclusao.val(parseInt($(this).val()));
         var texto;
-        if (entidade === 'USUARIO') {
+        if (entidade === 'USUARIO' || entidade === 'USUARIOS') {
             texto = 'Deseja realmente inativar este usuário? Qualquer serviço supervisionado por ele será cancelado.';
         } else
             texto = 'Deseja realmente cancelar este serviço?';
@@ -71,20 +71,28 @@ var mostrarModal = function () {
 var chamarExclusao = function ($button, entidade) {
     var idObjetoAtual = parseInt($button.val());
 
-    var values = entidade === 'USUARIO' ? {idUsuario: idObjetoAtual} : {idContract: idObjetoAtual};
+    var values = entidade === 'USUARIO' || entidade === 'USUARIOS' ? {idUsuario: idObjetoAtual} : {idContract: idObjetoAtual};
     excluirEntidade(values, entidade);
 };
 
 var excluirEntidade = function (values, entidade) {
-    var url = entidade === 'USUARIO' ? '/inativar-usuario' : '/cancelar-servico';
-
+    var url = entidade === 'USUARIO' || entidade === 'USUARIOS' ? '/inativar-usuario' : '/cancelar-servico';
     AJAXPost(url, values).done(function () {
-        if (typeof getDadosDashboard() === 'undefined' || typeof fazerRequestUsuarios() === 'undefined') {
-            alterarModal('Operação concluída com sucesso!', 'Sucesso', true, '');
-            mostrarModal();
-        } else
-            entidade === 'USUARIO' ? fazerRequestUsuarios() : getDadosDashboard();
-            alterarModal('Operação concluída com sucesso!', 'Sucesso', true, '');
-            mostrarModal();
+        alterarModal('Operação concluída com sucesso!', 'Sucesso', true, '');
+        switch (entidade) {
+            case 'USUARIO' || 'SERVICO':
+                window.location.reload();
+                break;
+            case 'USUARIOS':
+                fazerRequestUsuarios();
+                mostrarModal();
+                break;
+            case 'SERVICOS':
+                getDadosDashboard();
+                mostrarModal();
+                break;
+            default:
+                window.location.reload();
+        }
     });
 };

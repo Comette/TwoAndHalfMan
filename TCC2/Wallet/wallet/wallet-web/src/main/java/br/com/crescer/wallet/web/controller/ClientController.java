@@ -70,7 +70,7 @@ public class ClientController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/inativar-usuario", method = RequestMethod.POST)
+    @RequestMapping(value = "/inativar-usuario", method = RequestMethod.GET)
     public boolean deactivateClient(@RequestParam Long idClient) {
         try {
             if (LoggedInUserUtils.checkIfUserIsAdmin() && contractService.countServicosByUsuarioId(idClient) > 0) {

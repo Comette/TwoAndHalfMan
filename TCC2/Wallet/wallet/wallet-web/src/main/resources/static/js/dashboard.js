@@ -41,8 +41,8 @@ var $servicoMaisCaro = $('#servico-mais-caro');
 var getDadosDashboard = function () {
     AJAXgetByUrl("/dashboard?page=0").done(function (dados) {
         limparContainer($servicoMaisCaro);
-        $servicoMaisCaro.append($('<a>').html($('<h1>').attr('style', 'display: inline; color: #FBAF41; font-weight: bold;').text(dados.mostExpensiveContract.name)).attr('href', '/servico?idContract=' + dados.mostExpensiveContract.id))
-                .append($('<h1>').attr('style', 'display: inline; color: #434343; font-weight: bold;').text(" - " + accounting.formatMoney(dados.mostExpensiveContract.monthlyExpense, "R$ ", 2, ".", ",")));
+        $servicoMaisCaro.append($('<a>').html($('<h1>').attr('style', 'display: inline; color: #FBAF41; font-weight: bold;').text(dados.mostExpensiveContract.name + ' ')).attr('href', '/servico?idContract=' + dados.mostExpensiveContract.id))
+                .append($('<h1>').attr('style', 'display: inline; color: #434343; font-weight: bold;').text(' ' + accounting.formatMoney(dados.mostExpensiveContract.monthlyExpense, "R$ ", 2, ".", ",")));
 
         $gastoTotalMesAtual.text(accounting.formatMoney(dados.thisMonthAmountExpense, "R$ ", 2, ".", ","));
         $gastoTotalProximoMes.text(accounting.formatMoney(dados.nextMonthAmountExpense, "R$ ", 2, ".", ","));
@@ -63,7 +63,7 @@ var getDadosDashboard = function () {
         setarOnClickBotoesVerMais();
 
         $('#btnPrincipal').click(function () {
-            chamarExclusao($(this), 'SERVICO');
+            chamarExclusao($(this), 'SERVICOS');
         });
     });
 };
@@ -108,26 +108,24 @@ var formSubmit = function ($form, $formSelect, $container, $btnVerMais, paginaAt
 };
 
 {
-    formSubmit($formAtual,$formAtualSelect,$containerMesAtual,$verMaisServicosMesAtual, paginaAtualEsteMesFiltrado, 'ATUAL');
-    formSubmit($formProximo,$formProximoSelect,$containerProximoMes,$verMaisServicosProximoMes,paginaAtualProximoMesFiltrado, 'PROXIMO');
-//    $formAtual.submit(function (e) {
-//        var idGerente = $formAtualSelect.val();
-//        paginaAtualEsteMesFiltrado = -1;
-//        filtroAtual = idGerente;
-//        limparContainer($containerMesAtual.find('#services-container-list'));
-//        toggleBtnVerMais('Ver mais', $verMaisServicosMesAtual, true);
-//        getProxPaginaServicos($containerMesAtual, 'ATUAL', filtroAtual, $verMaisServicosMesAtual);
-//        e.preventDefault();
-//    });
-//    $formProximo.submit(function (e) {
-//        var idGerente = $formProximoSelect.val();
-//        paginaAtualProximoMesFiltrado = -1;
-//        filtroProximoMes = idGerente;
-//        limparContainer($containerProximoMes.find('#services-container-list'));
-//        toggleBtnVerMais('Ver mais', $verMaisServicosProximoMes, true);
-//        getProxPaginaServicos($containerProximoMes, 'PROXIMO', filtroProximoMes, $verMaisServicosProximoMes);
-//        e.preventDefault();
-//    });
+    $formAtual.submit(function (e) {
+        var idUser = $formAtualSelect.val();
+        paginaAtualEsteMesFiltrado = -1;
+        filtroAtual = idUser;
+        limparContainer($containerMesAtual.find('#services-container-list'));
+        toggleBtnVerMais('Ver mais', $verMaisServicosMesAtual, true);
+        getProxPaginaServicos($containerMesAtual, 'ATUAL', filtroAtual, $verMaisServicosMesAtual);
+        e.preventDefault();
+    });
+    $formProximo.submit(function (e) {
+        var idGerente = $formProximoSelect.val();
+        paginaAtualProximoMesFiltrado = -1;
+        filtroProximoMes = idGerente;
+        limparContainer($containerProximoMes.find('#services-container-list'));
+        toggleBtnVerMais('Ver mais', $verMaisServicosProximoMes, true);
+        getProxPaginaServicos($containerProximoMes, 'PROXIMO', filtroProximoMes, $verMaisServicosProximoMes);
+        e.preventDefault();
+    });
 }
 
 var getProxPaginaServicos = function ($container, mes, filtroAtual, $verMaisAtual) {
@@ -148,11 +146,11 @@ var getProxPaginaServicos = function ($container, mes, filtroAtual, $verMaisAtua
 var verificaURL = function (mes, filtroAtual) {
     if (mes === 'ATUAL') {
         return filtroAtual !== null ?
-                '/servicos-mes-atual?idUsuario=' + filtroAtual + '&page=' + ++paginaAtualEsteMesFiltrado
+                '/servicos-mes-atual?idUser=' + filtroAtual + '&page=' + ++paginaAtualEsteMesFiltrado
                 : '/servicos-mes-atual?page=' + ++paginaAtualEsteMesFiltrado;
     } else if (mes === 'PROXIMO') {
         return filtroAtual !== null ?
-                '/servicos-proximo-mes?idUsuario=' + filtroAtual + '&page=' + ++paginaAtualProximoMesFiltrado
+                '/servicos-proximo-mes?idUser=' + filtroAtual + '&page=' + ++paginaAtualProximoMesFiltrado
                 : '/servicos-proximo-mes?page=' + ++paginaAtualProximoMesFiltrado;
     }
 };

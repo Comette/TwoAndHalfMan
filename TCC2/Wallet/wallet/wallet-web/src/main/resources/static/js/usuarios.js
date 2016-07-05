@@ -35,7 +35,7 @@ var fazerRequestUsuarios = function() {
         adicionarOnClickExcluir($('button[name="btn-excluir-gerente"]'), 'USUARIO');
         
         $('#btnPrincipal').click(function () {
-            chamarExclusao($(this),'USUARIO');
+            chamarExclusao($(this),'USUARIOS');
         });
     });
 }

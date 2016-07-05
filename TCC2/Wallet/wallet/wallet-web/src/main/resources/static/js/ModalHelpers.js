@@ -4,7 +4,7 @@ var $lista1 = $('#lista-gerentes-1');
 var $lista2 = $('#lista-gerentes-2');
 
 
-var alterarModal = function(mensagem, titulo, displayBotaoModal, textoBotaoPrincipalModal) {
+var alterarModal = function (mensagem, titulo, displayBotaoModal, textoBotaoPrincipalModal) {
 
     var $btnPrincipal = $('#btnPrincipal');
     if (displayBotaoModal) {
@@ -18,22 +18,38 @@ var alterarModal = function(mensagem, titulo, displayBotaoModal, textoBotaoPrinc
     $btnPrincipal.text(textoBotaoPrincipalModal);
 };
 
-var chamarExclusao = function($button, entidade) {
+var chamarExclusao = function ($button, entidade) {
     var idObjetoAtual = parseInt($button.val());
 
-    var values = entidade === 'USUARIO' ? {idUsuario: idObjetoAtual} : {idServico: idObjetoAtual};
-    excluirObjeto(values, entidade);
+    var values = entidade === 'USUARIO' || entidade === 'USUARIOS' ? {idUser: idObjetoAtual} : {idContract: idObjetoAtual};
+
+    excluirEntidade(values, entidade);
 };
 
-var excluirObjeto = function(values, entidade) {
-    var url = entidade === 'USUARIO' ? '/inativar-usuario' : '/cancelar-servico';
+//var excluirObjeto = function (values, entidade) {
+//    var url = entidade === 'USUARIO' || entidade === 'USUARIOS' ? '/inativar-usuario' : '/cancelar-servico';
+//
+//    AJAXPost(url, values).done(function () {
+//        switch (entidade) {
+//            case 'USUARIO' || 'SERVICO':
+//                window.location.reload();
+//                break;
+//            case 'USUARIOS':
+//                fazerRequestUsuarios();
+//                break;
+//            case 'SERVICOS':
+//                getDadosDashboard();
+//                break;
+//            default:
+//                window.location.reload();
+//
+//        }
+//        entidade === 'USUARIOS' ? fazerRequestUsuarios() : getDadosDashboard();
+//        entidade === 'USUARIO' ? window.location.reload() : window.location.reload();
+//        alterarModal('Operação concluída com sucesso!', 'Sucesso', true, '');
+//        mostrarModal();
+//    });
+//};
 
-    AJAXPost(url,values).done(function () {
-        entidade === 'USUARIO' ? fazerRequestUsuarios() : getDadosDashboard();
-        alterarModal('Operação concluída com sucesso!', 'Sucesso', true, '');
-        mostrarModal();
-    });
-};
-    
 
 

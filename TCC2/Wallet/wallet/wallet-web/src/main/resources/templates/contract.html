@@ -24,7 +24,7 @@
             </div>
             <a class="lead service-website" th:text="${servico.webSite}" th:href="${servico.webSite}">WEBSITE</a>
             <hr class="m-y-2"/>
-            <p class="text-muted"> Gerente: <span class='service-manager' th:text="${servico.responsibleUserName}"></span></p>
+            <p class="text-muted"> Gerente: <a class='service-manager' th:href="@{'/usuario?idClient=' + ${servico.responsibleUserID}}" th:text="${servico.responsibleUserName}"/></p>
             <p class="text-muted"> Periodicidade: <span class='service-manager' th:text="${servico.periodicity}"></span></p>
             <p class="lead text-muted">Descrição:</p>
             <section>
@@ -32,7 +32,7 @@
             </section>
             <hr class="m-y-2"/>
             <p class="lead">
-                <a class="btn btn-warning btn-editar-servico" th:text="Editar" th:href="@{'/editar-servico?idContract=' + ${servico.id}}" th:if="${#authentication.principal.permission == T(br.com.crescer.wallet.entity.util.Permission).ADMINISTRATOR}"/>
+                <a class="btn btn-warning btn-editar-servico" th:text="Editar" th:href="@{'/editar-servico?idContract=' + ${servico.id}}" th:if="${#authentication.principal.permission == T(br.com.crescer.wallet.entity.util.Permission).ADMINISTRATOR AND servico.state != T(br.com.crescer.wallet.entity.util.State).CANCELED}"/>
                 <button class="btn btn-warning btn-desativar-servico" th:text="Cancelar" th:value="${servico.id}" th:if="${#authentication.principal.permission == T(br.com.crescer.wallet.entity.util.Permission).ADMINISTRATOR AND servico.state != T(br.com.crescer.wallet.entity.util.State).CANCELED}"/>
             </p>    
         </div>
