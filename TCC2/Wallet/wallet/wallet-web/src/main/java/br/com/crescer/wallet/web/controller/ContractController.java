@@ -41,7 +41,7 @@ public class ContractController {
     
     @ResponseBody
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public DashboardDTO dashboard(@RequestParam Pageable pageable){ 
+    public DashboardDTO dashboard(Pageable pageable){ 
         Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return service.generateDashboardData(pageable, presentationCoin);
     }

@@ -37,15 +37,17 @@ var $formProximoSelect = $('#formFiltrarProximo select');
 var listaServicosProximoMes;
 //GERAL
 var $servicoMaisCaro = $('#servico-mais-caro');
+//USUARIO LOGADO
+var presentationCoin;
 
 var getDadosDashboard = function () {
     AJAXgetByUrl("/dashboard?page=0").done(function (dados) {
         limparContainer($servicoMaisCaro);
         $servicoMaisCaro.append($('<a>').html($('<h1>').attr('style', 'display: inline; color: #FBAF41; font-weight: bold;').text(dados.mostExpensiveContract.name + ' ')).attr('href', '/servico?idContract=' + dados.mostExpensiveContract.id))
-                .append($('<h1>').attr('style', 'display: inline; color: #434343; font-weight: bold;').text(' ' + accounting.formatMoney(dados.mostExpensiveContract.monthlyExpense, "R$ ", 2, ".", ",")));
+                .append($('<h1>').attr('style', 'display: inline; color: #434343; font-weight: bold;').text(' ' + accounting.formatMoney(dados.mostExpensiveContract.monthlyExpense, presentationCoin, 2, ".", ",")));
 
-        $gastoTotalMesAtual.text(accounting.formatMoney(dados.thisMonthAmountExpense, "R$ ", 2, ".", ","));
-        $gastoTotalProximoMes.text(accounting.formatMoney(dados.nextMonthAmountExpense, "R$ ", 2, ".", ","));
+        $gastoTotalMesAtual.text(accounting.formatMoney(dados.thisMonthAmountExpense, presentationCoin, 2, ".", ","));
+        $gastoTotalProximoMes.text(accounting.formatMoney(dados.nextMonthAmountExpense, presentationCoin, 2, ".", ","));
 
         listaServicosMesAtual = dados.thisMonthContractDTOs;
         listaServicosProximoMes = dados.nextMonthContractDTOs;
@@ -69,6 +71,7 @@ var getDadosDashboard = function () {
 };
 
 $(function () {
+    presentationCoin = $('#dropdownMenu1').text() + " ";
     $formAtual.hide();
     $formProximo.hide();
     getDadosDashboard();

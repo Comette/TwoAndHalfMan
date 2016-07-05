@@ -12,7 +12,7 @@ var renderizaListaServicos = function ($containerLista, servicos) {
     }
     $.each(servicos, function (i, servico) {
         res = servico.name.length > 13 ? servico.name.substring(0, 11) + '...' : servico.name;
-        custoMensal = accounting.formatMoney(servico.monthlyExpense, "R$ ", 2, ".", ",");
+        custoMensal = accounting.formatMoney(servico.monthlyExpense, presentationCoin, 2, ".", ",");
         nomeUsuario = servico.responsibleUserName;
         checkSituacao = servico.state === 'CANCELED' || roleUsuarioLogado === 'MANAGER';
         $lista.append(
