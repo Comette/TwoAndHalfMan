@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+    <head>
+        <title th:text="${user.name} + ' | Onde está Wallet?'"/>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/fragments_generico.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/usuario.css}" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <nav th:replace="fragments_generico :: navbar"/>
+        <div class="container">
+            <div class="row">
+                <div class="jumbotron" id="div-gerente">
+                    <div class="row">
+                        <h1 class="display-3 word-break" th:text="${user.name}"/>
+                    </div>
+                    <div class="row">
+                        <h1 class="display-2" th:text="${user.email}"/>
+                    </div>
+                    <div class="row">
+                        <h1 class="display-2" th:text="${user.username}"/>
+                    </div>
+                    <div class="row">
+                        <h1 class="display-2" th:text="${user.situation}"/>
+                    </div>
+                    <div class="row">
+                        <button class="btn glyphicon glyphicon-trash btn-excluir-gerente" th:value="${usuario.id}" th:if="${usuario.situacao == T(br.com.crescer.wallet.entity.Situacao).ATIVO}"/>
+                        <a class="btn glyphicon glyphicon-pencil btn-editar-gerente" th:href="@{'/editar-usuario?idUsuario=' + ${usuario.id}}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="fragments_generico :: modal"></div>
+        <div th:replace="fragments_dashboard :: scripts"></div>
+        <script th:src="@{/js/modal-helpers.js}" type="text/javascript"/>
+        <script th:src="@{/js/usuario.js}" type="text/javascript"/>
+    </body>
+</html> 
