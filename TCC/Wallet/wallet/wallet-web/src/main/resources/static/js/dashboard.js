@@ -138,7 +138,7 @@ var getProxPaginaServicosProximoMes = function () {
             if (data.length < 4) {
                 toggleBtnVerMais("Não existem mais serviços", $verMaisServicosProximoMes, false);
             }
-            rederizaListaServicos($containerProximoMes, data);
+            renderizaListaServicos($containerProximoMes, data);
             adicionarOnClickExcluirServico($('.service-delete-btn'));
 //        }
         }
@@ -159,7 +159,7 @@ var getProxPaginaServicosEsteMes = function () {
             if (data.length < 4) {
                 toggleBtnVerMais('Não existem mais serviços.', $verMaisServicosMesAtual, false);
             }
-            rederizaListaServicos($containerMesAtual, data);
+            renderizaListaServicos($containerMesAtual, data);
             adicionarOnClickExcluirServico($('.service-delete-btn'));
         }
     });

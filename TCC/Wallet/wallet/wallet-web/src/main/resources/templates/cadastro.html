@@ -98,11 +98,11 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-5">
-                                <input id="txtSenha" th:if="${ehEdicao != true}" th:field="*{senha}" type="password" class="form-control" placeholder="Senha"/>
+                                <input id="txtSenha"  th:field="*{senha}" type="password" class="form-control" placeholder="Senha"/>
                                 <p class="error-message" th:if="${#fields.hasErrors('senha')}">Senha deve ser maior que 8 caracteres!</p>                            
                             </div>
                             <div class="form-group col-md-5 form-padding">
-                                <input id="txtConfirmacaoSenha" th:if="${ehEdicao != true}" name="confirmacaoSenha" type="password" class="form-control" placeholder="Confirmação de Senha"/>
+                                <input id="txtConfirmacaoSenha"  name="confirmacaoSenha" type="password" class="form-control" placeholder="Confirmação de Senha"/>
                             </div>
                         </div>    
                         <div class="form-group col-md-12">

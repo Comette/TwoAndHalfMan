@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  *
  * @author Hedo
  */
-@EditPassword
+//@EditPassword
 public class UsuarioDTO {
 
     private Long id;
