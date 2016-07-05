@@ -3,6 +3,7 @@ package br.com.crescer.wallet.service.dto;
 import br.com.crescer.wallet.entity.util.Permission;
 import br.com.crescer.wallet.entity.util.State;
 import br.com.crescer.wallet.entity.entity.Client;
+import br.com.crescer.wallet.entity.util.Coin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
@@ -15,7 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 public class ClientDTO {
 
-    private Long id;
+    private Long id;    
+    private State state;    
+    private Coin preferredCoin;
 
     @NotEmpty
     @Length(max = 255)
@@ -36,8 +39,6 @@ public class ClientDTO {
 
     @NotNull
     private Permission permission;
-    
-    private State state;
 
     public ClientDTO() {
     }
@@ -49,6 +50,8 @@ public class ClientDTO {
         this.username = client.getDsUserName();
         this.password = client.getDsPassword();
         this.permission = client.getTpPermission();
+        this.state = client.getDsState();
+        this.preferredCoin = client.getDsPreferredCoin();
     }
 
     public String getName() {
@@ -87,7 +90,7 @@ public class ClientDTO {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password) {        
         this.password = password;
     }
 
@@ -106,8 +109,16 @@ public class ClientDTO {
     public void setState(State state) {
         this.state = state;
     }
+
+    public Coin getPreferredCoin() {
+        return preferredCoin;
+    }
+
+    public void setPreferredCoin(Coin preferredCoin) {
+        this.preferredCoin = preferredCoin;
+    }
     
-    public Client buildUsuario() {
+    public Client buildClient() {
         Client user = new Client();
         user.setDsEmail(email);
         user.setDsPassword(Encode(password));
@@ -115,6 +126,7 @@ public class ClientDTO {
         user.setDsUserName(username);
         user.setNmClient(name);
         user.setTpPermission(permission);
+        user.setDsPreferredCoin(preferredCoin);
         return user;
     }
 

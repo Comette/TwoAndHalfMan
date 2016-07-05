@@ -1,6 +1,7 @@
 package br.com.crescer.wallet.entity.entity;
 
 
+import br.com.crescer.wallet.entity.util.Coin;
 import br.com.crescer.wallet.entity.util.State;
 import br.com.crescer.wallet.entity.util.Permission;
 import java.io.Serializable;
@@ -50,6 +51,11 @@ public class Client implements Serializable {
     @Column(name = "TP_PERMISSION")
     private Permission tpPermission;
     
+    @Enumerated(EnumType.STRING)
+    @Basic(optional = false)
+    @Column(name = "DS_PREFERRED_COIN")
+    private Coin dsPreferredCoin;
+    
     @Basic(optional = false)
     @Column(name = "DS_EMAIL")
     private String dsEmail;
@@ -69,11 +75,12 @@ public class Client implements Serializable {
     public Client() {
     }
 
-    public Client(Long idClient, String nmClient, String dsUserName, Permission tpPermission, String dsEmail, String dsPassword, State dsState, List<Contract> contractList) {
+    public Client(Long idClient, String nmClient, String dsUserName, Permission tpPermission, Coin dsPreferredCoin, String dsEmail, String dsPassword, State dsState, List<Contract> contractList) {
         this.idClient = idClient;
         this.nmClient = nmClient;
         this.dsUserName = dsUserName;
         this.tpPermission = tpPermission;
+        this.dsPreferredCoin = dsPreferredCoin;
         this.dsEmail = dsEmail;
         this.dsPassword = dsPassword;
         this.dsState = dsState;
@@ -143,6 +150,13 @@ public class Client implements Serializable {
     public void setContractList(List<Contract> contractList) {
         this.contractList = contractList;
     }
-    
-    
+
+    public Coin getDsPreferredCoin() {
+        return dsPreferredCoin;
+    }
+
+    public void setDsPreferredCoin(Coin dsPreferredCoin) {
+        this.dsPreferredCoin = dsPreferredCoin;
+    }
+        
 }
