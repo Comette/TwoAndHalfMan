@@ -57,7 +57,7 @@ public class UsuarioController {
     @RequestMapping(value = "/salvar-usuario", method = RequestMethod.POST)
     public ModelAndView salvarUsuario(@ModelAttribute("usuario") @Valid UsuarioDTO usuarioDTO, BindingResult result) {
         if (result.hasErrors()) {
-            return addAttributesToModel(usuarioDTO, new ServicoDTO(), "usuario", "cadastro",false);
+            return addAttributesToModel(usuarioDTO, new ServicoDTO(), "usuario", "cadastro");
         } else {
 
             UsuarioDTO retornado = usuarioService.salvarUsuario(usuarioDTO);
@@ -87,7 +87,7 @@ public class UsuarioController {
         UsuarioDTO dto = usuarioService.findByIdReturningDTO(idUsuario);
         if (LoggedInUserUtils.checkIfUserIsAdmin()) {
 
-            return addAttributesToModel(dto, new ServicoDTO(), "usuario", "cadastro", true);
+            return addAttributesToModel(dto, new ServicoDTO(), "usuario", "cadastro");
             
         } else {
 
@@ -105,12 +105,11 @@ public class UsuarioController {
         return usuarioService.checkUsernameAvailability(username, id);
     }
 
-    private ModelAndView addAttributesToModel(UsuarioDTO userDTO, ServicoDTO serviceDTO, String targetNavTab, String viewName, boolean ehEdicao) {
+    private ModelAndView addAttributesToModel(UsuarioDTO userDTO, ServicoDTO serviceDTO, String targetNavTab, String viewName) {
         ModelAndView model = new ModelAndView();
         model.addObject("usuario", userDTO);
         model.addObject("servico", serviceDTO);
         model.addObject("guia", targetNavTab);
-        model.addObject("ehEdicao", ehEdicao);
         model.setViewName(viewName);
         return model;
     }

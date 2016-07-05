@@ -25,7 +25,7 @@ public class CadastroController {
     ServicoService servicoService;
     
     @RequestMapping(value = "/cadastro", method = RequestMethod.GET)
-    public String cadastro(Model model, @RequestParam(required = false) Long idUsuario, @RequestParam(required = false) Long idServico){
+    public String cadastro(Model model, @RequestParam(required = false) Long idUsuario, @RequestParam(required = false) Long idServico, @RequestParam(required = false) String guia ){
         if(idUsuario != null && idUsuario > 0){
             model.addAttribute("usuario", usuarioService.findByIdReturningDTO(idUsuario));
         }else{
@@ -35,8 +35,8 @@ public class CadastroController {
             model.addAttribute("servico", servicoService.getServicoDTO(idServico));
         }else{
             model.addAttribute("servico", new ServicoDTO());
-        }        
-        model.addAttribute("guia", "nenhum");
+        }                
+        model.addAttribute("guia", (guia != null ? guia : "nenhuma"));
         model.addAttribute("usuariosCadastrados", usuarioService.findAllActiveReturningDTOs());
         return "cadastro";
     }
