@@ -26,14 +26,31 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a th:href="@{/}" id="li-navbar">Dashboard</a></li>
-                        <li><a th:href="@{/cadastro}" id="li-navbar">Cadastros</a></li>
-                        <li><a th:href="@{/gerentes}" id="li-navbar">Gerentes</a></li>
+                        <li><a th:href="@{/cadastro}" th:if="${#authentication.principal.permissao == T(br.com.crescer.wallet.entity.Permissao).ADMINISTRADOR}" id="li-navbar">Cadastros</a></li>
+                        <li><a th:href="@{/usuarios}" th:if="${#authentication.principal.permissao == T(br.com.crescer.wallet.entity.Permissao).ADMINISTRADOR}" id="li-navbar">Usuários</a></li>
                         <li><a id="separador" > | </a></li>
-                        <li><span id="logged-user-name" th:text="${#authentication.principal.nmUsuario}"/></li>
+                        <li><span id="logged-user-name" th:text="${#authentication.principal.username}"/></li>
                         <li><a th:href="@{/logout}" id="navbar-logout">Sair</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <div id="modalCoringa" class="modal fade" role="dialog" th:fragment="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="modalCabecalho">CABEÇALHO</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalCorpo">TEXTO DE CORPO</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" id="btnPrincipal">TEXTO BOTAO</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal" id="btnCancelar">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
