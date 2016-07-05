@@ -87,12 +87,6 @@
     color: white;
 }
 
-@media(max-width: 768px){
-    .graph-section {
-        min-height: 20%;
-    }
-}
-
 @media(max-width: 650px){
     #grafico-mes-atual, #grafico-proximo-mes {
         display: none;
@@ -117,8 +111,7 @@
 
 .main-section{
     border: 1px solid #B0B5B8;
-    box-shadow: 3px 3px 3px #B0B5B8;
-    min-height: 900px;
+    box-shadow: 3px 3px 3px #B0B5B8;    
     margin-bottom: 60px;
 }
 
@@ -161,6 +154,7 @@
 .btn-ver-mais{
     margin-left: 43%;
     margin-right: 40%;
+    margin-bottom: 40px;
     width: 200px;
 }
 

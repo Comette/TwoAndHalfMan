@@ -62,8 +62,7 @@ $(function () {
                 checkSelect: true
             },
             amountCost: {
-                required: true,
-                min: 0
+                required: true
             },
             responsibleUserID: {
                 required: true,
@@ -93,8 +92,7 @@ $(function () {
                 required: "Selecione uma moeda."
             },
             amountCost: {
-                required: "O campo valor é obrigatório.",
-                min: "O valor mínimo é de 0."
+                required: "O campo valor é obrigatório."
             },
             responsibleUserID: {
                 required: "Selecione um usuário responsável."

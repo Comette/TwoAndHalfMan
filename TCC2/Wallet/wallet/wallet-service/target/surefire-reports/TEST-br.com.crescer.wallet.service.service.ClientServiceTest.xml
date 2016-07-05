@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="8" failures="0" name="br.com.crescer.wallet.service.service.ClientServiceTest" time="0.892" errors="0" skipped="0">
+<testsuite tests="8" failures="0" name="br.com.crescer.wallet.service.service.ClientServiceTest" time="0.625" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_91\jre\bin"/>
@@ -63,10 +63,10 @@
   </properties>
   <testcase classname="br.com.crescer.wallet.service.service.ClientServiceTest" name="testFindOneByDsUserName" time="0.031"/>
   <testcase classname="br.com.crescer.wallet.service.service.ClientServiceTest" name="testFindByIdReturningDTO" time="0"/>
-  <testcase classname="br.com.crescer.wallet.service.service.ClientServiceTest" name="testDeactivateClient" time="0"/>
+  <testcase classname="br.com.crescer.wallet.service.service.ClientServiceTest" name="testDeactivateClient" time="0.016"/>
   <testcase classname="br.com.crescer.wallet.service.service.ClientServiceTest" name="testSaveClient" time="0"/>
   <testcase classname="br.com.crescer.wallet.service.service.ClientServiceTest" name="testFindById" time="0"/>
-  <testcase classname="br.com.crescer.wallet.service.service.ClientServiceTest" name="testCheckUsernameAvailability" time="0.015"/>
+  <testcase classname="br.com.crescer.wallet.service.service.ClientServiceTest" name="testCheckUsernameAvailability" time="0"/>
   <testcase classname="br.com.crescer.wallet.service.service.ClientServiceTest" name="testFindAllReturningDTOs" time="0"/>
   <testcase classname="br.com.crescer.wallet.service.service.ClientServiceTest" name="testFindAllActiveReturningDTOs" time="0"/>
 </testsuite>
