@@ -1,6 +1,7 @@
 package br.com.crescer.wallet.web.controller;
 
 import br.com.crescer.wallet.entity.entity.Contract;
+import br.com.crescer.wallet.entity.util.Coin;
 import br.com.crescer.wallet.service.dto.ContractDTO;
 import br.com.crescer.wallet.service.dto.DashboardDTO;
 import br.com.crescer.wallet.service.dto.GraphDTO;
@@ -40,45 +41,52 @@ public class ContractController {
     
     @ResponseBody
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public DashboardDTO dashboard(Pageable pageable){        
-        return service.generateDashboardData(pageable);
+    public DashboardDTO dashboard(@RequestParam Pageable pageable){ 
+        Coin presentationCoin;
+        return service.generateDashboardData(pageable, presentationCoin);
     }
     
     @ResponseBody
     @RequestMapping(value = "/gasto-total-atual", method = RequestMethod.GET)
-    public BigDecimal gastoTotalAtual(){        
-        return service.getThisMonthAmountExpense();
+    public BigDecimal gastoTotalAtual(){
+        
+        return service.getThisMonthAmountExpense(presentationCoin);
     }
     
     @ResponseBody
     @RequestMapping(value = "/gasto-total-proximo-mes", method = RequestMethod.GET)
     public BigDecimal gastoTotalProximoMes(){
-        return service.getNextMonthAmountExpense();
+        Coin presentationCoin;
+        return service.getNextMonthAmountExpense(presentationCoin);
     }
     
     @ResponseBody
     @RequestMapping(value = "/servicos-mes-atual", method = RequestMethod.GET)
     public List<ContractDTO> servicosMesAtual(@RequestParam(required = false) Long idUser, Pageable pageable){
+        Coin presentationCoin;
         return idUser == null || idUser == 0 ? 
-                service.getThisMonthPagedContractDTOs(pageable) : service.getThisMonthPagedAndFilteredByUserContractDTOs(idUser, pageable);
+                service.getThisMonthPagedContractDTOs(pageable, presentationCoin) : service.getThisMonthPagedAndFilteredByUserContractDTOs(idUser, pageable, presentationCoin);
     }
     
     @ResponseBody
     @RequestMapping(value = "/servicos-proximo-mes", method = RequestMethod.GET)
     public List<ContractDTO> servicosProximosMes(@RequestParam(required = false) Long idUser, Pageable pageable){
+        Coin presentationCoin;
         return idUser == null || idUser == 0 ? 
-                service.getNextMonthPagedContractDTOs(pageable) : service.getNextMonthPagedAndFilteredByUserContractDTOs(idUser, pageable);
+                service.getNextMonthPagedContractDTOs(pageable, presentationCoin) : service.getNextMonthPagedAndFilteredByUserContractDTOs(idUser, pageable, presentationCoin);
     }
     
     @ResponseBody
     @RequestMapping( value = "/servicos-inflar-grafico", method = RequestMethod.GET)
-    public GraphDTO inflarGrafico(){        
-        return service.generateGranphData();
+    public GraphDTO inflarGrafico(){
+        Coin presentationCoin;
+        return service.generateGranphData(presentationCoin);
     }
     
     @RequestMapping( value = "/servico", method = RequestMethod.GET)
     public String getServico(@RequestParam Long idContract, Model model){
-        ContractDTO contract = service.getContractDTO(idContract);
+        Coin presentationCoin;
+        ContractDTO contract = service.getContractDTO(idContract, presentationCoin);
         model.addAttribute("servico",contract);
         model.addAttribute("valorServicoFormatado", NumberFormat.getCurrencyInstance().format(contract.getMonthlyExpense()));
         return "contract"; 
@@ -118,15 +126,14 @@ public class ContractController {
     @RequestMapping(value = "/editar-servico", method = RequestMethod.GET)
     public ModelAndView editarServico(@RequestParam Long idContract) {
         if (LoggedInUserUtils.checkIfUserIsAdmin()) {
-            ContractDTO dto = service.getContractDTO(idContract);
-
+            Coin presentationCoin;
+            ContractDTO dto = service.getContractDTO(idContract, presentationCoin);
             return addAttributesToModel(new ClientDTO(), dto, "servico", "register");
 
         } else {
             ModelAndView model = new ModelAndView();
             model.addObject("sucesso", "Você não tem a permissão necessária para excluir este serviço.");
             model.setViewName("dashboard");
-
             return model;
         }
     }
