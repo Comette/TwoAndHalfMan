@@ -88,7 +88,7 @@ public class ContractController {
         Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         ContractDTO contract = service.getContractDTO(idContract, presentationCoin);
         model.addAttribute("servico",contract);
-        model.addAttribute("valorServicoFormatado", NumberFormat.getCurrencyInstance().format(contract.getMonthlyExpense()));
+        model.addAttribute("valorServicoFormatado", presentationCoin + " " + NumberFormat.getNumberInstance().format(contract.getMonthlyExpense()));
         return "contract"; 
     }
 
