@@ -1,5 +1,6 @@
 package br.com.crescer.wallet.web.controller;
 
+import br.com.crescer.wallet.entity.util.Coin;
 import br.com.crescer.wallet.service.dto.ContractDTO;
 import br.com.crescer.wallet.service.dto.ClientDTO;
 import br.com.crescer.wallet.service.service.ClientService;
@@ -27,7 +28,7 @@ public class ClientController {
 
     @Autowired
     ClientService clientService;
-    
+
     @Autowired
     ContractService contractService;
 
@@ -36,6 +37,7 @@ public class ClientController {
     public List<ClientDTO> getActiveClients() {
         return clientService.findAllActiveReturningDTOs();
     }
+
     @ResponseBody
     @RequestMapping(value = "/buscar-todos-usuarios", method = RequestMethod.GET)
     public List<ClientDTO> getAllClients() {
@@ -68,7 +70,7 @@ public class ClientController {
             return model;
         }
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/inativar-usuario", method = RequestMethod.GET)
     public boolean deactivateClient(@RequestParam Long idClient) {
@@ -84,7 +86,7 @@ public class ClientController {
             return false;
         }
     }
-    
+
     @RequestMapping(value = "/editar-usuario", method = RequestMethod.GET)
     public ModelAndView editClient(@RequestParam Long idClient) {
         ClientDTO dto = clientService.findByIdReturningDTO(idClient);
@@ -97,19 +99,38 @@ public class ClientController {
             return model;
         }
     }
-    
-    
+
     @RequestMapping(value = "/check-username", method = RequestMethod.GET)
     @ResponseBody
-    public boolean checkUsername(@RequestParam String username, @RequestParam long id){
+    public boolean checkUsername(@RequestParam String username, @RequestParam long id) {
         return clientService.checkUsernameAvailability(username, id);
     }
-    
+
+    @RequestMapping(value = "/atualizar-moeda-preferida", method = RequestMethod.GET)
+    public ModelAndView alterUserPreferredCoin(@RequestParam Long idClient, @RequestParam Coin newCoin) {
+        ClientDTO c = new ClientDTO();
+        c.setId(idClient);
+        c.setPreferredCoin(newCoin);
+        boolean result = clientService.changePreferredCoin(c);
+        ModelAndView model = new ModelAndView();
+        if (result) {
+            model.addObject("sucesso", "Moeda alterada com sucesso!");
+            model.setViewName("dashboard");
+
+            return model;
+        } else {
+            model.addObject("sucesso", "Ocorreu um erro e a moeda não pôde ser alterada.");
+            
+            return model;
+        }
+    }
+
     private ModelAndView addAttributesToModel(ClientDTO clientDTO, ContractDTO contractDTO, String targetNavTab, String viewName) {
         ModelAndView model = new ModelAndView();
         model.addObject("usuario", clientDTO);
         model.addObject("servico", contractDTO);
         model.addObject("tab", targetNavTab);
+        model.addObject("usuarios", clientService.findAllActiveReturningDTOs());
         model.setViewName(viewName);
         return model;
     }

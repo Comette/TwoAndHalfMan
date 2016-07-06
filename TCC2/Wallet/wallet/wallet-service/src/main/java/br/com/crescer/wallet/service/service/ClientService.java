@@ -114,4 +114,15 @@ public class ClientService {
             return client.getDsUserName().equals(username) ? true : repository.findClientByDsUserName(username) == null;
         }
     }
+
+    public boolean changePreferredCoin(ClientDTO c) {
+        try {
+            Client client = repository.findOne(c.getId());
+            client.setDsPreferredCoin(c.getPreferredCoin());
+            repository.save(client);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

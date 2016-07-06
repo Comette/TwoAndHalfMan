@@ -88,20 +88,20 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
 ::-webkit-scrollbar {
     width: 12px;
 }
- 
+
 /* Track */
 ::-webkit-scrollbar-track {
     /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/ 
-    
+
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: rgba(204,204,204,0.8); 
     /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/ 
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(204,204,204,0.4); 
+    background: rgba(204,204,204,0.4); 
 }
 .dropdown-menu {
     min-width: 62px;
@@ -132,6 +132,7 @@ a.navbar-brand h6:first-of-type,a.navbar-brand h6:nth-of-type(2){
 #btnDropdownNavbar {
     border-color: #B0B5B6;
     font-weight: normal;
+    min-width: 62px;
 }
 
 @media(min-width: 1024px){
