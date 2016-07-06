@@ -50,7 +50,13 @@ var limparContainer = function ($container) {
 
 var adicionarOnClickExcluir = function ($btn, entidade) {
     
+ 
+    
     $btn.on("click", function (e) {
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+        
         var btnExclusao = $('#btnPrincipal');
         btnExclusao.val(parseInt($(this).val()));
         var texto;

@@ -29,90 +29,93 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author victo
  */
-
 @Controller
 public class ContractController {
-    
+
     @Autowired
     ContractService service;
-    
+
     @Autowired
     ClientService clientService;
-    
+
     @ResponseBody
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public DashboardDTO dashboard(Pageable pageable){ 
+    public DashboardDTO dashboard(Pageable pageable) {
         Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return service.generateDashboardData(pageable, presentationCoin);
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/gasto-total-atual", method = RequestMethod.GET)
-    public BigDecimal gastoTotalAtual(){
+    public BigDecimal gastoTotalAtual() {
         Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return service.getThisMonthAmountExpense(presentationCoin);
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/gasto-total-proximo-mes", method = RequestMethod.GET)
-    public BigDecimal gastoTotalProximoMes(){
+    public BigDecimal gastoTotalProximoMes() {
         Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return service.getNextMonthAmountExpense(presentationCoin);
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/servicos-mes-atual", method = RequestMethod.GET)
-    public List<ContractDTO> servicosMesAtual(@RequestParam(required = false) Long idUser, Pageable pageable){
+    public List<ContractDTO> servicosMesAtual(@RequestParam(required = false) Long idUser, Pageable pageable) {
         Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
-        return idUser == null || idUser == 0 ? 
-                service.getThisMonthPagedContractDTOs(pageable, presentationCoin) : service.getThisMonthPagedAndFilteredByUserContractDTOs(idUser, pageable, presentationCoin);
+        return idUser == null || idUser == 0
+                ? service.getThisMonthPagedContractDTOs(pageable, presentationCoin) : service.getThisMonthPagedAndFilteredByUserContractDTOs(idUser, pageable, presentationCoin);
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/servicos-proximo-mes", method = RequestMethod.GET)
-    public List<ContractDTO> servicosProximosMes(@RequestParam(required = false) Long idUser, Pageable pageable){
+    public List<ContractDTO> servicosProximosMes(@RequestParam(required = false) Long idUser, Pageable pageable) {
         Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
-        return idUser == null || idUser == 0 ? 
-                service.getNextMonthPagedContractDTOs(pageable, presentationCoin) : service.getNextMonthPagedAndFilteredByUserContractDTOs(idUser, pageable, presentationCoin);
+        return idUser == null || idUser == 0
+                ? service.getNextMonthPagedContractDTOs(pageable, presentationCoin) : service.getNextMonthPagedAndFilteredByUserContractDTOs(idUser, pageable, presentationCoin);
     }
-    
+
     @ResponseBody
-    @RequestMapping( value = "/servicos-inflar-grafico", method = RequestMethod.GET)
-    public GraphDTO inflarGrafico(){
+    @RequestMapping(value = "/servicos-inflar-grafico", method = RequestMethod.GET)
+    public GraphDTO inflarGrafico() {
         Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         return service.generateGranphData(presentationCoin);
     }
-    
-    @RequestMapping( value = "/servico", method = RequestMethod.GET)
-    public String getServico(@RequestParam Long idContract, Model model){
+
+    @RequestMapping(value = "/servico", method = RequestMethod.GET)
+    public String getServico(@RequestParam Long idContract, Model model) {
         Coin presentationCoin = LoggedInUserUtils.getLoggedInUserPreferredCoin();
         ContractDTO contract = service.getContractDTO(idContract, presentationCoin);
-        model.addAttribute("servico",contract);
+        model.addAttribute("servico", contract);
         model.addAttribute("valorServicoFormatado", presentationCoin + " " + NumberFormat.getNumberInstance().format(contract.getMonthlyExpense()));
-        return "contract"; 
+        return "contract";
     }
 
-    @RequestMapping( value = "/salvar-servico", method = RequestMethod.POST)    
+    @RequestMapping(value = "/salvar-servico", method = RequestMethod.POST)
     public ModelAndView salvarServico(@ModelAttribute("servico") @Valid ContractDTO contractDTO, BindingResult result) {
-        if(result.hasErrors()){
-            ModelAndView model = new ModelAndView();
+        ModelAndView model = new ModelAndView();
+        if (result.hasErrors()) {
             model.addObject("usuario", new ClientDTO());
             model.addObject("servico", contractDTO);
             model.addObject("tag", "servico");
+            model.addObject("usuariosCadastrados", clientService.findAllActiveReturningDTOs());
             model.setViewName("register");
-            return model;        
-        }else {
-            Contract returned = service.saveContract(contractDTO);
-            ModelAndView model = new ModelAndView();
-            model.setViewName("dashboard");
-            model.addObject("sucesso", 
-                     returned != null ? 
-                            "Serviço " + returned.getNmContract()+ " salvo com sucesso!" : 
-                            "Desculpe-nos, aconteceu algum erro e o serviço não pôde ser cadastrado.");
+            return model;
+        } else {
+            if (LoggedInUserUtils.checkIfUserIsAdmin()) {
+                Contract returned = service.saveContract(contractDTO);
+                model.setViewName("dashboard");
+                model.addObject("sucesso",
+                        returned != null
+                                ? "Serviço " + returned.getNmContract() + " salvo com sucesso!"
+                                : "Desculpe-nos, aconteceu algum erro e o serviço não pôde ser cadastrado.");
+                return model;
+            }
+            model.addObject("sucesso", "Cadastro não pode ser efetuado.");
             return model;
         }
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/cancelar-servico")
     public String cancelarServico(@RequestParam Long idContract) {
@@ -153,5 +156,5 @@ public class ContractController {
         model.addObject("usuariosCadastrados", clientService.findAllActiveReturningDTOs());
         return model;
     }
-    
+
 }

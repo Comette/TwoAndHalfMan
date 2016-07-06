@@ -61,8 +61,18 @@ var getDadosDashboard = function () {
         renderizaListaServicos($containerProximoMes, listaServicosProximoMes);
 
         adicionarOnClickExcluir($('.service-delete-btn'), 'SERVICO');
-
+        
+        filtroAtual = null;
+        filtroProximoMes = null;
+        paginaAtualMesAtual = 0;
+        paginaAtualProximoMes = 0;
+        paginaAtualEsteMesFiltrado = 0;
+        paginaAtualProximoMesFiltrado = 0;
+        listaServicosMesAtual = [];
+        listaServicosProximoMes = [];
         setarOnClickBotoesVerMais();
+
+        setarForms();
 
         $('#btnPrincipal').click(function () {
             chamarExclusao($(this), 'SERVICOS');
@@ -98,9 +108,8 @@ var setarOnClickBotoesVerMais = function () {
     });
 };
 
-{
+var setarForms = function(){
     $formAtualSelect.change(function () {
-        debugger;
             var idUser = $formAtualSelect.val();
             paginaAtualEsteMesFiltrado = -1;
             filtroAtual = idUser;
@@ -109,7 +118,6 @@ var setarOnClickBotoesVerMais = function () {
             getProxPaginaServicos($containerMesAtual, 'ATUAL', filtroAtual, $verMaisServicosMesAtual);
     });
     $formProximoSelect.change(function () {
-        debugger;
             var idGerente = $formProximoSelect.val();
             paginaAtualProximoMesFiltrado = -1;
             filtroProximoMes = idGerente;
