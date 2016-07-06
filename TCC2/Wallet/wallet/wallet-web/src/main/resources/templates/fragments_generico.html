@@ -31,20 +31,12 @@
                         <li><a id="separador" > | </a></li>
                         <li><span id="logged-user-name" th:text="${#authentication.principal.username}"/></li>
                         <li class="dropdown" id="dropdownNavbar">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="btnDropdownNavbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${#authentication.principal.preferredCoin}"><span class="caret"></span>
+                            <button class="btn btn-default dropdown-toggle" type="button" id="btnDropdownNavbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${#authentication.principal.preferredCoin}"><span class="caret"></span>  
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="#ulDropdownNavbar">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">EUR</a></li>
-                                    <li><a href="#">CNY</a></li>
-                                    <li><a href="#">JPY</a></li>
-                                    <li><a href="#">JPY</a></li>
-                                    <li><a href="#">JPY</a></li>
-                                    <li><a href="#">JPY</a></li>
-                                    <li><a href="#">JPY</a></li>
-                                    <li><a href="#">JPY</a></li>
-                                    <li><a href="#">JPY</a></li>
-                                    <li><a href="#">JPY</a></li>
+                                <li th:each="moeda : ${T(br.com.crescer.wallet.entity.util.Coin).values()}">
+                                    <a th:text="${moeda}" th:href="@{'/atualizar-moeda-preferida?idClient=' + ${#authentication.principal.idUsuario} + '&AMP;newCoin=' + ${moeda}}"></a>
+                                </li>
                             </ul>
                         </li>
                         <li><a th:href="@{/logout}" id="navbar-logout">Sair</a></li>
