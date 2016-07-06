@@ -1,0 +1,24 @@
+/* 
+    Created on : 05/07/2016, 20:45:18
+    Author     : DOUGLAS
+*/
+
+.title-message{
+    text-align: center;
+    margin-top: -10px;
+}
+
+.voltar-dash{
+    text-decoration: none;
+    font-size: 22px;
+    padding-top: 10px;
+}
+
+.jumbotron{
+    border: 1px solid #B0B5B6;
+    box-shadow: 3px 3px 3px #B0B5B6;
+}
+.jumbotron a{
+    font-size: 3em;
+    color: #fbaf41;
+}
