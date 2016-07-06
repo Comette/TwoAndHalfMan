@@ -114,6 +114,7 @@ public class ClientController {
         boolean result = clientService.changePreferredCoin(c);
         ModelAndView model = new ModelAndView();
         if (result) {
+            LoggedInUserUtils.getLoggedInUser().setPreferredCoin(newCoin);
             model.addObject("sucesso", "Moeda alterada com sucesso!");
             model.setViewName("dashboard");
 
