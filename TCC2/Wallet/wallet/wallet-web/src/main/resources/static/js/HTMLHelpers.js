@@ -39,7 +39,7 @@ var renderizaListaServicos = function ($containerLista, servicos) {
 };
 
 var toggleBtnVerMais = function (text, $btn, estadoClasse) {
-    $btn.text(text).attr('style', 'margin-left: 31%; margin-right: 40%;');
+    $btn.text(text);
     $btn.toggleClass('disabled');
     estadoClasse ? $btn.removeClass('disabled') : $btn.addClass('disabled');
 };
