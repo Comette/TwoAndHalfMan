@@ -49,9 +49,6 @@ var limparContainer = function ($container) {
 };
 
 var adicionarOnClickExcluir = function ($btn, entidade) {
-    if($btn.hasClass('disabled')){
-        return false;
-    }
     
     $btn.on("click", function (e) {
         var btnExclusao = $('#btnPrincipal');
