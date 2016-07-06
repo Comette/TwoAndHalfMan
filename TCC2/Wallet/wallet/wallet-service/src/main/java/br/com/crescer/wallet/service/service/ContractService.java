@@ -209,7 +209,7 @@ public class ContractService {
         {
             BigDecimal periodicity = BigDecimal.valueOf(contract.getContractValue().getDsPeriodicity().getNumeral());
             BigDecimal average = averages.get(contract.getContractValue().getDsCoin());
-            BigDecimal rate = averages.get(BRL);
+            BigDecimal rate = averages.get(presentationCoin);
 
             monthlyExpense = contract.getContractValue().getVlAmountContractValue()
                     .divide(periodicity, CALC_SCALE, HALF_UP)
