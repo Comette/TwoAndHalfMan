@@ -71,7 +71,7 @@ var getDadosDashboard = function () {
 };
 
 $(function () {
-    presentationCoin = $('#dropdownMenu1').text() + " ";
+    presentationCoin = $('#btnDropdownNavbar').text() + " ";
     $formAtual.hide();
     $formProximo.hide();
     getDadosDashboard();
